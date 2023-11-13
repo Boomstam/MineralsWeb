@@ -43,7 +43,6 @@ public class BuildAutomation : MonoBehaviour
             bayou.SetUseWSS(false);
         }
         waitForServerConnection = Observable.Interval(TimeSpan.FromSeconds(2)).Subscribe(_ => { LogMessage(); }).AddTo(this);
-
     }
     
     

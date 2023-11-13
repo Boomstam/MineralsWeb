@@ -51,8 +51,10 @@
      <Compile Include="Assets\PlayFlowCloud\Editor\PlayFlowCloudDeploy.cs" />
      <Compile Include="Assets\PlayFlowCloud\Editor\PlayFlowEditorWindow.cs" />
      <Compile Include="Assets\PlayFlowCloud\Editor\PlayFlowConfig.cs" />
+     <Compile Include="Assets\_IMEMINE\Tools\Editor\EditorTest.cs" />
      <Folder Include="Assets\PlayFlowCloud\Editor" />
      <None Include="Assets\PlayFlowCloud\Editor\playflow.uxml" />
+     <Folder Include="Assets\_IMEMINE\Tools\Editor" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>

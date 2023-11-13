@@ -348,7 +348,7 @@ public class PlayFlowCloudDeploy : EditorWindow
         }
     }
 
-    private async Task get_status()
+    public async Task get_status()
     {
         validateToken();
         if (activeServersField.value == null || activeServersField.value.Equals(""))

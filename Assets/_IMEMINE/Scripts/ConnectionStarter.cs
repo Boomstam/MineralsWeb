@@ -4,14 +4,16 @@ using FishNet.Transporting;
 using FishNet.Transporting.Bayou;
 using FishNet.Transporting.Multipass;
 using FishNet.Transporting.Tugboat;
+using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
  
 public class ConnectionStarter : MonoBehaviour
 {
-    [SerializeField] private ConnectionType connectionType;
     [SerializeField] private Multipass multipass;
-    
+
+    public ConnectionType connectionType { get; set; }
+
     private void Awake()
     {
         if (connectionType == ConnectionType.Host)

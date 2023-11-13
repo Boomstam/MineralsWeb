@@ -14,6 +14,7 @@ public class EditorTest : Editor
     {
         Debug.Log($"Do");
 
+        Get this from PLayFlowApi
         EditorWindow.GetWindow<PlayFlowCloudDeploy>().get_status().ToObservable()
             .Subscribe(_ => Debug.Log($"Done {_}"));
     }

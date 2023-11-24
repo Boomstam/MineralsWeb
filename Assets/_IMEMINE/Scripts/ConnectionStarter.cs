@@ -12,7 +12,9 @@ public class ConnectionStarter : MonoBehaviour
 {
     [SerializeField] private Multipass multipass;
 
-    public ConnectionType connectionType { get; set; } = ConnectionType.TugboatClient;
+    // public const string ConnectionTypePlayerPrefsKey = "Connection Type";
+
+    [ReadOnly] public ConnectionType connectionType;
 
     private void Awake()
     {

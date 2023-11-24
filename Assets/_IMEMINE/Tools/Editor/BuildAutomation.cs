@@ -15,6 +15,16 @@ using UnityEngine.UIElements;
 using UnityEditor;
 #endif
 
+/// <summary>
+/// Setup:
+/// 1. Set up PlayFlow cloud and copy token into this file
+/// 2. Select the right platform in the build settings.
+/// 3. You should now be able to use this script!
+/// 
+/// Warning: Make sure the object holding the ConnectionStarter and the Bayou and Tugboat components is not a prefab.
+/// There is a weird issue where the relevant values are seemingly changed in the editor but revert
+/// to the prefab value on build or play. 
+/// </summary>
 public class BuildAutomation : Editor
 {
     private const ushort clientBayouPort = 443;
@@ -36,14 +46,13 @@ public class BuildAutomation : Editor
     private static void Build()
     {
         Debug.Log($"Start build {buildType} with connection {connectionType} and token {playflowToken}");
-
+        SetConnectionType(connectionType);
+        
         Observable.Timer(TimeSpan.FromSeconds(0.69f)).Subscribe(_ => DoBuild());
     }
 
     private static void DoBuild()
     {
-        connectionStarter.connectionType = connectionType;
-        
         PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
             
         if(buildType == BuildType.Server)
@@ -182,7 +191,7 @@ public class BuildAutomation : Editor
         
         string status = ExtractJSONProperty(logs, "status");
         
-        Debug.Log($"status: {status} at {Time.time}");
+        Debug.Log($"status: {status}");
         
         if(status == "running")
             OnRunning();
@@ -191,7 +200,10 @@ public class BuildAutomation : Editor
     private static void OnRunning()
     {
         Cancel();
-        Debug.Log($"<color=green>RUNNING at {Time.time}!</color>");
+        Debug.Log($"<color=green>RUNNING!</color>");
+        EditorApplication.Beep();
+        Observable.Timer(TimeSpan.FromSeconds(0.69f)).Subscribe(_ => EditorApplication.Beep());
+        Observable.Timer(TimeSpan.FromSeconds(0.69f * 2f)).Subscribe(_ => EditorApplication.Beep());
     }
 
     private static string GetPlayFlowLog(PlayFlowCloudDeploy playFlowDeployWindow)
@@ -226,9 +238,7 @@ public class BuildAutomation : Editor
     [MenuItem("Minerals/SetUpForEditor")]
     private static void SetUpForEditor()
     {
-        connectionStarter.connectionType = ConnectionStarter.ConnectionType.TugboatClient;
-        
-        // PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
+        SetConnectionType(ConnectionStarter.ConnectionType.TugboatClient);
         
         Debug.Log($"Set up for editor with activeServer: {activeServer}");
         
@@ -255,7 +265,13 @@ public class BuildAutomation : Editor
         waitForServerConnection?.Dispose();
         waitForServerConnection = null;
     }
-    
+
+    private static void SetConnectionType(ConnectionStarter.ConnectionType connectionType)
+    {
+        // PlayerPrefs.SetInt(ConnectionStarter.ConnectionTypePlayerPrefsKey, (int)connectionType);
+        connectionStarter.connectionType = connectionType;
+    }
+
     private static BuildType CurrentBuildType()
     {
         BuildTarget buildTarget = EditorUserBuildSettings.activeBuildTarget;

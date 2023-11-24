@@ -312,6 +312,7 @@ public class BuildAutomation : Editor
         BuildTypeSO buildTypeSo = Resources.Load<BuildTypeSO>("BuildTypeSO");
         buildTypeSo.ConnectionType = connectionType;
         
+        AssetDatabase.SaveAssets();
         Debug.Log($"Set connection type to {buildTypeSo.ConnectionType}");
 
         // connectionStarter.connectionType = connectionType;

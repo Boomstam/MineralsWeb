@@ -50,8 +50,8 @@ public class ConnectionStarter : MonoBehaviour
     
     public enum ConnectionType
     {
+        BayouClient,
         Host,
         TugboatClient,
-        BayouClient,
     }
 }

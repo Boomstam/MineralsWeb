@@ -254,8 +254,6 @@ public class BuildAutomation : Editor
             tugboat.SetClientAddress(activeServer);
             Debug.Log($"Set tugboat client to activeServer: {activeServer}");
         });
-
-        GameObject newGO = new GameObject($"TEMP");
     }
     
     [MenuItem("Minerals/Cancel")]

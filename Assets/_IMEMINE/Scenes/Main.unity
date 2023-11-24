@@ -1090,37 +1090,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1784594015}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1967792165
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1967792166}
-  m_Layer: 0
-  m_Name: TEMP
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1967792166
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1967792165}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1957253793576779499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1172,7 +1141,7 @@ MonoBehaviour:
   _ipv6BindAddress: 
   _port: 7770
   _maximumClients: 4095
-  _clientAddress: sad
+  _clientAddress: 8c4bda899b814da3a87aab331006ed82-eu-west-free.games.playflow.cloud
   _timeout: 15
 --- !u!1 &5179073729993949382
 GameObject:
@@ -1244,6 +1213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multipass: {fileID: 6302451798224516151}
+  connectionType: 1
 --- !u!114 &6883196989373597956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1276,14 +1246,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 362dfd7e6009fb44c90beec3df0ad853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useWss: 1
+  _useWss: 0
   _sslConfiguration:
     Enabled: 0
     CertificatePath: 
     CertificatePassword: 
     SslProtocol: 0
   _mtu: 1023
-  _port: 443
+  _port: 7777
   _maximumClients: 2000
   _clientAddress: 538d00e3eb6b449ba7665ca935001a1c-eu-west-free.games.playflow.cloud
 --- !u!4 &8865812994550329987
@@ -1309,4 +1279,3 @@ SceneRoots:
   - {fileID: 753405553}
   - {fileID: 1784594015}
   - {fileID: 1254541407}
-  - {fileID: 1967792166}

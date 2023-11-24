@@ -51,7 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76e6f36f040821d43804b49ec4917577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connectionType: 2
   multipass: {fileID: 2112547244066912892}
 --- !u!114 &7878310180477663104
 MonoBehaviour:
@@ -171,13 +170,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 362dfd7e6009fb44c90beec3df0ad853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useWss: 1
+  _useWss: 0
   _sslConfiguration:
     Enabled: 0
     CertificatePath: 
     CertificatePassword: 
     SslProtocol: 0
   _mtu: 1023
-  _port: 443
+  _port: 7777
   _maximumClients: 2000
   _clientAddress: d1f7ef2708fa4bd7a743211370bea378-eu-west-free.games.playflow.cloud

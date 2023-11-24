@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using FishNet.Transporting.Bayou;
@@ -15,106 +16,246 @@ using UnityEditor;
 #endif
 
 public class BuildAutomation : Editor
-{ 
-    private static BuildType buildType => CurrentBuildType();
-    private static ConnectionStarter.ConnectionType connectionType => CurrentConnectionType();
-    
+{
     private const ushort clientBayouPort = 443;
     private const ushort serverBayouPort = 7777;
-
     private const string playflowToken = "1317dd7cadb3232d22e7eb710c4c85f7";
+
+    private static string clientAddress;
+    private static string activeServer;
+
+    private static Bayou bayou => FindObjectOfType<Bayou>();
+    private static Tugboat tugboat => FindObjectOfType<Tugboat>();
+    private static ConnectionStarter connectionStarter => FindObjectOfType<ConnectionStarter>();
+    private static BuildType buildType => CurrentBuildType();
+    private static ConnectionStarter.ConnectionType connectionType => CurrentConnectionType();
 
     private static IDisposable waitForServerConnection;
     
-    [MenuItem("BuildAutomation/Build")]
+    [MenuItem("Minerals/Build")]
     private static void Build()
     {
-        Debug.Log($"Build {buildType} with connection {connectionType}");
+        Debug.Log($"Start build {buildType} with connection {connectionType} and token {playflowToken}");
 
-        Bayou bayou = FindObjectOfType<Bayou>();
-        ConnectionStarter connectionStarter = FindObjectOfType<ConnectionStarter>();
+        Observable.Timer(TimeSpan.FromSeconds(0.69f)).Subscribe(_ => DoBuild());
+    }
 
+    private static void DoBuild()
+    {
         connectionStarter.connectionType = connectionType;
         
         PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
+            
+        if(buildType == BuildType.Server)
+        {
+            activeServer = null;
+            
+            bayou.SetPort(serverBayouPort);
+            bayou.SetUseWSS(false);
+            
+            SetUpPlayFlowServer(playFlowDeployWindow);
 
-        // playFlowDeployWindow.get_status().ToObservable()
-        //     .Subscribe(_ => Debug.Log($"Done {_}"));
+            BuildServer(playFlowDeployWindow);
+        }
+        else
+        {
+            if (string.IsNullOrEmpty(activeServer))
+            {
+                SetActiveServer();
+                Debug.Log($"<color=red>Active server not filled in! Try again when server is refreshed in 3 seconds.</color>");
+                
+                return;
+            }
+            if(buildType == BuildType.WebGLClient)
+            {
+                bayou.SetPort(clientBayouPort);
+                bayou.SetUseWSS(true);
+            
+                bayou.SetClientAddress(activeServer);
+            } 
+            else
+            {
+                tugboat.SetClientAddress(activeServer);
+            }
+            BuildPipeline.BuildPlayer(new BuildPlayerOptions());
+        }
+    }
 
-        FieldInfo tokenFieldInfo = playFlowDeployWindow.GetType().GetField("tokenField", BindingFlags.NonPublic | BindingFlags.Instance);
+    private static void SetUpPlayFlowServer(PlayFlowCloudDeploy playFlowDeployWindow)
+    {
+        FieldInfo tokenFieldInfo = playFlowDeployWindow.GetType()
+            .GetField("tokenField", BindingFlags.NonPublic | BindingFlags.Instance);
         TextField tokenTextField = (TextField)tokenFieldInfo.GetValue(playFlowDeployWindow);
 
         tokenTextField.value = playflowToken;
-        
-        FieldInfo locationFieldInfo = playFlowDeployWindow.GetType().GetField("location", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        FieldInfo locationFieldInfo = playFlowDeployWindow.GetType()
+            .GetField("location", BindingFlags.NonPublic | BindingFlags.Instance);
         DropdownField locationDropdown = (DropdownField)locationFieldInfo.GetValue(playFlowDeployWindow);
 
         locationDropdown.index = 4;
-        
-        FieldInfo instanceTypeFieldInfo = playFlowDeployWindow.GetType().GetField("instanceType", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        FieldInfo instanceTypeFieldInfo = playFlowDeployWindow.GetType()
+            .GetField("instanceType", BindingFlags.NonPublic | BindingFlags.Instance);
         DropdownField instanceTypeDropdown = (DropdownField)instanceTypeFieldInfo.GetValue(playFlowDeployWindow);
 
         instanceTypeDropdown.index = 0;
-        
-        FieldInfo enableSSLFieldInfo = playFlowDeployWindow.GetType().GetField("enableSSL", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        FieldInfo enableSSLFieldInfo = playFlowDeployWindow.GetType()
+            .GetField("enableSSL", BindingFlags.NonPublic | BindingFlags.Instance);
         Toggle enableSSLToggle = (Toggle)enableSSLFieldInfo.GetValue(playFlowDeployWindow);
 
         enableSSLToggle.value = true;
 
-        FieldInfo sslValueFieldInfo = playFlowDeployWindow.GetType().GetField("sslValue", BindingFlags.NonPublic | BindingFlags.Instance);
+        FieldInfo sslValueFieldInfo = playFlowDeployWindow.GetType()
+            .GetField("sslValue", BindingFlags.NonPublic | BindingFlags.Instance);
         TextField sslValueTextField = (TextField)sslValueFieldInfo.GetValue(playFlowDeployWindow);
 
-        if(buildType == BuildType.WebGLClient)
-        {
-            bayou.SetPort(clientBayouPort);
-            bayou.SetUseWSS(true);
-            
-            sslValueTextField.value = clientBayouPort.ToString();
-        }
-        else if(buildType == BuildType.Server)
-        {
-            bayou.SetPort(serverBayouPort);
-            bayou.SetUseWSS(false);
-            
-            sslValueTextField.value = serverBayouPort.ToString();
-        }
-        // waitForServerConnection?.Dispose();
-        // waitForServerConnection = Observable.Interval(TimeSpan.FromSeconds(2)).Subscribe(_ => { LogMessage(); });
+        sslValueTextField.value = serverBayouPort.ToString();
 
-        Do();
+        MethodInfo onUploadMethodInfo = playFlowDeployWindow.GetType()
+            .GetMethod("OnUploadPressed", BindingFlags.NonPublic | BindingFlags.Instance);
         
-        // Observable.Timer(TimeSpan.FromSeconds(2)).Subscribe(_ => { Debug.Log("test " + GetPlayFlowLogs(playFlowDeployWindow)); });
+        onUploadMethodInfo.Invoke(playFlowDeployWindow, null);
     }
 
-    private static async void Do()
+    private static async void BuildServer(PlayFlowCloudDeploy playFlowDeployWindow)
     {
-        Debug.Log($"Start do");
-        
         string response = await PlayFlowAPI.Get_Upload_Version(playflowToken);
         
-        Debug.Log($"response: {response}");
+        Debug.Log($"Start build with bayou port {bayou.GetClientAddress()}");
+        
+        MethodInfo onStartMethodInfo = playFlowDeployWindow.GetType().GetMethod("OnStartPressed", BindingFlags.NonPublic | BindingFlags.Instance);
+        
+        onStartMethodInfo.Invoke(playFlowDeployWindow, null);
+        
+        RefreshAndSetActiveServer();
+        
+        Observable.Timer(TimeSpan.FromSeconds(10f)).Subscribe(_ => SetupServerConnection(playFlowDeployWindow));
+    }
+    
+    [MenuItem("Minerals/RefreshAndSetActiveServer")]
+    private static void RefreshAndSetActiveServer()
+    {
+        PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
+        
+        MethodInfo onRefreshMethodInfo = playFlowDeployWindow.GetType().GetMethod("OnGetStatusPressed", BindingFlags.NonPublic | BindingFlags.Instance);
+        
+        onRefreshMethodInfo.Invoke(playFlowDeployWindow, null);
+        
+        Observable.Timer(TimeSpan.FromSeconds(3f)).Subscribe(_ => SetActiveServer());
     }
 
-    private static string GetPlayFlowLogs(PlayFlowCloudDeploy playFlowDeployWindow)
+    private static void SetupServerConnection(PlayFlowCloudDeploy playFlowDeployWindow)
+    {
+        waitForServerConnection?.Dispose();
+        waitForServerConnection = Observable.Interval(TimeSpan.FromSeconds(10)).Subscribe(_ => { ServerConnectionCheck(playFlowDeployWindow); });
+    }
+    
+    [MenuItem("Minerals/SetActiveServer")]
+    private static void SetActiveServer()
+    {
+        PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
+
+        string logs = GetPlayFlowLog(playFlowDeployWindow);
+        activeServer = ExtractJSONProperty(logs, "server_url");
+        
+        // FieldInfo activeServerFieldInfo = playFlowDeployWindow.GetType().GetField("activeServersField", BindingFlags.NonPublic | BindingFlags.Instance);
+        // DropdownField activeServerDropdown = (DropdownField)activeServerFieldInfo.GetValue(playFlowDeployWindow);
+
+        // activeServer = activeServerDropdown.value.Split(" -> (SSL)")[0];
+
+        Debug.Log($"Active server set to {activeServer}");
+    }
+
+    private static void ServerConnectionCheck(PlayFlowCloudDeploy playFlowDeployWindow)
+    {
+        MethodInfo onRefreshMethodInfo = playFlowDeployWindow.GetType().GetMethod("OnRefreshPressed", BindingFlags.NonPublic | BindingFlags.Instance);
+        onRefreshMethodInfo.Invoke(playFlowDeployWindow, null);
+        
+        Observable.Timer(TimeSpan.FromSeconds(3f)).Subscribe(_ => DoCheck(playFlowDeployWindow));
+    }
+
+    private static void DoCheck(PlayFlowCloudDeploy playFlowDeployWindow)
+    {
+        string logs = GetPlayFlowLog(playFlowDeployWindow);
+        
+        string status = ExtractJSONProperty(logs, "status");
+        
+        Debug.Log($"status: {status} at {Time.time}");
+        
+        if(status == "running")
+            OnRunning();
+    }
+
+    private static void OnRunning()
+    {
+        Cancel();
+        Debug.Log($"<color=green>RUNNING at {Time.time}!</color>");
+    }
+
+    private static string GetPlayFlowLog(PlayFlowCloudDeploy playFlowDeployWindow)
     {
         FieldInfo logsFieldInfo = playFlowDeployWindow.GetType().GetField("logs", BindingFlags.NonPublic | BindingFlags.Instance);
         TextField logsTextField = (TextField)logsFieldInfo.GetValue(playFlowDeployWindow);
 
         return logsTextField.value;
     }
-    
-    private static void LogMessage()
+
+    [MenuItem("Minerals/TryDeserialize")]
+    private static void TryDeserialize()
     {
-        Debug.Log($"Debug");
+        PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
+        
+        string logs = GetPlayFlowLog(playFlowDeployWindow);
+
+        string status = ExtractJSONProperty(logs, "status");
+        string serverUrl = ExtractJSONProperty(logs, "server_url");
+
+        Debug.Log(status);
+        Debug.Log(serverUrl);
     }
 
-    [MenuItem("BuildAutomation/Cancel")]
+    private static string ExtractJSONProperty(string json, string property)
+    {
+        string separator = $"{property}\":\"";
+        string[] splitLogs = json.Split(separator);
+        return splitLogs[1].Split("\"")[0];
+    }
+
+    [MenuItem("Minerals/SetUpForEditor")]
+    private static void SetUpForEditor()
+    {
+        connectionStarter.connectionType = ConnectionStarter.ConnectionType.TugboatClient;
+        
+        // PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
+        
+        Debug.Log($"Set up for editor with activeServer: {activeServer}");
+        
+        if (string.IsNullOrEmpty(activeServer))
+        {
+            SetActiveServer();
+            Debug.Log($"<color=red>Active server not filled in! Try again when server is refreshed in 3 seconds.</color>");
+                
+            return;
+        }
+        Observable.Timer(TimeSpan.FromSeconds(4f)).Subscribe(_ =>
+        {
+            tugboat.SetClientAddress(activeServer);
+            Debug.Log($"Set tugboat client to activeServer: {activeServer}");
+        });
+
+        GameObject newGO = new GameObject($"TEMP");
+    }
+    
+    [MenuItem("Minerals/Cancel")]
     private static void Cancel()
     {
+        Debug.Log($"<color=orange>Connection check routine cancelled</color>");
         waitForServerConnection?.Dispose();
         waitForServerConnection = null;
     }
-
+    
     private static BuildType CurrentBuildType()
     {
         BuildTarget buildTarget = EditorUserBuildSettings.activeBuildTarget;

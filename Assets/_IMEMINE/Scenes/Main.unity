@@ -1141,7 +1141,7 @@ MonoBehaviour:
   _ipv6BindAddress: 
   _port: 7770
   _maximumClients: 4095
-  _clientAddress: 8c4bda899b814da3a87aab331006ed82-eu-west-free.games.playflow.cloud
+  _clientAddress: 5afc998cf2314821b8f0d86dec1753bf-eu-west-free.games.playflow.cloud
   _timeout: 15
 --- !u!1 &5179073729993949382
 GameObject:
@@ -1213,7 +1213,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multipass: {fileID: 6302451798224516151}
-  connectionType: 1
 --- !u!114 &6883196989373597956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1255,7 +1254,7 @@ MonoBehaviour:
   _mtu: 1023
   _port: 7777
   _maximumClients: 2000
-  _clientAddress: 538d00e3eb6b449ba7665ca935001a1c-eu-west-free.games.playflow.cloud
+  _clientAddress: 8c4bda899b814da3a87aab331006ed82-eu-west-free.games.playflow.cloud
 --- !u!4 &8865812994550329987
 Transform:
   m_ObjectHideFlags: 0

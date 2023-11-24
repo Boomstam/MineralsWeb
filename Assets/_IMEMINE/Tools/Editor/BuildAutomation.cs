@@ -9,12 +9,14 @@ using FishNet.Transporting.Tugboat;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UniRx;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
 using UnityEngine.UIElements;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-
+using System.IO;
+using System.IO.Compression;
 /// <summary>
 /// Setup:
 /// 1. Set up PlayFlow cloud and copy token into this file
@@ -53,10 +55,11 @@ public class BuildAutomation : Editor
 
     private static void DoBuild()
     {
-        PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
             
         if(buildType == BuildType.Server)
         {
+            PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
+            
             activeServer = null;
             
             bayou.SetPort(serverBayouPort);
@@ -64,13 +67,13 @@ public class BuildAutomation : Editor
             
             SetUpPlayFlowServer(playFlowDeployWindow);
 
-            BuildServer(playFlowDeployWindow);
+            Observable.Timer(TimeSpan.FromSeconds(1f)).Subscribe(_ => BuildServer(playFlowDeployWindow));
         }
         else
         {
             if (string.IsNullOrEmpty(activeServer))
             {
-                SetActiveServer();
+                RefreshAndSetActiveServer();
                 Debug.Log($"<color=red>Active server not filled in! Try again when server is refreshed in 3 seconds.</color>");
                 
                 return;
@@ -81,12 +84,35 @@ public class BuildAutomation : Editor
                 bayou.SetUseWSS(true);
             
                 bayou.SetClientAddress(activeServer);
+                
+                Observable.Timer(TimeSpan.FromSeconds(1f)).Subscribe(_ => BuildWEBGLClient());
             } 
             else
             {
                 tugboat.SetClientAddress(activeServer);
             }
-            BuildPipeline.BuildPlayer(new BuildPlayerOptions());
+        }
+    }
+
+    private static void BuildWEBGLClient()
+    {
+        BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
+        buildPlayerOptions.scenes = new[] { "Assets/_IMEMINE/Scenes/Main.unity" };
+        buildPlayerOptions.locationPathName = "C:\\Users\\menno\\MineralsWeb\\Builds\\WebGL";
+        buildPlayerOptions.target = BuildTarget.WebGL;
+        buildPlayerOptions.options = BuildOptions.None;
+
+        BuildReport report = BuildPipeline.BuildPlayer(buildPlayerOptions);
+        BuildSummary summary = report.summary;
+
+        if (summary.result == BuildResult.Succeeded)
+        {
+            Debug.Log("Build succeeded: " + summary.totalSize + " bytes");
+        }
+
+        if (summary.result == BuildResult.Failed)
+        {
+            Debug.Log("Build failed");
         }
     }
 
@@ -131,8 +157,6 @@ public class BuildAutomation : Editor
     private static async void BuildServer(PlayFlowCloudDeploy playFlowDeployWindow)
     {
         string response = await PlayFlowAPI.Get_Upload_Version(playflowToken);
-        
-        Debug.Log($"Start build with bayou port {bayou.GetClientAddress()}");
         
         MethodInfo onStartMethodInfo = playFlowDeployWindow.GetType().GetMethod("OnStartPressed", BindingFlags.NonPublic | BindingFlags.Instance);
         
@@ -235,6 +259,24 @@ public class BuildAutomation : Editor
         return splitLogs[1].Split("\"")[0];
     }
 
+    [MenuItem("Minerals/PlayEditorAsClient")]
+    private static void SetUpForEditorAndEnterPlaymode()
+    {
+        if (string.IsNullOrEmpty(activeServer))
+        {
+            SetActiveServer();
+            Debug.Log($"<color=red>Active server not filled in! Try again when server is refreshed in 3 seconds.</color>");
+                
+            return;
+        }
+        SetUpForEditor();
+        
+        Observable.Timer(TimeSpan.FromSeconds(3f)).Subscribe(_ =>
+        {
+            EditorApplication.EnterPlaymode();
+        });
+    }
+
     [MenuItem("Minerals/SetUpForEditor")]
     private static void SetUpForEditor()
     {
@@ -249,7 +291,7 @@ public class BuildAutomation : Editor
                 
             return;
         }
-        Observable.Timer(TimeSpan.FromSeconds(4f)).Subscribe(_ =>
+        Observable.Timer(TimeSpan.FromSeconds(2f)).Subscribe(_ =>
         {
             tugboat.SetClientAddress(activeServer);
             Debug.Log($"Set tugboat client to activeServer: {activeServer}");
@@ -267,7 +309,12 @@ public class BuildAutomation : Editor
     private static void SetConnectionType(ConnectionStarter.ConnectionType connectionType)
     {
         // PlayerPrefs.SetInt(ConnectionStarter.ConnectionTypePlayerPrefsKey, (int)connectionType);
-        connectionStarter.connectionType = connectionType;
+        BuildTypeSO buildTypeSo = Resources.Load<BuildTypeSO>("BuildTypeSO");
+        buildTypeSo.ConnectionType = connectionType;
+        
+        Debug.Log($"Set connection type to {buildTypeSo.ConnectionType}");
+
+        // connectionStarter.connectionType = connectionType;
     }
 
     private static BuildType CurrentBuildType()

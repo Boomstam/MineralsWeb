@@ -11,13 +11,11 @@ using UnityEngine;
 public class ConnectionStarter : MonoBehaviour
 {
     [SerializeField] private Multipass multipass;
-
-    // public const string ConnectionTypePlayerPrefsKey = "Connection Type";
-
-    [ReadOnly] public ConnectionType connectionType;
-
     private void Awake()
     {
+        BuildTypeSO buildTypeSo = Resources.Load<BuildTypeSO>("BuildTypeSO");
+        ConnectionType connectionType = buildTypeSo.ConnectionType;
+        
         if (connectionType == ConnectionType.Host)
         {
             multipass.StartConnection(true);
@@ -27,7 +25,10 @@ public class ConnectionStarter : MonoBehaviour
             if(connectionType == ConnectionType.TugboatClient)
                 multipass.SetClientTransport<Tugboat>();
             else if(connectionType == ConnectionType.BayouClient)
+            {
+                Debug.Log($"Bayou client");
                 multipass.SetClientTransport<Bayou>();
+            }
             
             multipass.ClientTransport.StartConnection(false);
         }

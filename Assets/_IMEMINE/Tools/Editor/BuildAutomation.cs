@@ -29,42 +29,38 @@ using System.IO.Compression;
 /// </summary>
 public class BuildAutomation : Editor
 {
-    private const ushort clientBayouPort = 443;
-    private const ushort serverBayouPort = 7777;
-    private const string playflowToken = "1317dd7cadb3232d22e7eb710c4c85f7";
+    // private const ushort clientBayouPort = 443;
+    // private const ushort serverBayouPort = 7777;
+    // private const string playflowToken = "1317dd7cadb3232d22e7eb710c4c85f7";
 
     private static string clientAddress;
     private static string activeServer;
 
+    private static ConnectionStarter connectionStarter => FindObjectOfType<ConnectionStarter>();
     private static Bayou bayou => FindObjectOfType<Bayou>();
     private static Tugboat tugboat => FindObjectOfType<Tugboat>();
-    private static ConnectionStarter connectionStarter => FindObjectOfType<ConnectionStarter>();
     private static BuildType buildType => CurrentBuildType();
-    private static ConnectionStarter.ConnectionType connectionType => CurrentConnectionType();
-
+    private static ConnectionStarter.ConnectionType connectionTypeFromBuildType => CurrentConnectionType();
+    
     private static IDisposable waitForServerConnection;
     
     [MenuItem("Minerals/Build")]
     private static void Build()
     {
-        Debug.Log($"Start build {buildType} with connection {connectionType} and token {playflowToken}");
-        SetConnectionType(connectionType);
+        Debug.Log($"Start build {buildType} with connection {connectionTypeFromBuildType} and token {connectionStarter.playflowToken}");
+        SetConnectionType(connectionTypeFromBuildType, "Build");
         
         Observable.Timer(TimeSpan.FromSeconds(0.69f)).Subscribe(_ => DoBuild());
     }
 
     private static void DoBuild()
     {
-            
         if(buildType == BuildType.Server)
         {
             PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
-            
+
             activeServer = null;
-            
-            bayou.SetPort(serverBayouPort);
-            bayou.SetUseWSS(false);
-            
+
             SetUpPlayFlowServer(playFlowDeployWindow);
 
             Observable.Timer(TimeSpan.FromSeconds(1f)).Subscribe(_ => BuildServer(playFlowDeployWindow));
@@ -80,9 +76,6 @@ public class BuildAutomation : Editor
             }
             if(buildType == BuildType.WebGLClient)
             {
-                bayou.SetPort(clientBayouPort);
-                bayou.SetUseWSS(true);
-            
                 bayou.SetClientAddress(activeServer);
                 
                 Observable.Timer(TimeSpan.FromSeconds(1f)).Subscribe(_ => BuildWEBGLClient());
@@ -122,7 +115,7 @@ public class BuildAutomation : Editor
             .GetField("tokenField", BindingFlags.NonPublic | BindingFlags.Instance);
         TextField tokenTextField = (TextField)tokenFieldInfo.GetValue(playFlowDeployWindow);
 
-        tokenTextField.value = playflowToken;
+        tokenTextField.value =  connectionStarter.playflowToken;
 
         FieldInfo locationFieldInfo = playFlowDeployWindow.GetType()
             .GetField("location", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -146,7 +139,7 @@ public class BuildAutomation : Editor
             .GetField("sslValue", BindingFlags.NonPublic | BindingFlags.Instance);
         TextField sslValueTextField = (TextField)sslValueFieldInfo.GetValue(playFlowDeployWindow);
 
-        sslValueTextField.value = serverBayouPort.ToString();
+        sslValueTextField.value = connectionStarter.serverBayouPort.ToString();
 
         MethodInfo onUploadMethodInfo = playFlowDeployWindow.GetType()
             .GetMethod("OnUploadPressed", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -156,7 +149,7 @@ public class BuildAutomation : Editor
 
     private static async void BuildServer(PlayFlowCloudDeploy playFlowDeployWindow)
     {
-        string response = await PlayFlowAPI.Get_Upload_Version(playflowToken);
+        string response = await PlayFlowAPI.Get_Upload_Version(connectionStarter.playflowToken);
         
         MethodInfo onStartMethodInfo = playFlowDeployWindow.GetType().GetMethod("OnStartPressed", BindingFlags.NonPublic | BindingFlags.Instance);
         
@@ -280,7 +273,7 @@ public class BuildAutomation : Editor
     [MenuItem("Minerals/SetUpForEditor")]
     private static void SetUpForEditor()
     {
-        SetConnectionType(ConnectionStarter.ConnectionType.TugboatClient);
+        SetConnectionType(ConnectionStarter.ConnectionType.TugboatClient, "Editor");
         
         Debug.Log($"Set up for editor with activeServer: {activeServer}");
         
@@ -306,16 +299,28 @@ public class BuildAutomation : Editor
         waitForServerConnection = null;
     }
 
-    private static void SetConnectionType(ConnectionStarter.ConnectionType connectionType)
+    private static void SetConnectionType(ConnectionStarter.ConnectionType connType, string playerPrefsVal)
     {
         // PlayerPrefs.SetInt(ConnectionStarter.ConnectionTypePlayerPrefsKey, (int)connectionType);
-        BuildTypeSO buildTypeSo = Resources.Load<BuildTypeSO>("BuildTypeSO");
-        buildTypeSo.ConnectionType = connectionType;
         
-        AssetDatabase.SaveAssets();
-        Debug.Log($"Set connection type to {buildTypeSo.ConnectionType}");
+        // BuildTypeSO buildTypeSo = Resources.Load<BuildTypeSO>("BuildTypeSO");
+        // buildTypeSo.ConnectionType = connectionType;
+        //
+        // AssetDatabase.SaveAssets();
+        // Debug.Log($"Set connection type to {buildTypeSo.ConnectionType}");
 
         // connectionStarter.connectionType = connectionType;
+        Debug.Log($"connection type {connType}, in holder {ConnectionTypeHolder.ConnectionType}");
+        if(ConnectionTypeHolder.ConnectionType != connType)
+        {
+            Debug.Log($"Create new!");
+            PlayerPrefs.SetString("CreatingConnectionTypeHolder", playerPrefsVal);
+            CreateConnectionTypeHolder(connType);
+        }
+        else
+        {
+            Debug.Log($"Do NOT create new");
+        }
     }
 
     private static BuildType CurrentBuildType()
@@ -340,6 +345,75 @@ public class BuildAutomation : Editor
             return ConnectionStarter.ConnectionType.BayouClient;
         else
             return ConnectionStarter.ConnectionType.TugboatClient;
+    }
+
+    [UnityEditor.Callbacks.DidReloadScripts]
+    private static void OnCheckReloadScripts()
+    {
+        if(EditorApplication.isCompiling || EditorApplication.isUpdating)
+        {
+            EditorApplication.delayCall += OnScriptsReloaded;
+            return;
+        }
+        OnScriptsReloaded();
+    }
+
+    private static void OnScriptsReloaded()
+    {
+        Debug.Log($"OnScriptsReloaded");
+        if (PlayerPrefs.GetString("CreatingConnectionTypeHolder", "None") == "Build")
+        {
+           Build();
+        }
+        else if (PlayerPrefs.GetString("CreatingConnectionTypeHolder", "None") == "Editor")
+        {
+            SetUpForEditor();
+        }
+
+        PlayerPrefs.SetString("CreatingConnectionTypeHolder", "None");
+    }
+
+    // [MenuItem("Minerals/CreateConnectionTypeHolder")]
+    private static void CreateConnectionTypeHolder(ConnectionStarter.ConnectionType connType)
+    {
+        PlayerPrefs.SetInt("CreatingConnectionTypeHolder", 1);
+        
+        string connectionTypeString = connType.ToString();
+        
+        string scriptFileName = "ConnectionTypeHolder.cs";
+        string scriptContent = @"
+using UnityEngine;
+
+public static class ConnectionTypeHolder
+{
+    // This script is generated by BuildAutomation.cs.
+";
+        scriptContent += $"public static ConnectionStarter.ConnectionType ConnectionType = ConnectionStarter.ConnectionType.{connectionTypeString};" + '}';
+
+        // Get the project's Assets folder path.
+        string assetsPath = Application.dataPath + $"/_IMEMINE/Generated";
+
+        // Combine the path to the Assets folder with the script file name.
+        string scriptFilePath = Path.Combine(assetsPath, scriptFileName);
+
+        // Check if the script file already exists.
+        if (File.Exists(scriptFilePath))
+        {
+            // Debug.Log($"Exists, delete!");
+            // File.Delete(scriptFilePath);
+            // If it exists, overwrite it with the new content.
+            File.WriteAllText(scriptFilePath, scriptContent);
+            Debug.Log("Script file overwritten: " + scriptFilePath);
+        }
+        else
+        {
+            // If it doesn't exist, create a new file with the content.
+            File.WriteAllText(scriptFilePath, scriptContent);
+            Debug.Log("Script file created: " + scriptFilePath);
+        }
+
+        // Refresh the AssetDatabase to make Unity aware of the new or updated file.
+        UnityEditor.AssetDatabase.Refresh();
     }
 
     public enum BuildType

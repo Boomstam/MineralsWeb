@@ -36,8 +36,6 @@ public class BuildAutomation : Editor
     private static BuildType buildType => CurrentBuildType();
     private static ConnectionStarter.ConnectionType connectionTypeFromBuildType => CurrentConnectionType();
     
-    private static IDisposable waitForServerConnection;
-    
     [MenuItem("Minerals/Build")]
     private static void Build()
     {
@@ -144,8 +142,6 @@ public class BuildAutomation : Editor
         onStartMethodInfo.Invoke(playFlowDeployWindow, null);
         
         RefreshAndSetActiveServer();
-        
-        Observable.Timer(TimeSpan.FromSeconds(10f)).Subscribe(_ => SetupServerConnection(playFlowDeployWindow));
     }
     
     [MenuItem("Minerals/RefreshAndSetActiveServer")]
@@ -160,12 +156,6 @@ public class BuildAutomation : Editor
         Observable.Timer(TimeSpan.FromSeconds(2f)).Subscribe(_ => SetActiveServer());
     }
 
-    private static void SetupServerConnection(PlayFlowCloudDeploy playFlowDeployWindow)
-    {
-        waitForServerConnection?.Dispose();
-        waitForServerConnection = Observable.Interval(TimeSpan.FromSeconds(10)).Subscribe(_ => { ServerConnectionCheck(playFlowDeployWindow); });
-    }
-    
     [MenuItem("Minerals/SetActiveServer")]
     private static void SetActiveServer()
     {
@@ -183,65 +173,7 @@ public class BuildAutomation : Editor
 
         Debug.Log($"Active server set to {ConnectionTypeHolder.ActiveServer}");
     }
-
-    private static void ServerConnectionCheck(PlayFlowCloudDeploy playFlowDeployWindow)
-    {
-        MethodInfo onRefreshMethodInfo = playFlowDeployWindow.GetType().GetMethod("OnRefreshPressed", BindingFlags.NonPublic | BindingFlags.Instance);
-        onRefreshMethodInfo.Invoke(playFlowDeployWindow, null);
-        
-        Observable.Timer(TimeSpan.FromSeconds(3f)).Subscribe(_ => DoCheck(playFlowDeployWindow));
-    }
-
-    private static void DoCheck(PlayFlowCloudDeploy playFlowDeployWindow)
-    {
-        string logs = GetPlayFlowLog(playFlowDeployWindow);
-        
-        string status = ExtractJSONProperty(logs, "status");
-        
-        Debug.Log($"status: {status}");
-        
-        if(status == "running")
-            OnRunning();
-    }
-
-    private static void OnRunning()
-    {
-        Cancel();
-        Debug.Log($"<color=green>RUNNING!</color>");
-        EditorApplication.Beep();
-        Observable.Timer(TimeSpan.FromSeconds(0.69f)).Subscribe(_ => EditorApplication.Beep());
-        Observable.Timer(TimeSpan.FromSeconds(0.69f * 2f)).Subscribe(_ => EditorApplication.Beep());
-    }
-
-    private static string GetPlayFlowLog(PlayFlowCloudDeploy playFlowDeployWindow)
-    {
-        FieldInfo logsFieldInfo = playFlowDeployWindow.GetType().GetField("logs", BindingFlags.NonPublic | BindingFlags.Instance);
-        TextField logsTextField = (TextField)logsFieldInfo.GetValue(playFlowDeployWindow);
-
-        return logsTextField.value;
-    }
-
-    [MenuItem("Minerals/TryDeserialize")]
-    private static void TryDeserialize()
-    {
-        PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
-        
-        string logs = GetPlayFlowLog(playFlowDeployWindow);
-
-        string status = ExtractJSONProperty(logs, "status");
-        string serverUrl = ExtractJSONProperty(logs, "server_url");
-
-        Debug.Log(status);
-        Debug.Log(serverUrl);
-    }
-
-    private static string ExtractJSONProperty(string json, string property)
-    {
-        string separator = $"{property}\":\"";
-        string[] splitLogs = json.Split(separator);
-        return splitLogs[1].Split("\"")[0];
-    }
-
+    
     [MenuItem("Minerals/PlayEditorAsClient")]
     private static void SetUpForEditorAndEnterPlaymode()
     {
@@ -259,7 +191,7 @@ public class BuildAutomation : Editor
             EditorApplication.EnterPlaymode();
         });
     }
-
+    
     [MenuItem("Minerals/SetUpForEditor")]
     private static void SetUpForEditor()
     {
@@ -281,64 +213,18 @@ public class BuildAutomation : Editor
         });
     }
     
-    [MenuItem("Minerals/Cancel")]
-    private static void Cancel()
+    private static string GetPlayFlowLog(PlayFlowCloudDeploy playFlowDeployWindow)
     {
-        Debug.Log($"<color=orange>Connection check routine cancelled</color>");
-        waitForServerConnection?.Dispose();
-        waitForServerConnection = null;
-    }
+        FieldInfo logsFieldInfo = playFlowDeployWindow.GetType().GetField("logs", BindingFlags.NonPublic | BindingFlags.Instance);
+        TextField logsTextField = (TextField)logsFieldInfo.GetValue(playFlowDeployWindow);
 
+        return logsTextField.value;
+    }
+    
     private static void SetConnectionType(ConnectionStarter.ConnectionType connType)
     {
         if(ConnectionTypeHolder.ConnectionType != connType)
-        {
             CreateConnectionTypeHolder(connType);
-        }
-        else
-        {
-            Debug.Log($"Do NOT create new");
-        }
-    }
-
-    private static BuildType CurrentBuildType()
-    {
-        BuildTarget buildTarget = EditorUserBuildSettings.activeBuildTarget;
-
-        if(buildTarget is BuildTarget.StandaloneLinux64)
-            return BuildType.Server;
-        else if (buildTarget is BuildTarget.WebGL)
-            return BuildType.WebGLClient;
-        else if (buildTarget is BuildTarget.StandaloneWindows64)
-            return BuildType.OSCClient;
-        else
-            return BuildType.NonWebGLClient;
-    }
-    
-    private static ConnectionStarter.ConnectionType CurrentConnectionType()
-    {
-        if (buildType == BuildType.Server)
-            return ConnectionStarter.ConnectionType.Host;
-        else if (buildType == BuildType.WebGLClient)
-            return ConnectionStarter.ConnectionType.BayouClient;
-        else
-            return ConnectionStarter.ConnectionType.TugboatClient;
-    }
-
-    [UnityEditor.Callbacks.DidReloadScripts]
-    private static void OnCheckReloadScripts()
-    {
-        if(EditorApplication.isCompiling || EditorApplication.isUpdating)
-        {
-            EditorApplication.delayCall += OnScriptsReloaded;
-            return;
-        }
-        OnScriptsReloaded();
-    }
-
-    private static void OnScriptsReloaded()
-    {
-        Debug.Log($"OnScriptsReloaded");
     }
 
     private static void CreateConnectionTypeHolder(ConnectionStarter.ConnectionType connType)
@@ -371,6 +257,37 @@ public static class ConnectionTypeHolder
         File.WriteAllText(scriptFilePath, scriptContent);
         
         UnityEditor.AssetDatabase.Refresh();
+    }
+    
+    private static string ExtractJSONProperty(string json, string property)
+    {
+        string separator = $"{property}\":\"";
+        string[] splitLogs = json.Split(separator);
+        return splitLogs[1].Split("\"")[0];
+    }
+
+    private static BuildType CurrentBuildType()
+    {
+        BuildTarget buildTarget = EditorUserBuildSettings.activeBuildTarget;
+
+        if(buildTarget is BuildTarget.StandaloneLinux64)
+            return BuildType.Server;
+        else if (buildTarget is BuildTarget.WebGL)
+            return BuildType.WebGLClient;
+        else if (buildTarget is BuildTarget.StandaloneWindows64)
+            return BuildType.OSCClient;
+        else
+            return BuildType.NonWebGLClient;
+    }
+    
+    private static ConnectionStarter.ConnectionType CurrentConnectionType()
+    {
+        if (buildType == BuildType.Server)
+            return ConnectionStarter.ConnectionType.Host;
+        else if (buildType == BuildType.WebGLClient)
+            return ConnectionStarter.ConnectionType.BayouClient;
+        else
+            return ConnectionStarter.ConnectionType.TugboatClient;
     }
 
     public enum BuildType

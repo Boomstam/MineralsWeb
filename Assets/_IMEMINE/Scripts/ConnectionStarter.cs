@@ -7,6 +7,7 @@ using FishNet.Transporting.Bayou;
 using FishNet.Transporting.Multipass;
 using FishNet.Transporting.Tugboat;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
  
@@ -36,6 +37,7 @@ public class ConnectionStarter : MonoBehaviour
             if(connectionType == ConnectionType.TugboatClient)
             {
                 Debug.Log(ConnectionTypeHolder.ActiveServer);
+                FindObjectOfType<TextMeshProUGUI>().text = ConnectionTypeHolder.ActiveServer;
                 tugboat.SetClientAddress(ConnectionTypeHolder.ActiveServer);
                 multipass.SetClientTransport<Tugboat>();
             }

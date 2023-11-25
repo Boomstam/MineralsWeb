@@ -74,9 +74,14 @@ public class BuildAutomation : Editor
             else
             {
                 tugboat.SetClientAddress(ConnectionTypeHolder.ActiveServer);
+                
+                // if(buildType == BuildType.OSCClient)
+                //     Observable.Timer(TimeSpan.FromSeconds(1f)).Subscribe(_ => BuildOSCClient());
             }
         }
     }
+
+    #region Build Clients
 
     private static void BuildWEBGLClient()
     {
@@ -94,6 +99,26 @@ public class BuildAutomation : Editor
         if (summary.result == BuildResult.Failed)
             Debug.Log("Build failed");
     }
+    
+    private static void BuildOSCClient()
+    {
+        BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
+        buildPlayerOptions.scenes = new[] { "Assets/_IMEMINE/Scenes/Main.unity" };
+        buildPlayerOptions.locationPathName = "C:\\Users\\menno\\MineralsWeb\\Builds\\Windows\\Windows";
+        buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
+        buildPlayerOptions.options = BuildOptions.None;
+
+        BuildReport report = BuildPipeline.BuildPlayer(buildPlayerOptions);
+        BuildSummary summary = report.summary;
+
+        if (summary.result == BuildResult.Succeeded)
+            Debug.Log("Build succeeded: " + summary.totalSize + " bytes");
+        if (summary.result == BuildResult.Failed)
+            Debug.Log("Build failed");
+    }
+
+    #endregion
+    
 
     private static void SetUpPlayFlowServer(PlayFlowCloudDeploy playFlowDeployWindow)
     {

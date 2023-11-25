@@ -37,7 +37,7 @@ public class ConnectionStarter : MonoBehaviour
             if(connectionType == ConnectionType.TugboatClient)
             {
                 Debug.Log(ConnectionTypeHolder.ActiveServer);
-                FindObjectOfType<TextMeshProUGUI>().text = ConnectionTypeHolder.ActiveServer;
+                // FindObjectOfType<TextMeshProUGUI>().text = ConnectionTypeHolder.ActiveServer;
                 tugboat.SetClientAddress(ConnectionTypeHolder.ActiveServer);
                 multipass.SetClientTransport<Tugboat>();
             }

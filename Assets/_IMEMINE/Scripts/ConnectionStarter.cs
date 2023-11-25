@@ -13,16 +13,25 @@ using UnityEngine;
  
 public class ConnectionStarter : MonoBehaviour
 {
+    public bool localServer;
+    public bool localClient;
+
     [SerializeField] private Multipass multipass;
     [SerializeField] private Tugboat tugboat;
     [SerializeField] private Bayou bayou;
-    
+
     [SerializeField] private ushort clientBayouPort = 443;
     public ushort serverBayouPort = 7777;
     public string playflowToken = "1317dd7cadb3232d22e7eb710c4c85f7";
     
     private void Awake()
     {
+        if (localServer || localClient)
+        {
+            Debug.Log($"Return, Local server ({localServer}) or local client ({localClient})");
+            return;
+        }
+        
         ConnectionType connectionType = ConnectionTypeHolder.ConnectionType;
         Debug.Log($"Awake with connection type {connectionType}");
 
@@ -56,7 +65,17 @@ public class ConnectionStarter : MonoBehaviour
             multipass.ClientTransport.StartConnection(false);
         }
     }
- 
+
+    private void StartLocalServer()
+    {
+        
+    }
+    
+    private void StartLocalClient()
+    {
+        
+    }
+    
     public enum ConnectionType
     {
         Host,

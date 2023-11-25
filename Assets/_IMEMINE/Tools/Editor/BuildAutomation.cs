@@ -32,10 +32,7 @@ public class BuildAutomation : Editor
     // private const ushort clientBayouPort = 443;
     // private const ushort serverBayouPort = 7777;
     // private const string playflowToken = "1317dd7cadb3232d22e7eb710c4c85f7";
-
-    private static string clientAddress;
-    private static string activeServer;
-
+    
     private static ConnectionStarter connectionStarter => FindObjectOfType<ConnectionStarter>();
     private static Bayou bayou => FindObjectOfType<Bayou>();
     private static Tugboat tugboat => FindObjectOfType<Tugboat>();
@@ -59,7 +56,7 @@ public class BuildAutomation : Editor
         {
             PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
 
-            activeServer = null;
+            // ConnectionTypeHolder.ActiveServer = null;
 
             SetUpPlayFlowServer(playFlowDeployWindow);
 
@@ -67,7 +64,7 @@ public class BuildAutomation : Editor
         }
         else
         {
-            if (string.IsNullOrEmpty(activeServer))
+            if (string.IsNullOrEmpty(ConnectionTypeHolder.ActiveServer))
             {
                 RefreshAndSetActiveServer();
                 Debug.Log($"<color=red>Active server not filled in! Try again when server is refreshed in 3 seconds.</color>");
@@ -76,13 +73,13 @@ public class BuildAutomation : Editor
             }
             if(buildType == BuildType.WebGLClient)
             {
-                bayou.SetClientAddress(activeServer);
+                bayou.SetClientAddress(ConnectionTypeHolder.ActiveServer);
                 
                 Observable.Timer(TimeSpan.FromSeconds(1f)).Subscribe(_ => BuildWEBGLClient());
             } 
             else
             {
-                tugboat.SetClientAddress(activeServer);
+                tugboat.SetClientAddress(ConnectionTypeHolder.ActiveServer);
             }
         }
     }
@@ -184,14 +181,14 @@ public class BuildAutomation : Editor
         PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
 
         string logs = GetPlayFlowLog(playFlowDeployWindow);
-        activeServer = ExtractJSONProperty(logs, "server_url");
+        ConnectionTypeHolder.ActiveServer = ExtractJSONProperty(logs, "server_url");
         
         // FieldInfo activeServerFieldInfo = playFlowDeployWindow.GetType().GetField("activeServersField", BindingFlags.NonPublic | BindingFlags.Instance);
         // DropdownField activeServerDropdown = (DropdownField)activeServerFieldInfo.GetValue(playFlowDeployWindow);
 
         // activeServer = activeServerDropdown.value.Split(" -> (SSL)")[0];
 
-        Debug.Log($"Active server set to {activeServer}");
+        Debug.Log($"Active server set to {ConnectionTypeHolder.ActiveServer}");
     }
 
     private static void ServerConnectionCheck(PlayFlowCloudDeploy playFlowDeployWindow)
@@ -255,7 +252,7 @@ public class BuildAutomation : Editor
     [MenuItem("Minerals/PlayEditorAsClient")]
     private static void SetUpForEditorAndEnterPlaymode()
     {
-        if (string.IsNullOrEmpty(activeServer))
+        if (string.IsNullOrEmpty(ConnectionTypeHolder.ActiveServer))
         {
             SetActiveServer();
             Debug.Log($"<color=red>Active server not filled in! Try again when server is refreshed in 3 seconds.</color>");
@@ -275,9 +272,9 @@ public class BuildAutomation : Editor
     {
         SetConnectionType(ConnectionStarter.ConnectionType.TugboatClient, "Editor");
         
-        Debug.Log($"Set up for editor with activeServer: {activeServer}");
+        Debug.Log($"Set up for editor with activeServer: {ConnectionTypeHolder.ActiveServer}");
         
-        if (string.IsNullOrEmpty(activeServer))
+        if (string.IsNullOrEmpty(ConnectionTypeHolder.ActiveServer))
         {
             SetActiveServer();
             Debug.Log($"<color=red>Active server not filled in! Try again when server is refreshed in 3 seconds.</color>");
@@ -286,8 +283,8 @@ public class BuildAutomation : Editor
         }
         Observable.Timer(TimeSpan.FromSeconds(2f)).Subscribe(_ =>
         {
-            tugboat.SetClientAddress(activeServer);
-            Debug.Log($"Set tugboat client to activeServer: {activeServer}");
+            tugboat.SetClientAddress(ConnectionTypeHolder.ActiveServer);
+            Debug.Log($"Set tugboat client to activeServer: {ConnectionTypeHolder.ActiveServer}");
         });
     }
     
@@ -311,6 +308,7 @@ public class BuildAutomation : Editor
 
         // connectionStarter.connectionType = connectionType;
         Debug.Log($"connection type {connType}, in holder {ConnectionTypeHolder.ConnectionType}");
+        // Debug.Log($"active server {ConnectionTypeHolder.ActiveServer}, in holder {ConnectionTypeHolder.ActiveServer}");
         if(ConnectionTypeHolder.ConnectionType != connType)
         {
             Debug.Log($"Create new!");
@@ -376,8 +374,14 @@ public class BuildAutomation : Editor
     // [MenuItem("Minerals/CreateConnectionTypeHolder")]
     private static void CreateConnectionTypeHolder(ConnectionStarter.ConnectionType connType)
     {
-        PlayerPrefs.SetInt("CreatingConnectionTypeHolder", 1);
+        if (string.IsNullOrEmpty(ConnectionTypeHolder.ActiveServer))
+        {
+            Debug.LogError($"Active server null or empty");
+            return;
+        }
         
+        PlayerPrefs.SetInt("CreatingConnectionTypeHolder", 1);
+
         string connectionTypeString = connType.ToString();
         
         string scriptFileName = "ConnectionTypeHolder.cs";
@@ -388,7 +392,9 @@ public static class ConnectionTypeHolder
 {
     // This script is generated by BuildAutomation.cs.
 ";
-        scriptContent += $"public static ConnectionStarter.ConnectionType ConnectionType = ConnectionStarter.ConnectionType.{connectionTypeString};" + '}';
+        scriptContent += $"public static ConnectionStarter.ConnectionType ConnectionType = ConnectionStarter.ConnectionType.{connectionTypeString};";
+        scriptContent += $"public static string ActiveServer = \"{ConnectionTypeHolder.ActiveServer}\";";
+        scriptContent += "}";
 
         // Get the project's Assets folder path.
         string assetsPath = Application.dataPath + $"/_IMEMINE/Generated";

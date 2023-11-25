@@ -66,14 +66,18 @@ public class ConnectionStarter : MonoBehaviour
         }
     }
 
+    [Button]
     private void StartLocalServer()
     {
-        
+        multipass.SetClientTransport<Tugboat>();
+        multipass.StartConnection(true);
     }
     
+    [Button]
     private void StartLocalClient()
     {
-        
+        multipass.SetClientTransport<Tugboat>();
+        multipass.StartConnection(false);
     }
     
     public enum ConnectionType

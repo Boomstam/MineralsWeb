@@ -17,6 +17,7 @@ using UnityEditor;
 #endif
 using System.IO;
 using System.IO.Compression;
+
 /// <summary>
 /// Setup:
 /// 1. Set up PlayFlow cloud and copy token into this file
@@ -29,10 +30,6 @@ using System.IO.Compression;
 /// </summary>
 public class BuildAutomation : Editor
 {
-    // private const ushort clientBayouPort = 443;
-    // private const ushort serverBayouPort = 7777;
-    // private const string playflowToken = "1317dd7cadb3232d22e7eb710c4c85f7";
-    
     private static ConnectionStarter connectionStarter => FindObjectOfType<ConnectionStarter>();
     private static Bayou bayou => FindObjectOfType<Bayou>();
     private static Tugboat tugboat => FindObjectOfType<Tugboat>();
@@ -45,7 +42,7 @@ public class BuildAutomation : Editor
     private static void Build()
     {
         Debug.Log($"Start build {buildType} with connection {connectionTypeFromBuildType} and token {connectionStarter.playflowToken}");
-        SetConnectionType(connectionTypeFromBuildType, "Build");
+        SetConnectionType(connectionTypeFromBuildType);
         
         if(ConnectionTypeHolder.ConnectionType == connectionTypeFromBuildType)
             Observable.Timer(TimeSpan.FromSeconds(0.69f)).Subscribe(_ => DoBuild());
@@ -56,8 +53,6 @@ public class BuildAutomation : Editor
         if(buildType == BuildType.Server)
         {
             PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
-
-            // ConnectionTypeHolder.ActiveServer = null;
 
             SetUpPlayFlowServer(playFlowDeployWindow);
 
@@ -97,14 +92,9 @@ public class BuildAutomation : Editor
         BuildSummary summary = report.summary;
 
         if (summary.result == BuildResult.Succeeded)
-        {
             Debug.Log("Build succeeded: " + summary.totalSize + " bytes");
-        }
-
         if (summary.result == BuildResult.Failed)
-        {
             Debug.Log("Build failed");
-        }
     }
 
     private static void SetUpPlayFlowServer(PlayFlowCloudDeploy playFlowDeployWindow)
@@ -190,11 +180,6 @@ public class BuildAutomation : Editor
             ConnectionTypeHolder.ActiveServer = activeServer;
             CreateConnectionTypeHolder(ConnectionTypeHolder.ConnectionType);
         }
-        
-        // FieldInfo activeServerFieldInfo = playFlowDeployWindow.GetType().GetField("activeServersField", BindingFlags.NonPublic | BindingFlags.Instance);
-        // DropdownField activeServerDropdown = (DropdownField)activeServerFieldInfo.GetValue(playFlowDeployWindow);
-
-        // activeServer = activeServerDropdown.value.Split(" -> (SSL)")[0];
 
         Debug.Log($"Active server set to {ConnectionTypeHolder.ActiveServer}");
     }
@@ -278,7 +263,7 @@ public class BuildAutomation : Editor
     [MenuItem("Minerals/SetUpForEditor")]
     private static void SetUpForEditor()
     {
-        SetConnectionType(ConnectionStarter.ConnectionType.TugboatClient, "Editor");
+        SetConnectionType(ConnectionStarter.ConnectionType.TugboatClient);
         
         Debug.Log($"Set up for editor with activeServer: {ConnectionTypeHolder.ActiveServer}");
         
@@ -304,23 +289,10 @@ public class BuildAutomation : Editor
         waitForServerConnection = null;
     }
 
-    private static void SetConnectionType(ConnectionStarter.ConnectionType connType, string playerPrefsVal)
+    private static void SetConnectionType(ConnectionStarter.ConnectionType connType)
     {
-        // PlayerPrefs.SetInt(ConnectionStarter.ConnectionTypePlayerPrefsKey, (int)connectionType);
-        
-        // BuildTypeSO buildTypeSo = Resources.Load<BuildTypeSO>("BuildTypeSO");
-        // buildTypeSo.ConnectionType = connectionType;
-        //
-        // AssetDatabase.SaveAssets();
-        // Debug.Log($"Set connection type to {buildTypeSo.ConnectionType}");
-
-        // connectionStarter.connectionType = connectionType;
-        Debug.Log($"connection type {connType}, in holder {ConnectionTypeHolder.ConnectionType}");
-        // Debug.Log($"active server {ConnectionTypeHolder.ActiveServer}, in holder {ConnectionTypeHolder.ActiveServer}");
         if(ConnectionTypeHolder.ConnectionType != connType)
         {
-            Debug.Log($"Create new!");
-            PlayerPrefs.SetString("CreatingConnectionTypeHolder", playerPrefsVal);
             CreateConnectionTypeHolder(connType);
         }
         else
@@ -367,41 +339,16 @@ public class BuildAutomation : Editor
     private static void OnScriptsReloaded()
     {
         Debug.Log($"OnScriptsReloaded");
-        if (PlayerPrefs.GetString("CreatingConnectionTypeHolder", "None") == "Build")
-        {
-           Build();
-        }
-        else if (PlayerPrefs.GetString("CreatingConnectionTypeHolder", "None") == "Editor")
-        {
-            SetUpForEditor();
-        }
-
-        PlayerPrefs.SetString("CreatingConnectionTypeHolder", "None");
     }
 
-    // [MenuItem("Minerals/CreateConnectionTypeHolder")]
     private static void CreateConnectionTypeHolder(ConnectionStarter.ConnectionType connType)
     {
-        // PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
-        // string logs = GetPlayFlowLog(playFlowDeployWindow);
-        //
-        // try
-        // {
-        //     ConnectionTypeHolder.ActiveServer = ExtractJSONProperty(logs, "server_url");
-        // }
-        // catch (Exception e)
-        // {
-        //     Console.WriteLine(e);
-        //     throw;
-        // }
         Debug.Log($"Create connection type holder");
         if (string.IsNullOrEmpty(ConnectionTypeHolder.ActiveServer))
         {
             Debug.LogError($"Active server null or empty");
             return;
         }
-        
-        PlayerPrefs.SetInt("CreatingConnectionTypeHolder", 1);
 
         string connectionTypeString = connType.ToString();
         
@@ -417,29 +364,12 @@ public static class ConnectionTypeHolder
         scriptContent += $"public static string ActiveServer = \"{ConnectionTypeHolder.ActiveServer}\";";
         scriptContent += "}";
 
-        // Get the project's Assets folder path.
         string assetsPath = Application.dataPath + $"/_IMEMINE/Generated";
 
-        // Combine the path to the Assets folder with the script file name.
         string scriptFilePath = Path.Combine(assetsPath, scriptFileName);
 
-        // Check if the script file already exists.
-        if (File.Exists(scriptFilePath))
-        {
-            // Debug.Log($"Exists, delete!");
-            // File.Delete(scriptFilePath);
-            // If it exists, overwrite it with the new content.
-            File.WriteAllText(scriptFilePath, scriptContent);
-            Debug.Log("Script file overwritten: " + scriptFilePath);
-        }
-        else
-        {
-            // If it doesn't exist, create a new file with the content.
-            File.WriteAllText(scriptFilePath, scriptContent);
-            Debug.Log("Script file created: " + scriptFilePath);
-        }
-
-        // Refresh the AssetDatabase to make Unity aware of the new or updated file.
+        File.WriteAllText(scriptFilePath, scriptContent);
+        
         UnityEditor.AssetDatabase.Refresh();
     }
 

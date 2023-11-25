@@ -22,7 +22,6 @@ public class ConnectionStarter : MonoBehaviour
     
     private void Awake()
     {
-        // BuildTypeSO buildTypeSo = Resources.Load<BuildTypeSO>("BuildTypeSO");
         ConnectionType connectionType = ConnectionTypeHolder.ConnectionType;
         Debug.Log($"Awake with connection type {connectionType}");
 
@@ -56,20 +55,6 @@ public class ConnectionStarter : MonoBehaviour
         }
     }
  
-    private void Start()
-    {
-        InstanceFinder.ClientManager.OnClientConnectionState += OnClientConnectionState;
-    }
- 
-    private void OnClientConnectionState(ClientConnectionStateArgs args)
-    {
- 
-#if UNITY_EDITOR
-        if (args.ConnectionState == LocalConnectionState.Stopping)
-            EditorApplication.isPlaying = false;
-#endif
-    }
-    
     public enum ConnectionType
     {
         Host,

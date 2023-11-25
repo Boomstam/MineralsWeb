@@ -28,8 +28,8 @@ public class ConnectionStarter : MonoBehaviour
         {
             bayou.SetPort(serverBayouPort);
             bayou.SetUseWSS(false);
-            
-            multipass.StartConnection(true);
+            // bayou.ssl
+                multipass.StartConnection(true);
         }
         else 
         {

@@ -1,3 +1,5 @@
+using System;
+using System.Reflection;
 using FishNet;
 using FishNet.Managing.Client;
 using FishNet.Transporting;
@@ -28,8 +30,7 @@ public class ConnectionStarter : MonoBehaviour
         {
             bayou.SetPort(serverBayouPort);
             bayou.SetUseWSS(false);
-            // bayou.ssl
-                multipass.StartConnection(true);
+            multipass.StartConnection(true);
         }
         else 
         {
@@ -48,7 +49,6 @@ public class ConnectionStarter : MonoBehaviour
                 
                 Debug.Log($"bayou port: {bayou.GetPort()}");
                 Debug.Log($"bayou client address: {bayou.GetClientAddress()}");
-                    
                 multipass.SetClientTransport<Bayou>();
             }
             

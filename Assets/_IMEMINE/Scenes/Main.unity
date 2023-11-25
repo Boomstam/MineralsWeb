@@ -1141,7 +1141,7 @@ MonoBehaviour:
   _ipv6BindAddress: 
   _port: 7770
   _maximumClients: 4095
-  _clientAddress: 1cf33010f3f44dedaf61ac22f7f410c5-eu-west-free.games.playflow.cloud
+  _clientAddress: 6456b93ac7f743dc912479a1af42d55c-eu-west-free.games.playflow.cloud
   _timeout: 15
 --- !u!1 &5179073729993949382
 GameObject:
@@ -1250,16 +1250,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 362dfd7e6009fb44c90beec3df0ad853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useWss: 0
+  _useWss: 1
   _sslConfiguration:
-    Enabled: 1
+    Enabled: 0
     CertificatePath: 
     CertificatePassword: 
     SslProtocol: 0
   _mtu: 1023
   _port: 7777
   _maximumClients: 2000
-  _clientAddress: 1cf33010f3f44dedaf61ac22f7f410c5-eu-west-free.games.playflow.cloud
+  _clientAddress: 838f60e26adf4608817d84d381f55a23-eu-west-free.games.playflow.cloud
 --- !u!4 &8865812994550329987
 Transform:
   m_ObjectHideFlags: 0

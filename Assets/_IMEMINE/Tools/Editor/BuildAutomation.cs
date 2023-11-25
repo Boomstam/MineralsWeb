@@ -47,7 +47,8 @@ public class BuildAutomation : Editor
         Debug.Log($"Start build {buildType} with connection {connectionTypeFromBuildType} and token {connectionStarter.playflowToken}");
         SetConnectionType(connectionTypeFromBuildType, "Build");
         
-        Observable.Timer(TimeSpan.FromSeconds(0.69f)).Subscribe(_ => DoBuild());
+        if(ConnectionTypeHolder.ConnectionType == connectionTypeFromBuildType)
+            Observable.Timer(TimeSpan.FromSeconds(0.69f)).Subscribe(_ => DoBuild());
     }
 
     private static void DoBuild()
@@ -166,7 +167,7 @@ public class BuildAutomation : Editor
         
         onRefreshMethodInfo.Invoke(playFlowDeployWindow, null);
         
-        Observable.Timer(TimeSpan.FromSeconds(3f)).Subscribe(_ => SetActiveServer());
+        Observable.Timer(TimeSpan.FromSeconds(2f)).Subscribe(_ => SetActiveServer());
     }
 
     private static void SetupServerConnection(PlayFlowCloudDeploy playFlowDeployWindow)
@@ -181,7 +182,14 @@ public class BuildAutomation : Editor
         PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
 
         string logs = GetPlayFlowLog(playFlowDeployWindow);
-        ConnectionTypeHolder.ActiveServer = ExtractJSONProperty(logs, "server_url");
+        string activeServer = ExtractJSONProperty(logs, "server_url");
+        
+        Debug.Log($"Active server: {activeServer}, in holder: {ConnectionTypeHolder.ConnectionType}");
+        if(ConnectionTypeHolder.ActiveServer != activeServer)
+        {
+            ConnectionTypeHolder.ActiveServer = activeServer;
+            CreateConnectionTypeHolder(ConnectionTypeHolder.ConnectionType);
+        }
         
         // FieldInfo activeServerFieldInfo = playFlowDeployWindow.GetType().GetField("activeServersField", BindingFlags.NonPublic | BindingFlags.Instance);
         // DropdownField activeServerDropdown = (DropdownField)activeServerFieldInfo.GetValue(playFlowDeployWindow);
@@ -374,6 +382,19 @@ public class BuildAutomation : Editor
     // [MenuItem("Minerals/CreateConnectionTypeHolder")]
     private static void CreateConnectionTypeHolder(ConnectionStarter.ConnectionType connType)
     {
+        // PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
+        // string logs = GetPlayFlowLog(playFlowDeployWindow);
+        //
+        // try
+        // {
+        //     ConnectionTypeHolder.ActiveServer = ExtractJSONProperty(logs, "server_url");
+        // }
+        // catch (Exception e)
+        // {
+        //     Console.WriteLine(e);
+        //     throw;
+        // }
+        Debug.Log($"Create connection type holder");
         if (string.IsNullOrEmpty(ConnectionTypeHolder.ActiveServer))
         {
             Debug.LogError($"Active server null or empty");

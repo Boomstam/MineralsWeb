@@ -1,0 +1,11 @@
+- For some reason the windows/editor builds only connect after webgl is connected
+
+So => 
+- Set to Dedicated Server/Linux. Press build 3/4 times via minerals menu to go through build process.
+- When server is launching, switch to webgl. Press build 2/3 times via minerals menu to go through build process.
+- When webgl build is ready, switch to standalone/Windows
+- When switching, zip webgl folders and upload to itchio
+- When uploading, press build via minerals menu 1/2 times to setup Windows build
+- Do build via build settings menu
+
+Now run the webgl build when the server is up, and then the others should also connect.

@@ -3,6 +3,7 @@
 So => 
 - Set to Dedicated Server/Linux. Press build 3/4 times via minerals menu to go through build process.
 - When server is launching, switch to webgl. Press build 2/3 times via minerals menu to go through build process.
+- When webgl is building, open playflow logs and itchio editor
 - When webgl build is ready, switch to standalone/Windows
 - When switching, zip webgl folders and upload to itchio
 - When uploading, press build via minerals menu 1/2 times to setup Windows build

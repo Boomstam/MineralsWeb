@@ -8,6 +8,7 @@ using FishNet.Transporting.Multipass;
 using FishNet.Transporting.Tugboat;
 using Sirenix.OdinInspector;
 using TMPro;
+using UniRx;
 using UnityEditor;
 using UnityEngine;
  
@@ -28,7 +29,11 @@ public class ConnectionStarter : MonoBehaviour
     {
         if (localServer || localClient)
         {
+            if (localServer) StartLocalServer();
+            if (localClient) StartLocalClient();
+            
             Debug.Log($"Return, Local server ({localServer}) or local client ({localClient})");
+            
             return;
         }
         
@@ -62,7 +67,7 @@ public class ConnectionStarter : MonoBehaviour
                 multipass.SetClientTransport<Bayou>();
             }
             
-            multipass.ClientTransport.StartConnection(false);
+            Observable.Timer(TimeSpan.FromSeconds(1f)).Subscribe(_ => { multipass.ClientTransport.StartConnection(false); });
         }
     }
 

@@ -1,4 +1,7 @@
+Warnings:
+- Turn of local client or local server for build.
 - For some reason the windows/editor builds only connect after webgl is connected
+- Clear the WebGL build folder for a clean build
 
 So => 
 - Set to Dedicated Server/Linux. Press build 3/4 times via minerals menu to go through build process.

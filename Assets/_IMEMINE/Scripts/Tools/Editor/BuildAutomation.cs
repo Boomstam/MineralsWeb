@@ -39,7 +39,15 @@ public class BuildAutomation : Editor
     [MenuItem("Minerals/Build")]
     private static void Build()
     {
-        Debug.Log($"Start build {buildType} with connection {connectionTypeFromBuildType} and token {connectionStarter.playflowToken}");
+        if (connectionStarter.localClient || connectionStarter.localServer)
+        {
+            Debug.LogError($"Can't build, local client: {connectionStarter.localClient} or local server: {connectionStarter.localServer}");
+            return;
+        }
+        
+        Debug.Log($"Start build {buildType} with connection: {connectionTypeFromBuildType}, client address: {bayou.GetClientAddress()}" +
+                  $" and token: {connectionStarter.playflowToken}");
+        
         SetConnectionType(connectionTypeFromBuildType);
         
         if(ConnectionTypeHolder.ConnectionType == connectionTypeFromBuildType)
@@ -197,6 +205,8 @@ public class BuildAutomation : Editor
         }
 
         Debug.Log($"Active server set to {ConnectionTypeHolder.ActiveServer}");
+        bayou.SetClientAddress(ConnectionTypeHolder.ActiveServer);
+        tugboat.SetClientAddress(ConnectionTypeHolder.ActiveServer);
     }
     
     [MenuItem("Minerals/PlayEditorAsClient")]
@@ -211,10 +221,7 @@ public class BuildAutomation : Editor
         }
         SetUpForEditor();
         
-        Observable.Timer(TimeSpan.FromSeconds(3f)).Subscribe(_ =>
-        {
-            EditorApplication.EnterPlaymode();
-        });
+        Observable.Timer(TimeSpan.FromSeconds(3f)).Subscribe(_ => { EditorApplication.EnterPlaymode(); });
     }
     
     [MenuItem("Minerals/SetUpForEditor")]

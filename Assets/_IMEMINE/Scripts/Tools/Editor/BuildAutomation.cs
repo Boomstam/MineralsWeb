@@ -198,11 +198,22 @@ public class BuildAutomation : Editor
         string activeServer = ExtractJSONProperty(logs, "server_url");
         
         Debug.Log($"Active server: {activeServer}, in holder: {ConnectionTypeHolder.ConnectionType}");
+        bool shouldGenerateNewConnectionTypeHolder = false;
         if(ConnectionTypeHolder.ActiveServer != activeServer)
         {
             ConnectionTypeHolder.ActiveServer = activeServer;
-            CreateConnectionTypeHolder(ConnectionTypeHolder.ConnectionType);
+            shouldGenerateNewConnectionTypeHolder = true;
         }
+        
+        string ip = ExtractJSONProperty(logs, "ip");
+        if(ConnectionTypeHolder.IP != activeServer)
+        {
+            ConnectionTypeHolder.IP = ip;
+            shouldGenerateNewConnectionTypeHolder = true;
+        }
+        
+        if(shouldGenerateNewConnectionTypeHolder)
+            CreateConnectionTypeHolder(ConnectionTypeHolder.ConnectionType);
 
         Debug.Log($"Active server set to {ConnectionTypeHolder.ActiveServer}");
         bayou.SetClientAddress(ConnectionTypeHolder.ActiveServer);
@@ -229,9 +240,9 @@ public class BuildAutomation : Editor
     {
         SetConnectionType(ConnectionStarter.ConnectionType.TugboatClient);
         
-        Debug.Log($"Set up for editor with activeServer: {ConnectionTypeHolder.ActiveServer}");
+        Debug.Log($"Set up for editor with activeServer: {ConnectionTypeHolder.IP}");
         
-        if (string.IsNullOrEmpty(ConnectionTypeHolder.ActiveServer))
+        if (string.IsNullOrEmpty(ConnectionTypeHolder.IP))
         {
             SetActiveServer();
             Debug.Log($"<color=red>Active server not filled in! Try again when server is refreshed in 3 seconds.</color>");
@@ -240,8 +251,8 @@ public class BuildAutomation : Editor
         }
         Observable.Timer(TimeSpan.FromSeconds(2f)).Subscribe(_ =>
         {
-            tugboat.SetClientAddress(ConnectionTypeHolder.ActiveServer);
-            Debug.Log($"Set tugboat client to activeServer: {ConnectionTypeHolder.ActiveServer}");
+            tugboat.SetClientAddress(ConnectionTypeHolder.IP);
+            Debug.Log($"Set tugboat client to activeServer: {ConnectionTypeHolder.IP}");
         });
     }
     
@@ -280,6 +291,7 @@ public static class ConnectionTypeHolder
 ";
         scriptContent += $"public static ConnectionStarter.ConnectionType ConnectionType = ConnectionStarter.ConnectionType.{connectionTypeString};";
         scriptContent += $"public static string ActiveServer = \"{ConnectionTypeHolder.ActiveServer}\";";
+        scriptContent += $"public static string IP = \"{ConnectionTypeHolder.IP}\";";
         scriptContent += "}";
 
         string assetsPath = Application.dataPath + $"/_IMEMINE/Generated";
@@ -295,7 +307,9 @@ public static class ConnectionTypeHolder
     {
         string separator = $"{property}\":\"";
         string[] splitLogs = json.Split(separator);
-        return splitLogs[1].Split("\"")[0];
+        string partAfterSeparator = splitLogs[1];
+        
+        return partAfterSeparator.Split("\"")[0];
     }
 
     private static BuildType CurrentBuildType()

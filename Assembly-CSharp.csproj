@@ -64,6 +64,7 @@
      <Compile Include="Assets\_IMEMINE\Scripts\Tools\BuildType.cs" />
      <Compile Include="Assets\extOSC\Examples\04) Informers\Scripts\InformersExample.cs" />
      <Compile Include="Assets\extOSC\Examples\01) Getting Started\Scripts\SimpleMessageTransmitter.cs" />
+     <Compile Include="Assets\_IMEMINE\Scripts\Network\BuildTypeManager.cs" />
      <Compile Include="Assets\extOSC\Examples\11) Array\Scripts\ArrayExample.cs" />
      <Compile Include="Assets\extOSC\Examples\12) Match Pattern\Scripts\MatchPatternExample.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Network\ConnectionType.cs" />

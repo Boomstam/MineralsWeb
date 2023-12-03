@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FishNet;
 using FishNet.Object;
+using UniRx;
 using UnityEngine;
 
 public class MyMessageBroker : NetworkBehaviour
@@ -10,28 +11,31 @@ public class MyMessageBroker : NetworkBehaviour
     {
         base.OnStartNetwork();
         
-        Debug.Log($"On start network, isServer: {InstanceFinder.IsServer}");
+        Debug.Log($"On start network on MyMessageBroker, isServer: {InstanceFinder.IsServer}");
         
         if(Instances.BuildType == BuildType.WebGLClient)
+        {
             Instances.WebGLClientUI.SetConnection(true);
+            Instances.WebGLClientUI.oscMessage.Subscribe(message => SendMessageToBuildType(BuildType.OSCClient, message));
+        }
         if(Instances.BuildType == BuildType.OSCClient)
             Instances.OSCClientUI.SetConnection(true);
     }
 
-    [ServerRpc]
-    public void SendMessage(BuildType targetBuildType, string message)
+    [ServerRpc (RequireOwnership = false)]
+    public void SendMessageToBuildType(BuildType targetBuildType, string message)
     {
-        SendToClients(targetBuildType, message);
+        SendMessageToBuildTypeClients(targetBuildType, message);
     }
 
     [ObserversRpc]
-    private void SendToClients(BuildType targetBuildType, string message)
+    private void SendMessageToBuildTypeClients(BuildType targetBuildType, string message)
     {
         if(Instances.BuildType == targetBuildType)
-            OnMessageReceived(message);
+            OnBuildTypeMessageReceived(message);
     }
 
-    private void OnMessageReceived(string message)
+    private void OnBuildTypeMessageReceived(string message)
     {
         if(Instances.BuildType == BuildType.OSCClient)
         {

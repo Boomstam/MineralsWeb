@@ -11,6 +11,13 @@ public static class Instances
     {
         get
         {
+            if (LocalServer)
+                return BuildType.Server;
+            if (LocalWebGLClient)
+                return BuildType.WebGLClient;
+            if (LocalOSCClient)
+                return BuildType.OSCClient;
+            
             if (ConnectionTypeHolder.ConnectionType == ConnectionType.Host)
                 return BuildType.Server;
             if (ConnectionTypeHolder.ConnectionType == ConnectionType.BayouClient)
@@ -22,11 +29,30 @@ public static class Instances
             throw new Exception($"Couldn't find build type for connection {ConnectionTypeHolder.ConnectionType}");
         }
     }
+
+    public static bool LocalServer => ConnectionStarter.localServer;
+    public static bool LocalWebGLClient => ConnectionStarter.localWebGLClient;
+    public static bool LocalOSCClient => ConnectionStarter.localOSCClient;
+    
+    private static ConnectionStarter _connectionStarter;
     private static WebGLClientUI _webGLClientUI;
     private static OSCClientUI _oscClientUI;
     private static OSCManager _oscManager;
     private static MyMessageBroker _myMessageBroker;
 
+    public static ConnectionStarter ConnectionStarter {
+        get
+        {
+            if (_connectionStarter == null)
+                _connectionStarter = Object.FindObjectOfType<ConnectionStarter>();
+
+            if (_connectionStarter == null)
+                throw new System.Exception($"Couldn't find ConnectionStarter!");
+            
+            return _connectionStarter;
+        }
+    }
+    
     public static WebGLClientUI WebGLClientUI {
         get
         {

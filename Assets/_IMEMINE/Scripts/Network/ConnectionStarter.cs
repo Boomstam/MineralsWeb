@@ -11,9 +11,10 @@ using TMPro;
 using UniRx;
 using UnityEditor;
 using UnityEngine;
- 
+
 public class ConnectionStarter : MonoBehaviour
 {
+    public bool localDefaults;
     public bool localServer;
     public bool localWebGLClient;
     public bool localOSCClient;
@@ -23,11 +24,35 @@ public class ConnectionStarter : MonoBehaviour
     [SerializeField] private Bayou bayou;
 
     [SerializeField] private ushort clientBayouPort = 443;
+    [SerializeField] private string localClientTugboatPort = "localhost";
     public ushort serverBayouPort = 7777;
     public string playflowToken = "ec27ab23758bce61f2e92807d0a3f2d4";
-    
+
     private void Awake()
     {
+        if (localDefaults)
+        {
+            Debug.Log($"Local default LOCAL connection");
+            
+            if(ParrelSync.ClonesManager.IsClone() == false)
+            {
+                localServer = true;
+                
+                StartLocalServer();
+            }
+            else
+            {
+                string cloneArgument = ParrelSync.ClonesManager.GetArgument();
+                
+                if(cloneArgument == "clone 0")
+                    localOSCClient = true;
+                else
+                    localWebGLClient = true;
+                
+                StartLocalClient();
+            }
+            return;
+        }
         if (localServer || localWebGLClient || localOSCClient)
         {
             if (localServer) StartLocalServer();
@@ -85,13 +110,6 @@ public class ConnectionStarter : MonoBehaviour
     private void StartLocalClient()
     {
         multipass.SetClientTransport<Tugboat>();
+        multipass.SetClientAddress(localClientTugboatPort);
         multipass.StartConnection(false);
-    }
-    
-    [Button]
-    private void StartOSCClient()
-    {
-        multipass.SetClientTransport<Tugboat>();
-        multipass.StartConnection(false);
-    }
-}
+    } }

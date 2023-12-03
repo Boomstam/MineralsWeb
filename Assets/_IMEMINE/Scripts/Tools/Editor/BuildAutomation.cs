@@ -34,29 +34,31 @@ public class BuildAutomation : Editor
     private static ConnectionStarter connectionStarter => FindObjectOfType<ConnectionStarter>();
     private static Bayou bayou => FindObjectOfType<Bayou>();
     private static Tugboat tugboat => FindObjectOfType<Tugboat>();
-    private static BuildType buildType => CurrentBuildType();
+    private static BuildType buildType => BuildTypeFromBuildTarget();
     private static ConnectionType connectionTypeFromBuildType => CurrentConnectionType();
 
-    private static Dictionary<BuildType, string> buildTypeSceneNames = new Dictionary<BuildType, string>()
-    {
-        { BuildType.Server, "Server" },
-        { BuildType.OSCClient, "OSCClient" },
-        { BuildType.WebGLClient, "WebGLClient" },
-    };
+    // private static Dictionary<BuildType, string> buildTypeSceneNames = new Dictionary<BuildType, string>()
+    // {
+    //     { BuildType.Server, "Server" },
+    //     { BuildType.OSCClient, "OSCClient" },
+    //     { BuildType.WebGLClient, "WebGLClient" },
+    // };
 
     [MenuItem("Minerals/Build")]
     private static void Build()
     {
-        if (connectionStarter.localWebGLClient || connectionStarter.localServer)
+        if (connectionStarter.localDefaults || connectionStarter.localServer || 
+            connectionStarter.localWebGLClient || connectionStarter.localOSCClient)
         {
-            Debug.LogError($"Can't build, local client: {connectionStarter.localWebGLClient} or local server: {connectionStarter.localServer}");
+            Debug.LogError($"Can't build, local defaults: {connectionStarter.localDefaults} or local server: {connectionStarter.localServer}" +
+                           $"or local OSCClient:{connectionStarter.localOSCClient} or local webGLClients: {connectionStarter.localWebGLClient}");
             return;
         }
-        if (buildTypeSceneNames[buildType] != SceneManager.GetActiveScene().name)
-        {
-            Debug.LogError($"Wrong scene loaded for build type {buildType}, expected {buildTypeSceneNames[buildType]}");
-            return;
-        }
+        // if (buildTypeSceneNames[buildType] != SceneManager.GetActiveScene().name)
+        // {
+        //     Debug.LogError($"Wrong scene loaded for build type {buildType}, expected {buildTypeSceneNames[buildType]}");
+        //     return;
+        // }
         
         Debug.Log($"Start build {buildType} with connection: {connectionTypeFromBuildType}, client address: {bayou.GetClientAddress()}" +
                   $" and token: {connectionStarter.playflowToken}");
@@ -107,7 +109,7 @@ public class BuildAutomation : Editor
     private static void BuildWEBGLClient()
     {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-        buildPlayerOptions.scenes = new[] { "Assets/_IMEMINE/Scenes/WebGLClient.unity" };
+        buildPlayerOptions.scenes = new[] { "Assets/_IMEMINE/Scenes/Main.unity" };
         buildPlayerOptions.locationPathName = "C:\\Users\\menno\\MineralsWeb\\Builds\\WebGL";
         buildPlayerOptions.target = BuildTarget.WebGL;
         buildPlayerOptions.options = BuildOptions.None;
@@ -124,7 +126,7 @@ public class BuildAutomation : Editor
     private static void BuildOSCClient()
     {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-        buildPlayerOptions.scenes = new[] { "Assets/_IMEMINE/Scenes/OSCClient.unity" };
+        buildPlayerOptions.scenes = new[] { "Assets/_IMEMINE/Scenes/Main.unity" };
         buildPlayerOptions.locationPathName = "C:\\Users\\menno\\MineralsWeb\\Builds\\Windows\\Windows";
         buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
         buildPlayerOptions.options = BuildOptions.None;
@@ -325,7 +327,7 @@ public static class ConnectionTypeHolder
         return partAfterSeparator.Split("\"")[0];
     }
 
-    private static BuildType CurrentBuildType()
+    private static BuildType BuildTypeFromBuildTarget()
     {
         BuildTarget buildTarget = EditorUserBuildSettings.activeBuildTarget;
 

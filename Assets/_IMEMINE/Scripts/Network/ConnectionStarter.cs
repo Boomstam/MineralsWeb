@@ -33,7 +33,7 @@ public class ConnectionStarter : MonoBehaviour
         if (localDefaults)
         {
             Debug.Log($"Local default LOCAL connection");
-            
+#if UNITY_EDITOR
             if(ParrelSync.ClonesManager.IsClone() == false)
             {
                 localServer = true;
@@ -51,6 +51,7 @@ public class ConnectionStarter : MonoBehaviour
                 
                 StartLocalClient();
             }
+#endif
             return;
         }
         if (localServer || localWebGLClient || localOSCClient)

@@ -55,7 +55,7 @@ namespace FishNet.Transporting.Bayou.Client
         private void Socket(bool useWss)
         {
 
-            TcpConfig tcpConfig = new TcpConfig(false, 5000, 20000);
+            TcpConfig tcpConfig = new TcpConfig(false, 5000, 600000);
             _client = SimpleWebClient.Create(ushort.MaxValue, 5000, tcpConfig);
 
             _client.onConnect += _client_onConnect;

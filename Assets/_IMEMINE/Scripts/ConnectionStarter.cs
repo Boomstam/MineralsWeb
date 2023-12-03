@@ -23,7 +23,7 @@ public class ConnectionStarter : MonoBehaviour
 
     [SerializeField] private ushort clientBayouPort = 443;
     public ushort serverBayouPort = 7777;
-    public string playflowToken = "1317dd7cadb3232d22e7eb710c4c85f7";
+    public string playflowToken = "ec27ab23758bce61f2e92807d0a3f2d4";
     
     private void Awake()
     {

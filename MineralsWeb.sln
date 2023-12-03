@@ -19,9 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.FishNet.Codegen", "Un
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "extOSC.Editor", "extOSC.Editor.csproj", "{780f42c1-896e-c3fd-ce51-52b039203a8b}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameKit.Utilities", "GameKit.Utilities.csproj", "{93c26e31-e9a1-f61f-15d5-da6917c456a6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{8e424b45-c034-2670-ba30-1db5d2db4da4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameKit.Utilities", "GameKit.Utilities.csproj", "{93c26e31-e9a1-f61f-15d5-da6917c456a6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniRx.Examples", "UniRx.Examples.csproj", "{e7a7083e-6c31-318e-24cc-3b06459c7f6f}"
 EndProject
@@ -58,10 +58,10 @@ Global
 		{4ecf8feb-8de4-bbc4-9945-358151bfa57b}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{780f42c1-896e-c3fd-ce51-52b039203a8b}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{780f42c1-896e-c3fd-ce51-52b039203a8b}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93c26e31-e9a1-f61f-15d5-da6917c456a6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93c26e31-e9a1-f61f-15d5-da6917c456a6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8e424b45-c034-2670-ba30-1db5d2db4da4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8e424b45-c034-2670-ba30-1db5d2db4da4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93c26e31-e9a1-f61f-15d5-da6917c456a6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93c26e31-e9a1-f61f-15d5-da6917c456a6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{e7a7083e-6c31-318e-24cc-3b06459c7f6f}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{e7a7083e-6c31-318e-24cc-3b06459c7f6f}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8c0b29da-b4dd-e02d-589f-7ed572be8fdb}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

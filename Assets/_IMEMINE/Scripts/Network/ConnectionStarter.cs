@@ -15,7 +15,8 @@ using UnityEngine;
 public class ConnectionStarter : MonoBehaviour
 {
     public bool localServer;
-    public bool localClient;
+    public bool localWebGLClient;
+    public bool localOSCClient;
 
     [SerializeField] private Multipass multipass;
     [SerializeField] private Tugboat tugboat;
@@ -27,12 +28,13 @@ public class ConnectionStarter : MonoBehaviour
     
     private void Awake()
     {
-        if (localServer || localClient)
+        if (localServer || localWebGLClient || localOSCClient)
         {
             if (localServer) StartLocalServer();
-            if (localClient) StartLocalClient();
+            if (localWebGLClient) StartLocalClient();
+            if (localOSCClient) StartLocalClient();
             
-            Debug.Log($"Return, Local server ({localServer}) or local client ({localClient})");
+            Debug.Log($"Start LOCAL connection, local server ({localServer}) or local webGLClient ({localWebGLClient} or local OSCClient ({localOSCClient})");
             
             return;
         }
@@ -86,10 +88,10 @@ public class ConnectionStarter : MonoBehaviour
         multipass.StartConnection(false);
     }
     
-    public enum ConnectionType
+    [Button]
+    private void StartOSCClient()
     {
-        Host,
-        BayouClient,
-        TugboatClient,
+        multipass.SetClientTransport<Tugboat>();
+        multipass.StartConnection(false);
     }
 }

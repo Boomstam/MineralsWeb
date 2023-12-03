@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_IMEMINE/Scenes/Main.unity
+    path: Assets/_IMEMINE/Scenes/Server.unity
     guid: 23f3d9caa3d1074488ccaa83d6bab3a7
+  - enabled: 1
+    path: Assets/_IMEMINE/Scenes/WebGLClient.unity
+    guid: 55b746c9a3cc3f34787674efcaec14cb
+  - enabled: 1
+    path: Assets/_IMEMINE/Scenes/WindowsClient.unity
+    guid: e9f161652081fe1419c671543a22ed67
+  - enabled: 1
+    path: Assets/_IMEMINE/Scenes/EditorClient.unity
+    guid: c290949c52408d043a21d5b092cb0937
   m_configObjects: {}

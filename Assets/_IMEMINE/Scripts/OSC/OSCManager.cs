@@ -6,7 +6,7 @@ using extOSC.Examples;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class TestOSC : MonoBehaviour
+public class OSCManager : MonoBehaviour
 {
     [SerializeField] private SimpleMessageTransmitter simpleMessageTransmitter;
     [SerializeField] private string address = "/example/2";

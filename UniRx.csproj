@@ -26,7 +26,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\Bin\Debug\UniRx\</OutputPath>
-    <DefineConstants>UNITY_2022_3_10;UNITY_2022_3;UNITY_2022;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;UNITY_2022_1_OR_NEWER;UNITY_2022_2_OR_NEWER;UNITY_2022_3_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_EDITOR_GAME_SERVICES;ENABLE_UNITY_GAME_SERVICES_ANALYTICS_SUPPORT;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_GENERATE_NATIVE_PLUGINS_FOR_ASSEMBLIES_API;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;ENABLE_NAVIGATION_PACKAGE_DEBUG_VISUALIZATION;ENABLE_NAVIGATION_HEIGHTMESH_RUNTIME_SUPPORT;ENABLE_NAVIGATION_UI_REQUIRES_PACKAGE;PLATFORM_STANDALONE;TEXTCORE_1_0_OR_NEWER;PLATFORM_STANDALONE_LINUX;UNITY_STANDALONE_LINUX;UNITY_STANDALONE;UNITY_STANDALONE_LINUX_API;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_SPATIALTRACKING;ENABLE_MODULAR_UNITYENGINE_ASSEMBLIES;ENABLE_MONO;NET_STANDARD_2_0;NET_STANDARD;NET_STANDARD_2_1;NETSTANDARD;NETSTANDARD2_1;ENABLE_PROFILER;UNITY_SERVER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;TEXTCORE_FONT_ENGINE_1_5_OR_NEWER;FISHNET;FISHNET_V3;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>UNITY_2022_3_10;UNITY_2022_3;UNITY_2022;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;UNITY_2022_1_OR_NEWER;UNITY_2022_2_OR_NEWER;UNITY_2022_3_OR_NEWER;UNITY_INCLUDE_TESTS;ENABLE_AUDIO;ENABLE_CLOTH;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_EDITOR_GAME_SERVICES;ENABLE_UNITY_GAME_SERVICES_ANALYTICS_SUPPORT;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_GENERATE_NATIVE_PLUGINS_FOR_ASSEMBLIES_API;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_ENGINE_CODE_STRIPPING;ENABLE_ONSCREEN_KEYBOARD;ENABLE_MANAGED_UNITYTLS;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;ENABLE_NAVIGATION_PACKAGE_DEBUG_VISUALIZATION;ENABLE_NAVIGATION_HEIGHTMESH_RUNTIME_SUPPORT;ENABLE_NAVIGATION_UI_REQUIRES_PACKAGE;PLATFORM_WEBGL;TEXTCORE_1_0_OR_NEWER;UNITY_WEBGL;UNITY_WEBGL_API;UNITY_DISABLE_WEB_VERIFICATION;UNITY_GFX_USE_PLATFORM_VSYNC;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_SPATIALTRACKING;ENABLE_MONO;NET_STANDARD_2_0;NET_STANDARD;NET_STANDARD_2_1;NETSTANDARD;NETSTANDARD2_1;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;TEXTCORE_FONT_ENGINE_1_5_OR_NEWER;FISHNET;FISHNET_V3;EXTOSC;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169,0649</NoWarn>
@@ -57,13 +57,13 @@
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\CoroutineAsyncBridge.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Observable.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservablePointerDownTrigger.cs" />
-     <Compile Include="Assets\Plugins\UniRx\Scripts\TimeInterval.cs" />
+     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableEndDragTrigger.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\WhereSelect.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Operators\FrameTimeInterval.cs" />
+     <Compile Include="Assets\Plugins\UniRx\Scripts\TimeInterval.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityWinRTBridge\ThreadPoolScheduler_UnityWinRT.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableUpdateTrigger.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableTriggerBase.cs" />
-     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableEndDragTrigger.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\InternalUtil\ImmutableList.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\ZipLatest.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Materialize.cs" />
@@ -84,8 +84,8 @@
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\DistinctUntilChanged.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Never.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\FromEvent.cs" />
-     <Compile Include="Assets\Plugins\UniRx\Scripts\Subjects\ConnectableObservable.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Last.cs" />
+     <Compile Include="Assets\Plugins\UniRx\Scripts\Subjects\ConnectableObservable.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\IgnoreElements.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableInitializePotentialDragTrigger.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableCollision2DTrigger.cs" />
@@ -94,9 +94,9 @@
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\ReactiveCollection.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Disposables\SingleAssignmentDisposable.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Observable.Blocking.cs" />
-     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\RepeatSafe.cs" />
-     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableAnimatorTrigger.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\CombineLatest.cs" />
+     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableAnimatorTrigger.cs" />
+     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\RepeatSafe.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableDeselectTrigger.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\ContinueWith.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Subjects\BehaviorSubject.cs" />
@@ -112,8 +112,8 @@
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\PairWise.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Dematerialize.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Notification.cs" />
-     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Operators\DelayFrame.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Subjects\Subject.cs" />
+     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Operators\DelayFrame.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableLateUpdateTrigger.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\TakeLast.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Observable.Concurrency.cs" />
@@ -123,8 +123,8 @@
      <Compile Include="Assets\Plugins\UniRx\Scripts\Disposables\SerialDisposable.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Asynchronous\WebRequestExtensions.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\InternalUtil\UnityEqualityComparer.cs" />
-     <Compile Include="Assets\Plugins\UniRx\Scripts\Observable.Paging.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\LifetimeDisposableExtensions.cs" />
+     <Compile Include="Assets\Plugins\UniRx\Scripts\Observable.Paging.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Operators\FromCoroutine.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservablePointerEnterTrigger.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\GroupBy.cs" />
@@ -142,25 +142,25 @@
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\TakeUntil.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableUpdateSelectedTrigger.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Sample.cs" />
-     <Compile Include="Assets\Plugins\UniRx\Scripts\Notifiers\BooleanNotifier.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Scan.cs" />
+     <Compile Include="Assets\Plugins\UniRx\Scripts\Notifiers\BooleanNotifier.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Disposables\DictionaryDisposable.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Zip.cs" />
+     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Timer.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Pair.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Disposables\MultipleAssignmentDisposable.cs" />
-     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Timer.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\InternalUtil\ListObserver.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Subjects\ReplaySubject.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableTriggerExtensions.Component.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Observable.Joins.cs" />
-     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableEventTrigger.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Observable.ErrorHandling.cs" />
+     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableEventTrigger.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Operators\ThrottleFirstFrame.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Aggregate.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Notifiers\ScheduledNotifier.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Do.cs" />
-     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Select.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Schedulers\IScheduler.cs" />
+     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Select.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\InternalUtil\CancellableTaskCompletionSource.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\AsyncOperationExtensions.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Defer.cs" />
@@ -233,9 +233,9 @@
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Finally.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\TimeInterval.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableMoveTrigger.cs" />
+     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\SkipWhile.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableVisibleTrigger.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Observable.Creation.cs" />
-     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\SkipWhile.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Single.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Schedulers\ImmediateScheduler.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Observable.Time.cs" />
@@ -248,8 +248,8 @@
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Operators\SubscribeOnMainThread.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Schedulers\ThreadPoolScheduler.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservablePointerExitTrigger.cs" />
-     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\UnityEventExtensions.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\InternalUtil\PromiseHelper.cs" />
+     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\UnityEventExtensions.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableDropTrigger.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\WithLatestFrom.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\Disposables\RefCountDisposable.cs" />
@@ -263,8 +263,8 @@
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableTransformChangedTrigger.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\YieldInstructionCache.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\MainThreadScheduler.cs" />
-     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\CancellationToken.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Diagnostics\UnityDebugSink.cs" />
+     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\CancellationToken.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableTrigger2DTrigger.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableDragTrigger.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\MainThreadDispatcher.cs" />
@@ -313,12 +313,6 @@
      </Reference>
      <Reference Include="UnityEngine.ClothModule">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.ClothModule.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.ClusterInputModule">
-     <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.ClusterInputModule.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.ClusterRendererModule">
-     <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.ClusterRendererModule.dll</HintPath>
      </Reference>
      <Reference Include="UnityEngine.ContentLoadModule">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.ContentLoadModule.dll</HintPath>
@@ -479,8 +473,8 @@
      <Reference Include="UnityEngine.VideoModule">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.VideoModule.dll</HintPath>
      </Reference>
-     <Reference Include="UnityEngine.VirtualTexturingModule">
-     <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.VirtualTexturingModule.dll</HintPath>
+     <Reference Include="UnityEngine.WebGLModule">
+     <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.10f1\Editor\Data\PlaybackEngines\WebGLSupport\Managed\UnityEngine.WebGLModule.dll</HintPath>
      </Reference>
      <Reference Include="UnityEngine.WindModule">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.WindModule.dll</HintPath>
@@ -560,8 +554,17 @@
      <Reference Include="ReportGeneratorMerged">
      <HintPath>C:\Users\menno\MineralsWeb\Library\PackageCache\com.unity.testtools.codecoverage@1.2.4\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
      </Reference>
+     <Reference Include="Sirenix.Serialization">
+     <HintPath>C:\Users\menno\MineralsWeb\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.Plastic.Antlr3.Runtime">
      <HintPath>C:\Users\menno\MineralsWeb\Library\PackageCache\com.unity.collab-proxy@2.0.7\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="Sirenix.Serialization.Config">
+     <HintPath>C:\Users\menno\MineralsWeb\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.Config.dll</HintPath>
+     </Reference>
+     <Reference Include="Sirenix.OdinInspector.Editor">
+     <HintPath>C:\Users\menno\MineralsWeb\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Plastic.Newtonsoft.Json">
      <HintPath>C:\Users\menno\MineralsWeb\Library\PackageCache\com.unity.collab-proxy@2.0.7\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
@@ -572,8 +575,17 @@
      <Reference Include="Unity.VisualScripting.IonicZip">
      <HintPath>C:\Users\menno\MineralsWeb\Library\PackageCache\com.unity.visualscripting@1.9.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
      </Reference>
+     <Reference Include="Sirenix.OdinInspector.Attributes">
+     <HintPath>C:\Users\menno\MineralsWeb\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
+     </Reference>
+     <Reference Include="Sirenix.Utilities">
+     <HintPath>C:\Users\menno\MineralsWeb\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
      <HintPath>C:\Users\menno\MineralsWeb\Library\PackageCache\com.unity.visualscripting@1.9.0\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="Sirenix.Utilities.Editor">
+     <HintPath>C:\Users\menno\MineralsWeb\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.TextureAssets">
      <HintPath>C:\Users\menno\MineralsWeb\Library\PackageCache\com.unity.visualscripting@1.9.0\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
@@ -583,24 +595,6 @@
      </Reference>
      <Reference Include="unityplastic">
      <HintPath>C:\Users\menno\MineralsWeb\Library\PackageCache\com.unity.collab-proxy@2.0.7\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
-     </Reference>
-     <Reference Include="Sirenix.OdinInspector.Attributes">
-     <HintPath>C:\Users\menno\MineralsWeb\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
-     </Reference>
-     <Reference Include="Sirenix.Serialization.Config">
-     <HintPath>C:\Users\menno\MineralsWeb\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.Config.dll</HintPath>
-     </Reference>
-     <Reference Include="Sirenix.Utilities.Editor">
-     <HintPath>C:\Users\menno\MineralsWeb\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Sirenix.Utilities">
-     <HintPath>C:\Users\menno\MineralsWeb\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.dll</HintPath>
-     </Reference>
-     <Reference Include="Sirenix.OdinInspector.Editor">
-     <HintPath>C:\Users\menno\MineralsWeb\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Sirenix.Serialization">
-     <HintPath>C:\Users\menno\MineralsWeb\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Android.Types">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.10f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>

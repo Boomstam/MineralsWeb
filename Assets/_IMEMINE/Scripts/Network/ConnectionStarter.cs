@@ -79,7 +79,6 @@ public class ConnectionStarter : MonoBehaviour
             if(connectionType == ConnectionType.TugboatClient)
             {
                 Debug.Log(ConnectionTypeHolder.IP);
-                // FindObjectOfType<TextMeshProUGUI>().text = ConnectionTypeHolder.ActiveServer;
                 // tugboat.SetClientAddress(ConnectionTypeHolder.ActiveServer);
                 tugboat.SetClientAddress(ConnectionTypeHolder.IP);
                 multipass.SetClientTransport<Tugboat>();

@@ -23,7 +23,7 @@ public static class Instances
             if (ConnectionTypeHolder.ConnectionType == ConnectionType.BayouClient)
                 return BuildType.WebGLClient;
             if(Application.isEditor)
-                return BuildType.NonWebGLClient;
+                return BuildType.OSCClient;
             if (ConnectionTypeHolder.ConnectionType == ConnectionType.TugboatClient)
                 return BuildType.OSCClient;
             throw new Exception($"Couldn't find build type for connection {ConnectionTypeHolder.ConnectionType}");

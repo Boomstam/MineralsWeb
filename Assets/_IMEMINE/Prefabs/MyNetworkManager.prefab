@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6893593651153929522}
   - component: {fileID: 583653667334047480}
   - component: {fileID: 133169486397266797}
+  - component: {fileID: 7779360327401676463}
   m_Layer: 0
   m_Name: MyNetworkManager
   m_TagString: Untagged
@@ -150,7 +151,7 @@ MonoBehaviour:
   _ipv6BindAddress: 
   _port: 7770
   _maximumClients: 4095
-  _clientAddress: 161.35.18.198
+  _clientAddress: 207.154.196.90
   _timeout: 15
 --- !u!114 &133169486397266797
 MonoBehaviour:
@@ -174,3 +175,18 @@ MonoBehaviour:
   _port: 7777
   _maximumClients: 2000
   _clientAddress: ce0fa1639e1245a2b854853b66aa3acc-studio-eu-west.playflow.dev
+--- !u!114 &7779360327401676463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850593830493798281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211a9f6ec51ddc14f908f5acc0cd0423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerPrefab: {fileID: 1569165947308864512, guid: 891a6ad640531f944b906c2df2d4c923, type: 3}
+  _addToDefaultScene: 1
+  Spawns: []

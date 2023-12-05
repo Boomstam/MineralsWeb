@@ -79,8 +79,8 @@
      <Compile Include="Assets\FishNet\CodeGenerating\cecil-0.11.4\Mono.Cecil\MemberReference.cs" />
      <Compile Include="Assets\FishNet\CodeGenerating\cecil-0.11.4\Mono.Cecil\FieldAttributes.cs" />
      <Compile Include="Assets\FishNet\CodeGenerating\cecil-0.11.4\Mono.Cecil.Cil\Code.cs" />
-     <Compile Include="Assets\FishNet\CodeGenerating\cecil-0.11.4\Mono.Cecil\ModuleDefinition.cs" />
      <Compile Include="Assets\FishNet\CodeGenerating\cecil-0.11.4\Mono.Cecil\PropertyReference.cs" />
+     <Compile Include="Assets\FishNet\CodeGenerating\cecil-0.11.4\Mono.Cecil\ModuleDefinition.cs" />
      <Compile Include="Assets\FishNet\CodeGenerating\cecil-0.11.4\Mono.Cecil.Cil\Instruction.cs" />
      <Compile Include="Assets\FishNet\CodeGenerating\cecil-0.11.4\Mono.Cecil\GenericParameter.cs" />
      <Compile Include="Assets\FishNet\CodeGenerating\cecil-0.11.4\Mono.Cecil.Cil\OpCodes.cs" />

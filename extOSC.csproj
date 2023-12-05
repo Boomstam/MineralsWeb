@@ -84,8 +84,8 @@
      <Compile Include="Assets\extOSC\Scripts\Components\Informers\OSCTransmitterInformerLong.cs" />
      <Compile Include="Assets\extOSC\Scripts\Core\Network\OSCReceiverBackend.cs" />
      <Compile Include="Assets\extOSC\Scripts\Core\Packers\OSCPackerImpulse.cs" />
-     <Compile Include="Assets\extOSC\Scripts\Components\Events\OSCReceiverEventQuaternion.cs" />
      <Compile Include="Assets\extOSC\Scripts\Core\Events\OSCEventDateTime.cs" />
+     <Compile Include="Assets\extOSC\Scripts\Components\Events\OSCReceiverEventQuaternion.cs" />
      <Compile Include="Assets\extOSC\Scripts\Core\Packers\OSCPackerBlob.cs" />
      <Compile Include="Assets\extOSC\Scripts\Core\OSCConverter.cs" />
      <Compile Include="Assets\extOSC\Scripts\Components\ReceiverReflection\OSCReceiverReflectionMidi.cs" />

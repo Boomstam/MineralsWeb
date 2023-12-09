@@ -50,8 +50,8 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 4464370488271210642}
   _networkObjectCache: {fileID: 4464370488271210642}
   numChapters: 5
-  chapterLength: 5
-  timeToMakeChoice: 2
+  chapterLength: 20
+  timeToMakeChoice: 10
   runningTime: 0
   currentChapterSyncVar: 0
 --- !u!114 &4464370488271210642
@@ -82,7 +82,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 11
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 1964978887
   <SceneId>k__BackingField: 0

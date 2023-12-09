@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -11,18 +13,39 @@ public class WebGLClientUI : MonoBehaviour
     [SerializeField] private Image connectionImage;
     [SerializeField] private TMP_InputField oscMessageInput;
     [SerializeField] private Button sendOSCButton;
+    [SerializeField] private Button[] choiceButtons;
     [SerializeField] private Color connectedColor;
     [SerializeField] private Color disconnectedColor;
-
+    [SerializeField] private RectTransform progressBar;
+    [SerializeField] private float maxProgressBarRight = 527;
+    
     public ReactiveProperty<string> oscMessage = new ReactiveProperty<string>();
+
+    public void Start()
+    {
+        sendOSCButton.onClick.AsObservable().Subscribe(_ => oscMessage.SetValueAndForceNotify(oscMessageInput.text));
+        
+        choiceButtons.ForEach((button, i) =>
+        {
+            button.onClick.AsObservable().Subscribe(_ => OnChoiceClick(i));
+        });
+    }
 
     public void SetConnection(bool connected)
     {
         connectionImage.color = connected ? connectedColor : disconnectedColor;
     }
 
-    public void Start()
+    private void OnChoiceClick(int choice)
     {
-        sendOSCButton.onClick.AsObservable().Subscribe(_ => oscMessage.SetValueAndForceNotify(oscMessageInput.text));
+        
+    }
+
+    [Button]
+    private void SetProgress(float percentage)
+    {
+        float right = (1 - percentage) * maxProgressBarRight;
+        
+        progressBar.SetRight(right);
     }
 }

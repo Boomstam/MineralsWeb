@@ -17,6 +17,11 @@ public class AudioManager : MonoBehaviour
         audioSource.clip = clip;
         audioSource.Play();
     }
+
+    public void StopPlayback()
+    {
+        audioSource.Stop();
+    }
 }
 
 public enum ClipType

@@ -55,12 +55,12 @@ public class MonitorUI : UIWithConnection
 
     public void UpdateChoices(int choice1, int choice2, int choice3, int choice4)
     {
-        int totalNumChoices = choice1 + choice2 + choice3 + choice4;
+        float totalNumChoices = choice1 + choice2 + choice3 + choice4;
         
-        int percentage1 = totalNumChoices == 0 ? 0 : Mathf.RoundToInt(choice1 / totalNumChoices * 100);
-        int percentage2 = totalNumChoices == 0 ? 0 : Mathf.RoundToInt(choice2 / totalNumChoices * 100);
-        int percentage3 = totalNumChoices == 0 ? 0 : Mathf.RoundToInt(choice3 / totalNumChoices * 100);
-        int percentage4 = totalNumChoices == 0 ? 0 : Mathf.RoundToInt(choice4 / totalNumChoices * 100);
+        float percentage1 = totalNumChoices == 0 ? 0 : choice1 / totalNumChoices * 100;
+        float percentage2 = totalNumChoices == 0 ? 0 : choice2 / totalNumChoices * 100;
+        float percentage3 = totalNumChoices == 0 ? 0 : choice3 / totalNumChoices * 100;
+        float percentage4 = totalNumChoices == 0 ? 0 : choice4 / totalNumChoices * 100;
         
         SetChoiceText(1, choice1, percentage1);
         SetChoiceText(2, choice2, percentage2);
@@ -68,7 +68,7 @@ public class MonitorUI : UIWithConnection
         SetChoiceText(4, choice4, percentage4);
     }
 
-    private void SetChoiceText(int choice, int numberOfChoices, int percentage)
+    private void SetChoiceText(int choice, int numberOfChoices, float percentage)
     {
         TextMeshProUGUI textComp;
         switch (choice)
@@ -88,7 +88,7 @@ public class MonitorUI : UIWithConnection
             default:
                 throw new Exception($"No text component for choice {choice}");
         }
-        Debug.Log($"choice {choice}, numberOfChoices {numberOfChoices}, percentage {percentage}, comp {textComp}");
+        // Debug.Log($"choice {choice}, numberOfChoices {numberOfChoices}, percentage {percentage}, comp {textComp}");
 
         textComp.text = $"Choice {choice}: {numberOfChoices}, {percentage}%";
     }

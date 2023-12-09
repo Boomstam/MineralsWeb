@@ -75,14 +75,25 @@ public class PerformanceManager : NetworkBehaviour
     public void StopPerformance()
     {
         StopPerformanceOnServer();
+        
+        StopPerformanceOnClients();
     }
-
+    
     [Server]
     private void StopPerformanceOnServer()
     {
         Debug.Log("StopPerformance");
 
         timeUpdater?.Dispose();
+    }
+    
+    [ObserversRpc]
+    private void StopPerformanceOnClients()
+    {
+        if (Instances.BuildType == BuildType.WebGLClient)
+        {
+            Instances.AudioManager.StopPlayback();
+        }
     }
 
     [ObserversRpc]
@@ -137,7 +148,7 @@ public class PerformanceManager : NetworkBehaviour
     {
         Debug.Log($"Received choice {choice} from client {connection.ClientId}");
 
-        choices[choice]++;
+        choices[choice - 1]++;
         
         SendChoicesToMonitor(choices[0], choices[1], choices[2], choices[3]);
     }

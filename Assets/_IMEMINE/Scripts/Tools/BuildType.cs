@@ -5,7 +5,7 @@ using UnityEngine;
 public enum BuildType
 {
     Server,
-    WebGLClient,
-    NonWebGLClient,
+    Monitor,
     OSCClient,
+    WebGLClient,
 }

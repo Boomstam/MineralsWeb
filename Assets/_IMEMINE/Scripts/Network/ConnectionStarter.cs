@@ -14,12 +14,7 @@ using UnityEngine;
 
 public class ConnectionStarter : MonoBehaviour
 {
-    public bool localDefaults;
-    public bool localServer;
-    public bool localWebGLClient;
-    public bool localOSCClient;
-    public bool localMonitor;
-
+    public bool runLocally;
     [SerializeField] private Multipass multipass;
     [SerializeField] private Tugboat tugboat;
     [SerializeField] private Bayou bayou;
@@ -31,42 +26,18 @@ public class ConnectionStarter : MonoBehaviour
 
     private void Awake()
     {
-        if (localDefaults)
+        if (runLocally)
         {
             Debug.Log($"Local default LOCAL connection");
-#if UNITY_EDITOR
-            if(ParrelSync.ClonesManager.IsClone() == false)
+            
+            if(Instances.BuildType == BuildType.Server)
             {
-                localServer = true;
-                
                 StartLocalServer();
             }
             else
             {
-                string cloneArgument = ParrelSync.ClonesManager.GetArgument();
-                
-                if(cloneArgument == "clone 0")
-                    localMonitor = true;
-                else if(cloneArgument == "clone 1")
-                    localOSCClient = true;
-                else
-                    localWebGLClient = true;
-                
                 StartLocalClient();
             }
-#endif
-            return;
-        }
-        if (localServer || localWebGLClient || localOSCClient || localMonitor)
-        {
-            if (localServer) 
-                StartLocalServer();
-            else
-                StartLocalClient();
-            
-            Debug.Log($"Start LOCAL connection, local server ({localServer}) or local webGLClient ({localWebGLClient} " +
-                      $"or local OSCClient ({localOSCClient}) or monitor {localMonitor}");
-            
             return;
         }
 

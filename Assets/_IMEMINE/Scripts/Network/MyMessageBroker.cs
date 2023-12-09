@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FishNet;
 using FishNet.Object;
+using Sirenix.Utilities;
 using UniRx;
 using UnityEngine;
 
@@ -13,13 +14,12 @@ public class MyMessageBroker : NetworkBehaviour
         
         Debug.Log($"On start network on MyMessageBroker, isServer: {InstanceFinder.IsServer}");
         
+        FindObjectsOfType<UIWithConnection>().ForEach(uiWithConnection => uiWithConnection.SetConnection(true));
+        
         if(Instances.BuildType == BuildType.WebGLClient)
         {
-            Instances.WebGLClientUI.SetConnection(true);
             Instances.WebGLClientUI.oscMessage.Subscribe(message => SendMessageToBuildType(BuildType.OSCClient, message));
         }
-        if(Instances.BuildType == BuildType.OSCClient)
-            Instances.OSCClientUI.SetConnection(true);
     }
 
     [ServerRpc (RequireOwnership = false)]

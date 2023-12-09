@@ -9,14 +9,15 @@ using UnityEngine.EventSystems;
 
 public class BuildTypeManager : MonoBehaviour
 {
-    public bool monitor;
-    
     [SerializeField] private Camera cameraPrefab;
     [SerializeField] private EventSystem eventSystemPrefab;
     [SerializeField] private MyMessageBroker myMessageBrokerPrefab;
+    [SerializeField] private PerformanceManager performanceManagerPrefab;
     [SerializeField] private OSCManager oscManagerPrefab;
     [SerializeField] private WebGLClientUI webGLClientUI;
     [SerializeField] private OSCClientUI oscClientUI;
+    [SerializeField] private MonitorUI monitorUICanvas;
+    [SerializeField] private AudioManager audioManager;
     
     private bool hasConnected;
     
@@ -29,7 +30,7 @@ public class BuildTypeManager : MonoBehaviour
             OnNetworkStarted();
         }
     }
-
+    
     private void OnNetworkStarted()
     {
         Debug.Log($"Instantiate Prefabs, build type {Instances.BuildType}");
@@ -38,6 +39,8 @@ public class BuildTypeManager : MonoBehaviour
         {
             NetworkObject myMessageBroker = Instantiate(myMessageBrokerPrefab).GetComponent<NetworkObject>();
             InstanceFinder.ServerManager.Spawn(myMessageBroker);
+            NetworkObject performanceManager = Instantiate(performanceManagerPrefab).GetComponent<NetworkObject>();
+            InstanceFinder.ServerManager.Spawn(performanceManager);
         }
         else
         {
@@ -45,16 +48,15 @@ public class BuildTypeManager : MonoBehaviour
             Instantiate(eventSystemPrefab);
         }
 
-        if (monitor)
+        if (Instances.BuildType == BuildType.Monitor)
         {
-            Debug.Log($"Run as MONITOR");
-            
-            
-            return;
+            Instantiate(monitorUICanvas);
         }
-
         if (Instances.BuildType == BuildType.WebGLClient)
+        {
             Instantiate(webGLClientUI);
+            Instantiate(audioManager);
+        }
         if (Instances.BuildType == BuildType.OSCClient)
         {
             Instantiate(oscManagerPrefab);

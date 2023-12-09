@@ -11,28 +11,37 @@ public static class Instances
     {
         get
         {
+#if UNITY_EDITOR
             if (LocalServer)
                 return BuildType.Server;
-            if (LocalWebGLClient)
-                return BuildType.WebGLClient;
+            if (LocalMonitor)
+                return BuildType.Monitor;
             if (LocalOSCClient)
                 return BuildType.OSCClient;
-            
+            if (LocalWebGLClient)
+                return BuildType.WebGLClient;
+#endif
             if (ConnectionTypeHolder.ConnectionType == ConnectionType.Host)
                 return BuildType.Server;
-            if (ConnectionTypeHolder.ConnectionType == ConnectionType.BayouClient)
-                return BuildType.WebGLClient;
             if(Application.isEditor)
-                return BuildType.WebGLClient;
+                return BuildType.Monitor;
             if (ConnectionTypeHolder.ConnectionType == ConnectionType.TugboatClient)
                 return BuildType.OSCClient;
+            if (ConnectionTypeHolder.ConnectionType == ConnectionType.BayouClient)
+                return BuildType.WebGLClient;
             throw new Exception($"Couldn't find build type for connection {ConnectionTypeHolder.ConnectionType}");
         }
     }
 
-    public static bool LocalServer => ConnectionStarter.localServer;
-    public static bool LocalWebGLClient => ConnectionStarter.localWebGLClient;
-    public static bool LocalOSCClient => ConnectionStarter.localOSCClient;
+#if UNITY_EDITOR
+    private static bool LocalServer => ConnectionStarter.runLocally && (ParrelSync.ClonesManager.IsClone() == false);
+    private static bool LocalMonitor => ConnectionStarter.runLocally && ParrelSync.ClonesManager.IsClone() 
+                                                                    && ParrelSync.ClonesManager.GetArgument() == "clone 0";
+    private static bool LocalOSCClient => ConnectionStarter.runLocally && ParrelSync.ClonesManager.IsClone() 
+                                                                      && ParrelSync.ClonesManager.GetArgument() == "clone 1";
+    private static bool LocalWebGLClient => ConnectionStarter.runLocally && ParrelSync.ClonesManager.IsClone() &&
+                                           (ParrelSync.ClonesManager.GetArgument() != "clone 0" && ParrelSync.ClonesManager.GetArgument() != "clone 1");
+#endif
     
     private static ConnectionStarter _connectionStarter;
     private static WebGLClientUI _webGLClientUI;
@@ -40,6 +49,7 @@ public static class Instances
     private static MonitorUI _monitorUI;
     private static PerformanceManager _performanceManager;
     private static OSCManager _oscManager;
+    private static AudioManager _audioManager;
     private static MyMessageBroker _myMessageBroker;
 
     public static ConnectionStarter ConnectionStarter {
@@ -117,6 +127,19 @@ public static class Instances
                 throw new System.Exception($"Couldn't find OSCManager!");
             
             return _oscManager;
+        }
+    }
+    
+    public static AudioManager AudioManager {
+        get
+        {
+            if (_audioManager == null)
+                _audioManager = Object.FindObjectOfType<AudioManager>();
+
+            if (_audioManager == null)
+                throw new System.Exception($"Couldn't find AudioManager!");
+            
+            return _audioManager;
         }
     }
     

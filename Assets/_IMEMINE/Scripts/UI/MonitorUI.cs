@@ -18,11 +18,19 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI choice2Text;
     [SerializeField] private TextMeshProUGUI choice3Text;
     [SerializeField] private TextMeshProUGUI choice4Text;
+    [SerializeField] private TMP_InputField chapterLenghtInput;
 
     private void Start()
     {
         startButton.onClick.AsObservable().Subscribe(_ => Instances.PerformanceManager.StartPerformance());
         stopButton.onClick.AsObservable().Subscribe(_ => Instances.PerformanceManager.StopPerformance());
+
+        chapterLenghtInput.onSubmit.AsObservable().Subscribe(text =>
+        {
+            int val = int.Parse(text);
+            Instances.PerformanceManager.SetChapterLength(val);
+            Debug.Log($"Set chapter length to {val}");
+        });
     }
 
     public void SetChapter(int chapter)
@@ -32,7 +40,7 @@ public class MonitorUI : UIWithConnection
     
     public void SetTime(float time)
     {
-        timeText.text = $"Running time: {time}";
+        timeText.text = $"Running time: {(int)time}";
     }
     
     public void SetOSCConnections(int connections)
@@ -45,7 +53,22 @@ public class MonitorUI : UIWithConnection
         clientConnectionsText.text = $"Client connections: {connections}";
     }
 
-    public void SetChoiceText(int choice, int numberOfChoices, int percentage)
+    public void UpdateChoices(int choice1, int choice2, int choice3, int choice4)
+    {
+        int totalNumChoices = choice1 + choice2 + choice3 + choice4;
+        
+        int percentage1 = totalNumChoices == 0 ? 0 : Mathf.RoundToInt(choice1 / totalNumChoices * 100);
+        int percentage2 = totalNumChoices == 0 ? 0 : Mathf.RoundToInt(choice2 / totalNumChoices * 100);
+        int percentage3 = totalNumChoices == 0 ? 0 : Mathf.RoundToInt(choice3 / totalNumChoices * 100);
+        int percentage4 = totalNumChoices == 0 ? 0 : Mathf.RoundToInt(choice4 / totalNumChoices * 100);
+        
+        SetChoiceText(1, choice1, percentage1);
+        SetChoiceText(2, choice2, percentage2);
+        SetChoiceText(3, choice3, percentage3);
+        SetChoiceText(4, choice4, percentage4);
+    }
+
+    private void SetChoiceText(int choice, int numberOfChoices, int percentage)
     {
         TextMeshProUGUI textComp;
         switch (choice)
@@ -65,6 +88,7 @@ public class MonitorUI : UIWithConnection
             default:
                 throw new Exception($"No text component for choice {choice}");
         }
+        Debug.Log($"choice {choice}, numberOfChoices {numberOfChoices}, percentage {percentage}, comp {textComp}");
 
         textComp.text = $"Choice {choice}: {numberOfChoices}, {percentage}%";
     }

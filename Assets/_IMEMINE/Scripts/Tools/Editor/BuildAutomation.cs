@@ -48,13 +48,9 @@ public class BuildAutomation : Editor
     [MenuItem("Minerals/Build")]
     private static void Build()
     {
-        if (connectionStarter.localDefaults || connectionStarter.localServer || 
-            connectionStarter.localWebGLClient || connectionStarter.localOSCClient || 
-            connectionStarter.localMonitor || buildTypeManager.monitor)
+        if (connectionStarter.runLocally)
         {
-            Debug.LogError($"Can't build, local defaults: {connectionStarter.localDefaults} or local server: {connectionStarter.localServer}" +
-                           $" or local OSCClient:{connectionStarter.localOSCClient} or local webGLClients: {connectionStarter.localWebGLClient}" +
-                           $" or local monitor: {connectionStarter.localMonitor} or monitor: {buildTypeManager.monitor}");
+            Debug.LogError($"Can't build, runLocally on");
             return;
         }
         // if (buildTypeSceneNames[buildType] != SceneManager.GetActiveScene().name)
@@ -341,7 +337,7 @@ public static class ConnectionTypeHolder
         else if (buildTarget is BuildTarget.StandaloneWindows64)
             return BuildType.OSCClient;
         else
-            return BuildType.NonWebGLClient;
+            return BuildType.Monitor;
     }
     
     private static ConnectionType CurrentConnectionType()

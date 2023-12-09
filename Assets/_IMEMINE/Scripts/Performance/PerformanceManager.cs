@@ -128,6 +128,7 @@ public class PerformanceManager : NetworkBehaviour
         ClipType clipType = (ClipType)chapter;
 
         Instances.AudioManager.PlayClip(clipType);
+        Instances.AudioManager.ResetAllFx();
 
         localChoice = -1;
 
@@ -139,6 +140,15 @@ public class PerformanceManager : NetworkBehaviour
     public void MakeChoice(int choice)
     {
         localChoice = choice;
+        
+        if(choice == 1)
+            Instances.AudioManager.EnableReverb(AudioReverbPreset.User);
+        if(choice == 2)
+            Instances.AudioManager.EnableChorus();
+        if(choice == 3)
+            Instances.AudioManager.EnableLowPassFilter(1000);
+        if(choice == 4)
+            Instances.AudioManager.EnableDistortion(0.666f);
 
         SendChoiceToServer(choice);
     }

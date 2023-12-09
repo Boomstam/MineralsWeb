@@ -171,6 +171,7 @@ MonoBehaviour:
   eventSystemPrefab: {fileID: 7633927569852759257, guid: 333bbef7f9d36c545800ded857e87dda, type: 3}
   myMessageBrokerPrefab: {fileID: 3610861767618306469, guid: b61c795edc9adb542a9b6450629467a3, type: 3}
   performanceManagerPrefab: {fileID: 8869923398169618663, guid: 95c42fb4e423eef48a861f26c4b63559, type: 3}
+  networkOscManagerPrefab: {fileID: 8036868511758360702, guid: 5df595126a55a0b4590d2390dde4042b, type: 3}
   oscManagerPrefab: {fileID: 9003107646886181891, guid: 5903ca54cd665ea4ea440870ff1c2f8d, type: 3}
   webGLClientUI: {fileID: 8019010738465949936, guid: 884ee8bfcb1482a4389328d819edba97, type: 3}
   oscClientUI: {fileID: 8711170307111796161, guid: 89fa47845c1113a4982290d415896c00, type: 3}

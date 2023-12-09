@@ -48,6 +48,7 @@ public static class Instances
     private static OSCClientUI _oscClientUI;
     private static MonitorUI _monitorUI;
     private static PerformanceManager _performanceManager;
+    private static NetworkOSCManager _networkOSCManager;
     private static OSCManager _oscManager;
     private static AudioManager _audioManager;
     private static MyMessageBroker _myMessageBroker;
@@ -109,11 +110,24 @@ public static class Instances
         {
             if (_performanceManager == null)
                 _performanceManager = Object.FindObjectOfType<PerformanceManager>();
-
+            
             if (_performanceManager == null)
                 throw new System.Exception($"Couldn't find PerformanceManager!");
             
             return _performanceManager;
+        }
+    }
+    
+    public static NetworkOSCManager NetworkOSCManager {
+        get
+        {
+            if (_networkOSCManager == null)
+                _networkOSCManager = Object.FindObjectOfType<NetworkOSCManager>();
+            
+            if (_networkOSCManager == null)
+                throw new System.Exception($"Couldn't find NetworkOSCManager!");
+            
+            return _networkOSCManager;
         }
     }
     

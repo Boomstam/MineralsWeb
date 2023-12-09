@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &672533201846640574
+--- !u!1 &3482411375651211411
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6783240771318696058}
-  - component: {fileID: 8869923398169618663}
-  - component: {fileID: 4464370488271210642}
-  - component: {fileID: 8279620832382993836}
+  - component: {fileID: 2341095721250168012}
+  - component: {fileID: 3610861767618306469}
+  - component: {fileID: 3902409183392003468}
+  - component: {fileID: -7843168969411248749}
   m_Layer: 0
-  m_Name: PerformanceManager
+  m_Name: MyMessageBroker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6783240771318696058
+--- !u!4 &2341095721250168012
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 672533201846640574}
+  m_GameObject: {fileID: 3482411375651211411}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -34,32 +34,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8869923398169618663
+--- !u!114 &3610861767618306469
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 672533201846640574}
+  m_GameObject: {fileID: 3482411375651211411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2fd0c7e4723a134da1a9bbadc1939a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 679834de50f423345b152c874d445100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 4464370488271210642}
-  _networkObjectCache: {fileID: 4464370488271210642}
-  numChapters: 5
-  chapterLength: 5
-  timeToMakeChoice: 2
-  runningTime: 0
---- !u!114 &4464370488271210642
+  _addedNetworkObject: {fileID: 3902409183392003468}
+  _networkObjectCache: {fileID: 3902409183392003468}
+--- !u!114 &3902409183392003468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 672533201846640574}
+  m_GameObject: {fileID: 3482411375651211411}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
@@ -69,7 +65,7 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
-  - {fileID: 8869923398169618663}
+  - {fileID: 3610861767618306469}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -81,18 +77,18 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 8
   <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 1964978887
+  _scenePathHash: 2212118100
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 184750535579587297
---- !u!114 &8279620832382993836
+  <AssetPathHash>k__BackingField: 15066786747295006620
+--- !u!114 &-7843168969411248749
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 672533201846640574}
+  m_GameObject: {fileID: 3482411375651211411}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}

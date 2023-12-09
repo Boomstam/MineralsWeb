@@ -122,18 +122,22 @@ public class PerformanceManager : NetworkBehaviour
     {
         Debug.Log($"Next chapter on clients: {chapter}");
 
-        if (Instances.BuildType != BuildType.WebGLClient)
-            return;
+        if (Instances.BuildType == BuildType.WebGLClient)
+        {
+            ClipType clipType = (ClipType)chapter;
 
-        ClipType clipType = (ClipType)chapter;
+            Instances.AudioManager.PlayClip(clipType);
+            Instances.AudioManager.ResetAllFx();
 
-        Instances.AudioManager.PlayClip(clipType);
-        Instances.AudioManager.ResetAllFx();
+            localChoice = -1;
 
-        localChoice = -1;
-
-        Instances.WebGLClientUI.ToggleChoiceButtons(true);
-        Instances.WebGLClientUI.SetChapterText(chapter);
+            Instances.WebGLClientUI.ToggleChoiceButtons(true);
+            Instances.WebGLClientUI.SetChapterText(chapter);
+        }
+        if (Instances.BuildType == BuildType.OSCClient)
+        {
+            Instances.NetworkOSCManager.OnNextChapter(chapter);
+        }
     }
 
     [Client]
@@ -160,16 +164,20 @@ public class PerformanceManager : NetworkBehaviour
 
         choices[choice - 1]++;
         
-        SendChoicesToMonitor(choices[0], choices[1], choices[2], choices[3]);
+        SendChoicesToClients(choices[0], choices[1], choices[2], choices[3]);
     }
 
     [ObserversRpc]
-    private void SendChoicesToMonitor(int choice1, int choice2, int choice3, int choice4)
+    private void SendChoicesToClients(int choice1, int choice2, int choice3, int choice4)
     {
-        if (Instances.BuildType != BuildType.Monitor)
-            return;
-        
-        Instances.MonitorUI.UpdateChoices(choice1, choice2, choice3, choice4);
+        if (Instances.BuildType == BuildType.Monitor)
+        {
+            Instances.MonitorUI.UpdateChoices(choice1, choice2, choice3, choice4);
+        }
+        if (Instances.BuildType == BuildType.OSCClient)
+        {
+            Instances.NetworkOSCManager.OnChoicesChanged(choice1, choice2, choice3, choice4);
+        }
     }
     
     [Server]
@@ -177,7 +185,7 @@ public class PerformanceManager : NetworkBehaviour
     {
         choices = new[] { 0, 0, 0, 0 };
 
-        SendChoicesToMonitor(choices[0], choices[1], choices[2], choices[3]);
+        SendChoicesToClients(choices[0], choices[1], choices[2], choices[3]);
     }
 
     [ServerRpc(RequireOwnership = false)]

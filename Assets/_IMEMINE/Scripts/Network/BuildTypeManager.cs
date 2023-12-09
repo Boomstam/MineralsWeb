@@ -13,6 +13,7 @@ public class BuildTypeManager : MonoBehaviour
     [SerializeField] private EventSystem eventSystemPrefab;
     [SerializeField] private MyMessageBroker myMessageBrokerPrefab;
     [SerializeField] private PerformanceManager performanceManagerPrefab;
+    [SerializeField] private NetworkOSCManager networkOscManagerPrefab;
     [SerializeField] private OSCManager oscManagerPrefab;
     [SerializeField] private WebGLClientUI webGLClientUI;
     [SerializeField] private OSCClientUI oscClientUI;
@@ -41,6 +42,8 @@ public class BuildTypeManager : MonoBehaviour
             InstanceFinder.ServerManager.Spawn(myMessageBroker);
             NetworkObject performanceManager = Instantiate(performanceManagerPrefab).GetComponent<NetworkObject>();
             InstanceFinder.ServerManager.Spawn(performanceManager);
+            NetworkObject networkOSCManager = Instantiate(networkOscManagerPrefab).GetComponent<NetworkObject>();
+            InstanceFinder.ServerManager.Spawn(networkOSCManager);
         }
         else
         {

@@ -18,6 +18,7 @@ public class ConnectionStarter : MonoBehaviour
     public bool localServer;
     public bool localWebGLClient;
     public bool localOSCClient;
+    public bool localMonitor;
 
     [SerializeField] private Multipass multipass;
     [SerializeField] private Tugboat tugboat;
@@ -45,6 +46,8 @@ public class ConnectionStarter : MonoBehaviour
                 string cloneArgument = ParrelSync.ClonesManager.GetArgument();
                 
                 if(cloneArgument == "clone 0")
+                    localMonitor = true;
+                else if(cloneArgument == "clone 1")
                     localOSCClient = true;
                 else
                     localWebGLClient = true;
@@ -54,17 +57,19 @@ public class ConnectionStarter : MonoBehaviour
 #endif
             return;
         }
-        if (localServer || localWebGLClient || localOSCClient)
+        if (localServer || localWebGLClient || localOSCClient || localMonitor)
         {
-            if (localServer) StartLocalServer();
-            if (localWebGLClient) StartLocalClient();
-            if (localOSCClient) StartLocalClient();
+            if (localServer) 
+                StartLocalServer();
+            else
+                StartLocalClient();
             
-            Debug.Log($"Start LOCAL connection, local server ({localServer}) or local webGLClient ({localWebGLClient} or local OSCClient ({localOSCClient})");
+            Debug.Log($"Start LOCAL connection, local server ({localServer}) or local webGLClient ({localWebGLClient} " +
+                      $"or local OSCClient ({localOSCClient}) or monitor {localMonitor}");
             
             return;
         }
-        
+
         ConnectionType connectionType = ConnectionTypeHolder.ConnectionType;
         Debug.Log($"Awake with connection type {connectionType}");
 

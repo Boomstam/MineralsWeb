@@ -32,6 +32,7 @@ using UnityEngine.SceneManagement;
 public class BuildAutomation : Editor
 {
     private static ConnectionStarter connectionStarter => FindObjectOfType<ConnectionStarter>();
+    private static BuildTypeManager buildTypeManager => FindObjectOfType<BuildTypeManager>();
     private static Bayou bayou => FindObjectOfType<Bayou>();
     private static Tugboat tugboat => FindObjectOfType<Tugboat>();
     private static BuildType buildType => BuildTypeFromBuildTarget();
@@ -48,10 +49,12 @@ public class BuildAutomation : Editor
     private static void Build()
     {
         if (connectionStarter.localDefaults || connectionStarter.localServer || 
-            connectionStarter.localWebGLClient || connectionStarter.localOSCClient)
+            connectionStarter.localWebGLClient || connectionStarter.localOSCClient || 
+            connectionStarter.localMonitor || buildTypeManager.monitor)
         {
             Debug.LogError($"Can't build, local defaults: {connectionStarter.localDefaults} or local server: {connectionStarter.localServer}" +
-                           $"or local OSCClient:{connectionStarter.localOSCClient} or local webGLClients: {connectionStarter.localWebGLClient}");
+                           $" or local OSCClient:{connectionStarter.localOSCClient} or local webGLClients: {connectionStarter.localWebGLClient}" +
+                           $" or local monitor: {connectionStarter.localMonitor} or monitor: {buildTypeManager.monitor}");
             return;
         }
         // if (buildTypeSceneNames[buildType] != SceneManager.GetActiveScene().name)

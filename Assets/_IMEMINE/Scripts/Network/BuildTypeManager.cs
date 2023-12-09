@@ -9,13 +9,15 @@ using UnityEngine.EventSystems;
 
 public class BuildTypeManager : MonoBehaviour
 {
+    public bool monitor;
+    
     [SerializeField] private Camera cameraPrefab;
     [SerializeField] private EventSystem eventSystemPrefab;
     [SerializeField] private MyMessageBroker myMessageBrokerPrefab;
     [SerializeField] private OSCManager oscManagerPrefab;
     [SerializeField] private WebGLClientUI webGLClientUI;
     [SerializeField] private OSCClientUI oscClientUI;
-
+    
     private bool hasConnected;
     
     void Update()
@@ -42,6 +44,15 @@ public class BuildTypeManager : MonoBehaviour
             Instantiate(cameraPrefab);
             Instantiate(eventSystemPrefab);
         }
+
+        if (monitor)
+        {
+            Debug.Log($"Run as MONITOR");
+            
+            
+            return;
+        }
+
         if (Instances.BuildType == BuildType.WebGLClient)
             Instantiate(webGLClientUI);
         if (Instances.BuildType == BuildType.OSCClient)

@@ -37,6 +37,8 @@ public static class Instances
     private static ConnectionStarter _connectionStarter;
     private static WebGLClientUI _webGLClientUI;
     private static OSCClientUI _oscClientUI;
+    private static MonitorUI _monitorUI;
+    private static PerformanceManager _performanceManager;
     private static OSCManager _oscManager;
     private static MyMessageBroker _myMessageBroker;
 
@@ -76,6 +78,32 @@ public static class Instances
                 throw new System.Exception($"Couldn't find OSCClientUI!");
             
             return _oscClientUI;
+        }
+    }
+    
+    public static MonitorUI MonitorUI {
+        get
+        {
+            if (_monitorUI == null)
+                _monitorUI = Object.FindObjectOfType<MonitorUI>();
+
+            if (_monitorUI == null)
+                throw new System.Exception($"Couldn't find MonitorUI!");
+            
+            return _monitorUI;
+        }
+    }
+    
+    public static PerformanceManager PerformanceManager {
+        get
+        {
+            if (_performanceManager == null)
+                _performanceManager = Object.FindObjectOfType<PerformanceManager>();
+
+            if (_performanceManager == null)
+                throw new System.Exception($"Couldn't find PerformanceManager!");
+            
+            return _performanceManager;
         }
     }
     

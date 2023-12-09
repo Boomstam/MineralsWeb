@@ -8,14 +8,11 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WebGLClientUI : MonoBehaviour
+public class WebGLClientUI : UIWithConnection
 {
-    [SerializeField] private Image connectionImage;
     [SerializeField] private TMP_InputField oscMessageInput;
     [SerializeField] private Button sendOSCButton;
     [SerializeField] private Button[] choiceButtons;
-    [SerializeField] private Color connectedColor;
-    [SerializeField] private Color disconnectedColor;
     [SerializeField] private RectTransform progressBar;
     [SerializeField] private float maxProgressBarRight = 527;
     
@@ -29,11 +26,6 @@ public class WebGLClientUI : MonoBehaviour
         {
             button.onClick.AsObservable().Subscribe(_ => OnChoiceClick(i));
         });
-    }
-
-    public void SetConnection(bool connected)
-    {
-        connectionImage.color = connected ? connectedColor : disconnectedColor;
     }
 
     private void OnChoiceClick(int choice)

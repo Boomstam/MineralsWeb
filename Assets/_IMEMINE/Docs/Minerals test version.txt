@@ -1,0 +1,9 @@
+- start performance on server
+- show timings on clients
+- make choice on client each chapter
+- play different track / track differently according to choice
+- send chapter to touchdesigner
+
+- nice UI
+
+- score app that shows image

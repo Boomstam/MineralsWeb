@@ -69,19 +69,19 @@ public class WebGLClientUI : UIWithConnection
         contentText.text = text;
     }
 
-    public void ToggleChoiceButtons(bool showChoiceButtons)
+    public void ToggleChoiceButtons(bool showChoiceButtons, int chapter = -1)
     {
         choiceButtons.ForEach((button, i) =>
         {
             button.gameObject.SetActive(showChoiceButtons);
             
-            if(InstanceFinder.IsOffline == false)
+            if(InstanceFinder.IsOffline == false && chapter != -1)
             {
                 // The current chapter currentChapterSyncVar is not updated here yet when coming from an OnNextChapter call.
                 // That's why the values are 1 less than they should be.
-                if (Instances.PerformanceManager.currentChapterSyncVar == 0 && i > 1)
+                if (chapter == 1 && i > 1)
                     button.gameObject.SetActive(false);
-                if (Instances.PerformanceManager.currentChapterSyncVar == 1 && i > 2)
+                if (chapter == 2 && i > 2)
                     button.gameObject.SetActive(false);
             }
         });

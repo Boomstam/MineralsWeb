@@ -131,7 +131,7 @@ public class PerformanceManager : NetworkBehaviour
 
             localChoice = -1;
 
-            Instances.WebGLClientUI.ToggleChoiceButtons(true);
+            Instances.WebGLClientUI.ToggleChoiceButtons(true, chapter);
             Instances.WebGLClientUI.SetChapterText(chapter);
         }
         if (Instances.BuildType == BuildType.OSCClient)

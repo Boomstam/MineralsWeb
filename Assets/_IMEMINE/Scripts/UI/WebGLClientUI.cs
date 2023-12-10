@@ -43,7 +43,8 @@ public class WebGLClientUI : UIWithConnection
         Instances.PerformanceManager.MakeChoice(choice);
         
         SetContentText($"You have chosen {choice}.{System.Environment.NewLine}" +
-                       $"Enjoy this chapter!");
+                       $"Enjoy the rest of this chapter!");
+        SetStatusText($"Choice made");
     }
     
     [Button]

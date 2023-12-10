@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FishNet;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -32,7 +33,7 @@ public class MonitorUI : UIWithConnection
             Debug.Log($"Set chapter length to {val}");
         });
     }
-
+    
     public void SetChapter(int chapter)
     {
         chapterText.text = $"Chapter: {chapter}";

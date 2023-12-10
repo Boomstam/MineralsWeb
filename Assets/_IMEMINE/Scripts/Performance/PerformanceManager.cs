@@ -12,12 +12,13 @@ public class PerformanceManager : NetworkBehaviour
 {
     [SerializeField] private int numChapters;
     [SerializeField] private float chapterLength;
-    [SerializeField] private float timeToMakeChoice;
+    [SerializeField] private int timeToMakeChoice;
 
     [SyncVar, ReadOnly] public float runningTime;
     [SyncVar, ReadOnly] public int currentChapterSyncVar;
 
     private IDisposable timeUpdater;
+    private IDisposable choiceCountdown;
 
     private float serverStartTime = 0;
 
@@ -33,6 +34,8 @@ public class PerformanceManager : NetworkBehaviour
 
         serverStartTime = Time.time;
 
+        choiceCountdown?.Dispose();
+        
         timeUpdater?.Dispose();
         timeUpdater = Observable.EveryUpdate().Subscribe(_ => OnTimeUpdate());
 
@@ -51,9 +54,10 @@ public class PerformanceManager : NetworkBehaviour
         if (Instances.BuildType == BuildType.WebGLClient)
         {
             Instances.WebGLClientUI.ToggleChoiceButtons(true);
+            Instances.WebGLClientUI.SetStatusText($"Welcome to Minerals");
         }
     }
-
+    
     [Server]
     private void OnTimeUpdate()
     {
@@ -85,6 +89,7 @@ public class PerformanceManager : NetworkBehaviour
         Debug.Log("StopPerformance");
 
         timeUpdater?.Dispose();
+        choiceCountdown?.Dispose();
     }
     
     [ObserversRpc]
@@ -133,11 +138,29 @@ public class PerformanceManager : NetworkBehaviour
 
             Instances.WebGLClientUI.ToggleChoiceButtons(true, chapter);
             Instances.WebGLClientUI.SetChapterText(chapter);
+            Instances.WebGLClientUI.SetStatusText($"Make your choice for this chapter");
+
+            choiceCountdown?.Dispose();
+            choiceCountdown = Observable.FromCoroutine(DoChoiceCountdown).Subscribe();
         }
         if (Instances.BuildType == BuildType.OSCClient)
         {
             Instances.NetworkOSCManager.OnNextChapter(chapter);
         }
+    }
+
+    private IEnumerator DoChoiceCountdown()
+    {
+        for (int i = 0; i < timeToMakeChoice; i++)
+        {
+            int timeLeft = timeToMakeChoice - i;
+            Instances.WebGLClientUI.SetStatusText($"Make your choice in {timeLeft} seconds");
+            
+            yield return new WaitForSeconds(1);
+        }
+        Instances.WebGLClientUI.SetStatusText($"No choice made");
+        Instances.WebGLClientUI.ToggleChoiceButtons(false);
+        Instances.WebGLClientUI.SetContentText($"Enjoy the rest of this chapter");
     }
 
     [Client]

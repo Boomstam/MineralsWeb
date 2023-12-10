@@ -50,8 +50,8 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 4464370488271210642}
   _networkObjectCache: {fileID: 4464370488271210642}
   numChapters: 5
-  chapterLength: 20
-  timeToMakeChoice: 10
+  chapterLength: 40
+  timeToMakeChoice: 20
   runningTime: 0
   currentChapterSyncVar: 0
 --- !u!114 &4464370488271210642

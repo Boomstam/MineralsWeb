@@ -166,6 +166,8 @@ public class PerformanceManager : NetworkBehaviour
     [Client]
     public void MakeChoice(int choice)
     {
+        choiceCountdown?.Dispose();
+        
         localChoice = choice;
         
         if(choice == 1)

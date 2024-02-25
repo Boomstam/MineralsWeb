@@ -47,6 +47,7 @@ public static class Instances
     private static WebGLClientUI _webGLClientUI;
     private static OSCClientUI _oscClientUI;
     private static MonitorUI _monitorUI;
+    private static NetworkConnectionManager _networkConnectionManager;
     private static PerformanceManager _performanceManager;
     private static NetworkOSCManager _networkOSCManager;
     private static OSCManager _oscManager;
@@ -102,6 +103,19 @@ public static class Instances
                 throw new System.Exception($"Couldn't find MonitorUI!");
             
             return _monitorUI;
+        }
+    }
+    
+    public static NetworkConnectionManager NetworkConnectionManager {
+        get
+        {
+            if (_networkConnectionManager == null)
+                _networkConnectionManager = Object.FindObjectOfType<NetworkConnectionManager>();
+            
+            if (_networkConnectionManager == null)
+                throw new System.Exception($"Couldn't find NetworkConnectionManager!");
+            
+            return _networkConnectionManager;
         }
     }
     

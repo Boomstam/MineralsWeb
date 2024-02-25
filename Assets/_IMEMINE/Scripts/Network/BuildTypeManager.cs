@@ -11,6 +11,7 @@ public class BuildTypeManager : MonoBehaviour
 {
     [SerializeField] private Camera cameraPrefab;
     [SerializeField] private EventSystem eventSystemPrefab;
+    [SerializeField] private NetworkConnectionManager networkConnectionManagerPrefab;
     [SerializeField] private MyMessageBroker myMessageBrokerPrefab;
     [SerializeField] private PerformanceManager performanceManagerPrefab;
     [SerializeField] private NetworkOSCManager networkOscManagerPrefab;
@@ -38,6 +39,8 @@ public class BuildTypeManager : MonoBehaviour
         
         if (Instances.BuildType == BuildType.Server)
         {
+            NetworkObject networkConnectionManger = Instantiate(networkConnectionManagerPrefab).GetComponent<NetworkObject>();
+            InstanceFinder.ServerManager.Spawn(networkConnectionManger);
             NetworkObject myMessageBroker = Instantiate(myMessageBrokerPrefab).GetComponent<NetworkObject>();
             InstanceFinder.ServerManager.Spawn(myMessageBroker);
             NetworkObject performanceManager = Instantiate(performanceManagerPrefab).GetComponent<NetworkObject>();

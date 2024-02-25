@@ -63,6 +63,8 @@ public class NetworkConnectionManager : NetworkBehaviour
     {
         if(Instances.BuildType != BuildType.Monitor)
             return;
+        if(Instances.IsScoreApp)
+            return;
         
         Instances.MonitorUI.SetOSCConnections(oscConnections);
     }
@@ -71,6 +73,8 @@ public class NetworkConnectionManager : NetworkBehaviour
     private void SendClientConnectionsToMonitor(int clientConnections)
     {
         if(Instances.BuildType != BuildType.Monitor)
+            return;
+        if(Instances.IsScoreApp)
             return;
         
         Instances.MonitorUI.SetClientConnections(clientConnections);

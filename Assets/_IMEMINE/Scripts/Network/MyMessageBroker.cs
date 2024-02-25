@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class MyMessageBroker : NetworkBehaviour
 {
+    // TODO: Keep a list of which client is what build type, so messages don't get sent to everyone first before they're filtered
     public override void OnStartNetwork()
     {
         base.OnStartNetwork();

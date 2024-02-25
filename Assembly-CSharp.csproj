@@ -52,13 +52,12 @@
      <Compile Include="Assets\FishNet\Plugins\Bayou\Core\CommonSocket.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\UI\UIWithConnection.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Tools\RectTransformExtensions.cs" />
-     <Compile Include="Assets\Player.cs" />
      <Compile Include="Assets\FishNet\Plugins\Bayou\Bayou.cs" />
+     <Compile Include="Assets\_IMEMINE\Scripts\UI\ScoreUI.cs" />
      <Compile Include="Assets\FishNet\Plugins\Bayou\Core\ClientSocket.cs" />
      <Compile Include="Assets\extOSC\Examples\01) Getting Started\Scripts\SimpleMessageReceiver.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\UI\WebGLClientUI.cs" />
      <Compile Include="Assets\extOSC\Examples\02) Value Types\Scripts\ValueTypesExample.cs" />
-     <Compile Include="Assets\TestScript.cs" />
      <Compile Include="Assets\extOSC\Examples\07) Scripting\Scripts\ScriptingExample.cs" />
      <Compile Include="Assets\extOSC\Examples\09) Address Masks\Scripts\AddressMaskExample.cs" />
      <Compile Include="Assets\FishNet\Plugins\Bayou\Core\Supporting.cs" />
@@ -71,6 +70,7 @@
      <Compile Include="Assets\_IMEMINE\Scripts\Network\BuildTypeManager.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Audio\AudioManager.cs" />
      <Compile Include="Assets\extOSC\Examples\11) Array\Scripts\ArrayExample.cs" />
+     <Compile Include="Assets\_IMEMINE\Scripts\Score\ScoreManager.cs" />
      <Compile Include="Assets\extOSC\Examples\12) Match Pattern\Scripts\MatchPatternExample.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Network\ConnectionType.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Network\ConnectionStarter.cs" />
@@ -100,6 +100,7 @@
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
      <Folder Include="Assets\extOSC\Examples\10) Ping\Scripts" />
      <Folder Include="Assets\_IMEMINE\Prefabs\Network" />
+     <Folder Include="Assets\_IMEMINE\Scripts\Score" />
      <Folder Include="Assets\extOSC\Examples\03) Events\Scripts" />
      <Folder Include="Assets\extOSC\Examples\12) Match Pattern" />
      <Folder Include="Assets\_IMEMINE\Prefabs\UI" />

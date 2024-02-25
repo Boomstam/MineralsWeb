@@ -53,7 +53,21 @@ public static class Instances
     private static OSCManager _oscManager;
     private static AudioManager _audioManager;
     private static MyMessageBroker _myMessageBroker;
+    private static BuildTypeManager _buildTypeManager;
+    
+    public static bool IsScoreApp {
+        get
+        {
+            if (_buildTypeManager == null)
+                _buildTypeManager = Object.FindObjectOfType<BuildTypeManager>();
 
+            if (_buildTypeManager == null)
+                throw new System.Exception($"Couldn't find BuildTypeManager!");
+            
+            return _buildTypeManager.isScoreApp;
+        }
+    }
+    
     public static ConnectionStarter ConnectionStarter {
         get
         {

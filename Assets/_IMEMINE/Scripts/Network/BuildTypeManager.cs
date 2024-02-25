@@ -1,4 +1,5 @@
 using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FishNet;
@@ -9,6 +10,8 @@ using UnityEngine.EventSystems;
 
 public class BuildTypeManager : MonoBehaviour
 {
+    public bool isScoreApp;
+    
     [SerializeField] private Camera cameraPrefab;
     [SerializeField] private EventSystem eventSystemPrefab;
     [SerializeField] private NetworkConnectionManager networkConnectionManagerPrefab;
@@ -16,6 +19,7 @@ public class BuildTypeManager : MonoBehaviour
     [SerializeField] private PerformanceManager performanceManagerPrefab;
     [SerializeField] private NetworkOSCManager networkOscManagerPrefab;
     [SerializeField] private OSCManager oscManagerPrefab;
+    [SerializeField] private ScoreUI scoreUI;
     [SerializeField] private WebGLClientUI webGLClientUI;
     [SerializeField] private OSCClientUI oscClientUI;
     [SerializeField] private MonitorUI monitorUICanvas;
@@ -56,12 +60,26 @@ public class BuildTypeManager : MonoBehaviour
 
         if (Instances.BuildType == BuildType.Monitor)
         {
-            Instantiate(monitorUICanvas);
+            if (isScoreApp)
+            {
+                Instantiate(scoreUI);
+            }
+            else
+            {
+                Instantiate(monitorUICanvas);  
+            }
         }
         if (Instances.BuildType == BuildType.WebGLClient)
         {
-            Instantiate(webGLClientUI);
-            Instantiate(audioManager);
+            if (isScoreApp)
+            {
+                Instantiate(scoreUI);
+            }
+            else
+            {
+                Instantiate(webGLClientUI);
+                Instantiate(audioManager);   
+            }
         }
         if (Instances.BuildType == BuildType.OSCClient)
         {

@@ -19,7 +19,8 @@ public class MyMessageBroker : NetworkBehaviour
         
         if(Instances.BuildType == BuildType.WebGLClient)
         {
-            Instances.WebGLClientUI.oscMessage.Subscribe(message => SendMessageToBuildType(BuildType.OSCClient, message));
+            if(Instances.IsScoreApp == false)
+                Instances.WebGLClientUI.oscMessage.Subscribe(message => SendMessageToBuildType(BuildType.OSCClient, message));
         }
     }
 

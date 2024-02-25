@@ -24,7 +24,7 @@ public static class Instances
             if (ConnectionTypeHolder.ConnectionType == ConnectionType.Host)
                 return BuildType.Server;
             if(Application.isEditor)
-                return BuildType.Monitor;
+                return IsScoreApp ? BuildType.WebGLClient : BuildType.Monitor;
             if (ConnectionTypeHolder.ConnectionType == ConnectionType.TugboatClient)
                 return BuildType.OSCClient;
             if (ConnectionTypeHolder.ConnectionType == ConnectionType.BayouClient)

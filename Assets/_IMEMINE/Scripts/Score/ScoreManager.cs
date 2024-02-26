@@ -111,8 +111,12 @@ public class ScoreManager : MonoBehaviour
             Destroy(currentHighlighters[i].gameObject);
         }
 
-        ScoreDataEntry[] entriesToHighlight = scoreDataSO.scoreDataEntries.Where(entry => entry.choiceType == choiceType).ToArray();
+        float posY = rectTransform.anchoredPosition.y;
+        
+        rectTransform.anchoredPosition = Vector2.zero;
 
+        ScoreDataEntry[] entriesToHighlight = scoreDataSO.scoreDataEntries.Where(entry => entry.choiceType == choiceType).ToArray();
+        
         foreach (ScoreDataEntry entryToHighlight in entriesToHighlight)
         {
             ScoreHighlighter scoreHighlighter = Instantiate(highlighterPrefab, transform, true);
@@ -122,5 +126,7 @@ public class ScoreManager : MonoBehaviour
                 entryToHighlight.yPos, 
                 scoreHighlighter.transform.position.z);
         }
+
+        rectTransform.anchoredPosition = new Vector2(0, posY);
     }
 }

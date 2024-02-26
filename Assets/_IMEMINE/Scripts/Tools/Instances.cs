@@ -54,6 +54,7 @@ public static class Instances
     private static AudioManager _audioManager;
     private static MyMessageBroker _myMessageBroker;
     private static BuildTypeManager _buildTypeManager;
+    private static ScoreManager _scoreManager;
     
     public static bool IsScoreApp {
         get
@@ -195,6 +196,19 @@ public static class Instances
                 throw new System.Exception($"Couldn't find MyMessageBroker!");
             
             return _myMessageBroker;
+        }
+    }
+    
+    public static ScoreManager ScoreManager {
+        get
+        {
+            if (_scoreManager == null)
+                _scoreManager = Object.FindObjectOfType<ScoreManager>();
+
+            if (_scoreManager == null)
+                throw new System.Exception($"Couldn't find ScoreManager!");
+            
+            return _scoreManager;
         }
     }
 }

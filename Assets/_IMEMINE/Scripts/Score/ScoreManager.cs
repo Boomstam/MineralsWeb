@@ -60,6 +60,17 @@ public class ScoreManager : MonoBehaviour
     {
         ScoreDataEntry scoreDataEntry = scoreDataSO.GetClosestEntryForMeasure(measure);
 
+        float targetY = scoreDataEntry.yPos * -1f;
+        
+        if (scrollRoutine != null)
+        {
+            if (scrollEnd == targetY)
+            {
+                Debug.Log($"WAS EQUAL");
+                return;
+            }
+        }
+
         scrollEnd = scoreDataEntry.yPos * -1f;
         
         scrollStart = rectTransform.anchoredPosition.y;
@@ -84,6 +95,7 @@ public class ScoreManager : MonoBehaviour
             yield return 0;
         }
         rectTransform.anchoredPosition = new Vector2(0, scrollEnd);
+        scrollRoutine = null;
     }
 
     [Button]

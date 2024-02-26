@@ -101,6 +101,8 @@ public class MonitorUI : UIWithConnection
     private void HighlightChoice(ChoiceType choiceType)
     {
         Debug.Log($"Highlight choice: {choiceType}");
+        
+        Instances.MyMessageBroker.SendMessageToBuildType(BuildType.WebGLClient, $"HighlightChoice {(int)choiceType}");
     }
 
     [Button]
@@ -115,5 +117,7 @@ public class MonitorUI : UIWithConnection
     private void FocusOnCurrentMeasure()
     {
         Debug.Log($"Focus on current measure: {currentMeasure}");
+        
+        Instances.MyMessageBroker.SendMessageToBuildType(BuildType.WebGLClient, $"GoToMeasure {currentMeasure}");
     }
 }

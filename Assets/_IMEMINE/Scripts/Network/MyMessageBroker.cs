@@ -24,6 +24,8 @@ public class MyMessageBroker : NetworkBehaviour
         }
     }
 
+    
+    // TODO: Add isScoreApp to parameters
     [ServerRpc (RequireOwnership = false)]
     public void SendMessageToBuildType(BuildType targetBuildType, string message)
     {
@@ -43,6 +45,17 @@ public class MyMessageBroker : NetworkBehaviour
         {
             Instances.OSCClientUI.SetMessage(message);
             Instances.OSCManager.SendOSCMessage("/channel/1", message);
+        }
+
+        if (Instances.BuildType == BuildType.WebGLClient && Instances.IsScoreApp)
+        {
+            Debug.Log($"Received message: {message}");
+            string[] subStrings = message.Split($" ");
+            
+            if(subStrings[0] == $"GoToMeasure")
+                Instances.ScoreManager.GoToMeasure(int.Parse(subStrings[1]));
+            else if(subStrings[0] == $"HighlightChoice")
+                Instances.ScoreManager.HighlightChoice((ChoiceType)int.Parse(subStrings[1]));
         }
     }
 }

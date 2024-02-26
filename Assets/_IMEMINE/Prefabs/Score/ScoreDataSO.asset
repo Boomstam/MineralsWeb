@@ -12,4 +12,91 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cff299507dd8eb42a3f1668653836a5, type: 3}
   m_Name: ScoreDataSO
   m_EditorClassIdentifier: 
-  scoreDataEntries: []
+  scoreDataEntries:
+  - yPos: 648.3
+    choiceType: 0
+    startMeasure: 876
+  - yPos: 409.1
+    choiceType: 0
+    startMeasure: 880
+  - yPos: 184.2
+    choiceType: 1
+    startMeasure: 884
+  - yPos: 79.6
+    choiceType: 2
+    startMeasure: 884
+  - yPos: -27
+    choiceType: 3
+    startMeasure: 884
+  - yPos: -281
+    choiceType: 1
+    startMeasure: 886
+  - yPos: -385
+    choiceType: 2
+    startMeasure: 886
+  - yPos: -487
+    choiceType: 3
+    startMeasure: 886
+  - yPos: -723
+    choiceType: 1
+    startMeasure: 888
+  - yPos: -855
+    choiceType: 2
+    startMeasure: 888
+  - yPos: -975
+    choiceType: 3
+    startMeasure: 888
+  - yPos: -1212
+    choiceType: 1
+    startMeasure: 892
+  - yPos: -1327
+    choiceType: 2
+    startMeasure: 892
+  - yPos: -1441
+    choiceType: 3
+    startMeasure: 892
+  - yPos: -1834.4
+    choiceType: 1
+    startMeasure: 896
+  - yPos: -1954.9
+    choiceType: 2
+    startMeasure: 896
+  - yPos: -2053.5
+    choiceType: 3
+    startMeasure: 896
+  - yPos: -2297
+    choiceType: 1
+    startMeasure: 899
+  - yPos: -2412
+    choiceType: 2
+    startMeasure: 899
+  - yPos: -2514
+    choiceType: 3
+    startMeasure: 899
+  - yPos: -2739
+    choiceType: 1
+    startMeasure: 902
+  - yPos: -2867.1
+    choiceType: 2
+    startMeasure: 902
+  - yPos: -2956.2
+    choiceType: 3
+    startMeasure: 902
+  - yPos: -3197
+    choiceType: 1
+    startMeasure: 905
+  - yPos: -3314
+    choiceType: 2
+    startMeasure: 905
+  - yPos: -3416
+    choiceType: 3
+    startMeasure: 905
+  - yPos: -3685
+    choiceType: 1
+    startMeasure: 909
+  - yPos: -3872
+    choiceType: 2
+    startMeasure: 909
+  - yPos: -3992
+    choiceType: 3
+    startMeasure: 909

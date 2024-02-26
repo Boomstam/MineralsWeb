@@ -24,6 +24,20 @@ public class ScoreDataHarvester : MonoBehaviour
         
         scoreDataSO.scoreDataEntries.Add(scoreDataEntry);
         
+        CycleChoiceType();
+        
         Debug.Log($"Harvested {scoreDataEntry}");
+    }
+
+    private void CycleChoiceType()
+    {
+        if (choiceType == ChoiceType.A)
+            choiceType = ChoiceType.B;
+        
+        if (choiceType == ChoiceType.B)
+            choiceType = ChoiceType.C;
+        
+        if (choiceType == ChoiceType.C)
+            choiceType = ChoiceType.A;
     }
 }

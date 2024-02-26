@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using FishNet;
+using Sirenix.OdinInspector;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -20,6 +21,8 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI choice3Text;
     [SerializeField] private TextMeshProUGUI choice4Text;
     [SerializeField] private TMP_InputField chapterLenghtInput;
+    
+    [SerializeField] private int currentMeasure;
 
     private void Start()
     {
@@ -92,5 +95,25 @@ public class MonitorUI : UIWithConnection
         // Debug.Log($"choice {choice}, numberOfChoices {numberOfChoices}, percentage {percentage}, comp {textComp}");
 
         textComp.text = $"Choice {choice}: {numberOfChoices}, {percentage}%";
+    }
+
+    [Button]
+    private void HighlightChoice(ChoiceType choiceType)
+    {
+        Debug.Log($"Highlight choice: {choiceType}");
+    }
+
+    [Button]
+    private void IncrementMeasure()
+    {
+        currentMeasure++;
+        
+        FocusOnCurrentMeasure();
+    }
+
+    [Button]
+    private void FocusOnCurrentMeasure()
+    {
+        Debug.Log($"Focus on current measure: {currentMeasure}");
     }
 }

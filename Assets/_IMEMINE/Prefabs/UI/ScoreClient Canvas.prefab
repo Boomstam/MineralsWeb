@@ -52,14 +52,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d0c85b70fca794e8a2970a6de8ff95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstPagePos: {x: -553, y: -1024, z: 1593}
   distanceBetweenPages: 2552
+  scrollTime: 5
   pages:
   - {fileID: 21300000, guid: a943396cbf5f5d14a97fcddfa7ebe501, type: 3}
   - {fileID: 21300000, guid: ba0c094f6dfa15b45b11b577f76acd92, type: 3}
   - {fileID: 21300000, guid: 76171191740a36c4cbf5304286097bce, type: 3}
   - {fileID: 21300000, guid: 78ae212376ebee24da793c1feacbdaf0, type: 3}
   pagePrefab: {fileID: 6147891072736569209, guid: f922e4c540e366a43977b818d23b5a1b, type: 3}
+  highlighterPrefab: {fileID: 260837225101934370, guid: 3a8cc556d18e96c42a04cf0e3fd790ef, type: 3}
+  scoreDataSO: {fileID: 11400000, guid: 39764e161a3dc0544913078ae4415a6d, type: 2}
 --- !u!1 &1624698437529782910
 GameObject:
   m_ObjectHideFlags: 0

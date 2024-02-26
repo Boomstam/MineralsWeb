@@ -84,6 +84,7 @@
      <Compile Include="Assets\extOSC\Examples\13) Marshalling\Scripts\MarshallingExample.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Score\ScoreDataSO.cs" />
      <Compile Include="Assets\_IMEMINE\Generated\ConnectionTypeHolder.cs" />
+     <Compile Include="Assets\_IMEMINE\Scripts\Score\ScoreHighlighter.cs" />
      <Compile Include="Assets\FishNet\Plugins\Bayou\Core\SslConfiguration.cs" />
      <Compile Include="Assets\FishNet\Plugins\Bayou\Core\ServerSocket.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\OSC\NetworkOSCManager.cs" />

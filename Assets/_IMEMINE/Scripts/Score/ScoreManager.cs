@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,10 +12,12 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private float distanceBetweenPages;
     [SerializeField] private float scrollTime;
+    [SerializeField] private int highlightWarningTime;
     [SerializeField] private Sprite[] pages;
     [SerializeField] private SpriteRenderer pagePrefab;
     [SerializeField] private ScoreHighlighter highlighterPrefab;
     [SerializeField] private ScoreDataSO scoreDataSO;
+    [SerializeField] private TextMeshProUGUI choiceSwitchWarning;
     
     private Vector3 firstPagePos => pagePrefab.transform.position;
     private RectTransform rectTransform;
@@ -66,13 +69,12 @@ public class ScoreManager : MonoBehaviour
         {
             if (scrollEnd == targetY)
             {
-                Debug.Log($"WAS EQUAL");
                 return;
             }
         }
 
-        scrollEnd = scoreDataEntry.yPos * -1f;
-        
+        scrollEnd = Mathf.Max(0, scoreDataEntry.yPos * -1f);
+
         scrollStart = rectTransform.anchoredPosition.y;
 
         scrollStartTime = Time.time;
@@ -103,7 +105,32 @@ public class ScoreManager : MonoBehaviour
     {
         if(choiceType == ChoiceType.None)
             return;
+
+        StartCoroutine(DoHighlightCountdown(choiceType));
+    }
+
+    // TODO: There is still a bug here where the warning will disappear if a second routine is started while another is running.
+    private IEnumerator DoHighlightCountdown(ChoiceType choiceType)
+    {
+        choiceSwitchWarning.transform.parent.gameObject.SetActive(true);
         
+        for (int i = 0; i < highlightWarningTime; i++)
+        {
+            choiceSwitchWarning.text = $"{choiceType} in {highlightWarningTime - i}..."; 
+            
+            yield return new WaitForSeconds(1f);
+        }
+        choiceSwitchWarning.text = $"Choice {choiceType}!";
+        
+        DoHighlight(choiceType);
+        
+        yield return new WaitForSeconds(1f);
+        
+        choiceSwitchWarning.transform.parent.gameObject.SetActive(false);
+    }
+
+    private void DoHighlight(ChoiceType choiceType)
+    {
         ScoreHighlighter[] currentHighlighters = GetComponentsInChildren<ScoreHighlighter>();
 
         for (int i = 0; i < currentHighlighters.Length; i++)

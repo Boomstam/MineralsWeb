@@ -5,19 +5,26 @@ using UnityEngine.Video;
 
 public class WebGLVideoPlayer : MonoBehaviour
 {
-    [SerializeField] private string videoFileName;
+    [SerializeField] private string videoFileExtension;
     [SerializeField] private VideoPlayer videoPlayer;
-    
+
     void Start()
     {
-        PlayVideo();
+        this.RunDelayed(1, () => PlayVideo(VideoType.Lava));
     }
     
-    private void PlayVideo()
+    private void PlayVideo(VideoType videoType)
     {
-        string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, videoFileName);
-        Debug.Log(videoPath);
+        string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, videoType + videoFileExtension);    
+        Debug.Log($"Play video {videoType}, path: {videoPath}");
+        
         videoPlayer.url = videoPath;
         videoPlayer.Play();
     }
+}
+
+public enum VideoType
+{
+    Lava,
+    Stars,
 }

@@ -60,6 +60,7 @@
      <Compile Include="Assets\_IMEMINE\Scripts\Network\NetworkedVoting.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\UI\WebGLClientUI.cs" />
      <Compile Include="Assets\extOSC\Examples\02) Value Types\Scripts\ValueTypesExample.cs" />
+     <Compile Include="Assets\_IMEMINE\Scripts\Common\MonoBehaviourExtensions.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\UI\ColorOverlay.cs" />
      <Compile Include="Assets\extOSC\Examples\07) Scripting\Scripts\ScriptingExample.cs" />
      <Compile Include="Assets\extOSC\Examples\09) Address Masks\Scripts\AddressMaskExample.cs" />
@@ -167,6 +168,7 @@
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
      <None Include="Assets\_IMEMINE\Docs\Minerals build info.txt" />
      <Folder Include="Assets\_IMEMINE\Generated" />
+     <Folder Include="Assets\_IMEMINE\Scripts\Common" />
      <Folder Include="Assets\_IMEMINE\Video" />
      <Folder Include="Assets\extOSC\Examples\03) Events" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />

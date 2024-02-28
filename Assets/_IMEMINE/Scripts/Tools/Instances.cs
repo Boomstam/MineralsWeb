@@ -7,6 +7,8 @@ using Object = UnityEngine.Object;
 
 public static class Instances
 {
+    public static int SeatNumber { get; set; }
+
     #region Backing Fields
 
     private static ConnectionStarter _connectionStarter;

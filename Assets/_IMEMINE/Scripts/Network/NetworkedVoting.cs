@@ -11,4 +11,9 @@ public class NetworkedVoting : NetworkBehaviour
     {
         
     }
+
+    private void SendVoteUpdateToMonitor()
+    {
+        
+    }
 }

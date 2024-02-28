@@ -12,6 +12,7 @@ public class MonitorUI : UIWithConnection
 {
     [SerializeField] private Button startButton;
     [SerializeField] private Button stopButton;
+    [SerializeField] private Toggle colorOverlayToggle;
     [SerializeField] private TextMeshProUGUI chapterText;
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private TextMeshProUGUI oscConnectionsText;
@@ -28,7 +29,10 @@ public class MonitorUI : UIWithConnection
     {
         startButton.onClick.AsObservable().Subscribe(_ => Instances.PerformanceManager.StartPerformance());
         stopButton.onClick.AsObservable().Subscribe(_ => Instances.PerformanceManager.StopPerformance());
-
+        
+        colorOverlayToggle.onValueChanged.AsObservable()
+            .Subscribe(toggleVal => Instances.NetworkedMonitor.ToggleColorOverlay(toggleVal));
+        
         // chapterLenghtInput.onSubmit.AsObservable().Subscribe(text =>
         // {
         //     int val = int.Parse(text);

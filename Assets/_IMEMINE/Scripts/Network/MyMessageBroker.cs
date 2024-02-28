@@ -24,8 +24,6 @@ public class MyMessageBroker : NetworkBehaviour
         }
     }
 
-    
-    // TODO: Add isScoreApp to parameters
     [ServerRpc (RequireOwnership = false)]
     public void SendMessageToBuildType(BuildType targetBuildType, string message)
     {
@@ -46,7 +44,7 @@ public class MyMessageBroker : NetworkBehaviour
             Instances.OSCClientUI.SetMessage(message);
             Instances.OSCManager.SendOSCMessage("/channel/1", message);
         }
-
+        
         if (Instances.BuildType == BuildType.Score)
         {
             Debug.Log($"Received message: {message}");

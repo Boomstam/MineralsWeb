@@ -16,16 +16,20 @@ public class BuildTypeManager : MonoBehaviour
     
     [SerializeField] private Camera cameraPrefab;
     [SerializeField] private EventSystem eventSystemPrefab;
-    [SerializeField] private NetworkConnectionManager networkConnectionManagerPrefab;
-    [SerializeField] private MyMessageBroker myMessageBrokerPrefab;
     [SerializeField] private PerformanceManager performanceManagerPrefab;
-    [SerializeField] private NetworkOSCManager networkOscManagerPrefab;
     [SerializeField] private OSCManager oscManagerPrefab;
+    [SerializeField] private AudioManager audioManager;
+    
+    [SerializeField] private MyMessageBroker myMessageBrokerPrefab;
+    [SerializeField] private NetworkConnectionManager networkConnectionManagerPrefab;
+    [SerializeField] private NetworkOSCManager networkOscManagerPrefab;
+    [SerializeField] private NetworkedMonitor networkedMonitorPrefab;
+    [SerializeField] private NetworkedVoting networkedVotingPrefab;
+    
     [SerializeField] private ScoreUI scoreUI;
     [SerializeField] private WebGLClientUI webGLClientUI;
     [SerializeField] private OSCClientUI oscClientUI;
     [SerializeField] private MonitorUI monitorUICanvas;
-    [SerializeField] private AudioManager audioManager;
     
     private bool hasConnected;
     
@@ -51,8 +55,12 @@ public class BuildTypeManager : MonoBehaviour
             InstanceFinder.ServerManager.Spawn(myMessageBroker);
             NetworkObject performanceManager = Instantiate(performanceManagerPrefab).GetComponent<NetworkObject>();
             InstanceFinder.ServerManager.Spawn(performanceManager);
-            NetworkObject networkOSCManager = Instantiate(networkOscManagerPrefab).GetComponent<NetworkObject>();
-            InstanceFinder.ServerManager.Spawn(networkOSCManager);
+            NetworkObject networkOscManager = Instantiate(networkOscManagerPrefab).GetComponent<NetworkObject>();
+            InstanceFinder.ServerManager.Spawn(networkOscManager);
+            NetworkObject networkedMonitor = Instantiate(networkedMonitorPrefab).GetComponent<NetworkObject>();
+            InstanceFinder.ServerManager.Spawn(networkedMonitor);
+            NetworkObject networkedVoting = Instantiate(networkedVotingPrefab).GetComponent<NetworkObject>();
+            InstanceFinder.ServerManager.Spawn(networkedVoting);
         }
         else
         {

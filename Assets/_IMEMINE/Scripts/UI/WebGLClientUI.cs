@@ -11,6 +11,7 @@ using UnityEngine.UI;
 
 public class WebGLClientUI : UIWithConnection
 {
+    [SerializeField] private ColorOverlay colorOverlay;
     [SerializeField] private TMP_InputField oscMessageInput;
     [SerializeField] private Button sendOSCButton;
     [SerializeField] private Button[] choiceButtons;
@@ -24,6 +25,7 @@ public class WebGLClientUI : UIWithConnection
     
     public void Start()
     {
+        /*
         sendOSCButton.onClick.AsObservable().Subscribe(_ => oscMessage.SetValueAndForceNotify(oscMessageInput.text));
         
         choiceButtons.ForEach((button, i) =>
@@ -31,9 +33,15 @@ public class WebGLClientUI : UIWithConnection
             button.onClick.AsObservable().Subscribe(_ => OnChoiceClick(i + 1));
         });
         
-        ToggleChoiceButtons(false);
+        ToggleChoiceButtons(false);*/
     }
 
+    public void ToggleColorOverlay(bool show)
+    {
+        colorOverlay.gameObject.SetActive(show);
+    }
+    
+/*
     private void OnChoiceClick(int choice)
     {
         Debug.Log(choice);
@@ -45,8 +53,8 @@ public class WebGLClientUI : UIWithConnection
         SetContentText($"You have chosen {choice}.{System.Environment.NewLine}" +
                        $"Enjoy the rest of this chapter!");
         SetStatusText($"Choice made");
-    }
-    
+    }*/
+    /*
     [Button]
     private void SetProgress(float percentage)
     {
@@ -68,8 +76,8 @@ public class WebGLClientUI : UIWithConnection
     public void SetContentText(string text)
     {
         contentText.text = text;
-    }
-
+    }*/
+/*
     public void ToggleChoiceButtons(bool showChoiceButtons, int chapter = -1)
     {
         choiceButtons.ForEach((button, i) =>
@@ -88,5 +96,5 @@ public class WebGLClientUI : UIWithConnection
         });
         
         contentText.gameObject.SetActive(showChoiceButtons == false);
-    }
+    }*/
 }

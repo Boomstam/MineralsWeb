@@ -90,12 +90,14 @@
      <Compile Include="Assets\_IMEMINE\Scripts\OSC\NetworkOSCManager.cs" />
      <Compile Include="Assets\FishNet\Upgrading\MirrorUpgrade.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Tools\PlayerPrefsExtensions.cs" />
+     <Compile Include="Assets\_IMEMINE\Scripts\Video\WebGLVideoPlayer.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\extOSC\Examples\04) Informers\Scripts" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <Folder Include="Assets\PlayFlowCloud\Resources" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <Folder Include="Assets\TextMesh Pro\Sprites" />
+     <Folder Include="Assets\StreamingAssets" />
      <Folder Include="Assets\_IMEMINE" />
      <Folder Include="Assets\FishNet\Plugins\Bayou" />
      <Folder Include="Assets\TextMesh Pro\Resources\Sprite Assets" />
@@ -119,6 +121,7 @@
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
      <Folder Include="Assets\TextMesh Pro\Resources" />
      <None Include="Assets\FishNet\VERSION.txt" />
+     <Folder Include="Assets\_IMEMINE\Scripts\Video" />
      <Folder Include="Assets\extOSC" />
      <None Include="Assets\FishNet\CONTRIBUTORS.txt" />
      <Folder Include="Assets\FishNet\Upgrading" />
@@ -160,6 +163,7 @@
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
      <None Include="Assets\_IMEMINE\Docs\Minerals build info.txt" />
      <Folder Include="Assets\_IMEMINE\Generated" />
+     <Folder Include="Assets\_IMEMINE\Video" />
      <Folder Include="Assets\extOSC\Examples\03) Events" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
      <Folder Include="Assets\TextMesh Pro\Shaders" />

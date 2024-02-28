@@ -13,6 +13,7 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private Button startButton;
     [SerializeField] private Button stopButton;
     [SerializeField] private Toggle colorOverlayToggle;
+    [SerializeField] private Toggle votingModeToggle;
     [SerializeField] private TextMeshProUGUI chapterText;
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private TextMeshProUGUI oscConnectionsText;
@@ -21,6 +22,7 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI choice2Text;
     [SerializeField] private TextMeshProUGUI choice3Text;
     [SerializeField] private TextMeshProUGUI choice4Text;
+    [SerializeField] private TextMeshProUGUI voteAverageText;
     [SerializeField] private TMP_InputField chapterLenghtInput;
     
     [SerializeField] private int currentMeasure;
@@ -33,6 +35,9 @@ public class MonitorUI : UIWithConnection
         colorOverlayToggle.onValueChanged.AsObservable()
             .Subscribe(toggleVal => Instances.NetworkedMonitor.ToggleColorOverlay(toggleVal));
         
+        votingModeToggle.onValueChanged.AsObservable()
+            .Subscribe(toggleVal => { Instances.NetworkedMonitor.ToggleVotingMode(toggleVal); });
+        
         // chapterLenghtInput.onSubmit.AsObservable().Subscribe(text =>
         // {
         //     int val = int.Parse(text);
@@ -40,7 +45,12 @@ public class MonitorUI : UIWithConnection
         //     Debug.Log($"Set chapter length to {val}");
         // });
     }
-    
+
+    public void SetVoteAverage(float average)
+    {
+        voteAverageText.text = $"Vote Average: {average:0.0}";
+    }
+
     public void SetChapter(int chapter)
     {
         chapterText.text = $"Chapter: {chapter}";

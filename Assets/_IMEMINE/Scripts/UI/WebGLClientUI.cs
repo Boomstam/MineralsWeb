@@ -33,7 +33,7 @@ public class WebGLClientUI : UIWithConnection
     public void Start()
     {
         slider.onValueChanged.AsObservable()
-            .Subscribe(sliderVal => Instances.NetworkedVoting.SendVoteUpdate(sliderVal));
+            .Subscribe(sliderVal => Instances.NetworkedVoting.SendVoteUpdate(sliderVal, Instances.SeatNumber));
 
         seatNumberConfirmButton.onClick.AsObservable().Subscribe(_ =>
         {
@@ -53,6 +53,17 @@ public class WebGLClientUI : UIWithConnection
     public void ToggleColorOverlay(bool show)
     {
         colorOverlay.gameObject.SetActive(show);
+        
+        slider.gameObject.SetActive(false);
+    }
+    
+    public void ToggleVotingMode(bool votingModeOn)
+    {
+        // colorOverlay.gameObject.SetActive(false);
+        backgroundImage.gameObject.SetActive(votingModeOn);
+        backgroundVideo.gameObject.SetActive(votingModeOn == false);
+        
+        slider.gameObject.SetActive(votingModeOn);
     }
 
     private void ToggleEnterSeatDialog(bool show)

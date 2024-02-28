@@ -21,4 +21,21 @@ public class NetworkedMonitor : NetworkBehaviour
         
         Instances.WebGLClientUI.ToggleColorOverlay(show);
     }
+    
+    [ServerRpc(RequireOwnership = false)]
+    public void ToggleVotingMode(bool votingModeOn)
+    {
+        ToggleVotingModeOnVotingClients(votingModeOn);
+    }
+
+    [ObserversRpc]
+    private void ToggleVotingModeOnVotingClients(bool votingModeOn)
+    {
+        if(Instances.BuildType != BuildType.Voting)
+            return;
+        
+        Debug.Log($"ToggleColorOverlayOnVotingClients votingModeOn: {votingModeOn}");
+        
+        Instances.WebGLClientUI.ToggleVotingMode(votingModeOn);
+    }
 }

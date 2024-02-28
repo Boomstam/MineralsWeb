@@ -29,5 +29,14 @@ public class NetworkedVoting : NetworkBehaviour
     private void OnVoteAverageUpdate(float voteAverage)
     {
         Instances.MonitorUI.SetVoteAverage(voteAverage);
+
+        ChoiceType choice = ChoiceType.A;
+        
+        if (voteAverage is > 0.33f and < 0.66f)
+            choice = ChoiceType.B;
+        else if(voteAverage > 0.66f)
+            choice = ChoiceType.C;
+        
+        Instances.MonitorUI.HighlightChoice(choice);
     }
 }

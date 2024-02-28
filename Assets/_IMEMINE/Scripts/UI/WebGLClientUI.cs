@@ -64,14 +64,23 @@ public class WebGLClientUI : UIWithConnection
         backgroundVideo.gameObject.SetActive(votingModeOn == false);
         
         slider.gameObject.SetActive(votingModeOn);
+        
+        SetStatusText(votingModeOn ? $"Intensity Slider" : "");
     }
 
     private void ToggleEnterSeatDialog(bool show)
     {
         seatNumberConfirmButton.gameObject.SetActive(show);
         seatNumberInputField.gameObject.SetActive(show);
+        
+        SetStatusText(show ? $"Enter Your Seat Number" : "");
     }
 
+    
+    private void SetStatusText(string text)
+    {
+        statusText.text = text;
+    }
 /*
     private void OnChoiceClick(int choice)
     {
@@ -97,11 +106,6 @@ public class WebGLClientUI : UIWithConnection
     public void SetChapterText(int chapter)
     {
         chapterText.text = $"Chapter {chapter}";
-    }
-    
-    public void SetStatusText(string text)
-    {
-        statusText.text = text;
     }
     
     public void SetContentText(string text)

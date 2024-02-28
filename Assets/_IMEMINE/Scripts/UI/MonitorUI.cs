@@ -112,11 +112,11 @@ public class MonitorUI : UIWithConnection
     }
 
     [Button]
-    private void HighlightChoice(ChoiceType choiceType)
+    public void HighlightChoice(ChoiceType choiceType)
     {
         Debug.Log($"Highlight choice: {choiceType}");
         
-        Instances.MyMessageBroker.SendMessageToBuildType(BuildType.Voting, $"HighlightChoice {(int)choiceType}");
+        Instances.MyMessageBroker.SendMessageToBuildType(BuildType.Score, $"HighlightChoice {(int)choiceType}");
     }
 
     [Button]

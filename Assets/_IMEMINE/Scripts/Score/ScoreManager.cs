@@ -22,6 +22,8 @@ public class ScoreManager : MonoBehaviour
     private Vector3 firstPagePos => pagePrefab.transform.position;
     private RectTransform rectTransform;
 
+    private bool isGoingToNewChoice;
+    
     private IDisposable scrollRoutine;
     private float scrollStartTime;
     private float scrollStart;
@@ -103,6 +105,9 @@ public class ScoreManager : MonoBehaviour
     [Button]
     public void HighlightChoice(ChoiceType choiceType)
     {
+        Debug.Log($"Highlight choice: {choiceType}, isGoingToNewChoice: {isGoingToNewChoice}");
+        if(isGoingToNewChoice)
+            return;
         if(choiceType == ChoiceType.None)
             return;
 
@@ -112,6 +117,8 @@ public class ScoreManager : MonoBehaviour
     // TODO: There is still a bug here where the warning will disappear if a second routine is started while another is running.
     private IEnumerator DoHighlightCountdown(ChoiceType choiceType)
     {
+        isGoingToNewChoice = true;
+        
         choiceSwitchWarning.transform.parent.gameObject.SetActive(true);
         
         for (int i = 0; i < highlightWarningTime; i++)
@@ -127,10 +134,13 @@ public class ScoreManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         
         choiceSwitchWarning.transform.parent.gameObject.SetActive(false);
+
+        isGoingToNewChoice = false;
     }
 
     private void DoHighlight(ChoiceType choiceType)
     {
+        // Debug.Log($"Do highlight: {choiceType}");
         ScoreHighlighter[] currentHighlighters = GetComponentsInChildren<ScoreHighlighter>();
 
         for (int i = 0; i < currentHighlighters.Length; i++)

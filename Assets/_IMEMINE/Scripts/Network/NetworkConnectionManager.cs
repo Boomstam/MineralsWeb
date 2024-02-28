@@ -54,7 +54,7 @@ public class NetworkConnectionManager : NetworkBehaviour
         int numOSCConnections = connections.Values.Count(buildType => buildType == BuildType.OSCClient);
         SendOSCConnectionsToMonitor(numOSCConnections);
         
-        int numClientConnections = connections.Values.Count(buildType => buildType == BuildType.WebGLClient);
+        int numClientConnections = connections.Values.Count(buildType => buildType == BuildType.Voting);
         SendClientConnectionsToMonitor(numClientConnections);
     }
 
@@ -62,8 +62,6 @@ public class NetworkConnectionManager : NetworkBehaviour
     private void SendOSCConnectionsToMonitor(int oscConnections)
     {
         if(Instances.BuildType != BuildType.Monitor)
-            return;
-        if(Instances.IsScoreApp)
             return;
         
         Instances.MonitorUI.SetOSCConnections(oscConnections);
@@ -73,8 +71,6 @@ public class NetworkConnectionManager : NetworkBehaviour
     private void SendClientConnectionsToMonitor(int clientConnections)
     {
         if(Instances.BuildType != BuildType.Monitor)
-            return;
-        if(Instances.IsScoreApp)
             return;
         
         Instances.MonitorUI.SetClientConnections(clientConnections);

@@ -32,11 +32,11 @@ using UnityEngine.SceneManagement;
 public class BuildAutomation : Editor
 {
     private static ConnectionStarter connectionStarter => FindObjectOfType<ConnectionStarter>();
-    private static BuildTypeManager buildTypeManager => FindObjectOfType<BuildTypeManager>();
+    // private static BuildTypeManager buildTypeManager => FindObjectOfType<BuildTypeManager>();
     private static Bayou bayou => FindObjectOfType<Bayou>();
     private static Tugboat tugboat => FindObjectOfType<Tugboat>();
-    private static BuildType buildType => BuildTypeFromBuildTarget();
-    private static ConnectionType connectionTypeFromBuildType => CurrentConnectionType();
+    // private static BuildType buildType => BuildTypeFromBuildTarget();
+    private static ConnectionType connectionTypeFromBuildType => ConnectionTypeFromBuildTarget();
 
     // private static Dictionary<BuildType, string> buildTypeSceneNames = new Dictionary<BuildType, string>()
     // {
@@ -59,7 +59,7 @@ public class BuildAutomation : Editor
         //     return;
         // }
         
-        Debug.Log($"Start build {buildType} with connection: {connectionTypeFromBuildType}, client address: {bayou.GetClientAddress()}" +
+        Debug.Log($"Start build with connection: {connectionTypeFromBuildType}, client address: {bayou.GetClientAddress()}" +
                   $" and token: {connectionStarter.playflowToken}");
         
         SetConnectionType(connectionTypeFromBuildType);
@@ -70,7 +70,7 @@ public class BuildAutomation : Editor
 
     private static void DoBuild()
     {
-        if(buildType == BuildType.Server)
+        if(ConnectionTypeFromBuildTarget() == ConnectionType.Host)
         {
             PlayFlowCloudDeploy playFlowDeployWindow = EditorWindow.GetWindow<PlayFlowCloudDeploy>();
 
@@ -87,7 +87,7 @@ public class BuildAutomation : Editor
                 
                 return;
             }
-            if(buildType == BuildType.WebGLClient)
+            if(ConnectionTypeFromBuildTarget() == ConnectionType.BayouClient)
             {
                 bayou.SetClientAddress(ConnectionTypeHolder.ActiveServer);
                 
@@ -333,21 +333,31 @@ public static class ConnectionTypeHolder
         if(buildTarget is BuildTarget.StandaloneLinux64)
             return BuildType.Server;
         else if (buildTarget is BuildTarget.WebGL)
-            return BuildType.WebGLClient;
+            return BuildType.Voting;
         else if (buildTarget is BuildTarget.StandaloneWindows64)
             return BuildType.OSCClient;
         else
             return BuildType.Monitor;
     }
     
-    private static ConnectionType CurrentConnectionType()
+    private static ConnectionType ConnectionTypeFromBuildTarget()
     {
-        if (buildType == BuildType.Server)
+        BuildTarget buildTarget = EditorUserBuildSettings.activeBuildTarget;
+
+        if (buildTarget is BuildTarget.StandaloneLinux64)
             return ConnectionType.Host;
-        else if (buildType == BuildType.WebGLClient)
+        else if (buildTarget is BuildTarget.WebGL)
             return ConnectionType.BayouClient;
         else
             return ConnectionType.TugboatClient;
+
+        /*
+        if (buildType == BuildType.Server)
+            return ConnectionType.Host;
+        else if (buildType == BuildType.Voting)
+            return ConnectionType.BayouClient;
+        else
+            return ConnectionType.TugboatClient;*/
     }
 }
 

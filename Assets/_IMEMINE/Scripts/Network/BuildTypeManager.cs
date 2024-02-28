@@ -4,13 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using FishNet;
 using FishNet.Object;
+using Sirenix.OdinInspector;
 using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class BuildTypeManager : MonoBehaviour
 {
-    public bool isScoreApp;
+    public bool forceBuildType;
+    [ShowIf("forceBuildType")] public BuildType buildTypeToForce;
     
     [SerializeField] private Camera cameraPrefab;
     [SerializeField] private EventSystem eventSystemPrefab;
@@ -58,33 +60,23 @@ public class BuildTypeManager : MonoBehaviour
             Instantiate(eventSystemPrefab);
         }
 
-        if (Instances.BuildType == BuildType.Monitor)
+        if (Instances.BuildType == BuildType.Score)
         {
-            if (isScoreApp)
-            {
-                Instantiate(scoreUI);
-            }
-            else
-            {
-                Instantiate(monitorUICanvas);  
-            }
+            Instantiate(scoreUI);
         }
-        if (Instances.BuildType == BuildType.WebGLClient)
+        if (Instances.BuildType == BuildType.Voting)
         {
-            if (isScoreApp)
-            {
-                Instantiate(scoreUI);
-            }
-            else
-            {
-                Instantiate(webGLClientUI);
-                Instantiate(audioManager);   
-            }
+            Instantiate(webGLClientUI);
+            Instantiate(audioManager);
         }
         if (Instances.BuildType == BuildType.OSCClient)
         {
             Instantiate(oscManagerPrefab);
             Instantiate(oscClientUI);
+        }
+        if (Instances.BuildType == BuildType.Monitor)
+        {
+            Instantiate(monitorUICanvas);
         }
     }
 }

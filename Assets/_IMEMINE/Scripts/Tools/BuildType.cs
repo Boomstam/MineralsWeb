@@ -7,5 +7,6 @@ public enum BuildType
     Server,
     Monitor,
     OSCClient,
-    WebGLClient,
+    Voting,
+    Score,
 }

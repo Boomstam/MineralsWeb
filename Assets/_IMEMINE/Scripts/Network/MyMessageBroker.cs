@@ -17,10 +17,10 @@ public class MyMessageBroker : NetworkBehaviour
         
         FindObjectsOfType<UIWithConnection>().ForEach(uiWithConnection => uiWithConnection.SetConnection(true));
         
-        if(Instances.BuildType == BuildType.WebGLClient)
+        if(Instances.BuildType == BuildType.Voting)
         {
-            if(Instances.IsScoreApp == false)
-                Instances.WebGLClientUI.oscMessage.Subscribe(message => SendMessageToBuildType(BuildType.OSCClient, message));
+            // if(Instances.BuildType == false)
+            //     Instances.WebGLClientUI.oscMessage.Subscribe(message => SendMessageToBuildType(BuildType.OSCClient, message));
         }
     }
 
@@ -47,7 +47,7 @@ public class MyMessageBroker : NetworkBehaviour
             Instances.OSCManager.SendOSCMessage("/channel/1", message);
         }
 
-        if (Instances.BuildType == BuildType.WebGLClient && Instances.IsScoreApp)
+        if (Instances.BuildType == BuildType.Score)
         {
             Debug.Log($"Received message: {message}");
             string[] subStrings = message.Split($" ");

@@ -40,7 +40,7 @@ public class WebGLClientUI : UIWithConnection
         
         ToggleChoiceButtons(false);
         
-        Instances.PerformanceManager.MakeChoice(choice);
+        // Instances.PerformanceManager.MakeChoice(choice);
         
         SetContentText($"You have chosen {choice}.{System.Environment.NewLine}" +
                        $"Enjoy the rest of this chapter!");

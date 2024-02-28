@@ -29,12 +29,12 @@ public class MonitorUI : UIWithConnection
         startButton.onClick.AsObservable().Subscribe(_ => Instances.PerformanceManager.StartPerformance());
         stopButton.onClick.AsObservable().Subscribe(_ => Instances.PerformanceManager.StopPerformance());
 
-        chapterLenghtInput.onSubmit.AsObservable().Subscribe(text =>
-        {
-            int val = int.Parse(text);
-            Instances.PerformanceManager.SetChapterLength(val);
-            Debug.Log($"Set chapter length to {val}");
-        });
+        // chapterLenghtInput.onSubmit.AsObservable().Subscribe(text =>
+        // {
+        //     int val = int.Parse(text);
+        //     Instances.PerformanceManager.SetChapterLength(val);
+        //     Debug.Log($"Set chapter length to {val}");
+        // });
     }
     
     public void SetChapter(int chapter)
@@ -102,7 +102,7 @@ public class MonitorUI : UIWithConnection
     {
         Debug.Log($"Highlight choice: {choiceType}");
         
-        Instances.MyMessageBroker.SendMessageToBuildType(BuildType.WebGLClient, $"HighlightChoice {(int)choiceType}");
+        Instances.MyMessageBroker.SendMessageToBuildType(BuildType.Voting, $"HighlightChoice {(int)choiceType}");
     }
 
     [Button]
@@ -118,6 +118,6 @@ public class MonitorUI : UIWithConnection
     {
         Debug.Log($"Focus on current measure: {currentMeasure}");
         
-        Instances.MyMessageBroker.SendMessageToBuildType(BuildType.WebGLClient, $"GoToMeasure {currentMeasure}");
+        Instances.MyMessageBroker.SendMessageToBuildType(BuildType.Voting, $"GoToMeasure {currentMeasure}");
     }
 }

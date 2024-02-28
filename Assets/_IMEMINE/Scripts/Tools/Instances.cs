@@ -19,16 +19,20 @@ public static class Instances
             if (LocalOSCClient)
                 return BuildType.OSCClient;
             if (LocalWebGLClient)
-                return BuildType.WebGLClient;
+                return BuildType.Voting;
 #endif
+            if (BuildTypeManager.forceBuildType)
+                return BuildTypeManager.buildTypeToForce;
+            
             if (ConnectionTypeHolder.ConnectionType == ConnectionType.Host)
                 return BuildType.Server;
-            if(Application.isEditor)
-                return IsScoreApp ? BuildType.WebGLClient : BuildType.Monitor;
             if (ConnectionTypeHolder.ConnectionType == ConnectionType.TugboatClient)
                 return BuildType.OSCClient;
             if (ConnectionTypeHolder.ConnectionType == ConnectionType.BayouClient)
-                return BuildType.WebGLClient;
+                return BuildType.Voting;
+            if(Application.isEditor)
+                return BuildType.Monitor;
+            
             throw new Exception($"Couldn't find build type for connection {ConnectionTypeHolder.ConnectionType}");
         }
     }
@@ -55,19 +59,6 @@ public static class Instances
     private static MyMessageBroker _myMessageBroker;
     private static BuildTypeManager _buildTypeManager;
     private static ScoreManager _scoreManager;
-    
-    public static bool IsScoreApp {
-        get
-        {
-            if (_buildTypeManager == null)
-                _buildTypeManager = Object.FindObjectOfType<BuildTypeManager>();
-
-            if (_buildTypeManager == null)
-                throw new System.Exception($"Couldn't find BuildTypeManager!");
-            
-            return _buildTypeManager.isScoreApp;
-        }
-    }
     
     public static ConnectionStarter ConnectionStarter {
         get
@@ -196,6 +187,19 @@ public static class Instances
                 throw new System.Exception($"Couldn't find MyMessageBroker!");
             
             return _myMessageBroker;
+        }
+    }
+    
+    public static BuildTypeManager BuildTypeManager {
+        get
+        {
+            if (_buildTypeManager == null)
+                _buildTypeManager = Object.FindObjectOfType<BuildTypeManager>();
+
+            if (_buildTypeManager == null)
+                throw new System.Exception($"Couldn't find BuildTypeManager!");
+            
+            return _buildTypeManager;
         }
     }
     

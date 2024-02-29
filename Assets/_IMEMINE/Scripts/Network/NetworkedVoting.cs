@@ -39,4 +39,21 @@ public class NetworkedVoting : NetworkBehaviour
         
         Instances.MonitorUI.HighlightChoice(choice);
     }
+
+    [ServerRpc (RequireOwnership = false)]
+    public void SendAverageToOSCViaServer(float voteAverage)
+    {
+        SendAverageToOSCClient(voteAverage);
+    }
+    
+    [ObserversRpc]
+    private void SendAverageToOSCClient(float voteAverage)
+    {
+        if(Instances.BuildType != BuildType.OSCClient)
+            return;
+        
+        Debug.Log($"Will send message with average: {voteAverage}");
+        
+        Instances.OSCManager.SendOSCMessage("/vote average/1", $"{voteAverage:0.00}");
+    }
 }

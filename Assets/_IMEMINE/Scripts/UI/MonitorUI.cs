@@ -57,6 +57,8 @@ public class MonitorUI : UIWithConnection
     {
         voteAverageText.text = $"Vote Average: {average:0.00}";
         voteAverageSlider.SetValueWithoutNotify(average);
+        
+        Instances.NetworkedVoting.SendAverageToOSCViaServer(average);
     }
 
     public void SetChapter(int chapter)

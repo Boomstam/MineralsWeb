@@ -56,7 +56,7 @@ public class WebGLClientUI : UIWithConnection
 
     public void ToggleColorOverlay(bool show)
     {
-        colorOverlay.gameObject.SetActive(show);
+        this.RunDelayed(Instances.SeatNumber, () => colorOverlay.gameObject.SetActive(show));
         
         slider.gameObject.SetActive(false);
         

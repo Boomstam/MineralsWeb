@@ -10,11 +10,26 @@ public class ColorOverlay : MonoBehaviour
     [SerializeField] private float fadeTime;
     [SerializeField] private Color[] colors;
 
+    private Color startColor;
+
     private float startTime;
     private Color previousColor;
     private Color targetColor;
     private int currentColorIndex;
     private bool isFading;
+
+    private void Awake()
+    {
+        startColor = overlayImage.color;
+    }
+
+    private void OnEnable()
+    {
+        overlayImage.color = startColor;
+
+        isFading = false;
+        currentColorIndex = 0;
+    }
 
     private void Update()
     {

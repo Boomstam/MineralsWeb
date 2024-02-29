@@ -64,6 +64,7 @@ public class AudioManager : MonoBehaviour
         audioReverbFilter.enabled = true;
     }
     
+    [Button]
     public void EnableLowPassFilter(float cutoffFrequency)
     {
         ResetAllFx();

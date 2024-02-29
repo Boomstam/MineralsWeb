@@ -28,10 +28,18 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI chapterText;
     [SerializeField] private TextMeshProUGUI contentText;
 
+    public bool VotingModeCurrentlyOn =>
+        backgroundImage.gameObject.activeSelf && 
+        colorOverlay.gameObject.activeSelf == false;
+
     public void Start()
     {
         slider.onValueChanged.AsObservable()
-            .Subscribe(sliderVal => Instances.NetworkedVoting.SendVoteUpdate(sliderVal, Instances.SeatNumber));
+            .Subscribe(sliderVal =>
+            {
+                Instances.AudioManager.EnableLowPassFilter(500 + (4000 * sliderVal));
+                Instances.NetworkedVoting.SendVoteUpdate(sliderVal, Instances.SeatNumber);
+            });
 
         seatNumberConfirmButton.onClick.AsObservable().Subscribe(_ =>
         {
@@ -53,6 +61,8 @@ public class WebGLClientUI : UIWithConnection
         slider.gameObject.SetActive(false);
         
         Instances.AudioManager.StopPlayback();
+        Instances.AudioManager.ResetAllFx();
+        
         Instances.AudioManager.PlayClip(ClipType.Chapter5);
     }
     
@@ -67,9 +77,12 @@ public class WebGLClientUI : UIWithConnection
         SetStatusText(votingModeOn ? $"Intensity Slider" : "");
         
         Instances.AudioManager.StopPlayback();
+        Instances.AudioManager.ResetAllFx();
         
         if(votingModeOn)
+        {
             Instances.AudioManager.PlayClip(ClipType.Chapter4);
+        }
     }
 
     private void ToggleEnterSeatDialog(bool show)

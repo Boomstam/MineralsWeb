@@ -18,13 +18,19 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private ScoreHighlighter highlighterPrefab;
     [SerializeField] private ScoreDataSO scoreDataSO;
     [SerializeField] private TextMeshProUGUI choiceSwitchWarning;
-    
+    [SerializeField] private TextMeshProUGUI choiceLetter;
+    [SerializeField] private GameObject letterModePanel;
+    [SerializeField] private Button switchLetterModeButton;
+    [SerializeField] private Color choiceAColor;
+    [SerializeField] private Color choiceBColor;
+    [SerializeField] private Color choiceCColor;
+
     private Vector3 firstPagePos => pagePrefab.transform.position;
     private RectTransform rectTransform;
 
     private ChoiceType currentChoice;
     private bool isGoingToNewChoice;
-    
+
     private IDisposable scrollRoutine;
     private float scrollStartTime;
     private float scrollStart;
@@ -33,15 +39,18 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        
+
         DestroyAllChildren();
-        
+
         CreatePages();
+
+        switchLetterModeButton.onClick.AsObservable().Subscribe(_ => SwitchLetterMode());
     }
 
     private void DestroyAllChildren()
     {
-        foreach (Transform child in transform) {
+        foreach (Transform child in transform)
+        {
             Destroy(child.gameObject);
         }
     }
@@ -49,14 +58,14 @@ public class ScoreManager : MonoBehaviour
     private void CreatePages()
     {
         float currentYPos = firstPagePos.y;
-        
+
         foreach (Sprite pageSprite in pages)
         {
             SpriteRenderer page = Instantiate(pagePrefab, transform, false);
             page.transform.position = new Vector3(firstPagePos.x, currentYPos, firstPagePos.z);
 
             page.sprite = pageSprite;
-            
+
             currentYPos -= distanceBetweenPages;
         }
     }
@@ -67,7 +76,7 @@ public class ScoreManager : MonoBehaviour
         ScoreDataEntry scoreDataEntry = scoreDataSO.GetClosestEntryForMeasure(measure);
 
         float targetY = scoreDataEntry.yPos * -1f;
-        
+
         if (scrollRoutine != null)
         {
             if (scrollEnd == targetY)
@@ -81,9 +90,9 @@ public class ScoreManager : MonoBehaviour
         scrollStart = rectTransform.anchoredPosition.y;
 
         scrollStartTime = Time.time;
-        
+
         scrollRoutine?.Dispose();
-        
+
         scrollRoutine = Observable.FromCoroutine(DoScroll).Subscribe();
     }
 
@@ -92,13 +101,14 @@ public class ScoreManager : MonoBehaviour
         while (Time.time - scrollStartTime < scrollTime)
         {
             float timeMod = (Time.time - scrollStartTime) / scrollTime;
-            
+
             float newY = Mathf.Lerp(scrollStart, scrollEnd, timeMod);
-            
+
             rectTransform.anchoredPosition = new Vector2(0, newY);
-            
+
             yield return 0;
         }
+
         rectTransform.anchoredPosition = new Vector2(0, scrollEnd);
         scrollRoutine = null;
     }
@@ -107,9 +117,9 @@ public class ScoreManager : MonoBehaviour
     public void HighlightChoice(ChoiceType choiceType)
     {
         Debug.Log($"Highlight choice: {choiceType}, isGoingToNewChoice: {isGoingToNewChoice}");
-        if(isGoingToNewChoice)
+        if (isGoingToNewChoice)
             return;
-        if(choiceType == currentChoice || choiceType == ChoiceType.None)
+        if (choiceType == currentChoice || choiceType == ChoiceType.None)
             return;
 
         currentChoice = choiceType;
@@ -120,21 +130,22 @@ public class ScoreManager : MonoBehaviour
     private IEnumerator DoHighlightCountdown(ChoiceType choiceType)
     {
         isGoingToNewChoice = true;
-        
+
         choiceSwitchWarning.transform.parent.gameObject.SetActive(true);
-        
+
         for (int i = 0; i < highlightWarningTime; i++)
         {
-            choiceSwitchWarning.text = $"{choiceType} in {highlightWarningTime - i}..."; 
-            
+            choiceSwitchWarning.text = $"{choiceType} in {highlightWarningTime - i}...";
+
             yield return new WaitForSeconds(1f);
         }
+
         choiceSwitchWarning.text = $"Choice {choiceType}!";
-        
+
         DoHighlight(choiceType);
-        
+
         yield return new WaitForSeconds(1f);
-        
+
         choiceSwitchWarning.transform.parent.gameObject.SetActive(false);
 
         isGoingToNewChoice = false;
@@ -151,21 +162,38 @@ public class ScoreManager : MonoBehaviour
         }
 
         float posY = rectTransform.anchoredPosition.y;
-        
+
         rectTransform.anchoredPosition = Vector2.zero;
 
-        ScoreDataEntry[] entriesToHighlight = scoreDataSO.scoreDataEntries.Where(entry => entry.choiceType == choiceType).ToArray();
-        
+        ScoreDataEntry[] entriesToHighlight =
+            scoreDataSO.scoreDataEntries.Where(entry => entry.choiceType == choiceType).ToArray();
+
         foreach (ScoreDataEntry entryToHighlight in entriesToHighlight)
         {
             ScoreHighlighter scoreHighlighter = Instantiate(highlighterPrefab, transform, true);
 
             scoreHighlighter.transform.position = new Vector3(
                 scoreHighlighter.transform.position.x,
-                entryToHighlight.yPos, 
+                entryToHighlight.yPos,
                 scoreHighlighter.transform.position.z);
+            
+            Color highlightColor = choiceAColor;
+            if(choiceType == ChoiceType.B)
+                highlightColor = choiceBColor;
+            if(choiceType == ChoiceType.C)
+                highlightColor = choiceCColor;
+
+            scoreHighlighter.spriteRenderer.color = highlightColor;
+            choiceLetter.color = new Color(highlightColor.r, highlightColor.g, highlightColor.b, 1);
         }
 
         rectTransform.anchoredPosition = new Vector2(0, posY);
+    }
+
+    private void SwitchLetterMode()
+    {
+        bool inLetterMode = letterModePanel.activeSelf;
+        
+        letterModePanel.SetActive(inLetterMode == false);
     }
 }

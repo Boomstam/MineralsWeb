@@ -28,8 +28,6 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI chapterText;
     [SerializeField] private TextMeshProUGUI contentText;
 
-    public ReactiveProperty<string> oscMessage = new ReactiveProperty<string>();
-
     public void Start()
     {
         slider.onValueChanged.AsObservable()
@@ -46,8 +44,6 @@ public class WebGLClientUI : UIWithConnection
             ToggleEnterSeatDialog(false);
         });
         seatNumberDisplayButton.onClick.AsObservable().Subscribe(_ => ToggleEnterSeatDialog(true));
-
-        // sendOSCButton.onClick.AsObservable().Subscribe(_ => oscMessage.SetValueAndForceNotify(oscMessageInput.text));
     }
 
     public void ToggleColorOverlay(bool show)

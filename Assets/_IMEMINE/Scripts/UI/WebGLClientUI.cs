@@ -18,6 +18,9 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private TMP_InputField seatNumberInputField;
     [SerializeField] private Button seatNumberConfirmButton;
     [SerializeField] private Button seatNumberDisplayButton;
+    [SerializeField] private Button seatNumberDecreaseButton;
+    [SerializeField] private Button seatNumberIncreaseButton;
+    [SerializeField] private TextMeshProUGUI seatNumberText;
 
     [SerializeField] private TMP_InputField oscMessageInput;
     [SerializeField] private Button sendOSCButton;
@@ -43,7 +46,7 @@ public class WebGLClientUI : UIWithConnection
 
         seatNumberConfirmButton.onClick.AsObservable().Subscribe(_ =>
         {
-            Instances.SeatNumber = int.Parse(seatNumberInputField.text);
+            Instances.SeatNumber = int.Parse(seatNumberText.text);
             
             Debug.Log($"Seat Number now: {Instances.SeatNumber}");
             
@@ -52,6 +55,20 @@ public class WebGLClientUI : UIWithConnection
             ToggleEnterSeatDialog(false);
         });
         seatNumberDisplayButton.onClick.AsObservable().Subscribe(_ => ToggleEnterSeatDialog(true));
+
+        seatNumberInputField.onSelect.AsObservable().Subscribe(_ =>
+        {
+            Debug.Log($"Select input field");
+            TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);
+        });
+        seatNumberDecreaseButton.onClick.AsObservable().Subscribe(_ =>
+        {
+            seatNumberText.text = Mathf.Max(0, int.Parse(seatNumberText.text) - 1).ToString();
+        });
+        seatNumberIncreaseButton.onClick.AsObservable().Subscribe(_ =>
+        {
+            seatNumberText.text = (int.Parse(seatNumberText.text) + 1).ToString();
+        });
     }
 
     public void ToggleColorOverlay(bool show)
@@ -63,7 +80,8 @@ public class WebGLClientUI : UIWithConnection
         Instances.AudioManager.StopPlayback();
         Instances.AudioManager.ResetAllFx();
         
-        Instances.AudioManager.PlayClip(ClipType.Chapter5);
+        if(show)
+            Instances.AudioManager.PlayClip(ClipType.Chapter5);
     }
     
     public void ToggleVotingMode(bool votingModeOn)
@@ -81,14 +99,19 @@ public class WebGLClientUI : UIWithConnection
         
         if(votingModeOn)
         {
-            Instances.AudioManager.PlayClip(ClipType.Chapter4);
+            Instances.AudioManager.PlayClip(ClipType.Chapter3);
         }
     }
 
     private void ToggleEnterSeatDialog(bool show)
     {
+        // seatNumberInputField.gameObject.SetActive(show);
+        
         seatNumberConfirmButton.gameObject.SetActive(show);
-        seatNumberInputField.gameObject.SetActive(show);
+        
+        seatNumberDecreaseButton.gameObject.SetActive(show);
+        seatNumberIncreaseButton.gameObject.SetActive(show);
+        seatNumberText.gameObject.SetActive(show);
         
         SetStatusText(show ? $"Enter Your Seat Number" : "");
     }

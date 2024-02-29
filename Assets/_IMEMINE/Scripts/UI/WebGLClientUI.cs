@@ -51,6 +51,9 @@ public class WebGLClientUI : UIWithConnection
         colorOverlay.gameObject.SetActive(show);
         
         slider.gameObject.SetActive(false);
+        
+        Instances.AudioManager.StopPlayback();
+        Instances.AudioManager.PlayClip(ClipType.Chapter5);
     }
     
     public void ToggleVotingMode(bool votingModeOn)
@@ -62,6 +65,11 @@ public class WebGLClientUI : UIWithConnection
         slider.gameObject.SetActive(votingModeOn);
         
         SetStatusText(votingModeOn ? $"Intensity Slider" : "");
+        
+        Instances.AudioManager.StopPlayback();
+        
+        if(votingModeOn)
+            Instances.AudioManager.PlayClip(ClipType.Chapter4);
     }
 
     private void ToggleEnterSeatDialog(bool show)

@@ -55,5 +55,6 @@ public class NetworkedVoting : NetworkBehaviour
         Debug.Log($"Will send message with average: {voteAverage}");
         
         Instances.OSCManager.SendOSCMessage("/vote average/1", $"{voteAverage:0.00}");
+        Instances.OSCClientUI.SetMessage($"{voteAverage:0.00}");
     }
 }

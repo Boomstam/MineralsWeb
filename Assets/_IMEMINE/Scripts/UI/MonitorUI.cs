@@ -31,6 +31,10 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI CThresholdText;
     [SerializeField] private Slider CThresholdSlider;
     
+    [SerializeField] private TMP_InputField measureInputField;
+    [SerializeField] private Button sendMeasureButton;
+    [SerializeField] private Button incrementMeasureButton;
+    
     [SerializeField] private int currentMeasure;
 
     public float BThreshold => BThresholdSlider.value;
@@ -51,6 +55,15 @@ public class MonitorUI : UIWithConnection
         
         BThresholdSlider.onValueChanged.AsObservable().Subscribe(sliderVal => BThresholdText.text = $"B Threshold: {sliderVal:0.00}");
         CThresholdSlider.onValueChanged.AsObservable().Subscribe(sliderVal => CThresholdText.text = $"C Threshold: {sliderVal:0.00}");
+
+        sendMeasureButton.onClick.AsObservable().Subscribe(_ =>
+        {
+            currentMeasure = int.Parse(measureInputField.text);
+            
+            FocusOnCurrentMeasure();
+        });
+        
+        incrementMeasureButton.onClick.AsObservable().Subscribe(_ => IncrementMeasure());
     }
 
     public void SetVoteAverage(float average)
@@ -135,6 +148,8 @@ public class MonitorUI : UIWithConnection
         currentMeasure++;
         
         FocusOnCurrentMeasure();
+        
+        measureInputField.SetTextWithoutNotify(currentMeasure.ToString());
     }
 
     [Button]
@@ -142,6 +157,6 @@ public class MonitorUI : UIWithConnection
     {
         Debug.Log($"Focus on current measure: {currentMeasure}");
         
-        Instances.MyMessageBroker.SendMessageToBuildType(BuildType.Voting, $"GoToMeasure {currentMeasure}");
+        Instances.MyMessageBroker.SendMessageToBuildType(BuildType.Score, $"GoToMeasure {currentMeasure}");
     }
 }

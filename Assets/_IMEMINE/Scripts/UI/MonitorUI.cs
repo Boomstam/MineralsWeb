@@ -22,10 +22,19 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI choice2Text;
     [SerializeField] private TextMeshProUGUI choice3Text;
     [SerializeField] private TextMeshProUGUI choice4Text;
-    [SerializeField] private TextMeshProUGUI voteAverageText;
     [SerializeField] private TMP_InputField chapterLenghtInput;
     
+    [SerializeField] private TextMeshProUGUI voteAverageText;
+    [SerializeField] private Slider voteAverageSlider;
+    [SerializeField] private TextMeshProUGUI BThresholdText;
+    [SerializeField] private Slider BThresholdSlider;
+    [SerializeField] private TextMeshProUGUI CThresholdText;
+    [SerializeField] private Slider CThresholdSlider;
+    
     [SerializeField] private int currentMeasure;
+
+    public float BThreshold => BThresholdSlider.value;
+    public float CThreshold => CThresholdSlider.value;
 
     private void Start()
     {
@@ -34,21 +43,20 @@ public class MonitorUI : UIWithConnection
         
         colorOverlayToggle.onValueChanged.AsObservable()
             .Subscribe(toggleVal => Instances.NetworkedMonitor.ToggleColorOverlay(toggleVal));
-        
         votingModeToggle.onValueChanged.AsObservable()
             .Subscribe(toggleVal => { Instances.NetworkedMonitor.ToggleVotingMode(toggleVal); });
+
+        voteAverageSlider.onValueChanged.AsObservable()
+            .Subscribe(sliderVal => Instances.NetworkedVoting.OnVoteAverageUpdate(sliderVal));
         
-        // chapterLenghtInput.onSubmit.AsObservable().Subscribe(text =>
-        // {
-        //     int val = int.Parse(text);
-        //     Instances.PerformanceManager.SetChapterLength(val);
-        //     Debug.Log($"Set chapter length to {val}");
-        // });
+        BThresholdSlider.onValueChanged.AsObservable().Subscribe(sliderVal => BThresholdText.text = $"B Threshold: {sliderVal:0.00}");
+        CThresholdSlider.onValueChanged.AsObservable().Subscribe(sliderVal => CThresholdText.text = $"C Threshold: {sliderVal:0.00}");
     }
 
     public void SetVoteAverage(float average)
     {
-        voteAverageText.text = $"Vote Average: {average:0.0}";
+        voteAverageText.text = $"Vote Average: {average:0.00}";
+        voteAverageSlider.SetValueWithoutNotify(average);
     }
 
     public void SetChapter(int chapter)

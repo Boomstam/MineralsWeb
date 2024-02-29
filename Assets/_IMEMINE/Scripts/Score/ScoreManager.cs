@@ -22,6 +22,7 @@ public class ScoreManager : MonoBehaviour
     private Vector3 firstPagePos => pagePrefab.transform.position;
     private RectTransform rectTransform;
 
+    private ChoiceType currentChoice;
     private bool isGoingToNewChoice;
     
     private IDisposable scrollRoutine;
@@ -108,9 +109,10 @@ public class ScoreManager : MonoBehaviour
         Debug.Log($"Highlight choice: {choiceType}, isGoingToNewChoice: {isGoingToNewChoice}");
         if(isGoingToNewChoice)
             return;
-        if(choiceType == ChoiceType.None)
+        if(choiceType == currentChoice || choiceType == ChoiceType.None)
             return;
 
+        currentChoice = choiceType;
         StartCoroutine(DoHighlightCountdown(choiceType));
     }
 

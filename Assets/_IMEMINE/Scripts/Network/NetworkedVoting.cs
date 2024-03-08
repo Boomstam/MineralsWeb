@@ -30,10 +30,10 @@ public class NetworkedVoting : NetworkBehaviour
     {
         Instances.MonitorUI.SetVoteAverage(voteAverage);
 
-        ChoiceType choice = ChoiceType.B;
+        ChoiceType choice = ChoiceType.A;
         
         if (voteAverage < Instances.MonitorUI.BThreshold)
-            choice = ChoiceType.A;
+            choice = ChoiceType.B;
         else if(voteAverage > Instances.MonitorUI.CThreshold)
             choice = ChoiceType.C;
         

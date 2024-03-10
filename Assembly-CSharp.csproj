@@ -63,7 +63,6 @@
      <Compile Include="Assets\_IMEMINE\Scripts\UI\ColorOverlay.cs" />
      <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Base\Internal\OscPacketParser.cs" />
      <Compile Include="Assets\FishNet\Plugins\Bayou\Core\Supporting.cs" />
-     <Compile Include="Assets\_IMEMINE\Scripts\OSC\ClientTest.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Performance\PerformanceManager.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Tools\Instances.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Tools\BuildType.cs" />

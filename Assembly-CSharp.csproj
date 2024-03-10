@@ -47,56 +47,56 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\_IMEMINE\Scripts\UI\OSCClientUI.cs" />
-     <Compile Include="Assets\extOSC\Examples\10) Ping\Scripts\PingExample.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Network\MyMessageBroker.cs" />
      <Compile Include="Assets\FishNet\Plugins\Bayou\Core\CommonSocket.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\UI\UIWithConnection.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Tools\RectTransformExtensions.cs" />
      <Compile Include="Assets\FishNet\Plugins\Bayou\Bayou.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\UI\ScoreUI.cs" />
+     <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Base\OscMessageDispatcher.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Score\ScoreDataHarvester.cs" />
+     <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Base\Internal\OscPacketEncoder.cs" />
      <Compile Include="Assets\FishNet\Plugins\Bayou\Core\ClientSocket.cs" />
-     <Compile Include="Assets\extOSC\Examples\01) Getting Started\Scripts\SimpleMessageReceiver.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Network\NetworkedVoting.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\UI\WebGLClientUI.cs" />
-     <Compile Include="Assets\extOSC\Examples\02) Value Types\Scripts\ValueTypesExample.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Common\MonoBehaviourExtensions.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\UI\ColorOverlay.cs" />
-     <Compile Include="Assets\extOSC\Examples\07) Scripting\Scripts\ScriptingExample.cs" />
-     <Compile Include="Assets\extOSC\Examples\09) Address Masks\Scripts\AddressMaskExample.cs" />
+     <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Base\Internal\OscPacketParser.cs" />
      <Compile Include="Assets\FishNet\Plugins\Bayou\Core\Supporting.cs" />
+     <Compile Include="Assets\_IMEMINE\Scripts\OSC\ClientTest.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Performance\PerformanceManager.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Tools\Instances.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Tools\BuildType.cs" />
+     <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Base\Internal\OscDataTypes.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Network\NetworkedMonitor.cs" />
-     <Compile Include="Assets\extOSC\Examples\04) Informers\Scripts\InformersExample.cs" />
-     <Compile Include="Assets\extOSC\Examples\01) Getting Started\Scripts\SimpleMessageTransmitter.cs" />
+     <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Base\OscDataHandle.cs" />
+     <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Base\OscServer.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\UI\MonitorUI.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Network\BuildTypeManager.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Audio\AudioManager.cs" />
-     <Compile Include="Assets\extOSC\Examples\11) Array\Scripts\ArrayExample.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Score\ScoreManager.cs" />
-     <Compile Include="Assets\extOSC\Examples\12) Match Pattern\Scripts\MatchPatternExample.cs" />
+     <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Unity\OscPropertySender.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Network\ConnectionType.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Network\ConnectionStarter.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Network\NetworkConnectionManager.cs" />
-     <Compile Include="Assets\extOSC\Examples\03) Events\Scripts\EventsExample.cs" />
      <Compile Include="Assets\FishNet\Upgrading\UpgradeFromMirrorMenu.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\OSC\OSCManager.cs" />
-     <Compile Include="Assets\extOSC\Examples\06) Mapping\Scripts\MappingExample.cs" />
+     <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Base\OscMaster.cs" />
      <Compile Include="Assets\FishNet\Plugins\Bayou\Core\BidirectionalDictionary.cs" />
-     <Compile Include="Assets\extOSC\Examples\13) Marshalling\Scripts\MarshallingExample.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Score\ScoreDataSO.cs" />
+     <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Unity\OscConnection.cs" />
      <Compile Include="Assets\_IMEMINE\Generated\ConnectionTypeHolder.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Score\ScoreHighlighter.cs" />
      <Compile Include="Assets\FishNet\Plugins\Bayou\Core\SslConfiguration.cs" />
+     <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Base\OscClient.cs" />
      <Compile Include="Assets\FishNet\Plugins\Bayou\Core\ServerSocket.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\OSC\NetworkOSCManager.cs" />
+     <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Unity\OscEventReceiver.cs" />
      <Compile Include="Assets\FishNet\Upgrading\MirrorUpgrade.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Tools\PlayerPrefsExtensions.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Video\WebGLVideoPlayer.cs" />
      <Folder Include="Assets" />
-     <Folder Include="Assets\extOSC\Examples\04) Informers\Scripts" />
+     <None Include="Assets\jp.keijiro.osc-jack\package.json" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <Folder Include="Assets\PlayFlowCloud\Resources" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
@@ -104,14 +104,12 @@
      <Folder Include="Assets\StreamingAssets" />
      <Folder Include="Assets\_IMEMINE" />
      <Folder Include="Assets\FishNet\Plugins\Bayou" />
+     <Folder Include="Assets\jp.keijiro.osc-jack\Runtime" />
      <Folder Include="Assets\TextMesh Pro\Resources\Sprite Assets" />
      <Folder Include="Assets\FishNet" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
-     <Folder Include="Assets\extOSC\Examples\10) Ping\Scripts" />
      <Folder Include="Assets\_IMEMINE\Prefabs\Network" />
      <Folder Include="Assets\_IMEMINE\Scripts\Score" />
-     <Folder Include="Assets\extOSC\Examples\03) Events\Scripts" />
-     <Folder Include="Assets\extOSC\Examples\12) Match Pattern" />
      <Folder Include="Assets\_IMEMINE\Prefabs\UI" />
      <Folder Include="Assets\TextMesh Pro\Resources\Fonts &amp; Materials" />
      <None Include="Assets\FishNet\Plugins\CodeAnalysis\README.txt" />
@@ -119,32 +117,22 @@
      <None Include="Assets\FishNet\Plugins\CodeAnalysis\LICENSE.txt" />
      <Folder Include="Assets\_IMEMINE\Scripts\Audio" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
-     <Folder Include="Assets\extOSC\Examples\09) Address Masks" />
-     <Folder Include="Assets\extOSC\Examples\08) UI" />
      <Folder Include="Assets\_IMEMINE\Images\Minerals" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
      <Folder Include="Assets\TextMesh Pro\Resources" />
      <None Include="Assets\FishNet\VERSION.txt" />
      <Folder Include="Assets\_IMEMINE\Scripts\Video" />
-     <Folder Include="Assets\extOSC" />
      <None Include="Assets\FishNet\CONTRIBUTORS.txt" />
      <Folder Include="Assets\FishNet\Upgrading" />
-     <Folder Include="Assets\extOSC\Examples\07) Scripting" />
      <None Include="Assets\PlayFlowCloud\Lib\LICENSE.txt" />
-     <Folder Include="Assets\extOSC\Examples\01) Getting Started\Scripts" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
-     <Folder Include="Assets\extOSC\Examples\12) Match Pattern\Scripts" />
-     <Folder Include="Assets\extOSC\Resources\extOSC" />
      <Folder Include="Assets\TextMesh Pro" />
      <Folder Include="Assets\_IMEMINE\Scenes" />
-     <Folder Include="Assets\extOSC\Examples" />
      <None Include="Assets\FishNet\Plugins\Bayou\LICENSE.txt" />
      <Folder Include="Assets\_IMEMINE\Scripts\UI" />
-     <Folder Include="Assets\extOSC\Resources" />
-     <Folder Include="Assets\extOSC\Examples\05) Events And Informers" />
      <Folder Include="Assets\_IMEMINE\Images" />
+     <Folder Include="Assets\jp.keijiro.osc-jack\Runtime\Base" />
      <Folder Include="Assets\_IMEMINE\Images\Marble" />
-     <Folder Include="Assets\extOSC\Examples\04) Informers" />
      <Folder Include="Assets\FishNet\Plugins\GameKit" />
      <None Include="Assets\_IMEMINE\Docs\Minerals test version.txt" />
      <Folder Include="Assets\_IMEMINE\Scripts\Performance" />
@@ -156,11 +144,10 @@
      <None Include="Assets\FishNet\Plugins\Bayou\CHANGELOG.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
+     <Folder Include="Assets\jp.keijiro.osc-jack" />
      <None Include="Assets\FishNet\DOCUMENTATION.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
-     <Folder Include="Assets\extOSC\Examples\13) Marshalling" />
-     <None Include="Assets\extOSC\package.json" />
      <None Include="Assets\PlayFlowCloud\Lib\ICSharpCode.SharpZipLib.xml" />
      <Folder Include="Assets\PlayFlowCloud\Lib" />
      <None Include="Assets\PlayFlowCloud\README.txt" />
@@ -170,7 +157,6 @@
      <Folder Include="Assets\_IMEMINE\Generated" />
      <Folder Include="Assets\_IMEMINE\Scripts\Common" />
      <Folder Include="Assets\_IMEMINE\Video" />
-     <Folder Include="Assets\extOSC\Examples\03) Events" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
      <Folder Include="Assets\TextMesh Pro\Shaders" />
      <Folder Include="Assets\TextMesh Pro\Resources\Style Sheets" />
@@ -178,13 +164,9 @@
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <Folder Include="Assets\_IMEMINE\Images\Score" />
      <Folder Include="Assets\Editor Default Resources" />
-     <Folder Include="Assets\extOSC\Examples\07) Scripting\Scripts" />
      <Folder Include="Assets\_IMEMINE\Scripts" />
-     <Folder Include="Assets\extOSC\Examples\06) Mapping\Scripts" />
      <None Include="Assets\PlayFlowCloud\Documentation\Documentation.txt" />
-     <Folder Include="Assets\extOSC\Examples\02) Value Types\Scripts" />
-     <Folder Include="Assets\extOSC\Examples\09) Address Masks\Scripts" />
-     <Folder Include="Assets\extOSC\Examples\06) Mapping" />
+     <Folder Include="Assets\jp.keijiro.osc-jack\Runtime\Base\Internal" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
      <Folder Include="Assets\_IMEMINE\Audio\Clips\Compressed" />
      <Folder Include="Assets\Editor Default Resources\EditorAudioUtils" />
@@ -192,27 +174,21 @@
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
      <Folder Include="Assets\_IMEMINE\Prefabs\Score" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
+     <Folder Include="Assets\jp.keijiro.osc-jack\Runtime\Unity" />
      <Folder Include="Assets\_IMEMINE\Prefabs" />
      <Folder Include="Assets\_IMEMINE\Docs" />
-     <Folder Include="Assets\extOSC\Examples\13) Marshalling\Scripts" />
-     <Folder Include="Assets\extOSC\Examples\11) Array" />
      <Folder Include="Assets\_IMEMINE\Audio\Clips" />
      <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <Folder Include="Assets\TextMesh Pro\Documentation" />
-     <Folder Include="Assets\extOSC\Examples\01) Getting Started" />
      <Folder Include="Assets\FishNet\Plugins\CodeAnalysis" />
-     <Folder Include="Assets\extOSC\Examples\10) Ping" />
      <Folder Include="Assets\PlayFlowCloud\Documentation" />
      <Folder Include="Assets\_IMEMINE\Audio" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
-     <Folder Include="Assets\extOSC\Examples\11) Array\Scripts" />
      <Folder Include="Assets\FishNet\Plugins" />
      <Folder Include="Assets\PlayFlowCloud" />
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne.json" />
      <None Include="Assets\FishNet\package.json" />
-     <Folder Include="Assets\extOSC\Examples\02) Value Types" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
-     <None Include="Assets\extOSC\versions.txt" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>
@@ -965,10 +941,6 @@
       <Project>{c2749349-59bb-3d51-a91a-f861d8313567}</Project>
       <Name>SimpleWebTransport</Name>
     </ProjectReference>
-    <ProjectReference Include="extOSC.csproj">
-      <Project>{7a87323a-f22b-58b2-41af-4f191ddc78a7}</Project>
-      <Name>extOSC</Name>
-    </ProjectReference>
     <ProjectReference Include="ParrelSync.csproj">
       <Project>{a4f87c8e-05f4-41ee-fbc0-8af6707dd658}</Project>
       <Name>ParrelSync</Name>
@@ -980,10 +952,6 @@
     <ProjectReference Include="UniRx.csproj">
       <Project>{ceb7fb7f-439c-e3e7-863b-4133d1708c57}</Project>
       <Name>UniRx</Name>
-    </ProjectReference>
-    <ProjectReference Include="extOSC.Editor.csproj">
-      <Project>{780f42c1-896e-c3fd-ce51-52b039203a8b}</Project>
-      <Name>extOSC.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="GameKit.Dependencies.csproj">
       <Project>{8c0b29da-b4dd-e02d-589f-7ed572be8fdb}</Project>

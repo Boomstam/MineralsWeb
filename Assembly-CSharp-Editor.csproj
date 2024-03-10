@@ -869,10 +869,6 @@
       <Project>{c2749349-59bb-3d51-a91a-f861d8313567}</Project>
       <Name>SimpleWebTransport</Name>
     </ProjectReference>
-    <ProjectReference Include="extOSC.csproj">
-      <Project>{7a87323a-f22b-58b2-41af-4f191ddc78a7}</Project>
-      <Name>extOSC</Name>
-    </ProjectReference>
     <ProjectReference Include="ParrelSync.csproj">
       <Project>{a4f87c8e-05f4-41ee-fbc0-8af6707dd658}</Project>
       <Name>ParrelSync</Name>
@@ -884,10 +880,6 @@
     <ProjectReference Include="UniRx.csproj">
       <Project>{ceb7fb7f-439c-e3e7-863b-4133d1708c57}</Project>
       <Name>UniRx</Name>
-    </ProjectReference>
-    <ProjectReference Include="extOSC.Editor.csproj">
-      <Project>{780f42c1-896e-c3fd-ce51-52b039203a8b}</Project>
-      <Name>extOSC.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="GameKit.Dependencies.csproj">
       <Project>{8c0b29da-b4dd-e02d-589f-7ed572be8fdb}</Project>

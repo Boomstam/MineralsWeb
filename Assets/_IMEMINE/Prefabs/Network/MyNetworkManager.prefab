@@ -55,6 +55,7 @@ MonoBehaviour:
   multipass: {fileID: 6893593651153929522}
   tugboat: {fileID: 583653667334047480}
   bayou: {fileID: 133169486397266797}
+  reconnectionInterval: 1
   clientBayouPort: 443
   localClientTugboatPort: localhost
   serverBayouPort: 7777

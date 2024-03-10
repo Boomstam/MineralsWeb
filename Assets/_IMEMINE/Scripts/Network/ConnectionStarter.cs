@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Reflection;
 using FishNet;
 using FishNet.Managing.Client;
@@ -18,12 +19,15 @@ public class ConnectionStarter : MonoBehaviour
     [SerializeField] private Multipass multipass;
     [SerializeField] private Tugboat tugboat;
     [SerializeField] private Bayou bayou;
+    [SerializeField] private float reconnectionInterval;
 
     [SerializeField] private ushort clientBayouPort = 443;
     [SerializeField] private string localClientTugboatPort = "localhost";
     public ushort serverBayouPort = 7777;
     public string playflowToken = "ec27ab23758bce61f2e92807d0a3f2d4";
 
+    private float lastReconnectionTry;
+    
     private void Awake()
     {
         if (runLocally)
@@ -41,8 +45,30 @@ public class ConnectionStarter : MonoBehaviour
             return;
         }
 
+        StartConnection();
+    }
+
+    private void Update()
+    {
+        if (runLocally)
+            return;
+        
+        if(InstanceFinder.ClientManager.Started)
+            return;
+        
+        if (Time.time - lastReconnectionTry > reconnectionInterval)
+        {
+            StartConnection();
+            
+            lastReconnectionTry = Time.time;
+        }
+    }
+
+    [Button]
+    private void StartConnection()
+    {
         ConnectionType connectionType = ConnectionTypeHolder.ConnectionType;
-        Debug.Log($"Awake with connection type {connectionType}");
+        Debug.Log($"Start connection with connection type {connectionType}");
 
         if (connectionType == ConnectionType.Host)
         {
@@ -74,7 +100,25 @@ public class ConnectionStarter : MonoBehaviour
             Observable.Timer(TimeSpan.FromSeconds(1f)).Subscribe(_ => { multipass.ClientTransport.StartConnection(false); });
         }
     }
+    
+    [Button]
+    private void StopConnection()
+    {
+        InstanceFinder.ClientManager.StopConnection();
 
+        StartCoroutine(TryReconnecting());
+    }
+
+    private IEnumerator TryReconnecting()
+    {
+        if (InstanceFinder.ClientManager.Started == false)
+        {
+            StartConnection();
+
+            yield return new WaitForSeconds(reconnectionInterval);
+        }
+    }
+    
     [Button]
     private void StartLocalServer()
     {
@@ -88,4 +132,5 @@ public class ConnectionStarter : MonoBehaviour
         multipass.SetClientTransport<Tugboat>();
         multipass.SetClientAddress(localClientTugboatPort);
         multipass.StartConnection(false);
-    } }
+    }
+}

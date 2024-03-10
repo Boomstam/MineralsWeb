@@ -4,6 +4,7 @@ using FishNet.Connection;
 using FishNet.Object;
 using UnityEngine;
 using System.Linq;
+using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 
 public class NetworkConnectionManager : NetworkBehaviour
@@ -75,14 +76,16 @@ public class NetworkConnectionManager : NetworkBehaviour
         
         Instances.MonitorUI.SetClientConnections(clientConnections);
     }
-
+    
     public override void OnStopNetwork()
     {
         base.OnStopNetwork();
-
+        
         if (IsServer == false)
         {
             FindObjectsOfType<UIWithConnection>().ForEach(uiWithConnection => uiWithConnection.SetConnection(false));
+            
+            Debug.Log($"Connection lost");
         }
     }
 }

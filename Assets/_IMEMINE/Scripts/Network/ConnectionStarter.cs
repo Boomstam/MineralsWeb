@@ -53,6 +53,9 @@ public class ConnectionStarter : MonoBehaviour
         if (runLocally)
             return;
         
+        if(InstanceFinder.ClientManager == null)
+            return;
+        
         if(InstanceFinder.ClientManager.Started)
             return;
         

@@ -238,8 +238,8 @@
      <Compile Include="Assets\FishNet\Runtime\Connection\NetworkConnection.Prediction.cs" />
      <Compile Include="Assets\FishNet\Runtime\Serializing\Writer.cs" />
      <Compile Include="Assets\FishNet\Runtime\Object\NetworkObject.Observers.cs" />
-     <Compile Include="Assets\FishNet\Runtime\Generated\SyncTypes\SyncTimerOperation.cs" />
      <Compile Include="Assets\FishNet\Runtime\Authenticating\Authenticator.cs" />
+     <Compile Include="Assets\FishNet\Runtime\Generated\SyncTypes\SyncTimerOperation.cs" />
      <Compile Include="Assets\FishNet\Runtime\Serializing\Helping\Attributes.cs" />
      <Compile Include="Assets\FishNet\Runtime\Plugins\ColliderRollback\Scripts\ColliderRollback.cs" />
      <Compile Include="Assets\FishNet\Runtime\Transporting\Transports\Tugboat\LiteNetLib\NativeSocket.cs" />

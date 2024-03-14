@@ -26,6 +26,8 @@ public class MonitorUI : UIWithConnection
     
     [SerializeField] private TextMeshProUGUI voteAverageText;
     [SerializeField] private Slider voteAverageSlider;
+    [SerializeField] private TextMeshProUGUI voteOffsetText;
+    [SerializeField] private Slider voteOffsetSlider;
     [SerializeField] private TextMeshProUGUI BThresholdText;
     [SerializeField] private Slider BThresholdSlider;
     [SerializeField] private TextMeshProUGUI CThresholdText;

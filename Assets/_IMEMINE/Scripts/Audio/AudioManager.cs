@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
     public AudioClip[] clips;
+    public AudioFader audioFader;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioDistortionFilter audioDistortionFilter;
     [SerializeField] private AudioChorusFilter audioChorusFilter;
@@ -13,22 +15,36 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioReverbFilter audioReverbFilter;
     [SerializeField] private AudioLowPassFilter audioLowPassFilter;
     [SerializeField] private AudioHighPassFilter audioHighPassFilter;
-    
+
+    public AudioClip GetClip(ClipType clipType) => clips[(int)clipType];
+
     [Button]
     public void PlayClip(ClipType clipType)
     {
         audioSource.Stop();
-        
-        int clipIndex = (int)clipType;
-        AudioClip clip = clips[clipIndex];
 
-        audioSource.clip = clip;
+        audioSource.clip = GetClip(clipType);
+        
         audioSource.Play();
     }
 
-    public void StopPlayback()
+    public void PlayFadeClips(ClipType[] clipTypes)
+    {
+        AudioClip[] fadeClips = clipTypes.Select(GetClip).ToArray();
+        
+        audioFader.PlayFadeSamples(fadeClips);
+    }
+
+    public void SetFadeVal(float fadeVal)
+    {
+        audioFader.SetFadeValue(fadeVal);
+    }
+    
+    public void StopAllPlayback()
     {
         audioSource.Stop();
+
+        audioFader.StopAllPlayback();
     }
 
     public void ResetAllFx()
@@ -81,4 +97,7 @@ public enum ClipType
     Chapter3,
     Chapter4,
     Chapter5,
+    MineralsA,
+    MineralsB,
+    MineralsC,
 }

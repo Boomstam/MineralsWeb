@@ -12,8 +12,11 @@ using UnityEngine.UI;
 public class WebGLClientUI : UIWithConnection
 {
     [SerializeField] private ColorOverlay colorOverlay;
-    [SerializeField] private Slider slider;
+    [SerializeField] private Slider voteSlider;
+    [SerializeField] private Slider averageSlider;
     [SerializeField] private Image backgroundImage;
+    [SerializeField] private Sprite[] fadeSprites;
+    [SerializeField] private ImageFader imageFader;
     [SerializeField] private RawImage backgroundVideo;
     [SerializeField] private TMP_InputField seatNumberInputField;
     [SerializeField] private Button seatNumberConfirmButton;
@@ -31,19 +34,24 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI chapterText;
     [SerializeField] private TextMeshProUGUI contentText;
 
-    public bool VotingModeCurrentlyOn =>
-        backgroundImage.gameObject.activeSelf && 
-        colorOverlay.gameObject.activeSelf == false;
+    // public bool VotingModeCurrentlyOn =>
+    //     backgroundImage.gameObject.activeSelf && 
+    //     colorOverlay.gameObject.activeSelf == false;
+
+    private const string seatPlayerPrefsKey = "Seat";
 
     public void Start()
     {
-        slider.onValueChanged.AsObservable()
+        voteSlider.onValueChanged.AsObservable()
             .Subscribe(sliderVal =>
             {
-                Instances.AudioManager.EnableLowPassFilter(500 + (4000 * sliderVal));
+                // Instances.AudioManager.EnableLowPassFilter(300 + (7200 * sliderVal));
+                Instances.AudioManager.SetFadeVal(1 - sliderVal);
+                imageFader.SetFadeVal(1 - sliderVal);
+                
                 Instances.NetworkedVoting.SendVoteUpdate(sliderVal, Instances.SeatNumber);
             });
-
+        
         seatNumberConfirmButton.onClick.AsObservable().Subscribe(_ =>
         {
             Instances.SeatNumber = int.Parse(seatNumberText.text);
@@ -55,7 +63,7 @@ public class WebGLClientUI : UIWithConnection
             ToggleEnterSeatDialog(false);
         });
         seatNumberDisplayButton.onClick.AsObservable().Subscribe(_ => ToggleEnterSeatDialog(true));
-
+        
         seatNumberInputField.onSelect.AsObservable().Subscribe(_ =>
         {
             Debug.Log($"Select input field");
@@ -63,44 +71,61 @@ public class WebGLClientUI : UIWithConnection
         });
         seatNumberDecreaseButton.onClick.AsObservable().Subscribe(_ =>
         {
-            seatNumberText.text = Mathf.Max(0, int.Parse(seatNumberText.text) - 1).ToString();
+            int newSeatVal = Mathf.Max(1, int.Parse(seatNumberText.text) - 1);
+            UpdateSeatVal(newSeatVal);
         });
         seatNumberIncreaseButton.onClick.AsObservable().Subscribe(_ =>
         {
-            seatNumberText.text = (int.Parse(seatNumberText.text) + 1).ToString();
+            int newSeatVal = int.Parse(seatNumberText.text) + 1;
+            UpdateSeatVal(newSeatVal);
         });
+        
+        if(PlayerPrefs.HasKey(seatPlayerPrefsKey))
+            UpdateSeatVal(PlayerPrefs.GetInt(seatPlayerPrefsKey));
+    }
+
+    private void UpdateSeatVal(int newVal)
+    {
+        PlayerPrefs.SetInt(seatPlayerPrefsKey, newVal);
+        
+        seatNumberText.text = newVal.ToString();
     }
 
     public void ToggleColorOverlay(bool show)
     {
         this.RunDelayed(Instances.SeatNumber, () => colorOverlay.gameObject.SetActive(show));
         
-        slider.gameObject.SetActive(false);
+        voteSlider.gameObject.SetActive(false);
         
-        Instances.AudioManager.StopPlayback();
+        Instances.AudioManager.StopAllPlayback();
         Instances.AudioManager.ResetAllFx();
         
-        if(show)
-            Instances.AudioManager.PlayClip(ClipType.Chapter5);
+        if (show)
+            Instances.AudioManager.PlayFadeClips(new [] { ClipType.MineralsA, ClipType.MineralsB, ClipType.MineralsC });
     }
     
     public void ToggleVotingMode(bool votingModeOn)
     {
         // colorOverlay.gameObject.SetActive(false);
-        backgroundImage.gameObject.SetActive(votingModeOn);
+        
+        imageFader.DisplayFadeImages(fadeSprites);
+        // backgroundImage.gameObject.SetActive(votingModeOn);
         backgroundVideo.gameObject.SetActive(votingModeOn == false);
         
-        slider.gameObject.SetActive(votingModeOn);
+        voteSlider.gameObject.SetActive(votingModeOn);
         
         SetStatusText(votingModeOn ? $"Intensity Slider" : "");
         
-        Instances.AudioManager.StopPlayback();
+        Instances.AudioManager.StopAllPlayback();
         Instances.AudioManager.ResetAllFx();
         
         if(votingModeOn)
-        {
-            Instances.AudioManager.PlayClip(ClipType.Chapter3);
-        }
+            Instances.AudioManager.PlayFadeClips(new [] { ClipType.MineralsA, ClipType.MineralsB, ClipType.MineralsC });
+    }
+
+    public void SetVoteAverage(float voteAverage)
+    {
+        voteSlider.value = voteAverage;
     }
 
     private void ToggleEnterSeatDialog(bool show)

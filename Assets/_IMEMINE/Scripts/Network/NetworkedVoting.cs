@@ -36,8 +36,16 @@ public class NetworkedVoting : NetworkBehaviour
             choice = ChoiceType.B;
         else if(voteAverage > Instances.MonitorUI.CThreshold)
             choice = ChoiceType.C;
-        
+
         Instances.MonitorUI.HighlightChoice(choice);
+    }
+
+    [ObserversRpc]
+    private void SendAverageToClients(float voteAverage)
+    {
+        Debug.Log($"vote average on client {voteAverage}");
+        
+        Instances.WebGLClientUI.SetVoteAverage(voteAverage);
     }
 
     [ServerRpc (RequireOwnership = false)]

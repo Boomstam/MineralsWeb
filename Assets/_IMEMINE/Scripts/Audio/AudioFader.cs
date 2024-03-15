@@ -57,6 +57,8 @@ public class AudioFader : MonoBehaviour
             sources[0].pitch = 2f;
             sources[1].pitch = 1f;
             sources[2].pitch = 0.5f;
+            
+            sources[0].volume *= 0.8f;
         }
     }
 

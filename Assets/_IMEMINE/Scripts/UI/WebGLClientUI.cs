@@ -113,6 +113,7 @@ public class WebGLClientUI : UIWithConnection
         backgroundVideo.gameObject.SetActive(votingModeOn == false);
         
         voteSlider.gameObject.SetActive(votingModeOn);
+        averageSlider.gameObject.SetActive(votingModeOn);
         
         SetStatusText(votingModeOn ? $"Intensity Slider" : "");
         
@@ -120,12 +121,15 @@ public class WebGLClientUI : UIWithConnection
         Instances.AudioManager.ResetAllFx();
         
         if(votingModeOn)
+            ToggleEnterSeatDialog(false);
+
+        if(votingModeOn)
             Instances.AudioManager.PlayFadeClips(new [] { ClipType.MineralsA, ClipType.MineralsB, ClipType.MineralsC });
     }
 
     public void SetVoteAverage(float voteAverage)
     {
-        voteSlider.value = voteAverage;
+        averageSlider.value = voteAverage;
     }
 
     private void ToggleEnterSeatDialog(bool show)

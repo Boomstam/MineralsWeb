@@ -14,6 +14,8 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private Button stopButton;
     [SerializeField] private Toggle colorOverlayToggle;
     [SerializeField] private Toggle votingModeToggle;
+    [SerializeField] private Toggle blockVotingToggle;
+    [SerializeField] private TextMeshProUGUI resultVoteText;
     [SerializeField] private TextMeshProUGUI chapterText;
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private TextMeshProUGUI oscConnectionsText;
@@ -51,9 +53,17 @@ public class MonitorUI : UIWithConnection
             .Subscribe(toggleVal => Instances.NetworkedMonitor.ToggleColorOverlay(toggleVal));
         votingModeToggle.onValueChanged.AsObservable()
             .Subscribe(toggleVal => { Instances.NetworkedMonitor.ToggleVotingMode(toggleVal); });
+        blockVotingToggle.onValueChanged.AsObservable()
+            .Subscribe(ToggleBlockVoting);
 
         voteAverageSlider.onValueChanged.AsObservable()
             .Subscribe(sliderVal => Instances.NetworkedVoting.OnVoteAverageUpdate(sliderVal));
+        voteOffsetSlider.onValueChanged.AsObservable()
+            .Subscribe(sliderVal =>
+            {
+                voteOffsetText.text = $"Vote offset: {sliderVal}";
+                Instances.NetworkedVoting.UpdateVoteOffset(sliderVal);
+            });
         
         BThresholdSlider.onValueChanged.AsObservable().Subscribe(sliderVal => BThresholdText.text = $"B Threshold: {sliderVal:0.00}");
         CThresholdSlider.onValueChanged.AsObservable().Subscribe(sliderVal => CThresholdText.text = $"C Threshold: {sliderVal:0.00}");
@@ -68,12 +78,14 @@ public class MonitorUI : UIWithConnection
         incrementMeasureButton.onClick.AsObservable().Subscribe(_ => IncrementMeasure());
     }
 
-    public void SetVoteAverage(float average)
+    public void SetVoteAverage(float average, float offsettedAverage)
     {
         voteAverageText.text = $"Vote Average: {average:0.00}";
         voteAverageSlider.SetValueWithoutNotify(average);
-        
+
         Instances.NetworkedVoting.SendAverageToOSCViaServer(average);
+
+        resultVoteText.text = $"Result vote: {average}";
     }
 
     public void SetChapter(int chapter)
@@ -136,10 +148,15 @@ public class MonitorUI : UIWithConnection
         textComp.text = $"Choice {choice}: {numberOfChoices}, {percentage}%";
     }
 
+    private void ToggleBlockVoting(bool blockVoting)
+    {
+        Instances.NetworkedVoting.UpdateVotingBlocked(blockVoting);
+    }
+
     [Button]
     public void HighlightChoice(ChoiceType choiceType)
     {
-        Debug.Log($"Highlight choice: {choiceType}");
+        // Debug.Log($"Highlight choice: {choiceType}");
         
         Instances.MyMessageBroker.SendMessageToBuildType(BuildType.Score, $"HighlightChoice {(int)choiceType}");
     }
@@ -158,7 +175,7 @@ public class MonitorUI : UIWithConnection
     private void FocusOnCurrentMeasure()
     {
         Debug.Log($"Focus on current measure: {currentMeasure}");
-        
+
         Instances.MyMessageBroker.SendMessageToBuildType(BuildType.Score, $"GoToMeasure {currentMeasure}");
     }
 }

@@ -3,49 +3,65 @@ using System.Collections.Generic;
 using System.Linq;
 using FishNet.Connection;
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using UnityEngine;
 
 public class NetworkedVoting : NetworkBehaviour
 {
     private Dictionary<int, float> votePerSeat = new Dictionary<int, float>();
 
+    [SyncVar] private float voteOffset;
+    [SyncVar] private bool votingBlocked;
+
+    [ServerRpc(RequireOwnership = false)]
+    public void UpdateVoteOffset(float newVoteOffset)
+    {
+        voteOffset = newVoteOffset;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void UpdateVotingBlocked(bool blockVoting)
+    {
+        votingBlocked = blockVoting;
+    }
+    
     [ServerRpc(RequireOwnership = false)]
     public void SendVoteUpdate(float voteVal, int seatNumber, NetworkConnection conn = null)
     {
+        if(votingBlocked)
+            return;
+        
         SendVoteUpdateToMonitor(voteVal, seatNumber);
     }
 
-    [ObserversRpc]
+    [ObserversRpc] // Runs on the Monitor
     private void SendVoteUpdateToMonitor(float voteVal, int seatNumber)
     {
         if(Instances.BuildType != BuildType.Monitor)
             return;
 
         votePerSeat[seatNumber] = voteVal;
+
+        float average = votePerSeat.Values.Average();
         
-        OnVoteAverageUpdate(votePerSeat.Values.Average());
+        OnVoteAverageUpdate(average);
     }
 
+    [Client] // Runs on the Monitor
     public void OnVoteAverageUpdate(float voteAverage)
     {
-        Instances.MonitorUI.SetVoteAverage(voteAverage);
-
+        float offsettedAverage = Mathf.Max(1, voteAverage + voteOffset);
+        
+        Instances.MonitorUI.SetVoteAverage(voteAverage, offsettedAverage);
+        
         ChoiceType choice = ChoiceType.A;
         
-        if (voteAverage < Instances.MonitorUI.BThreshold)
+        if (offsettedAverage < Instances.MonitorUI.BThreshold)
             choice = ChoiceType.B;
-        else if(voteAverage > Instances.MonitorUI.CThreshold)
+        else if(offsettedAverage > Instances.MonitorUI.CThreshold)
             choice = ChoiceType.C;
-
-        Instances.MonitorUI.HighlightChoice(choice);
-    }
-
-    [ObserversRpc]
-    private void SendAverageToClients(float voteAverage)
-    {
-        Debug.Log($"vote average on client {voteAverage}");
         
-        Instances.WebGLClientUI.SetVoteAverage(voteAverage);
+        Instances.MonitorUI.HighlightChoice(choice);
     }
 
     [ServerRpc (RequireOwnership = false)]
@@ -57,6 +73,9 @@ public class NetworkedVoting : NetworkBehaviour
     [ObserversRpc]
     private void SendAverageToOSCClient(float voteAverage)
     {
+        if (Instances.BuildType == BuildType.Voting)
+            Instances.WebGLClientUI.SetVoteAverage(voteAverage);
+
         if(Instances.BuildType != BuildType.OSCClient)
             return;
         

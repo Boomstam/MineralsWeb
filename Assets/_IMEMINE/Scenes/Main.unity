@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceBuildType: 1
-  buildTypeToForce: 3
+  buildTypeToForce: 1
   cameraPrefab: {fileID: 86585586382010587, guid: d7c5d4dd6802903418bdac6feca4f0e2, type: 3}
   eventSystemPrefab: {fileID: 7633927569852759257, guid: 333bbef7f9d36c545800ded857e87dda, type: 3}
   performanceManagerPrefab: {fileID: 8869923398169618663, guid: 95c42fb4e423eef48a861f26c4b63559, type: 3}
@@ -234,6 +234,10 @@ PrefabInstance:
     - target: {fileID: 4413357606657753557, guid: b53aa325ebe83354eb4df705d09ce667, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6292306098596994715, guid: b53aa325ebe83354eb4df705d09ce667, type: 3}
+      propertyPath: runLocally
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -116,11 +116,13 @@ public class ScoreManager : MonoBehaviour
     [Button]
     public void HighlightChoice(ChoiceType choiceType)
     {
-        Debug.Log($"Highlight choice: {choiceType}, isGoingToNewChoice: {isGoingToNewChoice}");
+        Debug.Log($"isGoingToNewChoice: {isGoingToNewChoice}");
         if (isGoingToNewChoice)
             return;
         if (choiceType == currentChoice || choiceType == ChoiceType.None)
             return;
+        
+        Debug.Log($"Highlight choice: {choiceType}");
 
         currentChoice = choiceType;
         StartCoroutine(DoHighlightCountdown(choiceType));
@@ -129,6 +131,7 @@ public class ScoreManager : MonoBehaviour
     // TODO: There is still a bug here where the warning will disappear if a second routine is started while another is running.
     private IEnumerator DoHighlightCountdown(ChoiceType choiceType)
     {
+        Debug.Log($"DoHighlightCountdown to {choiceType}");
         isGoingToNewChoice = true;
 
         choiceSwitchWarning.transform.parent.gameObject.SetActive(true);
@@ -154,6 +157,8 @@ public class ScoreManager : MonoBehaviour
     private void DoHighlight(ChoiceType choiceType)
     {
         // Debug.Log($"Do highlight: {choiceType}");
+        choiceLetter.text = choiceType.ToString();
+        
         ScoreHighlighter[] currentHighlighters = GetComponentsInChildren<ScoreHighlighter>();
 
         for (int i = 0; i < currentHighlighters.Length; i++)

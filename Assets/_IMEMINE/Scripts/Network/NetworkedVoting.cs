@@ -12,6 +12,9 @@ public class NetworkedVoting : NetworkBehaviour
 
     [SyncVar] private float voteOffset;
     [SyncVar] private bool votingBlocked;
+    
+    // Saved on the Monitor
+    public ChoiceType currentChoice; 
 
     [ServerRpc(RequireOwnership = false)]
     public void UpdateVoteOffset(float newVoteOffset)
@@ -23,6 +26,17 @@ public class NetworkedVoting : NetworkBehaviour
     public void UpdateVotingBlocked(bool blockVoting)
     {
         votingBlocked = blockVoting;
+
+        SendBlockVotingToClients(blockVoting);
+    }
+
+    [ObserversRpc]
+    private void SendBlockVotingToClients(bool blockVoting)
+    {
+        if(Instances.BuildType != BuildType.Voting)
+            return;
+        
+        Instances.WebGLClientUI.SetBlockVoting(blockVoting);
     }
     
     [ServerRpc(RequireOwnership = false)]
@@ -50,28 +64,32 @@ public class NetworkedVoting : NetworkBehaviour
     [Client] // Runs on the Monitor
     public void OnVoteAverageUpdate(float voteAverage)
     {
-        float offsettedAverage = Mathf.Max(1, voteAverage + voteOffset);
+        float offsettedAverage = Mathf.Min(1, voteAverage + voteOffset);
         
         Instances.MonitorUI.SetVoteAverage(voteAverage, offsettedAverage);
         
-        ChoiceType choice = ChoiceType.A;
+        Debug.Log($"voteAverage {voteAverage}, offsettedAverage {offsettedAverage}");
+        
+        ChoiceType choice = ChoiceType.B;
         
         if (offsettedAverage < Instances.MonitorUI.BThreshold)
-            choice = ChoiceType.B;
-        else if(offsettedAverage > Instances.MonitorUI.CThreshold)
             choice = ChoiceType.C;
-        
-        Instances.MonitorUI.HighlightChoice(choice);
+        else if(offsettedAverage > Instances.MonitorUI.CThreshold)
+            choice = ChoiceType.A;
+
+        currentChoice = choice;
+        Debug.Log($"CurrentChoice {currentChoice}");
+        // Instances.MonitorUI.HighlightChoice(choice);
     }
 
     [ServerRpc (RequireOwnership = false)]
-    public void SendAverageToOSCViaServer(float voteAverage)
+    public void SendAverageToClientsViaServer(float voteAverage)
     {
-        SendAverageToOSCClient(voteAverage);
+        SendAverageToClients(voteAverage);
     }
     
     [ObserversRpc]
-    private void SendAverageToOSCClient(float voteAverage)
+    private void SendAverageToClients(float voteAverage)
     {
         if (Instances.BuildType == BuildType.Voting)
             Instances.WebGLClientUI.SetVoteAverage(voteAverage);

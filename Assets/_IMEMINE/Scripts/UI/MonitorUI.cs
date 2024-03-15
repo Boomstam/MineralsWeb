@@ -15,6 +15,7 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private Toggle colorOverlayToggle;
     [SerializeField] private Toggle votingModeToggle;
     [SerializeField] private Toggle blockVotingToggle;
+    [SerializeField] private Button sendChoiceButton;
     [SerializeField] private TextMeshProUGUI resultVoteText;
     [SerializeField] private TextMeshProUGUI chapterText;
     [SerializeField] private TextMeshProUGUI timeText;
@@ -56,6 +57,8 @@ public class MonitorUI : UIWithConnection
         blockVotingToggle.onValueChanged.AsObservable()
             .Subscribe(ToggleBlockVoting);
 
+        sendChoiceButton.onClick.AsObservable().Subscribe(_ => SendChoice());
+
         voteAverageSlider.onValueChanged.AsObservable()
             .Subscribe(sliderVal => Instances.NetworkedVoting.OnVoteAverageUpdate(sliderVal));
         voteOffsetSlider.onValueChanged.AsObservable()
@@ -83,7 +86,7 @@ public class MonitorUI : UIWithConnection
         voteAverageText.text = $"Vote Average: {average:0.00}";
         voteAverageSlider.SetValueWithoutNotify(average);
 
-        Instances.NetworkedVoting.SendAverageToOSCViaServer(average);
+        Instances.NetworkedVoting.SendAverageToClientsViaServer(average);
 
         resultVoteText.text = $"Result vote: {average}";
     }
@@ -108,6 +111,13 @@ public class MonitorUI : UIWithConnection
         clientConnectionsText.text = $"Client connections: {connections}";
     }
 
+    private void SendChoice()
+    {
+        Debug.Log($"Send Choice {Instances.NetworkedVoting.currentChoice}");
+        
+        HighlightChoice(Instances.NetworkedVoting.currentChoice);
+    }
+    
     public void UpdateChoices(int choice1, int choice2, int choice3, int choice4)
     {
         float totalNumChoices = choice1 + choice2 + choice3 + choice4;

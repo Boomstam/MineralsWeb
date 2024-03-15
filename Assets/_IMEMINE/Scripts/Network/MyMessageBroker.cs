@@ -47,7 +47,7 @@ public class MyMessageBroker : NetworkBehaviour
         
         if (Instances.BuildType == BuildType.Score)
         {
-            Debug.Log($"Received message: {message}");
+            // Debug.Log($"Received message: {message}");
             string[] subStrings = message.Split($" ");
             
             if(subStrings[0] == $"GoToMeasure")

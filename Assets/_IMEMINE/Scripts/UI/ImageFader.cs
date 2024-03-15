@@ -66,7 +66,7 @@ public class ImageFader : MonoBehaviour
     {
         for (int i = 1; i < transform.childCount; i++)
         {
-            Destroy(transform.GetChild(i));
+            Destroy(transform.GetChild(i).gameObject);
         }
 
         images = Array.Empty<Image>();

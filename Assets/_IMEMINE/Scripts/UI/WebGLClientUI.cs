@@ -34,6 +34,7 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI chapterText;
     [SerializeField] private TextMeshProUGUI contentText;
 
+    public bool PlayFadeClips { get; set; } = true;
     // public bool VotingModeCurrentlyOn =>
     //     backgroundImage.gameObject.activeSelf && 
     //     colorOverlay.gameObject.activeSelf == false;
@@ -93,7 +94,9 @@ public class WebGLClientUI : UIWithConnection
 
     public void ToggleColorOverlay(bool show)
     {
-        this.RunDelayed(Instances.SeatNumber, () => colorOverlay.gameObject.SetActive(show));
+        // this.RunDelayed(Instances.SeatNumber, () => colorOverlay.gameObject.SetActive(show));
+        colorOverlay.StartDelay = Instances.SeatNumber;
+        colorOverlay.gameObject.SetActive(true);
         
         voteSlider.gameObject.SetActive(false);
         
@@ -101,7 +104,10 @@ public class WebGLClientUI : UIWithConnection
         Instances.AudioManager.ResetAllFx();
         
         if (show)
-            Instances.AudioManager.PlayFadeClips(new [] { ClipType.MineralsA, ClipType.MineralsB, ClipType.MineralsC });
+        {
+            Instances.AudioManager.PlayClip(ClipType.Chapter5);
+            ToggleEnterSeatDialog(false);
+        }
     }
     
     public void ToggleVotingMode(bool votingModeOn)
@@ -123,7 +129,7 @@ public class WebGLClientUI : UIWithConnection
         if(votingModeOn)
             ToggleEnterSeatDialog(false);
 
-        if(votingModeOn)
+        if(votingModeOn && PlayFadeClips)
             Instances.AudioManager.PlayFadeClips(new [] { ClipType.MineralsA, ClipType.MineralsB, ClipType.MineralsC });
     }
     

@@ -18,6 +18,9 @@ public class ColorOverlay : MonoBehaviour
     private int currentColorIndex;
     private bool isFading;
 
+    private float activationTime;
+    public float StartDelay { get; set; }
+
     private void Awake()
     {
         startColor = overlayImage.color;
@@ -25,6 +28,8 @@ public class ColorOverlay : MonoBehaviour
 
     private void OnEnable()
     {
+        activationTime = Time.time;
+        
         overlayImage.color = startColor;
 
         isFading = false;
@@ -33,6 +38,9 @@ public class ColorOverlay : MonoBehaviour
 
     private void Update()
     {
+        if(Time.time - activationTime < StartDelay)
+            return;
+        
         if(isFading)
             DoFade();
         else

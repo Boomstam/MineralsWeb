@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
@@ -106,5 +107,7 @@ public class AudioFader : MonoBehaviour
         {
             Destroy(sources[sourceIndex].gameObject);
         }
+
+        sources = Array.Empty<AudioSource>();
     }
 }

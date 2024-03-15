@@ -102,4 +102,19 @@ public class NetworkedVoting : NetworkBehaviour
         Instances.OSCManager.SendOSCMessage("/minerals", $"{voteAverage:0.00}");
         Instances.OSCClientUI.SetMessage($"{voteAverage:0.00}");
     }
+
+    [ServerRpc (RequireOwnership = false)]
+    public void MuteSoundViaServer(bool playFadeClips)
+    {
+        MuteSoundOnClients(playFadeClips);
+    }
+
+    [ObserversRpc]
+    private void MuteSoundOnClients(bool playFadeClips)
+    {
+        if (Instances.BuildType != BuildType.Voting)
+            return;
+
+        Instances.WebGLClientUI.PlayFadeClips = playFadeClips;
+    }
 }

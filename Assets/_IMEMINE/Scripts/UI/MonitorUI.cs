@@ -15,6 +15,7 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private Toggle colorOverlayToggle;
     [SerializeField] private Toggle votingModeToggle;
     [SerializeField] private Toggle blockVotingToggle;
+    [SerializeField] private Toggle muteSoundToggle;
     [SerializeField] private Button sendChoiceButton;
     [SerializeField] private TextMeshProUGUI resultVoteText;
     [SerializeField] private TextMeshProUGUI chapterText;
@@ -56,6 +57,8 @@ public class MonitorUI : UIWithConnection
             .Subscribe(toggleVal => { Instances.NetworkedMonitor.ToggleVotingMode(toggleVal); });
         blockVotingToggle.onValueChanged.AsObservable()
             .Subscribe(ToggleBlockVoting);
+        muteSoundToggle.onValueChanged.AsObservable()
+            .Subscribe(toggleVal => Instances.NetworkedVoting.MuteSoundViaServer(toggleVal == false));
 
         sendChoiceButton.onClick.AsObservable().Subscribe(_ => SendChoice());
 

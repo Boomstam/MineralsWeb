@@ -18,6 +18,23 @@ public class NetworkConnectionManager : NetworkBehaviour
         AddOnServer(Instances.BuildType);
     }
 
+    [Button, ServerRpc(RequireOwnership = false)]
+    public void ResetConnections()
+    {
+        connections = new Dictionary<int, BuildType>();
+
+        foreach (NetworkConnection connection in ServerManager.Clients.Values)
+        {
+            AddOnServerAfterReset(connection);
+        }
+    }
+
+    [TargetRpc]
+    private void AddOnServerAfterReset(NetworkConnection conn)
+    {
+        AddOnServer(Instances.BuildType);
+    }
+
     [ServerRpc(RequireOwnership = false)]
     private void AddOnServer(BuildType buildType, NetworkConnection connection = null)
     {

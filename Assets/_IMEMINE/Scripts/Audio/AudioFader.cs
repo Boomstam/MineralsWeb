@@ -28,7 +28,7 @@ public class AudioFader : MonoBehaviour
         }
         if(CurrentNumSources == 1)
         {
-            Debug.LogWarning($"Only 1 fade samples playing, can't fade");
+            Debug.LogWarning($"Only 1 fade sample playing, can't fade");
             return;
         }
         float percentagePerSource = 1f / (float)(CurrentNumSources - 1);
@@ -55,11 +55,12 @@ public class AudioFader : MonoBehaviour
         
         if (CurrentNumSources == 3)
         {
-            sources[0].pitch = 2f;
-            sources[1].pitch = 1f;
-            sources[2].pitch = 0.5f;
-            
-            sources[0].volume *= 0.8f;
+            // Hardcode
+            // sources[0].pitch = 2f;
+            // sources[1].pitch = 1f;
+            // sources[2].pitch = 0.5f;
+            //
+            // sources[0].volume *= 0.8f;
         }
     }
 

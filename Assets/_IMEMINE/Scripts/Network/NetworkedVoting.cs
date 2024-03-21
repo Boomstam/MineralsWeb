@@ -8,13 +8,13 @@ using UnityEngine;
 
 public class NetworkedVoting : NetworkBehaviour
 {
-    private Dictionary<int, float> votePerSeat = new Dictionary<int, float>();
-
+    [SyncVar] public bool votingBlocked;
     [SyncVar] private float voteOffset;
-    [SyncVar] private bool votingBlocked;
     
     // Saved on the Monitor
     public ChoiceType currentChoice; 
+
+    private Dictionary<int, float> votePerSeat = new Dictionary<int, float>();
 
     [ServerRpc(RequireOwnership = false)]
     public void UpdateVoteOffset(float newVoteOffset)
@@ -26,7 +26,7 @@ public class NetworkedVoting : NetworkBehaviour
     public void UpdateVotingBlocked(bool blockVoting)
     {
         votingBlocked = blockVoting;
-
+        
         SendBlockVotingToClients(blockVoting);
     }
 

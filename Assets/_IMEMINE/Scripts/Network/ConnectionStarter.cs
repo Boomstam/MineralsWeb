@@ -27,7 +27,7 @@ public class ConnectionStarter : MonoBehaviour
     public string playflowToken = "ec27ab23758bce61f2e92807d0a3f2d4";
 
     private float lastReconnectionTry;
-    
+
     private void Awake()
     {
         if (runLocally)

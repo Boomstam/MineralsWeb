@@ -52,9 +52,19 @@ public class MonitorUI : UIWithConnection
         stopButton.onClick.AsObservable().Subscribe(_ => Instances.PerformanceManager.StopPerformance());
         
         colorOverlayToggle.onValueChanged.AsObservable()
-            .Subscribe(toggleVal => Instances.NetworkedMonitor.ToggleColorOverlay(toggleVal));
+            .Subscribe(toggleVal =>
+            {
+                Instances.NetworkedMonitor.ToggleColorOverlay(toggleVal);
+                votingModeToggle.SetIsOnWithoutNotify(false);
+
+                // Somewhere introduction mode should be implemented on clients
+            });
         votingModeToggle.onValueChanged.AsObservable()
-            .Subscribe(toggleVal => { Instances.NetworkedMonitor.ToggleVotingMode(toggleVal); });
+            .Subscribe(toggleVal =>
+            {
+                Instances.NetworkedMonitor.ToggleVotingMode(toggleVal);
+                colorOverlayToggle.SetIsOnWithoutNotify(false);
+            });
         blockVotingToggle.onValueChanged.AsObservable()
             .Subscribe(ToggleBlockVoting);
         muteSoundToggle.onValueChanged.AsObservable()

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -110,5 +111,10 @@ public class AudioFader : MonoBehaviour
         }
 
         sources = Array.Empty<AudioSource>();
+    }
+
+    public void SetAudioMixerGroup(AudioMixerGroup audioMixerGroup)
+    {
+        sources.ForEach(source => source.outputAudioMixerGroup = audioMixerGroup);
     }
 }

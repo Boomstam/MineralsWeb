@@ -53,6 +53,11 @@ public class WebGLClientUI : UIWithConnection
                 Instances.NetworkedVoting.SendVoteUpdate(sliderVal, Instances.SeatNumber);
             });
         
+        highLowSlider.onValueChanged.AsObservable()
+            .Subscribe(sliderVal => { Instances.AudioManager.doubleFader.SetFadeValHighLow(sliderVal); });
+        distortionSlider.onValueChanged.AsObservable()
+            .Subscribe(sliderVal => { Instances.AudioManager.doubleFader.SetFadeValDistortion(sliderVal); });
+        
         seatNumberConfirmButton.onClick.AsObservable().Subscribe(_ =>
         {
             Instances.SeatNumber = int.Parse(seatNumberText.text);
@@ -157,6 +162,8 @@ public class WebGLClientUI : UIWithConnection
         
         effectsSliders.SetActive(true);
         colorOverlay.gameObject.SetActive(true);
+        
+        Instances.AudioManager.doubleFader.PlayFadeSamples();
     }
     
     public void EnableIntroductionMode()

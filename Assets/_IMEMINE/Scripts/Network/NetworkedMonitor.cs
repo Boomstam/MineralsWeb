@@ -120,6 +120,25 @@ public class NetworkedMonitor : NetworkBehaviour
         
         Instances.WebGLClientUI.EnableEffectSlidersMode();
     }
+    
+    [ServerRpc(RequireOwnership = false)]
+    public void ToggleSound1(bool sound1)
+    {
+        EnableEffectSlidersModeOnVotingClients();
+        
+        appState = AppState.EffectSliders;
+    }
+    
+    [ObserversRpc]
+    private void ToggleSound1OnVotingClients()
+    {
+        if(Instances.BuildType != BuildType.Voting)
+            return;
+        
+        Debug.Log($"ToggleEffectSlidersModeOnVotingClients");
+        
+        Instances.WebGLClientUI.EnableEffectSlidersMode();
+    }
 }
 
 public enum AppState

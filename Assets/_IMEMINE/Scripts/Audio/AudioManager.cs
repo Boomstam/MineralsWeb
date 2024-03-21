@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
 {
     public AudioClip[] clips;
     public AudioFader audioFader;
+    public DoubleFader doubleFader;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioDistortionFilter audioDistortionFilter;
     [SerializeField] private AudioChorusFilter audioChorusFilter;
@@ -17,6 +18,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioHighPassFilter audioHighPassFilter;
 
     public AudioClip GetClip(ClipType clipType) => clips[(int)clipType];
+    public AudioClip[] GetClips(ClipType[] clipTypes) => clipTypes.Select(GetClip).ToArray();
 
     [Button]
     public void PlayClip(ClipType clipType)
@@ -30,7 +32,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayFadeClips(ClipType[] clipTypes)
     {
-        AudioClip[] fadeClips = clipTypes.Select(GetClip).ToArray();
+        AudioClip[] fadeClips = GetClips(clipTypes);
         
         audioFader.PlayFadeSamples(fadeClips);
     }
@@ -45,6 +47,7 @@ public class AudioManager : MonoBehaviour
         audioSource.Stop();
 
         audioFader.StopAllPlayback();
+        doubleFader.StopAllPlayback();
     }
 
     public void ResetAllFx()

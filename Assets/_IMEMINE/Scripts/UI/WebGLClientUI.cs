@@ -106,6 +106,8 @@ public class WebGLClientUI : UIWithConnection
 
     public void ToggleColorOverlay(bool show)
     {
+        DisableAllModes();
+            
         // this.RunDelayed(Instances.SeatNumber, () => colorOverlay.gameObject.SetActive(show));
         colorOverlay.StartDelay = Instances.SeatNumber;
         colorOverlay.gameObject.SetActive(true);
@@ -124,6 +126,8 @@ public class WebGLClientUI : UIWithConnection
     
     public void ToggleVotingMode(bool votingModeOn)
     {
+        DisableAllModes();
+        
         imageFader.DisplayFadeImages(fadeSprites);
         
         SetStatusText(votingModeOn ? $"Intensity" : "");
@@ -143,11 +147,11 @@ public class WebGLClientUI : UIWithConnection
         }
         else
         {
-            ToggleIntroductionMode();
+            EnableIntroductionMode();
         }
     }
 
-    public void ToggleEffectSlidersMode()
+    public void EnableEffectSlidersMode()
     {
         DisableAllModes();
         
@@ -155,7 +159,7 @@ public class WebGLClientUI : UIWithConnection
         colorOverlay.gameObject.SetActive(true);
     }
     
-    public void ToggleIntroductionMode()
+    public void EnableIntroductionMode()
     {
         DisableAllModes();
         

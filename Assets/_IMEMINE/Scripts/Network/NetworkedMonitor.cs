@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FishNet.Object;
@@ -15,9 +16,18 @@ public class NetworkedMonitor : NetworkBehaviour
         if (Instances.BuildType == BuildType.Voting)
         {
             Debug.Log($"Start Client NetworkedMonitor");
+            
+            if(appState == AppState.Introduction)
+                Instances.WebGLClientUI.EnableIntroductionMode();
+            else if(appState == AppState.Voting)
+                Instances.WebGLClientUI.EnableIntroductionMode();
+            else if(appState == AppState.ColorOverlay)
+                Instances.WebGLClientUI.ToggleColorOverlay(true);
+            else if(appState == AppState.EffectSliders)
+                Instances.WebGLClientUI.EnableEffectSlidersMode();
         }
     }
-    
+
     [ServerRpc(RequireOwnership = false)]
     public void ToggleColorOverlay(bool show)
     {
@@ -57,8 +67,8 @@ public class NetworkedMonitor : NetworkBehaviour
         
         Instances.WebGLClientUI.ToggleVotingMode(votingModeOn);
     }
-    FOOOOOOOOOOOOOOORk
-    1 trigger these
+    // FOOOOOOOOOOOOOOORk
+    // 1 trigger these
         /* 2 import samples
          * 3 connect sliders and use big enum to trigger samples
          * 4 implement recency bias for voting => drop if too little time
@@ -89,7 +99,7 @@ public class NetworkedMonitor : NetworkBehaviour
         
         Debug.Log($"ToggleIntroductionModeOnVotingClients");
         
-        Instances.WebGLClientUI.ToggleIntroductionMode();
+        Instances.WebGLClientUI.EnableIntroductionMode();
     }
     
     [ServerRpc(RequireOwnership = false)]
@@ -108,6 +118,14 @@ public class NetworkedMonitor : NetworkBehaviour
         
         Debug.Log($"ToggleEffectSlidersModeOnVotingClients");
         
-        Instances.WebGLClientUI.ToggleEffectSlidersMode();
+        Instances.WebGLClientUI.EnableEffectSlidersMode();
     }
+}
+
+public enum AppState
+{
+    Introduction,
+    Voting,
+    ColorOverlay,
+    EffectSliders,
 }

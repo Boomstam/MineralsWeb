@@ -15,11 +15,3 @@ public class NetworkedAppState : NetworkBehaviour
         Debug.Log($"Start Client NetworkedAppState");
     }
 }
-
-public enum AppState
-{
-    Introduction,
-    Voting,
-    ColorOverlay,
-    EffectSliders,
-}

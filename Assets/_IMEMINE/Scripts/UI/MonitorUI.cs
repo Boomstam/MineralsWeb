@@ -19,6 +19,7 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private Button introductionModeButton;
     [SerializeField] private Button effectsSliderModeButton;
     [SerializeField] private Button sendChoiceButton;
+    [SerializeField] private Button resetVotingButton;
     [SerializeField] private Toggle sound1Toggle;
     [SerializeField] private TextMeshProUGUI resultVoteText;
     [SerializeField] private TextMeshProUGUI chapterText;
@@ -77,6 +78,7 @@ public class MonitorUI : UIWithConnection
         effectsSliderModeButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedMonitor.EnableEffectSlidersMode());
         
         sendChoiceButton.onClick.AsObservable().Subscribe(_ => SendChoice());
+        resetVotingButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedVoting.ResetVoting());
 
         sound1Toggle.onValueChanged.AsObservable()
             .Subscribe(toggleVal => Instances.NetworkedMonitor.ToggleSound1(toggleVal));

@@ -148,7 +148,8 @@ public class WebGLClientUI : UIWithConnection
             ToggleEnterSeatDialog(false);
             
             if(PlayFadeClips)
-                Instances.AudioManager.PlayFadeClips(new [] { ClipType.MineralsA, ClipType.MineralsB, ClipType.MineralsC });
+                Instances.AudioManager.PlayFadeClips(new [] { ClipType.MineralsA, ClipType.MineralsB});
+            //, ClipType.MineralsC });
         }
         else
         {
@@ -175,6 +176,8 @@ public class WebGLClientUI : UIWithConnection
 
     private void DisableAllModes()
     {
+        ToggleEnterSeatDialog(false);
+        
         colorOverlay.gameObject.SetActive(false);
         backgroundVideo.gameObject.SetActive(false);
         

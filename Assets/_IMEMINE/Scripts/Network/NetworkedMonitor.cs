@@ -9,18 +9,19 @@ public class NetworkedMonitor : NetworkBehaviour
 {
     [SyncVar] public AppState appState;
     
+    // TODO: Implement recency bias
     public override void OnStartClient()
     {
         base.OnStartClient();
 
         if (Instances.BuildType == BuildType.Voting)
         {
-            Debug.Log($"Start Client NetworkedMonitor");
+            Debug.Log($"Start Client NetworkedMonitor with state {appState}");
             
             if(appState == AppState.Introduction)
                 Instances.WebGLClientUI.EnableIntroductionMode();
             else if(appState == AppState.Voting)
-                Instances.WebGLClientUI.EnableIntroductionMode();
+                Instances.WebGLClientUI.ToggleVotingMode(true);
             else if(appState == AppState.ColorOverlay)
                 Instances.WebGLClientUI.ToggleColorOverlay(true);
             else if(appState == AppState.EffectSliders)
@@ -67,23 +68,8 @@ public class NetworkedMonitor : NetworkBehaviour
         
         Instances.WebGLClientUI.ToggleVotingMode(votingModeOn);
     }
-    // FOOOOOOOOOOOOOOORk
-    // 1 trigger these
-        /* 2 import samples
-         * 3 connect sliders and use big enum to trigger samples
-         * 4 implement recency bias for voting => drop if too little time
-         * 5 clear voting sessions => drop if too little time
-         * 6 Test clear number of clients 
-         * build? 
-         *
-         * GODspeed future Menno
-         * 
-         * check webclient ui on build!
-         *
-         * 
-         */
-
-        [ServerRpc(RequireOwnership = false)]
+    
+    [ServerRpc(RequireOwnership = false)]
     public void EnableIntroductionMode()
     {
         EnableIntroductionModeOnVotingClients();
@@ -124,20 +110,18 @@ public class NetworkedMonitor : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void ToggleSound1(bool sound1)
     {
-        EnableEffectSlidersModeOnVotingClients();
-        
-        appState = AppState.EffectSliders;
+        ToggleSound1OnVotingClients(sound1);
     }
     
     [ObserversRpc]
-    private void ToggleSound1OnVotingClients()
+    private void ToggleSound1OnVotingClients(bool sound1)
     {
         if(Instances.BuildType != BuildType.Voting)
             return;
         
-        Debug.Log($"ToggleEffectSlidersModeOnVotingClients");
-        
-        Instances.WebGLClientUI.EnableEffectSlidersMode();
+        Debug.Log($"ToggleSound1OnVotingClients: {sound1}");
+
+        Instances.AudioManager.doubleFader.sound1 = sound1;
     }
 }
 

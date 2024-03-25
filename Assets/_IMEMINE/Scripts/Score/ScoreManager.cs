@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField] private Sprite[] pages;
+    [SerializeField] private PartsPerChoice[] pages;
     [SerializeField] private Image page;
     [SerializeField] private TextMeshProUGUI choiceSwitchWarning;
     [SerializeField] private TextMeshProUGUI choiceLetter;
@@ -84,4 +84,12 @@ public enum PartType
     Violin2,
     Alto,
     Cello,
+}
+
+[Serializable]
+public class PartsPerChoice
+{
+    public Sprite[] choiceA;
+    public Sprite[] choiceB;
+    public Sprite[] choiceC;
 }

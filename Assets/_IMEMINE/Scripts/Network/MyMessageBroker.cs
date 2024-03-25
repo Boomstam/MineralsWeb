@@ -50,9 +50,7 @@ public class MyMessageBroker : NetworkBehaviour
             // Debug.Log($"Received message: {message}");
             string[] subStrings = message.Split($" ");
             
-            if(subStrings[0] == $"GoToMeasure")
-                Instances.ScoreManager.GoToMeasure(int.Parse(subStrings[1]));
-            else if(subStrings[0] == $"HighlightChoice")
+            if(subStrings[0] == $"HighlightChoice")
                 Instances.ScoreManager.HighlightChoice((ChoiceType)int.Parse(subStrings[1]));
         }
     }

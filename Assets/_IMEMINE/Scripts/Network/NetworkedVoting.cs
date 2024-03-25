@@ -13,10 +13,10 @@ public class NetworkedVoting : NetworkBehaviour
     
     // Saved on the Monitor
     public ChoiceType currentChoice; 
-
+    
     // Saved on the Monitor
     private Dictionary<int, float> votePerSeat = new Dictionary<int, float>();
-
+    
     // Runs on the Monitor
     public void ResetVoting()
     {

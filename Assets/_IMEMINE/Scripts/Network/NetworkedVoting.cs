@@ -9,10 +9,9 @@ using UnityEngine;
 public class NetworkedVoting : NetworkBehaviour
 {
     [SyncVar] public bool votingBlocked;
-    [SyncVar] private float voteOffset;
+    [SyncVar] public ChoiceType currentChoice;
     
-    // Saved on the Monitor
-    public ChoiceType currentChoice; 
+    [SyncVar] private float voteOffset;
     
     // Saved on the Monitor
     private Dictionary<int, float> votePerSeat = new Dictionary<int, float>();
@@ -86,9 +85,15 @@ public class NetworkedVoting : NetworkBehaviour
         else if(offsettedAverage > Instances.MonitorUI.CThreshold)
             choice = ChoiceType.A;
 
-        currentChoice = choice;
+        SetCurrentChoice(choice);
         Debug.Log($"CurrentChoice {currentChoice}");
         // Instances.MonitorUI.HighlightChoice(choice);
+    }
+
+    [ServerRpc (RequireOwnership = false)]
+    private void SetCurrentChoice(ChoiceType choice)
+    {
+        currentChoice = choice;
     }
 
     [ServerRpc (RequireOwnership = false)]

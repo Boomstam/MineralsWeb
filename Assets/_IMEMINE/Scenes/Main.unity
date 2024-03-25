@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e22b21a8a83409283f014ec030ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceBuildType: 1
+  forceBuildType: 0
   buildTypeToForce: 4
   cameraPrefab: {fileID: 86585586382010587, guid: d7c5d4dd6802903418bdac6feca4f0e2, type: 3}
   eventSystemPrefab: {fileID: 7633927569852759257, guid: 333bbef7f9d36c545800ded857e87dda, type: 3}
@@ -237,7 +237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6292306098596994715, guid: b53aa325ebe83354eb4df705d09ce667, type: 3}
       propertyPath: runLocally
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

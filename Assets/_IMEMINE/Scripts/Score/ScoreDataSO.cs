@@ -72,7 +72,6 @@ public class ScoreDataEntry
 
 public enum ChoiceType
 {
-    None,
     A,
     B,
     C

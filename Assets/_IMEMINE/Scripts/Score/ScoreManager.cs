@@ -167,7 +167,7 @@ public class PartsPerChoice
     public Sprite[] choiceB;
     public Sprite[] choiceC;
     
-    public Vector2[] commonPageRangesAllInclusive;
+    public Vector2[] choicePageRangesAllInclusive;
 
     public int NumPages => choiceA.Length;
 }

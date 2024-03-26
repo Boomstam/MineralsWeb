@@ -374,7 +374,10 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 2edf209615e3b744da274e847bc5e962, type: 3}
     - {fileID: 21300000, guid: 2df18739ab430704d8b60dd6026ed662, type: 3}
     - {fileID: 21300000, guid: e7a9f083a59c73c4eaea7d912d33b69b, type: 3}
-    commonPageRangesAllInclusive: []
+    choicePageRangesAllInclusive:
+    - {x: 7, y: 18}
+    - {x: 24, y: 30}
+    - {x: 35, y: 38}
   - choiceA:
     - {fileID: 21300000, guid: 8a3c3a7d73fa84545b3f87f6cd20a3bc, type: 3}
     - {fileID: 21300000, guid: d93de3f6d73e6ac449f9c0106d1816ee, type: 3}
@@ -537,7 +540,10 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 4425a3ba0643333489c8986ce166db7e, type: 3}
     - {fileID: 21300000, guid: 9becfc2096778684e8dd9565e7b80f03, type: 3}
     - {fileID: 21300000, guid: a37625a5f9c6f5245a21886b536d219d, type: 3}
-    commonPageRangesAllInclusive: []
+    choicePageRangesAllInclusive:
+    - {x: 8, y: 23}
+    - {x: 31, y: 40}
+    - {x: 46, y: 48}
   - choiceA:
     - {fileID: 21300000, guid: f89e848f6303feb4aa0dfbba043d9242, type: 3}
     - {fileID: 21300000, guid: 2a9f629cb69236244bdb5be8ef3f0af5, type: 3}
@@ -694,7 +700,10 @@ MonoBehaviour:
     - {fileID: 21300000, guid: ea6fc54b7f6ae0746ae721af3cc5fa66, type: 3}
     - {fileID: 21300000, guid: f282b7ef54681f64ebf95fba57462f57, type: 3}
     - {fileID: 21300000, guid: 5f2490a492a621e4e9c0b33ca53dd3b5, type: 3}
-    commonPageRangesAllInclusive: []
+    choicePageRangesAllInclusive:
+    - {x: 8, y: 23}
+    - {x: 30, y: 40}
+    - {x: 46, y: 47}
   - choiceA:
     - {fileID: 21300000, guid: c1b68f13def0fb54a96815c2a47f44d2, type: 3}
     - {fileID: 21300000, guid: fb3883c3e52e5e34b993609abe06452a, type: 3}
@@ -824,7 +833,10 @@ MonoBehaviour:
     - {fileID: 21300000, guid: b932571eb25efe6499d1f0cae182bf0d, type: 3}
     - {fileID: 21300000, guid: 9032a3b2799b59c40bef6a2550e1b762, type: 3}
     - {fileID: 21300000, guid: afeb99deb4f07834f911754080d8fb7c, type: 3}
-    commonPageRangesAllInclusive: []
+    choicePageRangesAllInclusive:
+    - {x: 7, y: 21}
+    - {x: 27, y: 32}
+    - {x: 36, y: 39}
   - choiceA:
     - {fileID: 21300000, guid: df148be65c72a2e498b159b7005ddb1d, type: 3}
     - {fileID: 21300000, guid: db94e74d96585964c9975eeab06927ad, type: 3}
@@ -903,7 +915,10 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 8fd786240d15fd348858dafc5fd2b371, type: 3}
     - {fileID: 21300000, guid: e47a782d1e97d1d419dc554c9c60ceb0, type: 3}
     - {fileID: 21300000, guid: 09dc4d055bab4844490a5a3f6ae0b2a1, type: 3}
-    commonPageRangesAllInclusive: []
+    choicePageRangesAllInclusive:
+    - {x: 4, y: 8}
+    - {x: 13, y: 16}
+    - {x: 21, y: 23}
   page: {fileID: 5774381365730166197}
   warningMessageBackground: {fileID: 6254041724062350805}
   choiceSwitchWarning: {fileID: 7556584879507875397}

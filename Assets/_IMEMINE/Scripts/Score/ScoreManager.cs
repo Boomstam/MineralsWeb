@@ -28,7 +28,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Color choiceCColor;
     
     public int HighlightWarningTime => Instances.NetworkedMonitor.warningTime;
-    public PartType PartType { get; set; }
+    public PartType PartType { get; set; } // Leave undefined if deleting other parts' pages
     
     private PartsPerChoice CurrentPartChoices => pages[(int)PartType];
     private int NumPages => CurrentPartChoices.NumPages;
@@ -118,16 +118,19 @@ public class ScoreManager : MonoBehaviour
             pageToGoTo = 0;
 
         currentPage = pageToGoTo;
-        
+        Debug.Log($"Turn page to {currentPage}");
         ShowCurrentPage();
     }
 
     private void ShowCurrentPage()
     {
         Debug.Log($"ShowCurrentPage: {Instances.NetworkedVoting.currentChoice}, currentPage: {currentPage}");
-        
+
         Sprite pageSprite = GetCurrentChoicePages(Instances.NetworkedVoting.currentChoice)[currentPage];
 
+        if (pageSprite == null)
+            pageSprite = CurrentPartChoices.choiceA[currentPage];
+        
         page.sprite = pageSprite;
     }
     
@@ -153,11 +156,11 @@ public class ScoreManager : MonoBehaviour
 
 public enum PartType
 {
-    SoloCello,
     Violin1,
     Violin2,
     Alto,
     Cello,
+    Contrabass,
 }
 
 [Serializable]

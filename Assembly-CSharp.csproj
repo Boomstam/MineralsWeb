@@ -104,12 +104,10 @@
      <Folder Include="Assets\PlayFlowCloud\Resources" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <Folder Include="Assets\TextMesh Pro\Sprites" />
-     <Folder Include="Assets\StreamingAssets" />
      <Folder Include="Assets\_IMEMINE" />
      <Folder Include="Assets\FishNet\Plugins\Bayou" />
      <Folder Include="Assets\jp.keijiro.osc-jack\Runtime" />
      <Folder Include="Assets\TextMesh Pro\Resources\Sprite Assets" />
-     <Folder Include="Assets\_IMEMINE\Audio\Clips\Compressed\Sound 1" />
      <Folder Include="Assets\FishNet" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
      <Folder Include="Assets\_IMEMINE\Images\Fades" />
@@ -169,13 +167,11 @@
      <Folder Include="Assets\TextMesh Pro\Fonts" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <Folder Include="Assets\_IMEMINE\Images\Score" />
-     <Folder Include="Assets\_IMEMINE\Audio\Clips\Compressed\Sound 2" />
      <Folder Include="Assets\Editor Default Resources" />
      <Folder Include="Assets\_IMEMINE\Scripts" />
      <None Include="Assets\PlayFlowCloud\Documentation\Documentation.txt" />
      <Folder Include="Assets\jp.keijiro.osc-jack\Runtime\Base\Internal" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
-     <Folder Include="Assets\_IMEMINE\Audio\Clips\Compressed" />
      <Folder Include="Assets\Editor Default Resources\EditorAudioUtils" />
      <Folder Include="Assets\_IMEMINE\Scripts\Network" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
@@ -184,7 +180,6 @@
      <Folder Include="Assets\jp.keijiro.osc-jack\Runtime\Unity" />
      <Folder Include="Assets\_IMEMINE\Prefabs" />
      <Folder Include="Assets\_IMEMINE\Docs" />
-     <Folder Include="Assets\_IMEMINE\Audio\Clips" />
      <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <Folder Include="Assets\TextMesh Pro\Documentation" />
      <Folder Include="Assets\FishNet\Plugins\CodeAnalysis" />

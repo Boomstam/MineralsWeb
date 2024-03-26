@@ -12,7 +12,12 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private PartsPerChoice[] pages;
     [SerializeField] private Image page;
+    [SerializeField] private Image warningMessageBackground;
     [SerializeField] private TextMeshProUGUI choiceSwitchWarning;
+    [SerializeField] private float minWarningFadeAlpha;
+    [SerializeField] private float maxScaleOffset;
+    [SerializeField] private float warningFadeTime;
+    [SerializeField] private int warningFadeSteps;
     [SerializeField] private TextMeshProUGUI choiceLetter;
     [SerializeField] private GameObject letterModePanel;
     [SerializeField] private Button switchLetterModeButton;
@@ -21,9 +26,8 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Color choiceAColor;
     [SerializeField] private Color choiceBColor;
     [SerializeField] private Color choiceCColor;
-    [SerializeField] private Vector2[] commonPageRangesAllInclusive;
     
-    public int HighlightWarningTime { get; set; }
+    public int HighlightWarningTime => Instances.NetworkedMonitor.warningTime;
     public PartType PartType { get; set; }
     
     private PartsPerChoice CurrentPartChoices => pages[(int)PartType];
@@ -45,7 +49,7 @@ public class ScoreManager : MonoBehaviour
     public void HighlightChoice(ChoiceType choiceType)
     {
         Debug.Log($"Highlight choice: {choiceType}");
-
+        
         StartCoroutine(DoHighlightCountdown(choiceType));
     }
     
@@ -53,13 +57,36 @@ public class ScoreManager : MonoBehaviour
     private IEnumerator DoHighlightCountdown(ChoiceType choiceType)
     {
         Debug.Log($"DoHighlightCountdown to {choiceType}");
-        choiceSwitchWarning.transform.parent.gameObject.SetActive(true);
+        warningMessageBackground.gameObject.SetActive(true);
 
-        for (int i = 0; i < HighlightWarningTime; i++)
+        for (int secondsPassed = 0; secondsPassed < HighlightWarningTime; secondsPassed++)
         {
-            choiceSwitchWarning.text = $"{choiceType} in {HighlightWarningTime - i}...";
+            choiceSwitchWarning.text = $"{choiceType} in {HighlightWarningTime - secondsPassed}...";
 
-            yield return new WaitForSeconds(1f);
+            bool fadeIn = secondsPassed % 2 == 0;
+
+            for (int currentStep = 0; currentStep < warningFadeSteps; currentStep++)
+            {
+                float offsetPercentage = (float)currentStep / (float)warningFadeSteps;
+                
+                // Color animation
+                float scaledAlphaOffset = offsetPercentage * (1f - minWarningFadeAlpha);
+            
+                float alpha = minWarningFadeAlpha + (fadeIn ? scaledAlphaOffset : (1f - minWarningFadeAlpha) - scaledAlphaOffset);
+
+                Color bgColor = warningMessageBackground.color;
+                warningMessageBackground.color = new Color(bgColor.r, bgColor.g, bgColor.b, alpha);
+                
+                // Size animation
+                float scaledSizeOffset = offsetPercentage * maxScaleOffset;
+                float size = 1f + (fadeIn ? scaledSizeOffset : maxScaleOffset - scaledSizeOffset);
+
+                warningMessageBackground.transform.localScale = new Vector3(size, size, 1f);
+                
+                yield return new WaitForSeconds(warningFadeTime / (float)warningFadeSteps);
+            }
+
+            // yield return new WaitForSeconds(1f);
         }
 
         choiceSwitchWarning.text = $"Choice {choiceType}!";
@@ -68,9 +95,9 @@ public class ScoreManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        choiceSwitchWarning.transform.parent.gameObject.SetActive(false);
+        warningMessageBackground.gameObject.SetActive(false);
     }
-    
+
     private void DoHighlight(ChoiceType choiceType)
     {
         if(choiceType != CurrentChoice)
@@ -139,6 +166,8 @@ public class PartsPerChoice
     public Sprite[] choiceA;
     public Sprite[] choiceB;
     public Sprite[] choiceC;
+    
+    public Vector2[] commonPageRangesAllInclusive;
 
     public int NumPages => choiceA.Length;
 }

@@ -374,6 +374,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 2edf209615e3b744da274e847bc5e962, type: 3}
     - {fileID: 21300000, guid: 2df18739ab430704d8b60dd6026ed662, type: 3}
     - {fileID: 21300000, guid: e7a9f083a59c73c4eaea7d912d33b69b, type: 3}
+    commonPageRangesAllInclusive: []
   - choiceA:
     - {fileID: 21300000, guid: 8a3c3a7d73fa84545b3f87f6cd20a3bc, type: 3}
     - {fileID: 21300000, guid: d93de3f6d73e6ac449f9c0106d1816ee, type: 3}
@@ -536,6 +537,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 4425a3ba0643333489c8986ce166db7e, type: 3}
     - {fileID: 21300000, guid: 9becfc2096778684e8dd9565e7b80f03, type: 3}
     - {fileID: 21300000, guid: a37625a5f9c6f5245a21886b536d219d, type: 3}
+    commonPageRangesAllInclusive: []
   - choiceA:
     - {fileID: 21300000, guid: f89e848f6303feb4aa0dfbba043d9242, type: 3}
     - {fileID: 21300000, guid: 2a9f629cb69236244bdb5be8ef3f0af5, type: 3}
@@ -692,6 +694,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: ea6fc54b7f6ae0746ae721af3cc5fa66, type: 3}
     - {fileID: 21300000, guid: f282b7ef54681f64ebf95fba57462f57, type: 3}
     - {fileID: 21300000, guid: 5f2490a492a621e4e9c0b33ca53dd3b5, type: 3}
+    commonPageRangesAllInclusive: []
   - choiceA:
     - {fileID: 21300000, guid: c1b68f13def0fb54a96815c2a47f44d2, type: 3}
     - {fileID: 21300000, guid: fb3883c3e52e5e34b993609abe06452a, type: 3}
@@ -821,6 +824,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: b932571eb25efe6499d1f0cae182bf0d, type: 3}
     - {fileID: 21300000, guid: 9032a3b2799b59c40bef6a2550e1b762, type: 3}
     - {fileID: 21300000, guid: afeb99deb4f07834f911754080d8fb7c, type: 3}
+    commonPageRangesAllInclusive: []
   - choiceA:
     - {fileID: 21300000, guid: df148be65c72a2e498b159b7005ddb1d, type: 3}
     - {fileID: 21300000, guid: db94e74d96585964c9975eeab06927ad, type: 3}
@@ -899,8 +903,14 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 8fd786240d15fd348858dafc5fd2b371, type: 3}
     - {fileID: 21300000, guid: e47a782d1e97d1d419dc554c9c60ceb0, type: 3}
     - {fileID: 21300000, guid: 09dc4d055bab4844490a5a3f6ae0b2a1, type: 3}
+    commonPageRangesAllInclusive: []
   page: {fileID: 5774381365730166197}
+  warningMessageBackground: {fileID: 6254041724062350805}
   choiceSwitchWarning: {fileID: 7556584879507875397}
+  minWarningFadeAlpha: 0.75
+  maxScaleOffset: 0.1
+  warningFadeTime: 0.5
+  warningFadeSteps: 30
   choiceLetter: {fileID: 5227846383470393991}
   letterModePanel: {fileID: 2545536437465222155}
   switchLetterModeButton: {fileID: 7880471854402077078}
@@ -909,7 +919,6 @@ MonoBehaviour:
   choiceAColor: {r: 0.90196085, g: 0.9058824, b: 0.9843138, a: 1}
   choiceBColor: {r: 0.9450981, g: 0.8745099, b: 0.69411767, a: 1}
   choiceCColor: {r: 0.8431373, g: 0.7490196, b: 0.8431373, a: 1}
-  commonPageRangesAllInclusive: []
 --- !u!1 &1174758574113711196
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,7 +1327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6301596385543496206
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1360,7 +1369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.0754717, g: 0.013883946, b: 0.013883946, a: 0.7529412}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.7490196}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

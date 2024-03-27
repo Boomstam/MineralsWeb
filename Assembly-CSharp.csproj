@@ -114,6 +114,7 @@
      <Folder Include="Assets\_IMEMINE\Images\Fades" />
      <Folder Include="Assets\_IMEMINE\Prefabs\Network" />
      <Folder Include="Assets\_IMEMINE\Scripts\Score" />
+     <Folder Include="Assets\_IMEMINE\Images\UI" />
      <Folder Include="Assets\_IMEMINE\Prefabs\UI" />
      <Folder Include="Assets\TextMesh Pro\Resources\Fonts &amp; Materials" />
      <None Include="Assets\FishNet\Plugins\CodeAnalysis\README.txt" />
@@ -872,6 +873,9 @@
      </Reference>
      <Reference Include="UnityEngine.UI">
      <HintPath>C:\Users\menno\MineralsWeb\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Sprite.Editor">
+     <HintPath>C:\Users\menno\MineralsWeb\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.Flow">
      <HintPath>C:\Users\menno\MineralsWeb\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>

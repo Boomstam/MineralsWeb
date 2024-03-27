@@ -803,6 +803,9 @@
      <Reference Include="UnityEngine.UI">
      <HintPath>C:\Users\menno\MineralsWeb\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.2D.Sprite.Editor">
+     <HintPath>C:\Users\menno\MineralsWeb\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.VisualScripting.Flow">
      <HintPath>C:\Users\menno\MineralsWeb\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
      </Reference>

@@ -11,29 +11,44 @@ using UnityEngine.UI;
 
 public class WebGLClientUI : UIWithConnection
 {
+    [Header("Backgrounds/Overlays")]
     [SerializeField] private ColorOverlay colorOverlay;
-    [SerializeField] private Slider voteSlider;
-    [SerializeField] private Slider averageSlider;
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Sprite[] fadeSprites;
     [SerializeField] private ImageFader imageFader;
     [SerializeField] private RawImage backgroundVideo;
-    [SerializeField] private TMP_InputField seatNumberInputField;
-    [SerializeField] private Button seatNumberConfirmButton;
-    [SerializeField] private Button seatNumberDisplayButton;
-    [SerializeField] private Button seatNumberDecreaseButton;
-    [SerializeField] private Button seatNumberIncreaseButton;
-    [SerializeField] private TextMeshProUGUI seatNumberText;
+    [Header("Row Number Input")]
+    [SerializeField] private Button rowNumberIncrease10sButton;
+    [SerializeField] private Button rowNumberDecrease10sButton;
+    [SerializeField] private Button rowNumberIncrease1sButton;
+    [SerializeField] private Button rowNumberDecrease1sButton;
+    [SerializeField] private TextMeshProUGUI row10sNumberText;
+    [SerializeField] private TextMeshProUGUI row1sNumberText;
+    [SerializeField] private float maxRow10s;
+    [Header("Seat Number Input")]
+    [SerializeField] private Button seatNumberIncrease10sButton;
+    [SerializeField] private Button seatNumberDecrease10sButton;
+    [SerializeField] private Button seatNumberIncrease1sButton;
+    [SerializeField] private Button seatNumberDecrease1sButton;
+    [SerializeField] private TextMeshProUGUI seat10sNumberText;
+    [SerializeField] private TextMeshProUGUI seat1sNumberText;
+    [SerializeField] private float maxSeat10s;
+    [SerializeField] private Button seatConfirmButton;
+    [SerializeField] private Button seatDisplayButton;
+    [Header("Sliders")]
+    [SerializeField] private Slider voteSlider;
+    [SerializeField] private Slider averageSlider;
     [SerializeField] private GameObject effectsSliders;
     [SerializeField] private Slider highLowSlider;
     [SerializeField] private Slider distortionSlider;
-
-    [SerializeField] private TMP_InputField oscMessageInput;
-    [SerializeField] private Button sendOSCButton;
-    [SerializeField] private Button[] choiceButtons;
+    [Header("Other")]
     [SerializeField] private RectTransform progressBar;
     [SerializeField] private float maxProgressBarRight = 527;
     [SerializeField] private TextMeshProUGUI statusText;
+    [Header("Deprecated?")]
+    [SerializeField] private TMP_InputField oscMessageInput;
+    [SerializeField] private Button sendOSCButton;
+    [SerializeField] private Button[] choiceButtons;
     [SerializeField] private TextMeshProUGUI chapterText;
     [SerializeField] private TextMeshProUGUI contentText;
 
@@ -58,27 +73,22 @@ public class WebGLClientUI : UIWithConnection
         distortionSlider.onValueChanged.AsObservable()
             .Subscribe(sliderVal => { Instances.AudioManager.doubleFader.SetFadeValDistortion(sliderVal); });
         
-        seatNumberConfirmButton.onClick.AsObservable().Subscribe(_ =>
+        seatConfirmButton.onClick.AsObservable().Subscribe(_ =>
         {
-            Instances.SeatNumber = int.Parse(seatNumberText.text);
+            Instances.SeatNumber = int.Parse(seat10sNumberText.text);
 
             OnConfirmSeatNumber();
         });
-        seatNumberDisplayButton.onClick.AsObservable().Subscribe(_ => ToggleEnterSeatDialog(true));
+        seatDisplayButton.onClick.AsObservable().Subscribe(_ => ToggleEnterSeatDialog(true));
         
-        seatNumberInputField.onSelect.AsObservable().Subscribe(_ =>
+        seatNumberDecrease10sButton.onClick.AsObservable().Subscribe(_ =>
         {
-            Debug.Log($"Select input field");
-            TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);
-        });
-        seatNumberDecreaseButton.onClick.AsObservable().Subscribe(_ =>
-        {
-            int newSeatVal = Mathf.Max(1, int.Parse(seatNumberText.text) - 1);
+            int newSeatVal = Mathf.Max(1, int.Parse(seat10sNumberText.text) - 1);
             UpdateSeatVal(newSeatVal);
         });
-        seatNumberIncreaseButton.onClick.AsObservable().Subscribe(_ =>
+        seatNumberIncrease10sButton.onClick.AsObservable().Subscribe(_ =>
         {
-            int newSeatVal = int.Parse(seatNumberText.text) + 1;
+            int newSeatVal = int.Parse(seat10sNumberText.text) + 1;
             UpdateSeatVal(newSeatVal);
         });
         
@@ -97,7 +107,7 @@ public class WebGLClientUI : UIWithConnection
     {
         Debug.Log($"Seat Number now: {Instances.SeatNumber}");
 
-        seatNumberDisplayButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Seat: {Instances.SeatNumber}";
+        seatDisplayButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Seat: {Instances.SeatNumber}";
 
         ToggleEnterSeatDialog(false);
     }
@@ -106,7 +116,7 @@ public class WebGLClientUI : UIWithConnection
     {
         PlayerPrefs.SetInt(seatPlayerPrefsKey, newVal);
         
-        seatNumberText.text = newVal.ToString();
+        seat10sNumberText.text = newVal.ToString();
     }
 
     public void ToggleColorOverlay(bool show)
@@ -201,11 +211,11 @@ public class WebGLClientUI : UIWithConnection
     {
         // seatNumberInputField.gameObject.SetActive(show);
         
-        seatNumberConfirmButton.gameObject.SetActive(show);
+        seatConfirmButton.gameObject.SetActive(show);
         
-        seatNumberDecreaseButton.gameObject.SetActive(show);
-        seatNumberIncreaseButton.gameObject.SetActive(show);
-        seatNumberText.gameObject.SetActive(show);
+        seatNumberDecrease10sButton.gameObject.SetActive(show);
+        seatNumberIncrease10sButton.gameObject.SetActive(show);
+        seat10sNumberText.gameObject.SetActive(show);
         
         SetStatusText(show ? $"Enter Your Seat Number" : "");
     }

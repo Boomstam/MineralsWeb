@@ -17,6 +17,7 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private Sprite[] fadeSprites;
     [SerializeField] private ImageFader imageFader;
     [SerializeField] private RawImage backgroundVideo;
+    [SerializeField] private GameObject waysOfWater;
     [Header("Row Number Input")]
     [SerializeField] private Button rowNumberIncrease10sButton;
     [SerializeField] private Button rowNumberDecrease10sButton;
@@ -42,6 +43,7 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private GameObject effectsSliders;
     [SerializeField] private Slider highLowSlider;
     [SerializeField] private Slider distortionSlider;
+    [SerializeField] private Slider waysOfWaterSlider;
     [Header("Other")]
     [SerializeField] private RectTransform progressBar;
     [SerializeField] private float maxProgressBarRight = 527;
@@ -76,6 +78,19 @@ public class WebGLClientUI : UIWithConnection
             .Subscribe(sliderVal => { Instances.AudioManager.doubleFader.SetFadeValHighLow(sliderVal); });
         distortionSlider.onValueChanged.AsObservable()
             .Subscribe(sliderVal => { Instances.AudioManager.doubleFader.SetFadeValDistortion(sliderVal); });
+        waysOfWaterSlider.onValueChanged.AsObservable()
+            .Subscribe(sliderVal =>
+            {
+                Debug.Log($"Set microOrganismsSlider: {sliderVal}");
+                Instances.AudioManager.circlePlayer.SetFadeValue(sliderVal);
+                Instances.AudioManager.delayPlayer.SetFadeValue(1 - sliderVal);
+            });
+        
+        // Initial fade values
+        Instances.AudioManager.doubleFader.SetFadeValHighLow(0.5f);
+        Instances.AudioManager.doubleFader.SetFadeValDistortion(0.5f);
+        Instances.AudioManager.circlePlayer.SetFadeValue(0.5f);
+        Instances.AudioManager.delayPlayer.SetFadeValue(0.5f);
         
         seatConfirmButton.onClick.AsObservable().Subscribe(_ =>
         {
@@ -306,6 +321,13 @@ public class WebGLClientUI : UIWithConnection
         if (PlayerPrefs.HasKey(row10sKey) == false)
             ToggleEnterSeatDialog(true);
     }
+    
+    public void EnableWaysOfWaterMode()
+    {
+        DisableAllModes();
+        
+        waysOfWater.SetActive(true);
+    }
 
     private void DisableAllModes()
     {
@@ -313,6 +335,8 @@ public class WebGLClientUI : UIWithConnection
         
         colorOverlay.gameObject.SetActive(false);
         backgroundVideo.gameObject.SetActive(false);
+        
+        waysOfWater.SetActive(false);
         
         voteSlider.gameObject.SetActive(false);
         averageSlider.gameObject.SetActive(false);

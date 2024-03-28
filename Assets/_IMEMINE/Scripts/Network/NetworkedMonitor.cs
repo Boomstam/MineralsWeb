@@ -95,6 +95,8 @@ public class NetworkedMonitor : NetworkBehaviour
                 Instances.WebGLClientUI.ToggleColorOverlay(true);
             else if(appState == AppState.EffectSliders)
                 Instances.WebGLClientUI.EnableEffectSlidersMode();
+            else if(appState == AppState.WaysOfWater)
+                Instances.WebGLClientUI.EnableWaysOfWaterMode();
         }
     }
 
@@ -176,6 +178,26 @@ public class NetworkedMonitor : NetworkBehaviour
         Instances.WebGLClientUI.EnableEffectSlidersMode();
     }
     
+    
+    [ServerRpc(RequireOwnership = false)]
+    public void EnableWaysOfWaterMode()
+    {
+        EnableWaysOfWaterModeOnVotingClients();
+        
+        appState = AppState.WaysOfWater;
+    }
+    
+    [ObserversRpc]
+    private void EnableWaysOfWaterModeOnVotingClients()
+    {
+        if(Instances.BuildType != BuildType.Voting)
+            return;
+        
+        Debug.Log($"EnableWaysOfWaterModeOnVotingClients");
+        
+        Instances.WebGLClientUI.EnableWaysOfWaterMode();
+    }
+    
     [ServerRpc(RequireOwnership = false)]
     public void ToggleSound1(bool sound1)
     {
@@ -206,4 +228,5 @@ public enum AppState
     Voting,
     ColorOverlay,
     EffectSliders,
+    WaysOfWater,
 }

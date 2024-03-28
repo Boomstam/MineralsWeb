@@ -16,7 +16,6 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private Toggle muteSoundToggle;
     [SerializeField] private Button introductionModeButton;
     [SerializeField] private Button effectsSliderModeButton;
-    // TODO: fill this in
     [SerializeField] private Button waysOfWaterModeButton;
     [SerializeField] private Button sendChoiceButton;
     [SerializeField] private Button resetVotingButton;
@@ -62,6 +61,7 @@ public class MonitorUI : UIWithConnection
 
         introductionModeButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedMonitor.EnableIntroductionMode());
         effectsSliderModeButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedMonitor.EnableEffectSlidersMode());
+        waysOfWaterModeButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedMonitor.EnableWaysOfWaterMode());
         
         sendChoiceButton.onClick.AsObservable().Subscribe(_ => SendChoice());
         resetVotingButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedVoting.ResetVoting());

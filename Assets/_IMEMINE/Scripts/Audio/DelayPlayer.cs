@@ -49,12 +49,6 @@ public class DelayPlayer : MonoBehaviour
             }
         }
     }
-    
-    // [Button]
-    // public void PlayTestDelay(float delayTime)
-    // {
-    //     PlayWithDelay(testDelaySample, delayTime, 0.85f);
-    // }
 
     private void PlayRandomDelay()
     {
@@ -78,10 +72,6 @@ public class DelayPlayer : MonoBehaviour
         StartCoroutine(PlayWithDelayRoutine(audioClips, delayTime, feedback));
     }
 
-    // createa audio mixer groups for audio fader
-    // dont break double fader tough, make dupliacte or child
-    // pass in clips here
-    // random generate before?
     private IEnumerator PlayWithDelayRoutine(AudioClip[] audioClips, float delayTime, float feedback)
     {
         if(feedback is < 0 or > 1)
@@ -117,7 +107,6 @@ public class DelayPlayer : MonoBehaviour
         }
     }
 
-    // which clips though?
     private AudioSource[] NewAudioSourcesWithClips(AudioClip[] audioClips, float volume)
     {
         AudioSource lowSource = Instantiate(delaySamplePrefab);
@@ -142,49 +131,52 @@ public class DelayPlayer : MonoBehaviour
 
         return new []{ lowSource, midSource, highSource };
     }
+
+    [Button]
+    public void SetFadeValue(float fadeVal)
+    {
+        float percentagePerSource = 1f / (float)(numSources - 1);
+
+        int startSample = Mathf.FloorToInt(fadeVal / percentagePerSource);
+
+        float remainder = fadeVal - (percentagePerSource * startSample);
+        
+        float remainderPercentage = remainder / percentagePerSource;
+        
+        for (int i = 0; i < numSources; i++)
+        {
+            AudioMixerGroup audioMixerGroup = MixerGroupForIndex(i);
+            
+            float volume = 0;
+            
+            if (i == startSample)
+                volume = 1 - remainderPercentage;
+            if (i == startSample + 1)
+                volume = remainderPercentage;
+
+            float scaledVolume = Mathf.Log(volume) * 20;
+
+            audioMixerGroup.audioMixer.SetFloat(ParameterNameForIndex(i), scaledVolume);
+        }
+    }
+
+    private AudioMixerGroup MixerGroupForIndex(int index)
+    {
+        return index switch
+        {
+            0 => delaysLowMixer,
+            1 => delaysLowMixer,
+            2 => delaysLowMixer,
+        };
+    }
+    
+    private string ParameterNameForIndex(int index)
+    {
+        return index switch
+        {
+            0 => "DelayLow",
+            1 => "DelayMid",
+            2 => "DelayHigh",
+        };
+    }
 }
-/*
- * private IEnumerator PlayWithDelayRoutine(AudioClip audioClip, float delayTime, float feedback)
-    {
-        if(feedback is < 0 or > 1)
-            Debug.LogError($"Feedback {feedback} not between 0 and 1");
-        
-        List<AudioSource> createdSources = new List<AudioSource>();
-        
-        float volume = 1;
-
-        createdSources.Add(NewAudioSourceWithClip(audioClip, volume));
-
-        float fallOff = 1 - feedback;
-        
-        while (volume > 0)
-        {
-            yield return new WaitForSeconds(delayTime);
-        
-            volume = volume - fallOff;
-            
-            createdSources.Add(NewAudioSourceWithClip(audioClip, volume));
-        }
-        
-        yield return new WaitForSeconds(audioClip.length);
-        
-        for (int sourceIndex = 0; sourceIndex < createdSources.Count; sourceIndex++)
-        {
-            AudioSource source = createdSources[sourceIndex];
-            
-            Destroy(source.gameObject);
-        }
-    }
-    
-    private AudioSource NewAudioSourceWithClip(AudioClip audioClip, float volume)
-    {
-        AudioSource audioSource = Instantiate(delaySamplePrefab);
-
-        audioSource.clip = audioClip;
-        audioSource.volume = volume;
-        audioSource.Play();
-
-        return audioSource;
-    }
-    
-     */

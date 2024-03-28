@@ -419,6 +419,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4434011598392157336}
+  - component: {fileID: 306714154650334377}
   m_Layer: 0
   m_Name: DelayPlayer
   m_TagString: Untagged
@@ -441,3 +442,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 652003876839531055}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &306714154650334377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4939513944207652905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25d19f1d091a2bb4bb154bdb07566573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioManager: {fileID: 8831931863038137966}
+  delaySamplePrefab: {fileID: 9064606992326889990, guid: fbd98a94687ec9841a762b5de8770d03, type: 3}
+  testDelaySample: {fileID: 8300000, guid: ea17d4080014aef4e8fa63b7a670fe1b, type: 3}

@@ -1161,7 +1161,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4077248653549185182
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4989,7 +4989,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 71.1
+  m_fontSize: 48.2
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5005,7 +5005,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -5441,14 +5441,15 @@ MonoBehaviour:
   rowNumberDecrease1sButton: {fileID: 2889086754486782037}
   row10sNumberText: {fileID: 1768774082670564340}
   row1sNumberText: {fileID: 8574545196954215222}
-  maxRow10s: 2
+  maxRow: 22
   seatNumberIncrease10sButton: {fileID: 1010762607609454915}
   seatNumberDecrease10sButton: {fileID: 3472558759838160148}
   seatNumberIncrease1sButton: {fileID: 7581188924052810439}
   seatNumberDecrease1sButton: {fileID: 6020795701515000122}
   seat10sNumberText: {fileID: 5918817160026136655}
   seat1sNumberText: {fileID: 7006435967039694504}
-  maxSeat10s: 5
+  maxSeat: 53
+  seatInputHolder: {fileID: 1356717728795564464}
   seatConfirmButton: {fileID: 9137854729241793711}
   seatDisplayButton: {fileID: 5609105519547556693}
   voteSlider: {fileID: 6444908663618322708}
@@ -6275,7 +6276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4961102987717971295
 RectTransform:
   m_ObjectHideFlags: 0

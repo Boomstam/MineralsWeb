@@ -10,7 +10,7 @@ public class WebGLVideoPlayer : MonoBehaviour
 
     void Start()
     {
-        this.RunDelayed(1, () => PlayVideo(VideoType.Lava));
+        // this.RunDelayed(1, () => PlayVideo(VideoType.Lava));
     }
     
     private void PlayVideo(VideoType videoType)

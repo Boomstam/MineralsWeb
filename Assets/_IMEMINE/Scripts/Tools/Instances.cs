@@ -7,6 +7,7 @@ using Object = UnityEngine.Object;
 
 public static class Instances
 {
+    public static int RowNumber { get; set; }
     public static int SeatNumber { get; set; }
 
     #region Backing Fields

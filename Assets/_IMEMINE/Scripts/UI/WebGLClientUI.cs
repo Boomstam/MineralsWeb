@@ -24,7 +24,7 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private Button rowNumberDecrease1sButton;
     [SerializeField] private TextMeshProUGUI row10sNumberText;
     [SerializeField] private TextMeshProUGUI row1sNumberText;
-    [SerializeField] private float maxRow10s;
+    [SerializeField] private int maxRow;
     [Header("Seat Number Input")]
     [SerializeField] private Button seatNumberIncrease10sButton;
     [SerializeField] private Button seatNumberDecrease10sButton;
@@ -32,7 +32,8 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private Button seatNumberDecrease1sButton;
     [SerializeField] private TextMeshProUGUI seat10sNumberText;
     [SerializeField] private TextMeshProUGUI seat1sNumberText;
-    [SerializeField] private float maxSeat10s;
+    [SerializeField] private int maxSeat;
+    [SerializeField] private GameObject seatInputHolder;
     [SerializeField] private Button seatConfirmButton;
     [SerializeField] private Button seatDisplayButton;
     [Header("Sliders")]
@@ -54,7 +55,10 @@ public class WebGLClientUI : UIWithConnection
 
     public bool PlayFadeClips { get; set; } = true;
 
-    private const string seatPlayerPrefsKey = "Seat";
+    private const string row10sKey = "Row 10s";
+    private const string row1sKey = "Row 1s";
+    private const string seat10sKey = "Seat 10s";
+    private const string seat1sKey = "Seat 1s";
 
     public void Start()
     {
@@ -75,48 +79,163 @@ public class WebGLClientUI : UIWithConnection
         
         seatConfirmButton.onClick.AsObservable().Subscribe(_ =>
         {
-            Instances.SeatNumber = int.Parse(seat10sNumberText.text);
-
             OnConfirmSeatNumber();
         });
         seatDisplayButton.onClick.AsObservable().Subscribe(_ => ToggleEnterSeatDialog(true));
         
-        seatNumberDecrease10sButton.onClick.AsObservable().Subscribe(_ =>
-        {
-            int newSeatVal = Mathf.Max(1, int.Parse(seat10sNumberText.text) - 1);
-            UpdateSeatVal(newSeatVal);
-        });
-        seatNumberIncrease10sButton.onClick.AsObservable().Subscribe(_ =>
-        {
-            int newSeatVal = int.Parse(seat10sNumberText.text) + 1;
-            UpdateSeatVal(newSeatVal);
-        });
+        rowNumberIncrease10sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(true, SeatElement.Row10s); });
+        rowNumberDecrease10sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(false, SeatElement.Row10s); });
+        rowNumberIncrease1sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(true, SeatElement.Row1s); });
+        rowNumberDecrease1sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(false, SeatElement.Row1s); });
         
-        if(PlayerPrefs.HasKey(seatPlayerPrefsKey))
+        seatNumberIncrease10sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(true, SeatElement.Seat10s); });
+        seatNumberDecrease10sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(false, SeatElement.Seat10s); });
+        seatNumberIncrease1sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(true, SeatElement.Seat1s); });
+        seatNumberDecrease1sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(false, SeatElement.Seat1s); });
+        
+        if(PlayerPrefs.HasKey(row10sKey))
         {
-            int savedSeat = PlayerPrefs.GetInt(seatPlayerPrefsKey);
-            Instances.SeatNumber = savedSeat; 
+            int row10s = PlayerPrefs.GetInt(row10sKey);
+            int row1s = PlayerPrefs.GetInt(row1sKey, 0);
+            int seat10s = PlayerPrefs.GetInt(seat10sKey, 0);
+            int seat1s = PlayerPrefs.GetInt(seat1sKey, 0);
+
+            int row = (row10s * 10) + row1s;
+            int seat = (seat10s * 10) + seat1s;
             
-            UpdateSeatVal(savedSeat);
+            SetRow(row);
+            SetSeat(seat);
             
-            OnConfirmSeatNumber();
+            row10sNumberText.text = row10s.ToString();
+            row1sNumberText.text = row1s.ToString();
+            
+            seat10sNumberText.text = seat10s.ToString();
+            seat1sNumberText.text = seat1s.ToString();
+
+            DisplayCurrentSeatInSeatDisplayButton();
+        }
+        else
+        {
+            ToggleEnterSeatDialog(true);
         }
     }
 
     private void OnConfirmSeatNumber()
     {
-        Debug.Log($"Seat Number now: {Instances.SeatNumber}");
-
-        seatDisplayButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Seat: {Instances.SeatNumber}";
-
+        DisplayCurrentSeatInSeatDisplayButton();
+        
         ToggleEnterSeatDialog(false);
     }
 
-    private void UpdateSeatVal(int newVal)
+    private void DisplayCurrentSeatInSeatDisplayButton()
     {
-        PlayerPrefs.SetInt(seatPlayerPrefsKey, newVal);
+        Instances.RowNumber = GetRow();
+        Instances.SeatNumber = GetSeat();
         
-        seat10sNumberText.text = newVal.ToString();
+        Debug.Log($"Seat now: {Instances.RowNumber} - {Instances.SeatNumber}");
+
+        seatDisplayButton.GetComponentInChildren<TextMeshProUGUI>().text = $"R:{Instances.RowNumber} - S:{Instances.SeatNumber}";
+    }
+    
+    private void UpdateSeatVal(bool increase, SeatElement seatElement)
+    {
+        bool isRow = seatElement is SeatElement.Row10s or SeatElement.Row1s;
+        bool is10s = seatElement is SeatElement.Row10s or SeatElement.Seat10s;
+        
+        int currentVal = isRow ? GetRow() : GetSeat();
+
+        int offset = increase ? 1 : -1;
+
+        int newVal = currentVal + (offset * (is10s ? 10 : 1));
+
+        int max = isRow ? maxRow : maxSeat;
+
+        if (newVal <= 0)
+            newVal = max;
+        else if(newVal > max)
+            newVal = 0;
+        
+        Debug.Log($"UpdateSeatVal, increase: {increase}, seatElement: {seatElement}, currentVal: {currentVal}, max: {max} newVal: {newVal}");
+        
+        if(isRow)
+            SetRow(newVal);
+        else
+            SetSeat(newVal);
+
+        Tuple<int, int> newValDigits = GetRowOrSeatDigits(newVal);
+
+        if (isRow)
+        {
+            row10sNumberText.text = newValDigits.Item1.ToString();
+            row1sNumberText.text = newValDigits.Item2.ToString();
+        }
+        else
+        {
+            seat10sNumberText.text = newValDigits.Item1.ToString();
+            seat1sNumberText.text = newValDigits.Item2.ToString();
+        }
+
+        DisplayCurrentSeatInSeatDisplayButton();
+    }
+
+    private string KeyForSeatElement(SeatElement seatElement) => seatElement switch
+    {
+        SeatElement.Row10s => row10sKey,
+        SeatElement.Row1s => row1sKey,
+        SeatElement.Seat10s => seat10sKey,
+        SeatElement.Seat1s => seat1sKey,
+    };
+
+    private int GetRow()
+    {
+        int row = (PlayerPrefs.GetInt(KeyForSeatElement(SeatElement.Row10s), 0) * 10)
+               + PlayerPrefs.GetInt(KeyForSeatElement(SeatElement.Row1s), 0);
+
+        Debug.Log($"Get row: {row}");
+        
+        return row;
+    }
+
+    private int GetSeat()
+    {
+        int seat =  (PlayerPrefs.GetInt(KeyForSeatElement(SeatElement.Seat10s), 0) * 10)
+                   + PlayerPrefs.GetInt(KeyForSeatElement(SeatElement.Seat1s), 0);
+
+        Debug.Log($"Get seat: {seat}");
+        
+        return seat;
+    }
+
+    private Tuple<int, int> GetRowOrSeatDigits(int rowOrSeat)
+    {
+        int rowOrSeat10s = Mathf.FloorToInt((float)rowOrSeat / 10f);
+        int rowOrSeat1s = rowOrSeat % 10;
+        
+        Debug.Log($"GetRowOrSeatDigits: {rowOrSeat10s}, {rowOrSeat1s}");
+
+        return new Tuple<int, int>(rowOrSeat10s, rowOrSeat1s);
+    }
+
+    private void SetRow(int row)
+    {
+        Debug.Log($"Set row: {row}");
+        Instances.RowNumber = row;
+        
+        Tuple<int, int> rowDigits = GetRowOrSeatDigits(row);
+        
+        PlayerPrefs.SetInt(KeyForSeatElement(SeatElement.Row10s), rowDigits.Item1);
+        PlayerPrefs.SetInt(KeyForSeatElement(SeatElement.Row1s), rowDigits.Item2);
+    }
+
+    private void SetSeat(int seat)
+    {
+        Debug.Log($"Set set: {seat}");
+        Instances.SeatNumber = seat;
+        
+        Tuple<int, int> seatDigits = GetRowOrSeatDigits(seat);
+        
+        PlayerPrefs.SetInt(KeyForSeatElement(SeatElement.Seat10s), seatDigits.Item1);
+        PlayerPrefs.SetInt(KeyForSeatElement(SeatElement.Seat1s), seatDigits.Item2);
     }
 
     public void ToggleColorOverlay(bool show)
@@ -182,6 +301,9 @@ public class WebGLClientUI : UIWithConnection
         DisableAllModes();
         
         backgroundVideo.gameObject.SetActive(true);
+
+        if (PlayerPrefs.HasKey(row10sKey) == false)
+            ToggleEnterSeatDialog(true);
     }
 
     private void DisableAllModes()
@@ -209,13 +331,7 @@ public class WebGLClientUI : UIWithConnection
     
     private void ToggleEnterSeatDialog(bool show)
     {
-        // seatNumberInputField.gameObject.SetActive(show);
-        
-        seatConfirmButton.gameObject.SetActive(show);
-        
-        seatNumberDecrease10sButton.gameObject.SetActive(show);
-        seatNumberIncrease10sButton.gameObject.SetActive(show);
-        seat10sNumberText.gameObject.SetActive(show);
+        seatInputHolder.SetActive(show);
         
         SetStatusText(show ? $"Enter Your Seat Number" : "");
     }
@@ -229,4 +345,12 @@ public class WebGLClientUI : UIWithConnection
     {
         voteSlider.interactable = blockVoting == false;
     }
+}
+
+public enum SeatElement
+{
+    Row10s,
+    Row1s,
+    Seat10s,
+    Seat1s,
 }

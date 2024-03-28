@@ -22,9 +22,10 @@ public class DelayPlayer : MonoBehaviour
         StartCoroutine(PlayWithDelayRoutine(audioClip, delayTime, feedback));
     }
 
-    createa audio mixer groups for audio fader
-    pass in clips here
-    random generate before?
+    // createa audio mixer groups for audio fader
+    // dont break double fader tough, make dupliacte or child
+    // pass in clips here
+    // random generate before?
     private IEnumerator PlayWithDelayRoutine(AudioClip audioClip, float delayTime, float feedback)
     {
         if(feedback is < 0 or > 1)
@@ -34,7 +35,7 @@ public class DelayPlayer : MonoBehaviour
         
         float volume = 1;
 
-        createdFaders.Add(NewAudioFaderWithClip(audioClip, volume));
+        // createdFaders.Add(NewAudioFaderWithClip(audioClip, volume));
 
         float fallOff = 1 - feedback;
         
@@ -44,7 +45,7 @@ public class DelayPlayer : MonoBehaviour
         
             volume = volume - fallOff;
             
-            createdFaders.Add(NewAudioFaderWithClip(audioClip, volume));
+            // createdFaders.Add(NewAudioFaderWithClip(audioClip, volume));
         }
         
         yield return new WaitForSeconds(audioClip.length);
@@ -58,7 +59,7 @@ public class DelayPlayer : MonoBehaviour
         }
     }
 
-    which clips though?
+    // which clips though?
     private AudioSource NewAudioFaderWithClip(AudioClip audioClip, float volume)
     {
         AudioSource audioSource = Instantiate(delaySamplePrefab);

@@ -2,16 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
-using UniRx;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class AudioFader : MonoBehaviour
+public class DelayAudioFader : MonoBehaviour
 {
+    
     [SerializeField] private AudioManager audioManager;
     // [SerializeField] private AudioMixerGroup master;
     [SerializeField] private AudioSource fadeSamplePrefab;
+    [SerializeField] private AudioMixerGroup delayLow;
+    [SerializeField] private AudioMixerGroup delayMid;
+    [SerializeField] private AudioMixerGroup delayHigh;
     
     private AudioSource[] sources;
 
@@ -52,6 +54,16 @@ public class AudioFader : MonoBehaviour
                 volume = remainderPercentage;
             
             audioSource.volume = volume;
+        }
+        
+        if (CurrentNumSources == 3)
+        {
+            // Hardcode
+            // sources[0].pitch = 2f;
+            // sources[1].pitch = 1f;
+            // sources[2].pitch = 0.5f;
+            //
+            // sources[0].volume *= 0.8f;
         }
     }
 
@@ -120,6 +132,6 @@ public class AudioFader : MonoBehaviour
 
     public void SetAudioMixerGroup(AudioMixerGroup audioMixerGroup)
     {
-        sources.ForEach(source => source.outputAudioMixerGroup = audioMixerGroup);
+        // sources.ForEach(source => source.outputAudioMixerGroup = audioMixerGroup);
     }
 }

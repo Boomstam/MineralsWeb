@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1132135174368232767}
   - component: {fileID: -2047807380912392207}
   m_Layer: 0
-  m_Name: AudioFaderPrefab
+  m_Name: AudioFader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class NetworkedMonitor : NetworkBehaviour
@@ -10,7 +11,21 @@ public class NetworkedMonitor : NetworkBehaviour
     [SyncVar] public AppState appState;
 
     [SyncVar] public int warningTime = 5;
+    [SyncVar] public bool playCircles;
+    [SyncVar] public float volume;
+
+    [ServerRpc (RequireOwnership = false), Button]
+    public void SetPlayCircles(bool shouldPlayCircles)
+    {
+        playCircles = shouldPlayCircles;
+    }
     
+    [ServerRpc (RequireOwnership = false), Button]
+    public void SetVolume(float volumeVal)
+    {
+        volume = volumeVal;
+    }
+
     // TODO: Implement recency bias
     public override void OnStartClient()
     {

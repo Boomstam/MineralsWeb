@@ -10,6 +10,8 @@ public class AudioManager : MonoBehaviour
     public AudioFader audioFader;
     public DoubleFader doubleFader;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private CirclePlayer circlePlayer;
+    [SerializeField] private DelayPlayer delayPlayer;
     [SerializeField] private AudioDistortionFilter audioDistortionFilter;
     [SerializeField] private AudioChorusFilter audioChorusFilter;
     [SerializeField] private AudioEchoFilter audioEchoFilter;

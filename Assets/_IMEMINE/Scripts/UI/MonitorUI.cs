@@ -16,6 +16,8 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private Toggle muteSoundToggle;
     [SerializeField] private Button introductionModeButton;
     [SerializeField] private Button effectsSliderModeButton;
+    // TODO: fill this in
+    [SerializeField] private Button waysOfWaterModeButton;
     [SerializeField] private Button sendChoiceButton;
     [SerializeField] private Button resetVotingButton;
     [SerializeField] private Toggle sound1Toggle;

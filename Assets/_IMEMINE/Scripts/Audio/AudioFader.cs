@@ -78,6 +78,21 @@ public class AudioFader : MonoBehaviour
         PlayFadeSamples(testFadeClips);
     }
     
+    /*
+     * Modes???
+     * effects = micro organisms
+     * ways of water: delays + circles => new mode!!!
+     * voting, with progress bar
+     * 
+     * 1 create AudioFaders for delay => use multiplication for volume? Or map to new audio mixers?
+     * check if effects mode still works
+     * 2 implement circles on row number => slider on monitor
+     * 3 program routine
+     * 4 slider labels
+     * vote timer!
+     * optional: block routine - switch frontness of sliders
+     * 
+     */
     public void PlayFadeSamples(AudioClip[] fadeClips)
     {
         int numClips = fadeClips.Length;

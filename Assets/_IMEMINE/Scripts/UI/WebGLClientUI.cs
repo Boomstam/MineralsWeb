@@ -276,8 +276,9 @@ public class WebGLClientUI : UIWithConnection
             
             ToggleEnterSeatDialog(false);
             
-            if(PlayFadeClips)
-                Instances.AudioManager.PlayFadeClips(new [] { ClipType.MineralsA, ClipType.MineralsB});
+            // if(PlayFadeClips)
+            //     Instances.AudioManager.PlayFadeSamples(new [] {  });
+            
             //, ClipType.MineralsC });
         }
         else

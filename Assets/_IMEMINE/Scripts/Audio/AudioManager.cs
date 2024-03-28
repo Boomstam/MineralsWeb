@@ -15,8 +15,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioEchoFilter audioEchoFilter;
     [SerializeField] private AudioReverbFilter audioReverbFilter;
     [SerializeField] private AudioLowPassFilter audioLowPassFilter;
-    [SerializeField] private AudioHighPassFilter audioHighPassFilter;
-
+    [SerializeField] private AudioHighPassFilter audioHighPassFilter; 
+    
     public AudioClip GetClip(ClipType clipType) => clips[(int)clipType];
     public AudioClip[] GetClips(ClipType[] clipTypes) => clipTypes.Select(GetClip).ToArray();
 
@@ -30,11 +30,11 @@ public class AudioManager : MonoBehaviour
         audioSource.Play();
     }
 
-    public void PlayFadeClips(ClipType[] clipTypes)
+    public void PlayFadeSamples(AudioClip fadeClips)
     {
-        AudioClip[] fadeClips = GetClips(clipTypes);
+        // AudioClip[] fadeClips = GetClips(clipTypes);
         
-        audioFader.PlayFadeSamples(fadeClips);
+        // audioFader.PlayFadeSamples(fadeClips);
     }
 
     public void SetFadeVal(float fadeVal)

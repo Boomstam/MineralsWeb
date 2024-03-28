@@ -68,6 +68,7 @@
      <Compile Include="Assets\_IMEMINE\Scripts\Performance\PerformanceManager.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Tools\Instances.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Tools\BuildType.cs" />
+     <Compile Include="Assets\_IMEMINE\Scripts\Audio\CirclePlayer.cs" />
      <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Base\Internal\OscDataTypes.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Audio\AudioFader.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Network\NetworkedMonitor.cs" />

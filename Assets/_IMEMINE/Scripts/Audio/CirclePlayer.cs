@@ -22,9 +22,11 @@ public class CirclePlayer : MonoBehaviour
     private AudioSource[] sources => new[] { lowAudioSource, midAudioSource, highAudioSource };
     private const int CurrentNumSources = 3;
 
-    // TODO implement max playing time to prevent endless playing
+    private bool lastShouldSpatialize;
     private float lastVolume = -1f;
+    private float lastLeftRightBalance = -1f;
 
+    // TODO implement max playing time to prevent endless playing
     private void Update()
     {
         try
@@ -51,11 +53,15 @@ public class CirclePlayer : MonoBehaviour
             }
         }
 
-        if (lastVolume != Instances.NetworkedMonitor.volume)
+        if (lastVolume != Instances.NetworkedMonitor.volume || 
+            lastLeftRightBalance != Instances.NetworkedMonitor.leftRightBalance ||
+            lastShouldSpatialize != Instances.NetworkedMonitor.shouldSpatialize)
         {
-            SetVolume(Instances.NetworkedMonitor.volume);
+            SetVolume();
             
             lastVolume = Instances.NetworkedMonitor.volume;
+            lastLeftRightBalance = Instances.NetworkedMonitor.leftRightBalance;
+            lastShouldSpatialize = Instances.NetworkedMonitor.shouldSpatialize;
         }
     }
 
@@ -83,9 +89,28 @@ public class CirclePlayer : MonoBehaviour
         highAudioSource.Stop();
     }
     
-    private void SetVolume(float volume)
+    private void SetVolume()
     {
-        circlesMixer.audioMixer.SetFloat("Circles", volume);
+        float volume = Instances.NetworkedMonitor.volume;
+        
+        float spatializeMod = 1;
+        
+        if (Instances.NetworkedMonitor.shouldSpatialize)
+        {
+            float leftness = (float)(Instances.SeatNumber % Instances.NetworkedMonitor.seatsPerRow) / (float)Instances.NetworkedMonitor.seatsPerRow;
+            float deltaPos = Mathf.Abs(leftness - Instances.NetworkedMonitor.leftRightBalance);
+
+            spatializeMod = Mathf.Clamp01(1 - deltaPos);
+            
+            Debug.Log($"leftness: {leftness}, deltaPos {deltaPos}, spatializeMod {spatializeMod}");
+        }
+
+        float resultVolume = volume * spatializeMod;
+        float scaledVolume = Mathf.Log(resultVolume) * 20;
+
+        bool couldSetFloat = circlesMixer.audioMixer.SetFloat("Circles", scaledVolume);
+        
+        Debug.Log($"SetVolume, volume {volume}, spatializeMod {spatializeMod}, result {resultVolume}, scaledVolume {scaledVolume}, couldSetFloat {couldSetFloat}");
     }
     
     [Button]

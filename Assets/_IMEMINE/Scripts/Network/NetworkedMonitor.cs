@@ -13,6 +13,9 @@ public class NetworkedMonitor : NetworkBehaviour
     [SyncVar] public int warningTime = 5;
     [SyncVar] public bool playCircles;
     [SyncVar] public float volume;
+    [SyncVar] public bool shouldSpatialize;
+    [SyncVar] public float leftRightBalance;
+    [SyncVar] public int seatsPerRow = 4;
 
     [ServerRpc (RequireOwnership = false), Button]
     public void SetPlayCircles(bool shouldPlayCircles)
@@ -25,7 +28,28 @@ public class NetworkedMonitor : NetworkBehaviour
     {
         volume = volumeVal;
     }
+    
+    [ServerRpc (RequireOwnership = false), Button]
+    public void SetSpatialize(bool spatialize)
+    {
+        shouldSpatialize = spatialize;
+    }
+    
+    [ServerRpc (RequireOwnership = false), Button]
+    public void SetLeftRightBalance(float leftRight)
+    {
+        leftRightBalance = leftRight;
+    }
 
+    [ServerRpc (RequireOwnership = false), Button]
+    public void SetSeatsPerRow(int seats)
+    {
+        if(seats == 0)
+            return;
+        
+        seatsPerRow = seats;
+    }
+    
     // TODO: Implement recency bias
     public override void OnStartClient()
     {

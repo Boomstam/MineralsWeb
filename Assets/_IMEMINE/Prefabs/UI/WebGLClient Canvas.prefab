@@ -2095,8 +2095,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 142.76, y: -535.1}
-  m_SizeDelta: {x: 285.52, y: 102.82}
+  m_AnchoredPosition: {x: 142.76, y: -505.94}
+  m_SizeDelta: {x: 285.52, y: 92.469}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4207068402939315231
 CanvasRenderer:
@@ -4074,8 +4074,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 142.76, y: 403.09}
-  m_SizeDelta: {x: 285.52, y: 104.99}
+  m_AnchoredPosition: {x: 142.76, y: 354.64}
+  m_SizeDelta: {x: 285.52, y: 92.081}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5608110343722123461
 CanvasRenderer:
@@ -6448,7 +6448,7 @@ GameObject:
   - component: {fileID: 2576269509964394060}
   - component: {fileID: 3660679512995540112}
   m_Layer: 5
-  m_Name: High Text (TMP) (1)
+  m_Name: Low Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6470,8 +6470,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -140.12003, y: -535.1055}
-  m_SizeDelta: {x: 280.23, y: 102.8143}
+  m_AnchoredPosition: {x: -140.12001, y: -505.94443}
+  m_SizeDelta: {x: 280.23, y: 92.4689}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2576269509964394060
 CanvasRenderer:
@@ -8435,8 +8435,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -140.12, y: 403.09302}
-  m_SizeDelta: {x: 280.23, y: 104.9869}
+  m_AnchoredPosition: {x: -140.12001, y: 354.63535}
+  m_SizeDelta: {x: 280.23, y: 92.0807}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1523651801612933126
 CanvasRenderer:
@@ -8564,11 +8564,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5344048043537002440}
-  - {fileID: 4140502806345755605}
+  - {fileID: 8435091053304968740}
   - {fileID: 4728253844560907089}
   - {fileID: 6063655638727060325}
+  - {fileID: 4140502806345755605}
   - {fileID: 378332647888279063}
-  - {fileID: 8435091053304968740}
   m_Father: {fileID: 1184706534092990398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

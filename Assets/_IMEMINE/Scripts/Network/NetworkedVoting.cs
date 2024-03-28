@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class NetworkedVoting : NetworkBehaviour
@@ -12,10 +14,55 @@ public class NetworkedVoting : NetworkBehaviour
     [SyncVar] public ChoiceType currentChoice;
     
     [SyncVar] private float voteOffset;
+    [SerializeField] private float votingIntervalLength = 10;
+
+    [SyncVar (OnChange = nameof(OnVoteProgressUpdate))] private float voteProgress;
     
     // Saved on the Monitor
     private Dictionary<int, float> votePerSeat = new Dictionary<int, float>();
-    
+
+    private bool hasStartedVoteInterval;
+
+    [ServerRpc (RequireOwnership = false), Button]
+    public void StartVotingInterval()
+    {
+        StartCoroutine(DoVotingInterval());
+    }
+
+    private IEnumerator DoVotingInterval()
+    {
+        float elapsedTime = 0;
+        
+        while (elapsedTime < votingIntervalLength)
+        {
+            float timeElapsedPercentage = elapsedTime / votingIntervalLength;
+
+            voteProgress = timeElapsedPercentage;
+            
+            yield return 0;
+
+            elapsedTime += Time.deltaTime;
+        }
+
+        voteProgress = 0;
+    }
+
+    private void OnVoteProgressUpdate(float prev, float next, bool asServer)
+    {
+        if(Instances.BuildType != BuildType.Voting)
+            return;
+
+        if (prev <= 0 && next > 0)
+        {
+            Instances.WebGLClientUI.ShowStartVotingWarning();
+        }
+        if (prev > 0 && next <= 0)
+        {
+            Instances.WebGLClientUI.ShowStopVotingWarning();
+        }
+        Instances.WebGLClientUI.SetVotingProgress(next);
+    }
+
     // Runs on the Monitor
     public void ResetVoting()
     {

@@ -18,6 +18,9 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private ImageFader imageFader;
     [SerializeField] private RawImage backgroundVideo;
     [SerializeField] private GameObject waysOfWater;
+    [SerializeField] private GameObject voteWarning;
+    [SerializeField] private TextMeshProUGUI voteWarningText;
+    [SerializeField] private GameObject votingHolder;
     [Header("Row Number Input")]
     [SerializeField] private Button rowNumberIncrease10sButton;
     [SerializeField] private Button rowNumberDecrease10sButton;
@@ -44,8 +47,8 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private Slider highLowSlider;
     [SerializeField] private Slider distortionSlider;
     [SerializeField] private Slider waysOfWaterSlider;
+    [SerializeField] private Slider voteProgressBar;
     [Header("Other")]
-    [SerializeField] private RectTransform progressBar;
     [SerializeField] private float maxProgressBarRight = 527;
     [SerializeField] private TextMeshProUGUI statusText;
     [Header("Deprecated?")]
@@ -288,6 +291,7 @@ public class WebGLClientUI : UIWithConnection
         {
             voteSlider.gameObject.SetActive(true);
             averageSlider.gameObject.SetActive(true);
+            votingHolder.SetActive(true);
             
             ToggleEnterSeatDialog(false);
             
@@ -338,8 +342,9 @@ public class WebGLClientUI : UIWithConnection
         
         waysOfWater.SetActive(false);
         
-        voteSlider.gameObject.SetActive(false);
-        averageSlider.gameObject.SetActive(false);
+        // voteSlider.gameObject.SetActive(false);
+        // averageSlider.gameObject.SetActive(false);
+        votingHolder.SetActive(false);
         
         Instances.AudioManager.StopAllPlayback();
         Instances.AudioManager.ResetAllFx();
@@ -369,6 +374,36 @@ public class WebGLClientUI : UIWithConnection
     public void SetBlockVoting(bool blockVoting)
     {
         voteSlider.interactable = blockVoting == false;
+    }
+
+    public void SetVotingProgress(float progress)
+    {
+        bool inProgress = (progress > 0);
+        
+        SetBlockVoting(inProgress == false);
+        
+        voteProgressBar.gameObject.SetActive(inProgress);
+
+        if (inProgress)
+        {
+            voteProgressBar.value = progress;
+        }
+    }
+
+    public void ShowStartVotingWarning()
+    {
+        voteWarning.SetActive(true);
+        voteWarningText.text = "Vote!";
+        
+        this.RunDelayed(1.5f, () => voteWarning.SetActive(false));
+    }
+
+    public void ShowStopVotingWarning()
+    {
+        voteWarning.SetActive(true);
+        voteWarningText.text = "Stop!";
+        
+        this.RunDelayed(1.5f, () => voteWarning.SetActive(false));
     }
 }
 

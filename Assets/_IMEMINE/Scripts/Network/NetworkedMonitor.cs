@@ -16,6 +16,10 @@ public class NetworkedMonitor : NetworkBehaviour
     [SyncVar] public bool shouldSpatialize;
     [SyncVar] public float leftRightBalance;
     [SyncVar] public int seatsPerRow = 4;
+    [SyncVar] public bool shouldPlayDelays;
+    [SyncVar] public float minDelayTime = 0.1f;
+    [SyncVar] public float maxDelayTime = 2f;
+    [SyncVar] public float delayIntervalLength = 3f;
 
     [ServerRpc (RequireOwnership = false), Button]
     public void SetPlayCircles(bool shouldPlayCircles)
@@ -48,6 +52,30 @@ public class NetworkedMonitor : NetworkBehaviour
             return;
         
         seatsPerRow = seats;
+    }
+    
+    [ServerRpc (RequireOwnership = false), Button]
+    public void SetPlayDelays(bool playDelays)
+    {
+        shouldPlayDelays = playDelays;
+    }
+    
+    [ServerRpc (RequireOwnership = false), Button]
+    public void SetMinDelayTime(float delayTime)
+    {
+        minDelayTime = delayTime;
+    }
+    
+    [ServerRpc (RequireOwnership = false), Button]
+    public void SetMaxDelayTime(float delayTime)
+    {
+        maxDelayTime = delayTime;
+    }
+    
+    [ServerRpc (RequireOwnership = false), Button]
+    public void SetIntervalLength(float intervalLength)
+    {
+        delayIntervalLength = intervalLength;
     }
     
     // TODO: Implement recency bias

@@ -505,6 +505,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e90d602b7c77f68479214d229957340b, type: 3}
   delaySamplePrefab: {fileID: 9064606992326889990, guid: fbd98a94687ec9841a762b5de8770d03, type: 3}
   testDelaySample: {fileID: 8300000, guid: ea17d4080014aef4e8fa63b7a670fe1b, type: 3}
+  delaysLowMixer: {fileID: -6525625628852139995, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
+  delaysMidMixer: {fileID: -8077100242818227645, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
+  delaysHighMixer: {fileID: 6593788999559062961, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
 --- !u!1 &6766683964360132336
 GameObject:
   m_ObjectHideFlags: 0

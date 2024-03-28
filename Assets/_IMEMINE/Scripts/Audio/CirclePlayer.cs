@@ -18,9 +18,9 @@ public class CirclePlayer : MonoBehaviour
     [SerializeField] private AudioMixerGroup circlesMidMixer;
     [SerializeField] private AudioMixerGroup circlesHighMixer;
 
-    private int numDifferentSounds => circleClips.Length / 3;
+    private const int numSources = 3;
+    private int numDifferentSounds => circleClips.Length / numSources;
     private AudioSource[] sources => new[] { lowAudioSource, midAudioSource, highAudioSource };
-    private const int CurrentNumSources = 3;
 
     private bool lastShouldSpatialize;
     private float lastVolume = -1f;
@@ -69,11 +69,11 @@ public class CirclePlayer : MonoBehaviour
     {
         int soundIndex = Instances.SeatNumber % numDifferentSounds;
         
-        Debug.Log($"StartPlayback soundIndex: {soundIndex}, numDifferentSounds: {numDifferentSounds}, CurrentNumSources: {CurrentNumSources}");
+        Debug.Log($"StartPlayback soundIndex: {soundIndex}, numDifferentSounds: {numDifferentSounds}, CurrentNumSources: {numSources}");
 
-        lowAudioSource.clip = circleClips[(soundIndex * CurrentNumSources)];
-        midAudioSource.clip = circleClips[(soundIndex * CurrentNumSources) + 1];
-        highAudioSource.clip = circleClips[(soundIndex * CurrentNumSources) + 2];
+        lowAudioSource.clip = circleClips[(soundIndex * numSources)];
+        midAudioSource.clip = circleClips[(soundIndex * numSources) + 1];
+        highAudioSource.clip = circleClips[(soundIndex * numSources) + 2];
         
         lowAudioSource.Play();
         midAudioSource.Play();
@@ -116,7 +116,7 @@ public class CirclePlayer : MonoBehaviour
     [Button]
     public void SetFadeValue(float fadeVal)
     {
-        float percentagePerSource = 1f / (float)(CurrentNumSources - 1);
+        float percentagePerSource = 1f / (float)(numSources - 1);
 
         int startSample = Mathf.FloorToInt(fadeVal / percentagePerSource);
 
@@ -124,7 +124,7 @@ public class CirclePlayer : MonoBehaviour
         
         float remainderPercentage = remainder / percentagePerSource;
         
-        for (int i = 0; i < CurrentNumSources; i++)
+        for (int i = 0; i < numSources; i++)
         {
             AudioSource audioSource = sources[i];
             

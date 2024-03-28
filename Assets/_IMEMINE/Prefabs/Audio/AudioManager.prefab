@@ -56,42 +56,27 @@ MonoBehaviour:
   lowAudioMixerGroup: {fileID: -7571254366263321388, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
   midAudioMixerGroup: {fileID: -4054765447252485589, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
   highAudioMixerGroup: {fileID: -5126684036310326011, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
-  clipTypesLow1:
-  - {fileID: 8300000, guid: 974af3633d6fca64ab15ee829b585c4b, type: 3}
-  - {fileID: 8300000, guid: 9d66082d7d78c7d4c8c2efbf0b5d4233, type: 3}
-  - {fileID: 8300000, guid: f4390aedd34642446b2db6b060e45ef1, type: 3}
-  - {fileID: 8300000, guid: a0af0a3b5fc2d644181ff262443f3404, type: 3}
-  - {fileID: 8300000, guid: 151ed3b6136b1d542ab18e9eee0ed8bd, type: 3}
-  clipTypesMid1:
-  - {fileID: 8300000, guid: d733e902331a47a4c81fbc3fe946a07e, type: 3}
-  - {fileID: 8300000, guid: de8888241100c304085088d86daa5b9f, type: 3}
-  - {fileID: 8300000, guid: 5eee6ef470d44354ea57213a8159cebe, type: 3}
-  - {fileID: 8300000, guid: 8c900d4ebbaf9154ca8b8f688438f682, type: 3}
-  - {fileID: 8300000, guid: c8d70591ab158d949bfcc3859fa39600, type: 3}
-  clipTypesHigh1:
-  - {fileID: 8300000, guid: a48e990955ae06d4faad15f058706ade, type: 3}
-  - {fileID: 8300000, guid: aefc9b5b615a0cf42bbe986b6abccf62, type: 3}
-  - {fileID: 8300000, guid: 6ac70dd46a3a4cc4e86e370beafdf107, type: 3}
-  - {fileID: 8300000, guid: 008a2dd03f46c5147843c3c99e4cf9a5, type: 3}
-  - {fileID: 8300000, guid: 136ec039207320446b1e8fd1e988fea0, type: 3}
-  clipTypesLow2:
-  - {fileID: 8300000, guid: adf8d5ce3c715f841a4e244d65c7337d, type: 3}
-  - {fileID: 8300000, guid: d76a6ef60d1399146a2994ae2399fd20, type: 3}
-  - {fileID: 8300000, guid: 0d225b7c6d7901f4cab16fb9f23d17da, type: 3}
-  - {fileID: 8300000, guid: 9b0519e93f59b234f86fc49622191ed3, type: 3}
-  - {fileID: 8300000, guid: 76e3a7d91bd29424285ea986d11743fb, type: 3}
-  clipTypesMid2:
-  - {fileID: 8300000, guid: f219a6a5d8fb8c14f891e889f11b3037, type: 3}
-  - {fileID: 8300000, guid: 4d1dd31348c4f6840af53ae17907c597, type: 3}
-  - {fileID: 8300000, guid: 78b4ebdd29b9e8349a34418d9771c0c0, type: 3}
-  - {fileID: 8300000, guid: 955a8f349e3d1de42b7ecf0a60368251, type: 3}
-  - {fileID: 8300000, guid: ff71eec41ed84de4aa85d940f4081c5e, type: 3}
-  clipTypesHigh2:
-  - {fileID: 8300000, guid: bf234d95dd87d94448dc675ea4b84487, type: 3}
-  - {fileID: 8300000, guid: e82734fd6ccd9004f8b84052fb95281a, type: 3}
-  - {fileID: 8300000, guid: 7a294fdfdb0431b44bf8a24f6578e0b1, type: 3}
-  - {fileID: 8300000, guid: bf5329276910f7f4dab8112b2b23c6dc, type: 3}
-  - {fileID: 8300000, guid: fec7112c916f41e4a8bbbf9716e905af, type: 3}
+  clipTypesLow1: []
+  clipTypesMid1: []
+  clipTypesHigh1: []
+  clipTypesLow2: []
+  clipTypesMid2: []
+  clipTypesHigh2: []
+  clipTypesLow:
+  - {fileID: 8300000, guid: bf3a4c0e6e91f4e4b9f7b103cc32ca9e, type: 3}
+  - {fileID: 8300000, guid: 3f03c02c2a8c5f945942a48dcb521834, type: 3}
+  - {fileID: 8300000, guid: 1dee954700994ef40960de36b7c3102c, type: 3}
+  - {fileID: 8300000, guid: 725831e6ed9f29f4eb6c858575ea026b, type: 3}
+  clipTypesMid:
+  - {fileID: 8300000, guid: a2b695aeaaaa71648aa2146e7d3b1f74, type: 3}
+  - {fileID: 8300000, guid: c76147854dfc2394a8024f4487aaaae9, type: 3}
+  - {fileID: 8300000, guid: fa2b6e5d138f948408198e9b10173172, type: 3}
+  - {fileID: 8300000, guid: 8c0e63ccf3bbafa42aad7360fd1e639f, type: 3}
+  clipTypesHigh:
+  - {fileID: 8300000, guid: ef90a2774bee13c4e9b261955878368e, type: 3}
+  - {fileID: 8300000, guid: 0afdd4eb7e0020743b1b023c85522120, type: 3}
+  - {fileID: 8300000, guid: 38bd430b6ad1cb842a249debadc18fab, type: 3}
+  - {fileID: 8300000, guid: 7dfdd65060ebaaf45ad524cfdf912741, type: 3}
 --- !u!114 &2001495065631461790
 MonoBehaviour:
   m_ObjectHideFlags: 0

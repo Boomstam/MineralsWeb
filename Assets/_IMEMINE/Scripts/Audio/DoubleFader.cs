@@ -7,6 +7,7 @@ using Sirenix.Utilities;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Audio;
+using Random = UnityEngine.Random;
 
 public class DoubleFader : MonoBehaviour
 {
@@ -25,6 +26,10 @@ public class DoubleFader : MonoBehaviour
     [SerializeField] private AudioClip[] clipTypesLow2;
     [SerializeField] private AudioClip[] clipTypesMid2;
     [SerializeField] private AudioClip[] clipTypesHigh2;
+    
+    [SerializeField] private AudioClip[] clipTypesLow;
+    [SerializeField] private AudioClip[] clipTypesMid;
+    [SerializeField] private AudioClip[] clipTypesHigh;
     // [SerializeField] private AudioMixerGroup master;
     
     private const float minVolume = 0.01f;
@@ -41,11 +46,16 @@ public class DoubleFader : MonoBehaviour
         
     }
     
+    [Button]
     public void PlayFadeSamples()
     {
-        AudioClip[] lowFadeClips = sound1 ? clipTypesLow1 : clipTypesLow2;
-        AudioClip[] midFadeClips = sound1 ? clipTypesMid1 : clipTypesMid2;
-        AudioClip[] highFadeClips = sound1 ? clipTypesHigh1 : clipTypesHigh2;
+        // if()
+
+        int type = Random.Range(0, clipTypesLow.Length / 2);
+
+        AudioClip[] lowFadeClips = { clipTypesLow[type * 2], clipTypesLow[type * 2 + 1] };
+        AudioClip[] midFadeClips = { clipTypesMid[type * 2], clipTypesMid[type * 2 + 1] };
+        AudioClip[] highFadeClips = { clipTypesHigh[type * 2], clipTypesHigh[type * 2 + 1] };
         
         audioFaders[0].PlayFadeSamples(lowFadeClips);
         audioFaders[1].PlayFadeSamples(midFadeClips);

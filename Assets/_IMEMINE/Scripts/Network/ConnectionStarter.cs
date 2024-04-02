@@ -56,7 +56,7 @@ public class ConnectionStarter : MonoBehaviour
         if(InstanceFinder.ClientManager == null)
             return;
         
-        if(InstanceFinder.ClientManager.Started)
+        if(InstanceFinder.ClientManager.Started || InstanceFinder.ServerManager.Started)
             return;
         
         if (Time.time - lastReconnectionTry > reconnectionInterval)

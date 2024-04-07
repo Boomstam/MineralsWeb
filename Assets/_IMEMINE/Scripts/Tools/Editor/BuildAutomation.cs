@@ -348,6 +348,8 @@ public static class ConnectionTypeHolder
             return ConnectionType.Host;
         else if (buildTarget is BuildTarget.WebGL)
             return ConnectionType.BayouClient;
+        else if (buildTarget is BuildTarget.iOS or BuildTarget.Android)
+            return ConnectionType.TugboatClient;
         else
             return ConnectionType.TugboatClient;
 

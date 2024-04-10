@@ -11,6 +11,8 @@ using UnityEngine.UI;
 
 public class WebGLClientUI : UIWithConnection
 {
+    #region Variables
+
     [Header("Backgrounds/Overlays")]
     [SerializeField] private ColorOverlay colorOverlay;
     [SerializeField] private Image backgroundImage;
@@ -68,6 +70,11 @@ public class WebGLClientUI : UIWithConnection
     private const string seat10sKey = "Seat 10s";
     private const string seat1sKey = "Seat 1s";
 
+    #endregion
+
+    #region Setup
+
+    
     public void Start()
     {
         voteSlider.onValueChanged.AsObservable()
@@ -141,6 +148,10 @@ public class WebGLClientUI : UIWithConnection
             ToggleEnterSeatDialog(true);
         }
     }
+
+    #endregion
+
+    #region Seat Input
 
     private void OnConfirmSeatNumber()
     {
@@ -260,6 +271,10 @@ public class WebGLClientUI : UIWithConnection
         PlayerPrefs.SetInt(KeyForSeatElement(SeatElement.Seat1s), seatDigits.Item2);
     }
 
+    #endregion
+
+    #region Modes
+    
     public void ToggleColorOverlay(bool show)
     {
         DisableAllModes();
@@ -357,18 +372,10 @@ public class WebGLClientUI : UIWithConnection
         
         effectsSliders.SetActive(false);
     }
+
+    #endregion
     
-    public void SetVoteAverage(float voteAverage)
-    {
-        averageSlider.value = voteAverage;
-    }
-    
-    private void ToggleEnterSeatDialog(bool show)
-    {
-        seatInputHolder.SetActive(show);
-        
-        SetStatusText(show ? $"Enter Your Seat Number" : "");
-    }
+    #region Language
     
     private void ToggleLanguage()
     {
@@ -395,11 +402,10 @@ public class WebGLClientUI : UIWithConnection
 
         seatConfirmButton.GetComponentInChildren<TextMeshProUGUI>().text = nl ? "Kies" : "Confirm";
     }
-    
-    private void SetStatusText(string text)
-    {
-        statusText.text = text;
-    }
+
+    #endregion
+
+    #region Voting Control
     
     public void SetBlockVoting(bool blockVoting)
     {
@@ -435,6 +441,43 @@ public class WebGLClientUI : UIWithConnection
         
         this.RunDelayed(1.5f, () => voteWarning.SetActive(false));
     }
+    
+    #endregion
+    
+    #region Tutorial
+
+    private void ToggleTutorial(bool tutoria)
+    {
+        
+    }
+
+    private void SetTutorialPart(TutorialPartType tutorialPartType)
+    {
+        
+    }
+
+    #endregion
+
+    #region Other
+
+    public void SetVoteAverage(float voteAverage)
+    {
+        averageSlider.value = voteAverage;
+    }
+    
+    private void ToggleEnterSeatDialog(bool show)
+    {
+        seatInputHolder.SetActive(show);
+        
+        SetStatusText(show ? $"Enter Your Seat Number" : "");
+    }
+    
+    private void SetStatusText(string text)
+    {
+        statusText.text = text;
+    }
+
+    #endregion
 }
 
 public enum SeatElement
@@ -449,4 +492,14 @@ public enum Language
 {
     NL,
     EN,
+}
+
+public enum TutorialPartType
+{
+    Welcome, // Also language
+    Seat,
+    Connection,
+    Audio,
+    Sliders,
+    Enjoy,
 }

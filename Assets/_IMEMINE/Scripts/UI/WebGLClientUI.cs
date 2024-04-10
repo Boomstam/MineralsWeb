@@ -22,6 +22,7 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI voteWarningText;
     [SerializeField] private GameObject votingHolder;
     [Header("Row Number Input")]
+    [SerializeField] private TextMeshProUGUI rowTitleText;
     [SerializeField] private Button rowNumberIncrease10sButton;
     [SerializeField] private Button rowNumberDecrease10sButton;
     [SerializeField] private Button rowNumberIncrease1sButton;
@@ -30,6 +31,7 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI row1sNumberText;
     [SerializeField] private int maxRow;
     [Header("Seat Number Input")]
+    [SerializeField] private TextMeshProUGUI seatTitleText;
     [SerializeField] private Button seatNumberIncrease10sButton;
     [SerializeField] private Button seatNumberDecrease10sButton;
     [SerializeField] private Button seatNumberIncrease1sButton;
@@ -40,6 +42,7 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private GameObject seatInputHolder;
     [SerializeField] private Button seatConfirmButton;
     [SerializeField] private Button seatDisplayButton;
+    [SerializeField] private Button languageButton;
     [Header("Sliders")]
     [SerializeField] private Slider voteSlider;
     [SerializeField] private Slider averageSlider;
@@ -100,6 +103,7 @@ public class WebGLClientUI : UIWithConnection
             OnConfirmSeatNumber();
         });
         seatDisplayButton.onClick.AsObservable().Subscribe(_ => ToggleEnterSeatDialog(true));
+        languageButton.onClick.AsObservable().Subscribe(_ => ToggleLanguage());
         
         rowNumberIncrease10sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(true, SeatElement.Row10s); });
         rowNumberDecrease10sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(false, SeatElement.Row10s); });
@@ -366,6 +370,32 @@ public class WebGLClientUI : UIWithConnection
         SetStatusText(show ? $"Enter Your Seat Number" : "");
     }
     
+    private void ToggleLanguage()
+    {
+        string languagePlayerPrefsKey = "SavedLanguage";
+        Language language = (Language)PlayerPrefs.GetInt(languagePlayerPrefsKey, 0);
+
+        languageButton.GetComponentInChildren<TextMeshProUGUI>().text = language.ToString();
+
+        bool nl = (language == Language.NL);
+
+        nl = !nl;
+        
+        SetLanguageInTextComponents(nl);
+
+        int newLanguageVal = (nl ? 0 : 1);
+
+        PlayerPrefs.SetInt(languagePlayerPrefsKey, newLanguageVal);
+    }
+
+    private void SetLanguageInTextComponents(bool nl)
+    {
+        rowTitleText.text = nl ? "Rij" : "Row";
+        seatTitleText.text = nl ? "Stoel" : "Seat";
+
+        seatConfirmButton.GetComponentInChildren<TextMeshProUGUI>().text = nl ? "Kies" : "Confirm";
+    }
+    
     private void SetStatusText(string text)
     {
         statusText.text = text;
@@ -413,4 +443,10 @@ public enum SeatElement
     Row1s,
     Seat10s,
     Seat1s,
+}
+
+public enum Language
+{
+    NL,
+    EN,
 }

@@ -53,6 +53,11 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private Slider distortionSlider;
     [SerializeField] private Slider waysOfWaterSlider;
     [SerializeField] private Slider voteProgressBar;
+    [Header("Tutorial")]
+    [SerializeField] private GameObject tutorialCanvas;
+    [SerializeField] private TextMeshProUGUI tutorialText;
+    [SerializeField] private Button previousTutorialPartButton;
+    [SerializeField] private Button nextTutorialPartButton;
     [Header("Other")]
     [SerializeField] private float maxProgressBarRight = 527;
     [SerializeField] private TextMeshProUGUI statusText;
@@ -70,10 +75,11 @@ public class WebGLClientUI : UIWithConnection
     private const string seat10sKey = "Seat 10s";
     private const string seat1sKey = "Seat 1s";
 
+    private TutorialPartType currentTutorialPart; 
+    
     #endregion
 
     #region Setup
-
     
     public void Start()
     {
@@ -109,7 +115,7 @@ public class WebGLClientUI : UIWithConnection
         {
             OnConfirmSeatNumber();
         });
-        seatDisplayButton.onClick.AsObservable().Subscribe(_ => ToggleEnterSeatDialog(true));
+        seatDisplayButton.onClick.AsObservable().Subscribe(_ => ToggleEnterSeatDialog());
         languageButton.onClick.AsObservable().Subscribe(_ => ToggleLanguage());
         
         rowNumberIncrease10sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(true, SeatElement.Row10s); });
@@ -121,6 +127,9 @@ public class WebGLClientUI : UIWithConnection
         seatNumberDecrease10sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(false, SeatElement.Seat10s); });
         seatNumberIncrease1sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(true, SeatElement.Seat1s); });
         seatNumberDecrease1sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(false, SeatElement.Seat1s); });
+
+        previousTutorialPartButton.onClick.AsObservable().Subscribe(_ => GoToNextTutorialPart(false));
+        nextTutorialPartButton.onClick.AsObservable().Subscribe(_ => GoToNextTutorialPart(true));
         
         if(PlayerPrefs.HasKey(row10sKey))
         {
@@ -145,7 +154,7 @@ public class WebGLClientUI : UIWithConnection
         }
         else
         {
-            ToggleEnterSeatDialog(true);
+            ShowEnterSeatDialog(true);
         }
     }
 
@@ -157,7 +166,7 @@ public class WebGLClientUI : UIWithConnection
     {
         DisplayCurrentSeatInSeatDisplayButton();
         
-        ToggleEnterSeatDialog(false);
+        ShowEnterSeatDialog(false);
     }
 
     private void DisplayCurrentSeatInSeatDisplayButton()
@@ -291,7 +300,7 @@ public class WebGLClientUI : UIWithConnection
         if (show)
         {
             Instances.AudioManager.PlayClip(ClipType.Chapter5);
-            ToggleEnterSeatDialog(false);
+            ShowEnterSeatDialog(false);
         }
     }
     
@@ -312,7 +321,7 @@ public class WebGLClientUI : UIWithConnection
             averageSlider.gameObject.SetActive(true);
             votingHolder.SetActive(true);
             
-            ToggleEnterSeatDialog(false);
+            ShowEnterSeatDialog(false);
             
             // if(PlayFadeClips)
             //     Instances.AudioManager.PlayFadeSamples(new [] {  });
@@ -342,7 +351,7 @@ public class WebGLClientUI : UIWithConnection
         backgroundVideo.gameObject.SetActive(true);
 
         if (PlayerPrefs.HasKey(row10sKey) == false)
-            ToggleEnterSeatDialog(true);
+            ShowEnterSeatDialog(true);
     }
     
     public void EnableWaysOfWaterMode()
@@ -354,7 +363,7 @@ public class WebGLClientUI : UIWithConnection
 
     private void DisableAllModes()
     {
-        ToggleEnterSeatDialog(false);
+        ShowEnterSeatDialog(false);
         
         colorOverlay.gameObject.SetActive(false);
         backgroundVideo.gameObject.SetActive(false);
@@ -382,8 +391,6 @@ public class WebGLClientUI : UIWithConnection
         string languagePlayerPrefsKey = "SavedLanguage";
         Language language = (Language)PlayerPrefs.GetInt(languagePlayerPrefsKey, 0);
 
-        languageButton.GetComponentInChildren<TextMeshProUGUI>().text = language.ToString();
-
         bool nl = (language == Language.NL);
 
         nl = !nl;
@@ -391,20 +398,22 @@ public class WebGLClientUI : UIWithConnection
         SetLanguageInTextComponents(nl);
 
         int newLanguageVal = (nl ? 0 : 1);
-
+        
         PlayerPrefs.SetInt(languagePlayerPrefsKey, newLanguageVal);
     }
-
+    
     private void SetLanguageInTextComponents(bool nl)
     {
+        languageButton.GetComponentInChildren<TextMeshProUGUI>().text = (nl ? Language.NL : Language.EN).ToString();
+        
         rowTitleText.text = nl ? "Rij" : "Row";
         seatTitleText.text = nl ? "Stoel" : "Seat";
-
+        
         seatConfirmButton.GetComponentInChildren<TextMeshProUGUI>().text = nl ? "Kies" : "Confirm";
     }
-
+    
     #endregion
-
+    
     #region Voting Control
     
     public void SetBlockVoting(bool blockVoting)
@@ -446,14 +455,59 @@ public class WebGLClientUI : UIWithConnection
     
     #region Tutorial
 
-    private void ToggleTutorial(bool tutoria)
+    [Button]
+    private void ToggleTutorial(bool tutorial)
     {
+        tutorialCanvas.SetActive(tutorial);
         
+        if(tutorial)
+            SetTutorialPart(currentTutorialPart);
     }
 
+    private void GoToNextTutorialPart(bool next)
+    {
+        int currentTutorialPartIndex = (int)currentTutorialPart;
+
+        int lastIndex = (int)TutorialPartType.Enjoy;
+        int newIndex = currentTutorialPartIndex + (next ? 1 : -1);
+
+        if (newIndex < 0)
+            newIndex = lastIndex;
+        if (newIndex > lastIndex)
+            newIndex = 0;
+        
+        SetTutorialPart((TutorialPartType)newIndex);
+    }
+    
+    [Button]
     private void SetTutorialPart(TutorialPartType tutorialPartType)
     {
+        currentTutorialPart = tutorialPartType;
+
+        tutorialText.text = tutorialPartType.ToString();
         
+        if (currentTutorialPart == TutorialPartType.Welcome)
+        {
+            tutorialText.text = tutorialPartType.ToString();
+            
+        }
+        if (currentTutorialPart == TutorialPartType.Sliders)
+        {
+            ToggleVotingMode(true);
+            
+        }
+        else if(currentTutorialPart == TutorialPartType.Audio)
+        {
+            EnableEffectSlidersMode();
+        }
+        else if(currentTutorialPart == TutorialPartType.Video)
+        {
+            EnableIntroductionMode();
+        }
+        else
+        {
+            DisableAllModes();
+        }
     }
 
     #endregion
@@ -464,8 +518,15 @@ public class WebGLClientUI : UIWithConnection
     {
         averageSlider.value = voteAverage;
     }
+
+    private void ToggleEnterSeatDialog()
+    {
+        bool show = (seatInputHolder.activeSelf == false);
+        
+        ShowEnterSeatDialog(show);
+    }
     
-    private void ToggleEnterSeatDialog(bool show)
+    private void ShowEnterSeatDialog(bool show)
     {
         seatInputHolder.SetActive(show);
         
@@ -501,5 +562,6 @@ public enum TutorialPartType
     Connection,
     Audio,
     Sliders,
+    Video,
     Enjoy,
 }

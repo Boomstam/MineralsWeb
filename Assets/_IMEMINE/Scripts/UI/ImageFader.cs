@@ -27,9 +27,7 @@ public class ImageFader : MonoBehaviour
         float percentagePerSource = 1f / (float)(CurrentNumImages - 1);
 
         int startSample = Mathf.FloorToInt(fadeVal / percentagePerSource);
-
         float remainder = fadeVal - (percentagePerSource * startSample);
-        
         float remainderPercentage = remainder / percentagePerSource;
         
         for (int i = 0; i < CurrentNumImages; i++)
@@ -42,10 +40,31 @@ public class ImageFader : MonoBehaviour
                 alpha = 1 - remainderPercentage;
             if (i == startSample + 1)
                 alpha = remainderPercentage;
-
+        
             Color currentColor = image.color;
             image.color = new Color(currentColor.r, currentColor.g, currentColor.b, alpha);
         }
+        
+        // for (int i = 0; i < CurrentNumImages; i++)
+        // {
+        //     Image image = images[i];
+        //     float alpha = Mathf.Lerp(0.0f, 1.0f, Mathf.Abs(i - startSample) == 1 ? remainderPercentage : 1f - remainderPercentage);
+        //     Color currentColor = image.color;
+        //     image.color = new Color(currentColor.r, currentColor.g, currentColor.b, alpha);
+        // }
+
+        // for (int i = 0; i < CurrentNumImages; i++)
+        // {
+        //     Image image = images[i];
+        //     float alpha = 0;
+        //     if (i == startSample)
+        //         alpha = 1 - remainderPercentage;
+        //     else if (i == startSample + 1)
+        //         alpha = remainderPercentage;
+        //
+        //     Color originalColor = image.sprite.texture.GetPixelBilinear(0.5f, 0.5f); // Get a representative color from the sprite
+        //     image.color = new Color(originalColor.r * alpha, originalColor.g * alpha, originalColor.b * alpha, alpha);
+        // }
     }
     
     public void DisplayFadeImages(Sprite[] sprites)

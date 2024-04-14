@@ -133,6 +133,7 @@
      <None Include="Assets\FishNet\VERSION.txt" />
      <Folder Include="Assets\_IMEMINE\Scripts\Video" />
      <None Include="Assets\FishNet\CONTRIBUTORS.txt" />
+     <Folder Include="Assets\_IMEMINE\Fonts" />
      <Folder Include="Assets\FishNet\Upgrading" />
      <None Include="Assets\PlayFlowCloud\Lib\LICENSE.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
@@ -202,6 +203,7 @@
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne.json" />
      <None Include="Assets\FishNet\package.json" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
+     <None Include="Assets\_IMEMINE\Fonts\NOTICE.txt" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>

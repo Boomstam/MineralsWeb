@@ -7,6 +7,7 @@ using UnityEngine;
 public class NetworkedAppState : NetworkBehaviour
 {
     [SyncVar (OnChange = nameof(OnCurrentAuraTextIndexChange))] public int currentAuraTextIndex;
+    [SyncVar (OnChange = nameof(OnTutorialChange))] public bool tutorial = true;
 
     public override void OnStartClient()
     {
@@ -21,5 +22,15 @@ public class NetworkedAppState : NetworkBehaviour
             return;
         
         Instances.WebGLClientUI.auraTextDisplay.GoToText(newValue);
+    }
+    
+    private void OnTutorialChange(bool oldValue, bool newValue, bool asServer)
+    {
+        if(Instances.BuildType != BuildType.Voting)
+            return;
+        
+        Debug.Log($"On Tutorial change: tutorial {newValue}");
+     
+        Instances.WebGLClientUI.ToggleTutorial(newValue);
     }
 }

@@ -179,6 +179,7 @@ MonoBehaviour:
   networkOscManagerPrefab: {fileID: 8036868511758360702, guid: 5df595126a55a0b4590d2390dde4042b, type: 3}
   networkedMonitorPrefab: {fileID: 4210671600373466476, guid: 30183b35e0a629644bda4ee0c6e71eb6, type: 3}
   networkedVotingPrefab: {fileID: -2036157399841766718, guid: bb1f70df59d92684682c06ae8ffe7d29, type: 3}
+  networkedAppStatePrefab: {fileID: -5255165165252913088, guid: 3fb9b48385769f844b9a5cae2e7b4e8f, type: 3}
   scoreUI: {fileID: 3836661487837234406, guid: d7a8c15c4a2043f40a2f5e8f93af69d5, type: 3}
   webGLClientUI: {fileID: 8019010738465949936, guid: 884ee8bfcb1482a4389328d819edba97, type: 3}
   oscClientUI: {fileID: 8711170307111796161, guid: 89fa47845c1113a4982290d415896c00, type: 3}

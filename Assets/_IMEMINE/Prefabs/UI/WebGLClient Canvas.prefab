@@ -168,8 +168,8 @@ RectTransform:
   - {fileID: 486188398468173780}
   m_Father: {fileID: 1184706534092990398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.66300005, y: 0.9001748}
-  m_AnchorMax: {x: 0.883, y: 0.9881442}
+  m_AnchorMin: {x: 0.6069826, y: 0.9001748}
+  m_AnchorMax: {x: 0.836868, y: 0.9881442}
   m_AnchoredPosition: {x: 0, y: -0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2545,10 +2545,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2496998504111471845}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
-  m_AnchorMin: {x: 0.060122054, y: 0.02326522}
-  m_AnchorMax: {x: 0.28861114, y: 0.12612501}
-  m_AnchoredPosition: {x: -0.000030517578, y: 7.7180176}
-  m_SizeDelta: {x: -35.312, y: 32.8517}
+  m_AnchorMin: {x: 0.060122054, y: 0.030296471}
+  m_AnchorMax: {x: 0.28861114, y: 0.13618748}
+  m_AnchoredPosition: {x: -0.000030517578, y: -3.2819824}
+  m_SizeDelta: {x: -35.312, y: 28.8517}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4782507862433385357
 CanvasRenderer:
@@ -6001,7 +6001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7529412}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6718,11 +6718,11 @@ RectTransform:
   - {fileID: 571352420821517666}
   - {fileID: 962571399608718384}
   - {fileID: 8407035934647448063}
+  - {fileID: 2496998504111471845}
   - {fileID: 4077248653549185182}
   - {fileID: 5587380532017279542}
   - {fileID: 6304121918982416043}
   - {fileID: 5529652860856710187}
-  - {fileID: 2496998504111471845}
   - {fileID: 4873461666462609194}
   - {fileID: 174001659136678951}
   m_Father: {fileID: 0}
@@ -6768,8 +6768,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectionImage: {fileID: 3398382020987544385}
-  connectedColor: {r: 0.1387668, g: 0.7735849, b: 0.04743683, a: 1}
-  disconnectedColor: {r: 1, g: 0, b: 0, a: 1}
+  connectedColor: {r: 0.1387668, g: 0.7735849, b: 0.04743683, a: 0.7529412}
+  disconnectedColor: {r: 1, g: 0, b: 0, a: 0.7529412}
   colorOverlay: {fileID: 5922778338935309049}
   backgroundImage: {fileID: 3828964421025353853}
   fadeSprites:
@@ -6811,6 +6811,7 @@ MonoBehaviour:
   voteProgressBar: {fileID: 6436395189658799664}
   tutorialCanvas: {fileID: 6488224188531200089}
   tutorialText: {fileID: 6434832702256531605}
+  tutorialTextAnimator: {fileID: 144682689280415227}
   previousTutorialPartButton: {fileID: 2056205257812880758}
   nextTutorialPartButton: {fileID: 2366106062582680423}
   tutorialTexts:
@@ -6826,6 +6827,9 @@ MonoBehaviour:
     enText: Also at the top right you can switch between dutch and english.
   - nlText: Geniet van de voorstelling!
     enText: Enjoy the performance!
+  highlightBlinkSpeed: 1
+  seatButtonBackground: {fileID: 1951714988852289575}
+  languageButtonBackground: {fileID: 4106775300355830407}
   auraTextDisplay: {fileID: 1734840960141247241}
   maxProgressBarRight: 527
   statusText: {fileID: 4450054358540833742}
@@ -7416,10 +7420,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2496998504111471845}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
-  m_AnchorMin: {x: 0.6486111, y: 0}
-  m_AnchorMax: {x: 1, y: 0.19512352}
-  m_AnchoredPosition: {x: -5.3354034, y: -20.341919}
-  m_SizeDelta: {x: -121.52, y: -79.0165}
+  m_AnchorMin: {x: 0.6943889, y: 0.030296471}
+  m_AnchorMax: {x: 0.943, y: 0.13618748}
+  m_AnchoredPosition: {x: -1.3354034, y: -2.341919}
+  m_SizeDelta: {x: -47.519997, y: 34.983498}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4828476085380209491
 CanvasRenderer:
@@ -8382,10 +8386,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2496998504111471845}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.19512352}
-  m_AnchorMax: {x: 1, y: 0.868705}
-  m_AnchoredPosition: {x: 0, y: -0.16409302}
-  m_SizeDelta: {x: 0, y: -0.828125}
+  m_AnchorMin: {x: 0.08783334, y: 0.19512352}
+  m_AnchorMax: {x: 0.9166667, y: 0.868705}
+  m_AnchoredPosition: {x: -4.0758057, y: 0.12496948}
+  m_SizeDelta: {x: -4.040001, y: -0.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &144682689280415227
 MonoBehaviour:
@@ -8401,8 +8405,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textComponent: {fileID: 6434832702256531605}
   cursorCharacter: '|'
-  characterTypeSpeed: 0.08
-  spaceWaitTime: 0.14
+  characterTypeSpeed: 0.05
+  spaceWaitTime: 0.11
   periodWaitTime: 0.22
 --- !u!222 &3317512422610252612
 CanvasRenderer:
@@ -9004,7 +9008,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1645276831776976966
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9071,7 +9075,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &8827732462346428774
 MonoBehaviour:
   m_ObjectHideFlags: 0

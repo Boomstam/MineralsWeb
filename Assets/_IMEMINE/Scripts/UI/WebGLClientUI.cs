@@ -56,9 +56,13 @@ public class WebGLClientUI : UIWithConnection
     [Header("Tutorial")]
     [SerializeField] private GameObject tutorialCanvas;
     [SerializeField] private TextMeshProUGUI tutorialText;
+    [SerializeField] private TypeAnimation tutorialTextAnimator;
     [SerializeField] private Button previousTutorialPartButton;
     [SerializeField] private Button nextTutorialPartButton;
     [SerializeField] private AuraText[] tutorialTexts;
+    [SerializeField] private float highlightBlinkSpeed;
+    [SerializeField] private Image seatButtonBackground;
+    [SerializeField] private Image languageButtonBackground;
     [Header("Other")]
     public AuraTextDisplay auraTextDisplay;
     [SerializeField] private float maxProgressBarRight = 527;
@@ -78,7 +82,15 @@ public class WebGLClientUI : UIWithConnection
     private const string seat10sKey = "Seat 10s";
     private const string seat1sKey = "Seat 1s";
 
-    private TutorialPartType currentTutorialPart; 
+    private TutorialPartType currentTutorialPart;
+
+    private float seatButtonBackgroundStartAlpha;
+    private float languageButtonBackgroundStartAlpha;
+    private float connectionImageStartAlpha;
+    
+    private Coroutine seatButtonBackgroundBlinkRoutine;
+    private Coroutine languageButtonBackgroundBlinkRoutine;
+    private Coroutine connectionImageBlinkRoutine;
     
     #endregion
 
@@ -86,6 +98,10 @@ public class WebGLClientUI : UIWithConnection
     
     public void Start()
     {
+        seatButtonBackgroundStartAlpha = seatButtonBackground.color.a;
+        languageButtonBackgroundStartAlpha = languageButtonBackground.color.a;
+        connectionImageStartAlpha = connectionImage.color.a;
+        
         voteSlider.onValueChanged.AsObservable()
             .Subscribe(sliderVal =>
             {
@@ -155,10 +171,11 @@ public class WebGLClientUI : UIWithConnection
 
             DisplayCurrentSeatInSeatDisplayButton();
         }
-        else
-        {
-            ShowEnterSeatDialog(true);
-        }
+        // else
+        // {
+        //     ShowEnterSeatDialog(true);
+        // }
+        ToggleTutorial(true);
     }
 
     #endregion
@@ -169,7 +186,8 @@ public class WebGLClientUI : UIWithConnection
     {
         DisplayCurrentSeatInSeatDisplayButton();
         
-        ShowEnterSeatDialog(false);
+        ToggleEnterSeatDialog();
+        // ShowEnterSeatDialog(false);
     }
 
     private void DisplayCurrentSeatInSeatDisplayButton()
@@ -302,7 +320,7 @@ public class WebGLClientUI : UIWithConnection
         
         if (show)
         {
-            Instances.AudioManager.PlayClip(ClipType.Chapter5);
+            // Instances.AudioManager.PlayClip(ClipType.Chapter5);
             ShowEnterSeatDialog(false);
         }
     }
@@ -367,6 +385,8 @@ public class WebGLClientUI : UIWithConnection
     private void DisableAllModes()
     {
         ShowEnterSeatDialog(false);
+        
+        StopBlinkAnimations();
         
         colorOverlay.gameObject.SetActive(false);
         backgroundVideo.gameObject.SetActive(false);
@@ -463,12 +483,21 @@ public class WebGLClientUI : UIWithConnection
     #region Tutorial
 
     [Button]
-    private void ToggleTutorial(bool tutorial)
+    public void ToggleTutorial(bool tutorial, bool disableAllModes = true)
     {
+        Debug.Log($"<color=green>Toggle tutorial {tutorial}, disableAllModes {disableAllModes}</color>");
+        
         tutorialCanvas.SetActive(tutorial);
         
+        if(disableAllModes)
+            DisableAllModes();
+        
         if(tutorial)
+        {
+            ToggleColorOverlay(true);
+            
             SetTutorialPart(currentTutorialPart);
+        }
     }
 
     private void GoToNextTutorialPart(bool next)
@@ -493,28 +522,37 @@ public class WebGLClientUI : UIWithConnection
         
         tutorialText.text = tutorialPartType.ToString();
         
+        Debug.Log($"Set tutorial part: {tutorialPartType}");
+        
+        StopBlinkAnimations();
+        
         switch (currentTutorialPart)
         {
             case TutorialPartType.Welcome:
-                tutorialText.text = tutorialTexts[0].GetText(currentLanguage.Value);
+                ShowTutorialText(0);
                 break;
             case TutorialPartType.Seat:
-                tutorialText.text = tutorialTexts[1].GetText(currentLanguage.Value);
+                seatButtonBackgroundBlinkRoutine = StartCoroutine(DoBlinkAnimation(seatButtonBackground));
+                ShowTutorialText(1);
                 break;
             case TutorialPartType.Connection:
-                tutorialText.text = tutorialTexts[2].GetText(currentLanguage.Value);
+                connectionImageBlinkRoutine = StartCoroutine(DoBlinkAnimation(connectionImage));
+                ShowTutorialText(2);
                 break;
             case TutorialPartType.Language:
-                tutorialText.text = tutorialTexts[3].GetText(currentLanguage.Value);
+                languageButtonBackgroundBlinkRoutine = StartCoroutine(DoBlinkAnimation(languageButtonBackground));
+                ShowTutorialText(3);
                 break;
             case TutorialPartType.Sliders:
+                tutorialText.gameObject.SetActive(false);
                 ToggleVotingMode(true);
                 break;
             case TutorialPartType.Audio:
+                tutorialText.gameObject.SetActive(false);
                 EnableEffectSlidersMode();
                 break;
             case TutorialPartType.Enjoy:
-                tutorialText.text = tutorialTexts[4].GetText(currentLanguage.Value);
+                ShowTutorialText(4);
                 break;
             default:
                 Debug.LogError($"Couldn't handle tutorialPartType {tutorialPartType}");
@@ -522,7 +560,56 @@ public class WebGLClientUI : UIWithConnection
                 break;
         }
     }
-    
+
+    private void ShowTutorialText(int textIndex)
+    {
+        tutorialText.gameObject.SetActive(true);
+        tutorialTextAnimator.TypeAnimate(tutorialTexts[textIndex].GetText(currentLanguage.Value));
+    }
+
+    private IEnumerator DoBlinkAnimation(Image image)
+    {
+        Debug.Log($"<color=green>Do blink animation</color>");
+        
+        bool increasingAlpha = true;
+        
+        while (true)
+        {
+            float imageAlpha = image.color.a;
+
+            imageAlpha += highlightBlinkSpeed * Time.deltaTime * (increasingAlpha ? 1 : -1);
+
+            if (imageAlpha is <= 0 or >= 1)
+                increasingAlpha = !increasingAlpha;
+            
+            SetAlphaOfImage(image, imageAlpha);
+            
+            yield return 0;
+        }
+    }
+
+    [Button]
+    private void StopBlinkAnimations()
+    {
+        Debug.Log($"<color=red>Stop blink animation</color>");
+        
+        if(seatButtonBackgroundBlinkRoutine != null)
+            StopCoroutine(seatButtonBackgroundBlinkRoutine);
+        if(languageButtonBackgroundBlinkRoutine != null)
+            StopCoroutine(languageButtonBackgroundBlinkRoutine);
+        if(connectionImageBlinkRoutine != null)
+            StopCoroutine(connectionImageBlinkRoutine);
+
+        SetAlphaOfImage(seatButtonBackground, seatButtonBackgroundStartAlpha);
+        SetAlphaOfImage(languageButtonBackground, languageButtonBackgroundStartAlpha);
+        SetAlphaOfImage(connectionImage, connectionImageStartAlpha);
+    }
+
+    private void SetAlphaOfImage(Image image, float alpha)
+    {
+        image.color = new Color(image.color.r, image.color.g, image.color.b, alpha);
+    }
+        
     #endregion
     
     #region Other
@@ -536,14 +623,33 @@ public class WebGLClientUI : UIWithConnection
     {
         bool show = (seatInputHolder.activeSelf == false);
             
+        if(show)
+        {
+            ToggleTutorial(false, false);
+            StopBlinkAnimations();
+        }
+        else
+        {
+            Debug.Log($"<color=green>Toggle Enter Seat Dialog, show false</color>");
+            if (InstanceFinder.IsOffline == false)
+            {
+                if (Instances.NetworkedAppState.tutorial)
+                    ToggleTutorial(true);
+            }
+            else
+                ToggleTutorial(true);
+            // else
+            //     Instances.NetworkedMonitor.TriggerCurrentAppState();
+        }
+        
         ShowEnterSeatDialog(show);
     }
     
     private void ShowEnterSeatDialog(bool show)
     {
         seatInputHolder.SetActive(show);
-        
-        SetStatusText(show ? $"Enter Your Seat Number" : "");
+
+        // SetStatusText(show ? $"Enter Your Seat Number" : "");
     }
     
     private void SetStatusText(string text)

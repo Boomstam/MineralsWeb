@@ -86,20 +86,25 @@ public class NetworkedMonitor : NetworkBehaviour
         if (Instances.BuildType == BuildType.Voting)
         {
             Debug.Log($"Start Client NetworkedMonitor with state {appState}");
-            
-            if(appState == AppState.Introduction)
-                Instances.WebGLClientUI.EnableIntroductionMode();
-            else if(appState == AppState.Voting)
-                Instances.WebGLClientUI.ToggleVotingMode(true);
-            else if(appState == AppState.ColorOverlay)
-                Instances.WebGLClientUI.ToggleColorOverlay(true);
-            else if(appState == AppState.EffectSliders)
-                Instances.WebGLClientUI.EnableEffectSlidersMode();
-            else if(appState == AppState.WaysOfWater)
-                Instances.WebGLClientUI.EnableWaysOfWaterMode();
+
+            TriggerCurrentAppState();
         }
     }
-    
+
+    public void TriggerCurrentAppState()
+    {
+        if (appState == AppState.Introduction)
+            Instances.WebGLClientUI.EnableIntroductionMode();
+        else if (appState == AppState.Voting)
+            Instances.WebGLClientUI.ToggleVotingMode(true);
+        else if (appState == AppState.ColorOverlay)
+            Instances.WebGLClientUI.ToggleColorOverlay(true);
+        else if (appState == AppState.EffectSliders)
+            Instances.WebGLClientUI.EnableEffectSlidersMode();
+        else if (appState == AppState.WaysOfWater)
+            Instances.WebGLClientUI.EnableWaysOfWaterMode();
+    }
+
     [ServerRpc(RequireOwnership = false)]
     public void ToggleColorOverlay(bool show)
     {

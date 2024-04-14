@@ -18,7 +18,7 @@ public class TypeAnimation : MonoBehaviour
     private Coroutine typingRoutine;
 
     [Button]
-    public void Type(string text)
+    public void TypeAnimate(string text)
     {
         if(typingRoutine != null)
             StopCoroutine(typingRoutine);

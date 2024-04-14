@@ -50,12 +50,22 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private Slider averageSlider;
     [SerializeField] private GameObject effectsSliders;
     [SerializeField] private Slider highLowSlider;
+    [SerializeField] private TextMeshProUGUI highText;
+    [SerializeField] private TextMeshProUGUI lowText;
     [SerializeField] private Slider distortionSlider;
+    [SerializeField] private TextMeshProUGUI hardText;
+    [SerializeField] private TextMeshProUGUI softText;
     [SerializeField] private Slider waysOfWaterSlider;
     [SerializeField] private Slider voteProgressBar;
     [SerializeField] private GameObject tutorialSliders;
     [SerializeField] private Slider tutorialHighLowSlider;
+    [SerializeField] private TextMeshProUGUI tutorialVoteHighText;
+    [SerializeField] private TextMeshProUGUI tutorialVoteLowText;
+    [SerializeField] private TextMeshProUGUI tutorialHighText;
+    [SerializeField] private TextMeshProUGUI tutorialLowText;
     [SerializeField] private Slider tutorialDistortionSlider;
+    [SerializeField] private TextMeshProUGUI tutorialHardText;
+    [SerializeField] private TextMeshProUGUI tutorialSoftText;
     [SerializeField] private GameObject tutorialVoting;
     [SerializeField] private Slider tutorialVoteSlider;
     [SerializeField] private Slider tutorialAverageSlider;
@@ -84,6 +94,8 @@ public class WebGLClientUI : UIWithConnection
 
     public bool PlayFadeClips { get; set; } = true;
     public ReactiveProperty<Language> currentLanguage;
+    
+    private bool SeatInputActive => seatInputHolder.activeSelf;
 
     private const string row10sKey = "Row 10s";
     private const string row1sKey = "Row 1s";
@@ -104,7 +116,7 @@ public class WebGLClientUI : UIWithConnection
     private Coroutine nextButtonOnPressAnimationRoutine;
     
     private string languagePlayerPrefsKey = "SavedLanguage";
-    
+
     #endregion
 
     #region Setup
@@ -208,8 +220,8 @@ public class WebGLClientUI : UIWithConnection
             if (PlayerPrefs.GetInt(languagePlayerPrefsKey) == 1)
             {
                 // Giggity
-                ToggleLanguage();
-                ToggleLanguage();
+                ToggleLanguage(true);
+                ToggleLanguage(true);
             }
         }
 
@@ -361,6 +373,9 @@ public class WebGLClientUI : UIWithConnection
     [Button]
     public void ToggleColorOverlay(bool show)
     {
+        if(show == false)
+            Debug.Log($"<color=yellow>HIDE COLOR OVERLAY</color>");
+        
         DisableAllModes();
             
         // this.RunDelayed(Instances.SeatNumber, () => colorOverlay.gameObject.SetActive(show));
@@ -496,7 +511,7 @@ public class WebGLClientUI : UIWithConnection
     
     #region Language
     
-    private void ToggleLanguage()
+    private void ToggleLanguage(bool isInitVersion = false)
     {
         Language language = (Language)PlayerPrefs.GetInt(languagePlayerPrefsKey, 0);
         
@@ -512,6 +527,14 @@ public class WebGLClientUI : UIWithConnection
         
         PlayerPrefs.SetInt(languagePlayerPrefsKey, newLanguageVal);
 
+        if(isInitVersion)
+            return;
+
+        if (SeatInputActive)
+        {
+            return;
+        }
+        
         if (InstanceFinder.IsOffline == false)
         {
             if(Instances.NetworkedAppState.tutorial)
@@ -530,10 +553,22 @@ public class WebGLClientUI : UIWithConnection
     {
         languageButton.GetComponentInChildren<TextMeshProUGUI>().text = (nl ? Language.NL : Language.EN).ToString();
         
-        rowTitleText.text = nl ? "Rij" : "Row";
-        seatTitleText.text = nl ? "Stoel" : "Seat";
+        rowTitleText.text = nl ? "RIJ" : "ROW";
+        seatTitleText.text = nl ? "STOEL" : "SEAT";
         
-        seatConfirmButton.GetComponentInChildren<TextMeshProUGUI>().text = nl ? "Kies" : "Confirm";
+        seatConfirmButton.GetComponentInChildren<TextMeshProUGUI>().text = nl ? "KIES" : "CONFIRM";
+
+        highText.text = nl ? "HOOG" : "HIGH";
+        tutorialHighText.text = nl ? "HOOG" : "HIGH";
+        tutorialVoteHighText.text = nl ? "HOOG" : "HIGH";
+        lowText.text = nl ? "LAAG" : "LOW";
+        tutorialLowText.text = nl ? "LAAG" : "LOW";
+        tutorialVoteLowText.text = nl ? "LAAG" : "LOW";
+        
+        hardText.text = "HARD";
+        tutorialHardText.text = "HARD";
+        softText.text = nl ? "ZACHT" : "SOFT";
+        tutorialSoftText.text = nl ? "ZACHT" : "SOFT";
     }
     
     #endregion
@@ -591,7 +626,7 @@ public class WebGLClientUI : UIWithConnection
         
         if(tutorial)
         {
-            // ToggleColorOverlay(true);
+            ToggleColorOverlay(true);
             
             SetTutorialPart(currentTutorialPart);
         }
@@ -626,7 +661,6 @@ public class WebGLClientUI : UIWithConnection
         while (Time.time - nextButtonOnPressAnimationStart < nextPartButtonAnimationSpeed)
         {
             float percentage = (Time.time - nextButtonOnPressAnimationStart) / nextPartButtonAnimationSpeed;
-            Debug.Log($"percentage: {percentage}");
             alpha = 0.5f + (0.5f * percentage);
             SetAlphaOfImage(image, alpha);
             yield return 0;
@@ -644,7 +678,6 @@ public class WebGLClientUI : UIWithConnection
     private void SetTutorialPart(TutorialPartType tutorialPartType)
     {
         DisableAllModes();
-        ToggleColorOverlay(true);
         
         currentTutorialPart = tutorialPartType;
         
@@ -725,12 +758,12 @@ public class WebGLClientUI : UIWithConnection
     {
         tutorialText.gameObject.SetActive(true);
         tutorialTextAnimator.TypeAnimate(tutorialTexts[textIndex].GetText(currentLanguage.Value));
+        
+        ToggleColorOverlay(true);
     }
 
     private IEnumerator DoBlinkAnimation(Image image)
     {
-        Debug.Log($"<color=green>Do blink animation</color>");
-        
         bool increasingAlpha = true;
         
         while (true)
@@ -751,8 +784,6 @@ public class WebGLClientUI : UIWithConnection
     [Button]
     private void StopBlinkAnimations()
     {
-        Debug.Log($"<color=red>Stop blink animation</color>");
-        
         if(seatButtonBackgroundBlinkRoutine != null)
             StopCoroutine(seatButtonBackgroundBlinkRoutine);
         if(languageButtonBackgroundBlinkRoutine != null)
@@ -783,10 +814,14 @@ public class WebGLClientUI : UIWithConnection
     {
         bool show = (seatInputHolder.activeSelf == false);
         
+        DisableAllModes();
+        
         if(show)
         {
             ToggleTutorial(false, false);
             StopBlinkAnimations();
+            ToggleColorOverlay(true);
+
         }
         else
         {
@@ -794,10 +829,17 @@ public class WebGLClientUI : UIWithConnection
             if (InstanceFinder.IsOffline == false)
             {
                 if (Instances.NetworkedAppState.tutorial)
+                {
+                    ToggleColorOverlay(true);
                     ToggleTutorial(true);
+                }
             }
             else
+            {
+                ToggleColorOverlay(true);
                 ToggleTutorial(true);
+            }
+            // ToggleColorOverlay(true);
             // else
             //     Instances.NetworkedMonitor.TriggerCurrentAppState();
         }

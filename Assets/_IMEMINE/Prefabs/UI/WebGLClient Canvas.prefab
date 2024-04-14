@@ -735,7 +735,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LOW
+  m_text: LAAG
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2247288300921458666, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
@@ -944,7 +944,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HIGH
+  m_text: HOOG
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2247288300921458666, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
@@ -2139,7 +2139,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Low
+  m_text: LAAG
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2247288300921458666, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
@@ -2920,7 +2920,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Confirm
+  m_text: KIES
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3544,7 +3544,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SOFT
+  m_text: ZACHT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2247288300921458666, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
@@ -4068,7 +4068,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Seat
+  m_text: STOEL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4433,7 +4433,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LOUD
+  m_text: HARD
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2247288300921458666, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
@@ -4740,7 +4740,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SOFT
+  m_text: ZACHT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2247288300921458666, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
@@ -5075,7 +5075,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LOW
+  m_text: LAAG
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5209,7 +5209,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: High
+  m_text: HOOG
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2247288300921458666, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
@@ -6092,7 +6092,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HIGH
+  m_text: HOOG
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2247288300921458666, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
@@ -6396,7 +6396,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LOUD
+  m_text: HARD
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2247288300921458666, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
@@ -8946,7 +8946,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LOW
+  m_text: LAAG
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2247288300921458666, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
@@ -9360,12 +9360,22 @@ MonoBehaviour:
   averageSlider: {fileID: 636710137898993017}
   effectsSliders: {fileID: 8106442540568506450}
   highLowSlider: {fileID: 5486251510264992695}
+  highText: {fileID: 2905886225390872653}
+  lowText: {fileID: 3660679512995540112}
   distortionSlider: {fileID: 3189452044234429316}
+  hardText: {fileID: 933781742973014624}
+  softText: {fileID: 2552994648710710671}
   waysOfWaterSlider: {fileID: 3617680336395585892}
   voteProgressBar: {fileID: 6436395189658799664}
   tutorialSliders: {fileID: 1819640937288649167}
   tutorialHighLowSlider: {fileID: 6326502907022505898}
+  tutorialVoteHighText: {fileID: 6473926505361706478}
+  tutorialVoteLowText: {fileID: 6127034223517971702}
+  tutorialHighText: {fileID: 2156020998892723818}
+  tutorialLowText: {fileID: 3353495311738010605}
   tutorialDistortionSlider: {fileID: 2252985329979488778}
+  tutorialHardText: {fileID: 1968247599811436835}
+  tutorialSoftText: {fileID: 694875727055915518}
   tutorialVoting: {fileID: 2229551236649328880}
   tutorialVoteSlider: {fileID: 2048553662743958734}
   tutorialAverageSlider: {fileID: 8829803295949939883}
@@ -9386,10 +9396,12 @@ MonoBehaviour:
     enText: You can select your language preference from the top right corner.
   - nlText: Een groen lichtje in de rechterbovenhoek geeft aan dat u verbonden bent.
     enText: A green light in the top right corner indicates that you are connected.
-  - nlText: "Met de sliders kan je stemmen en de zowel de visuals als de muziek be\xEFnvloeden.
-      Probeer het uit op de volgende pagina."
+  - nlText: "Met de sliders kan je stemmen en de zowel de visuals als de muziek die
+      de muzikanten spelen be\xEFnvloeden. Probeer het uit op de volgende pagina
+      - je zal nu enkel de visuals zien veranderen.."
     enText: With the sliders, you can vote and influence both the visuals and the
-      music. Try it out on the next page.
+      music that the musicians play. Try it out on the next page - you'll only see
+      the visuals change for now.
   - nlText: Je kan het gemiddelde van alle stemmen op een slider achter je eigen
       stem volgen. Zodra je stem is geregistreerd, wordt deze vergrendeld en verschijnt
       de publieksmeerderheid vooraan. Dit gemiddelde is uiteindelijk wat het globale
@@ -9679,7 +9691,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LOW
+  m_text: LAAG
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2247288300921458666, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
@@ -9917,7 +9929,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2496998504111471845
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9986,7 +9998,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2783848351956406685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12137,7 +12149,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HIGH
+  m_text: HOOG
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12485,7 +12497,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HIGH
+  m_text: HOOG
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2247288300921458666, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
@@ -12660,7 +12672,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Row
+  m_text: RIJ
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

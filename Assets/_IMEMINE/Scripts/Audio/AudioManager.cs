@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] clips;
     public AudioFader audioFader;
     public DoubleFader doubleFader;
+    public TutorialDoubleFader tutorialDoubleFader;
     public CirclePlayer circlePlayer;
     public DelayPlayer delayPlayer;
     [SerializeField] private AudioSource audioSource;
@@ -50,6 +51,7 @@ public class AudioManager : MonoBehaviour
 
         audioFader.StopAllPlayback();
         doubleFader.StopAllPlayback();
+        tutorialDoubleFader.StopAllPlayback();
     }
 
     public void ResetAllFx()

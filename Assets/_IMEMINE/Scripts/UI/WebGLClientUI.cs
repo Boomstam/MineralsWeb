@@ -63,6 +63,8 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private float highlightBlinkSpeed;
     [SerializeField] private Image seatButtonBackground;
     [SerializeField] private Image languageButtonBackground;
+    [SerializeField] private Slider tutorialHighLowSlider;
+    [SerializeField] private Slider tutorialDistortionSlider;
     [Header("Other")]
     public AuraTextDisplay auraTextDisplay;
     [SerializeField] private float maxProgressBarRight = 527;
@@ -116,6 +118,12 @@ public class WebGLClientUI : UIWithConnection
             .Subscribe(sliderVal => { Instances.AudioManager.doubleFader.SetFadeValHighLow(sliderVal); });
         distortionSlider.onValueChanged.AsObservable()
             .Subscribe(sliderVal => { Instances.AudioManager.doubleFader.SetFadeValDistortion(sliderVal); });
+        
+        tutorialHighLowSlider.onValueChanged.AsObservable()
+            .Subscribe(sliderVal => { Instances.AudioManager.tutorialDoubleFader.SetFadeValHighLow(sliderVal); });
+        tutorialDistortionSlider.onValueChanged.AsObservable()
+            .Subscribe(sliderVal => { Instances.AudioManager.tutorialDoubleFader.SetFadeValDistortion(sliderVal); });
+        
         waysOfWaterSlider.onValueChanged.AsObservable()
             .Subscribe(sliderVal =>
             {
@@ -305,6 +313,7 @@ public class WebGLClientUI : UIWithConnection
 
     #region Modes
     
+    [Button]
     public void ToggleColorOverlay(bool show)
     {
         DisableAllModes();
@@ -325,6 +334,7 @@ public class WebGLClientUI : UIWithConnection
         }
     }
     
+    [Button]
     public void ToggleVotingMode(bool votingModeOn)
     {
         DisableAllModes();
@@ -335,7 +345,7 @@ public class WebGLClientUI : UIWithConnection
         
         Instances.AudioManager.StopAllPlayback();
         Instances.AudioManager.ResetAllFx();
-
+        
         if (votingModeOn)
         {
             voteSlider.gameObject.SetActive(true);
@@ -355,6 +365,7 @@ public class WebGLClientUI : UIWithConnection
         }
     }
 
+    [Button]
     public void EnableEffectSlidersMode()
     {
         DisableAllModes();
@@ -365,6 +376,18 @@ public class WebGLClientUI : UIWithConnection
         Instances.AudioManager.doubleFader.PlayFadeSamples();
     }
     
+    [Button]
+    public void EnableTutorialSlidersMode()
+    {
+        DisableAllModes();
+        
+        effectsSliders.SetActive(true);
+        colorOverlay.gameObject.SetActive(true);
+        
+        Instances.AudioManager.tutorialDoubleFader.PlayFadeSamples();
+    }
+    
+    [Button]
     public void EnableIntroductionMode()
     {
         DisableAllModes();
@@ -375,6 +398,7 @@ public class WebGLClientUI : UIWithConnection
             ShowEnterSeatDialog(true);
     }
     
+    [Button]
     public void EnableWaysOfWaterMode()
     {
         DisableAllModes();
@@ -382,6 +406,7 @@ public class WebGLClientUI : UIWithConnection
         waysOfWater.SetActive(true);
     }
 
+    [Button]
     private void DisableAllModes()
     {
         ShowEnterSeatDialog(false);
@@ -535,24 +560,37 @@ public class WebGLClientUI : UIWithConnection
                 seatButtonBackgroundBlinkRoutine = StartCoroutine(DoBlinkAnimation(seatButtonBackground));
                 ShowTutorialText(1);
                 break;
-            case TutorialPartType.Connection:
-                connectionImageBlinkRoutine = StartCoroutine(DoBlinkAnimation(connectionImage));
-                ShowTutorialText(2);
-                break;
             case TutorialPartType.Language:
                 languageButtonBackgroundBlinkRoutine = StartCoroutine(DoBlinkAnimation(languageButtonBackground));
+                ShowTutorialText(2);
+                break;
+            case TutorialPartType.Connection:
+                connectionImageBlinkRoutine = StartCoroutine(DoBlinkAnimation(connectionImage));
                 ShowTutorialText(3);
                 break;
-            case TutorialPartType.Sliders:
+            case TutorialPartType.SlidersExplanation:
+                ShowTutorialText(4);
+                break;
+            case TutorialPartType.Slider:
                 tutorialText.gameObject.SetActive(false);
                 ToggleVotingMode(true);
                 break;
+            case TutorialPartType.MajorityExplanation:
+                ShowTutorialText(5);
+                break;
+            case TutorialPartType.Majority:
+                tutorialText.gameObject.SetActive(false);
+                ToggleVotingMode(true);
+                break;
+            case TutorialPartType.AudioExplanation:
+                ShowTutorialText(6);
+                break;
             case TutorialPartType.Audio:
                 tutorialText.gameObject.SetActive(false);
-                EnableEffectSlidersMode();
+                EnableTutorialSlidersMode();
                 break;
             case TutorialPartType.Enjoy:
-                ShowTutorialText(4);
+                ShowTutorialText(7);
                 break;
             default:
                 Debug.LogError($"Couldn't handle tutorialPartType {tutorialPartType}");
@@ -599,17 +637,17 @@ public class WebGLClientUI : UIWithConnection
             StopCoroutine(languageButtonBackgroundBlinkRoutine);
         if(connectionImageBlinkRoutine != null)
             StopCoroutine(connectionImageBlinkRoutine);
-
+        
         SetAlphaOfImage(seatButtonBackground, seatButtonBackgroundStartAlpha);
         SetAlphaOfImage(languageButtonBackground, languageButtonBackgroundStartAlpha);
         SetAlphaOfImage(connectionImage, connectionImageStartAlpha);
     }
-
+    
     private void SetAlphaOfImage(Image image, float alpha)
     {
         image.color = new Color(image.color.r, image.color.g, image.color.b, alpha);
     }
-        
+    
     #endregion
     
     #region Other
@@ -622,7 +660,7 @@ public class WebGLClientUI : UIWithConnection
     private void ToggleEnterSeatDialog()
     {
         bool show = (seatInputHolder.activeSelf == false);
-            
+        
         if(show)
         {
             ToggleTutorial(false, false);
@@ -656,7 +694,7 @@ public class WebGLClientUI : UIWithConnection
     {
         statusText.text = text;
     }
-
+    
     #endregion
 }
 
@@ -678,9 +716,13 @@ public enum TutorialPartType
 {
     Welcome, // Also language
     Seat,
-    Connection,
     Language,
-    Sliders,
+    Connection,
+    SlidersExplanation,
+    Slider,
+    MajorityExplanation,
+    Majority,
+    AudioExplanation,
     Audio,
     Enjoy,
 }

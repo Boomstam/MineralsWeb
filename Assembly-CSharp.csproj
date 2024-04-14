@@ -91,6 +91,7 @@
      <Compile Include="Assets\_IMEMINE\Scripts\Network\NetworkedAppState.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Score\ScoreDataSO.cs" />
      <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Unity\OscConnection.cs" />
+     <Compile Include="Assets\_IMEMINE\Scripts\Audio\TutorialDoubleFader.cs" />
      <Compile Include="Assets\_IMEMINE\Generated\ConnectionTypeHolder.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Score\ScoreHighlighter.cs" />
      <Compile Include="Assets\FishNet\Plugins\Bayou\Core\SslConfiguration.cs" />
@@ -120,6 +121,7 @@
      <Folder Include="Assets\_IMEMINE\Prefabs\Network" />
      <Folder Include="Assets\_IMEMINE\Scripts\Score" />
      <Folder Include="Assets\_IMEMINE\Images\UI" />
+     <Folder Include="Assets\_IMEMINE\Audio\Clips\Typing" />
      <Folder Include="Assets\_IMEMINE\Prefabs\UI" />
      <Folder Include="Assets\TextMesh Pro\Resources\Fonts &amp; Materials" />
      <None Include="Assets\FishNet\Plugins\CodeAnalysis\README.txt" />
@@ -182,6 +184,7 @@
      <Folder Include="Assets\_IMEMINE\Scripts" />
      <None Include="Assets\PlayFlowCloud\Documentation\Documentation.txt" />
      <Folder Include="Assets\jp.keijiro.osc-jack\Runtime\Base\Internal" />
+     <Folder Include="Assets\_IMEMINE\Audio\Clips\Tutorial" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
      <Folder Include="Assets\Editor Default Resources\EditorAudioUtils" />
      <Folder Include="Assets\_IMEMINE\Scripts\Network" />

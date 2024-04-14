@@ -4798,7 +4798,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Welcome, I am Aura. I will guide you through Minerals.
+  m_text: AURA TEXT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4879,6 +4879,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71326d1b5e6c79543bb5e317794b73e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  auraTextComponent: {fileID: 0}
+  auraTexts: []
 --- !u!1 &4036822563398946512
 GameObject:
   m_ObjectHideFlags: 0
@@ -6931,6 +6933,20 @@ MonoBehaviour:
   tutorialText: {fileID: 6434832702256531605}
   previousTutorialPartButton: {fileID: 2056205257812880758}
   nextTutorialPartButton: {fileID: 168668471035892577}
+  tutorialTexts:
+  - nlText: Welkom bij de Minerals ervaring. Ik ben Aura.
+    enText: Welcome to the Minerals experience. I am Aura.
+  - nlText: Je kan linksboven je stoel aanpassen. Dit kan nu maar ook aan de start
+      van de performance.
+    enText: Edit your seat in the top left. You can do this now or at the start of
+      the performance.
+  - nlText: Rechtsboven zie je of je verbonden bent met de server
+    enText: At the top right you can see your connection state to the server.
+  - nlText: Ook rechtsboven kan je wisselen tussen nederlands en engels
+    enText: Also at the top right you can switch between dutch and english.
+  - nlText: Geniet van de voorstelling!
+    enText: Enjoy the performance!
+  auraTextDisplay: {fileID: 1734840960141247241}
   maxProgressBarRight: 527
   statusText: {fileID: 4450054358540833742}
   oscMessageInput: {fileID: 1852804474211603148}
@@ -6942,6 +6958,8 @@ MonoBehaviour:
   - {fileID: 7170294064281329930}
   chapterText: {fileID: 0}
   contentText: {fileID: 2434030858956976594}
+  currentLanguage:
+    value: 0
 --- !u!114 &5487749687721817832
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ using UnityEngine;
 public class NetworkedMonitor : NetworkBehaviour
 {
     [SyncVar] public AppState appState;
-
+    
     [SyncVar] public int warningTime = 5;
     [SyncVar] public bool playCircles;
     [SyncVar] public float volume;
@@ -20,7 +20,7 @@ public class NetworkedMonitor : NetworkBehaviour
     [SyncVar] public float minDelayTime = 0.1f;
     [SyncVar] public float maxDelayTime = 2f;
     [SyncVar] public float delayIntervalLength = 3f;
-
+    
     [ServerRpc (RequireOwnership = false), Button]
     public void SetPlayCircles(bool shouldPlayCircles)
     {
@@ -44,7 +44,7 @@ public class NetworkedMonitor : NetworkBehaviour
     {
         leftRightBalance = leftRight;
     }
-
+    
     [ServerRpc (RequireOwnership = false), Button]
     public void SetSeatsPerRow(int seats)
     {
@@ -82,7 +82,7 @@ public class NetworkedMonitor : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-
+        
         if (Instances.BuildType == BuildType.Voting)
         {
             Debug.Log($"Start Client NetworkedMonitor with state {appState}");
@@ -99,7 +99,7 @@ public class NetworkedMonitor : NetworkBehaviour
                 Instances.WebGLClientUI.EnableWaysOfWaterMode();
         }
     }
-
+    
     [ServerRpc(RequireOwnership = false)]
     public void ToggleColorOverlay(bool show)
     {
@@ -109,7 +109,7 @@ public class NetworkedMonitor : NetworkBehaviour
         
         appState = show ? AppState.Voting : AppState.Introduction;
     }
-
+    
     [ObserversRpc]
     private void ToggleColorOverlayOnVotingClients(bool show)
     {
@@ -125,7 +125,7 @@ public class NetworkedMonitor : NetworkBehaviour
     public void ToggleVotingMode(bool votingModeOn)
     {
         ToggleVotingModeOnVotingClients(votingModeOn);
-
+        
         appState = votingModeOn ? AppState.Voting : AppState.Introduction;
     }
     

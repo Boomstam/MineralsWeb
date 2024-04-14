@@ -58,6 +58,7 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI tutorialText;
     [SerializeField] private Button previousTutorialPartButton;
     [SerializeField] private Button nextTutorialPartButton;
+    [SerializeField] private AuraText[] tutorialTexts;
     [Header("Other")]
     public AuraTextDisplay auraTextDisplay;
     [SerializeField] private float maxProgressBarRight = 527;
@@ -404,6 +405,8 @@ public class WebGLClientUI : UIWithConnection
         int newLanguageVal = (nl ? 0 : 1);
         
         PlayerPrefs.SetInt(languagePlayerPrefsKey, newLanguageVal);
+        
+        SetTutorialPart(currentTutorialPart);
     }
     
     private void SetLanguageInTextComponents(bool nl)
@@ -487,46 +490,52 @@ public class WebGLClientUI : UIWithConnection
     private void SetTutorialPart(TutorialPartType tutorialPartType)
     {
         currentTutorialPart = tutorialPartType;
-
+        
         tutorialText.text = tutorialPartType.ToString();
         
-        if (currentTutorialPart == TutorialPartType.Welcome)
+        switch (currentTutorialPart)
         {
-            tutorialText.text = tutorialPartType.ToString();
-            
-        }
-        if (currentTutorialPart == TutorialPartType.Sliders)
-        {
-            ToggleVotingMode(true);
-            
-        }
-        else if(currentTutorialPart == TutorialPartType.Audio)
-        {
-            EnableEffectSlidersMode();
-        }
-        else if(currentTutorialPart == TutorialPartType.Video)
-        {
-            EnableIntroductionMode();
-        }
-        else
-        {
-            DisableAllModes();
+            case TutorialPartType.Welcome:
+                tutorialText.text = tutorialTexts[0].GetText(currentLanguage.Value);
+                break;
+            case TutorialPartType.Seat:
+                tutorialText.text = tutorialTexts[1].GetText(currentLanguage.Value);
+                break;
+            case TutorialPartType.Connection:
+                tutorialText.text = tutorialTexts[2].GetText(currentLanguage.Value);
+                break;
+            case TutorialPartType.Language:
+                tutorialText.text = tutorialTexts[3].GetText(currentLanguage.Value);
+                break;
+            case TutorialPartType.Sliders:
+                ToggleVotingMode(true);
+                break;
+            case TutorialPartType.Audio:
+                EnableEffectSlidersMode();
+                break;
+            case TutorialPartType.Enjoy:
+                tutorialText.text = tutorialTexts[4].GetText(currentLanguage.Value);
+                break;
+            default:
+                Debug.LogError($"Couldn't handle tutorialPartType {tutorialPartType}");
+                // DisableAllModes();
+                break;
         }
     }
-
+    
     #endregion
-
+    
     #region Other
-
+    
     public void SetVoteAverage(float voteAverage)
     {
         averageSlider.value = voteAverage;
     }
-
+    
     private void ToggleEnterSeatDialog()
     {
         bool show = (seatInputHolder.activeSelf == false);
-        
+            
         ShowEnterSeatDialog(show);
     }
     
@@ -564,8 +573,8 @@ public enum TutorialPartType
     Welcome, // Also language
     Seat,
     Connection,
-    Audio,
+    Language,
     Sliders,
-    Video,
+    Audio,
     Enjoy,
 }

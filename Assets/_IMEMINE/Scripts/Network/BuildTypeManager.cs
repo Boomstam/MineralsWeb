@@ -25,6 +25,7 @@ public class BuildTypeManager : MonoBehaviour
     [SerializeField] private NetworkOSCManager networkOscManagerPrefab;
     [SerializeField] private NetworkedMonitor networkedMonitorPrefab;
     [SerializeField] private NetworkedVoting networkedVotingPrefab;
+    [SerializeField] private NetworkedAppState networkedAppStatePrefab;
     
     [SerializeField] private ScoreUI scoreUI;
     [SerializeField] private WebGLClientUI webGLClientUI;
@@ -61,6 +62,8 @@ public class BuildTypeManager : MonoBehaviour
             InstanceFinder.ServerManager.Spawn(networkedMonitor);
             NetworkObject networkedVoting = Instantiate(networkedVotingPrefab).GetComponent<NetworkObject>();
             InstanceFinder.ServerManager.Spawn(networkedVoting);
+            NetworkObject networkedAppState = Instantiate(networkedAppStatePrefab).GetComponent<NetworkObject>();
+            InstanceFinder.ServerManager.Spawn(networkedAppState);
         }
         else
         {

@@ -111,8 +111,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 142.75946, y: -75.55713}
-  m_SizeDelta: {x: 285.5201, y: 512.3482}
+  m_AnchoredPosition: {x: 145.341, y: -75.558}
+  m_SizeDelta: {x: 223.5627, y: 512.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2252985329979488778
 MonoBehaviour:
@@ -704,7 +704,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -140.12001, y: -505.94443}
+  m_AnchoredPosition: {x: -140.12001, y: -426}
   m_SizeDelta: {x: 280.23, y: 92.4689}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7193580876537760424
@@ -913,7 +913,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -140.12001, y: 354.63535}
+  m_AnchoredPosition: {x: -140.12001, y: 273}
   m_SizeDelta: {x: 280.23, y: 92.0807}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8734323182566680691
@@ -1994,8 +1994,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2239830193298126549}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.526}
+  m_AnchorMax: {x: 1, y: 0.526}
   m_AnchoredPosition: {x: 0, y: 0.58449936}
   m_SizeDelta: {x: 0, y: 87.8594}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2605,7 +2605,7 @@ RectTransform:
   - {fileID: 7011391776221897723}
   m_Father: {fileID: 1184706534092990398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.1802668}
   m_AnchorMax: {x: 1, y: 0.8624687}
   m_AnchoredPosition: {x: 17.693298, y: 57.18335}
   m_SizeDelta: {x: -720, y: -848}
@@ -2812,8 +2812,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6357617429746984862}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -0.27349854, y: -0.6745}
   m_SizeDelta: {x: 258.2532, y: 7.8054}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3025,8 +3025,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -140.1203, y: -75.558}
-  m_SizeDelta: {x: 280.2305, y: 512.35}
+  m_AnchoredPosition: {x: -145.2834, y: -75.558}
+  m_SizeDelta: {x: 223.4361, y: 512.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6326502907022505898
 MonoBehaviour:
@@ -3094,7 +3094,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &745538998543455805
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3335,7 +3335,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: EN
+  m_text: NL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_sharedMaterial: {fileID: 2247288300921458666, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
@@ -4170,7 +4170,7 @@ RectTransform:
   m_Father: {fileID: 8464444148747317877}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.526}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4402,7 +4402,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 142.76, y: 354.64}
+  m_AnchoredPosition: {x: 142.76, y: 273}
   m_SizeDelta: {x: 285.52, y: 92.081}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7831516901271834632
@@ -4709,7 +4709,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 142.76, y: -505.94}
+  m_AnchoredPosition: {x: 142.76, y: -423}
   m_SizeDelta: {x: 285.52, y: 92.469}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6775013609712797210
@@ -7111,7 +7111,7 @@ RectTransform:
   m_Father: {fileID: 2424561814803501040}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8272,7 +8272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.7529412}
+  m_Color: {r: 0, g: 0.8490566, b: 0.29048404, a: 0.7529412}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9372,6 +9372,7 @@ MonoBehaviour:
   tutorialCanvas: {fileID: 6488224188531200089}
   tutorialText: {fileID: 6434832702256531605}
   tutorialTextAnimator: {fileID: 144682689280415227}
+  nextPartButtonAnimationSpeed: 0.2
   previousTutorialPartButton: {fileID: 2056205257812880758}
   nextTutorialPartButton: {fileID: 2366106062582680423}
   tutorialTexts:
@@ -9379,29 +9380,30 @@ MonoBehaviour:
       de voorstelling van 'Minerals'.
     enText: "Hello, my name is Aura. I'm delighted to welcome you to the performance
       of 'Minerals\u2019.  "
-  - nlText: Je kan linksboven je stoel aanpassen. Dit kan nu maar ook aan de start
-      van de performance.
-    enText: You can fill in your seat number by clicking the button in the top left.
-      You can do this now or at the start of the performance.
+  - nlText: Je kan via de knop linksboven je stoel aanpassen.
+    enText: 'You can fill in your seat number by clicking the button in the top left. '
   - nlText: Je kan je taalvoorkeur selecteren in de rechterbovenhoek.
     enText: You can select your language preference from the top right corner.
-  - nlText: Een groen licht geeft aan dat u verbonden bent.
-    enText: A green light indicates that you are connected.
-  - nlText: "Met de sliders kunt u stemmen en de muziek be\xEFnvloeden. Probeer het
-      uit op de volgende pagina."
-    enText: With the sliders, you can vote and influence the music. Try it out on
-      the next page.
-  - nlText: U kunt het gemiddelde van alle stemmen op een slider achter uw eigen
-      stem volgen. Zodra uw stem is geregistreerd, wordt deze vergrendeld en verschijnt
-      de publieksmeerderheid vooraan. Vergeet niet opnieuw deel te nemen wanneer
-      de stemming weer is ingeschakeld.
+  - nlText: Een groen lichtje in de rechterbovenhoek geeft aan dat u verbonden bent.
+    enText: A green light in the top right corner indicates that you are connected.
+  - nlText: "Met de sliders kan je stemmen en de zowel de visuals als de muziek be\xEFnvloeden.
+      Probeer het uit op de volgende pagina."
+    enText: With the sliders, you can vote and influence both the visuals and the
+      music. Try it out on the next page.
+  - nlText: Je kan het gemiddelde van alle stemmen op een slider achter je eigen
+      stem volgen. Zodra je stem is geregistreerd, wordt deze vergrendeld en verschijnt
+      de publieksmeerderheid vooraan. Dit gemiddelde is uiteindelijk wat het globale
+      resultaat zal bepalen in de visuals en muziek..
     enText: You can track the majority of votes behind your personal vote. Once your
       vote is registered, it will be locked, and the public majority will be displayed
-      in front.  Don't forget to participate again when voting is enabled.
-  - nlText: In bepaalde secties zullen geluiden uit uw apparaat komen. U kunt het
-      bereik en de intensiteit van deze geluiden aanpassen met de sliders.
+      in front.  This average is what will determine the global result in visuals
+      and music.
+  - nlText: In bepaalde secties zullen geluiden uit je apparaat komen. Je kan het
+      bereik en de intensiteit van deze geluiden aanpassen met de sliders. De volgende
+      pagina speelt zo'n geluid.
     enText: In specific sections, sounds will emerge from your device. You can adjust
-      the range and intensity of these sounds using the sliders.
+      the range and intensity of these sounds using the sliders. The next page will
+      play this kind of sound.
   - nlText: Geniet van de interactieve voorstelling van 'Minerals'!
     enText: Enjoy the interactive performance of 'Minerals'!
   highlightBlinkSpeed: 1
@@ -9915,7 +9917,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2496998504111471845
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9984,7 +9986,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &2783848351956406685
 MonoBehaviour:
   m_ObjectHideFlags: 0

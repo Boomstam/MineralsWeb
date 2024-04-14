@@ -63,6 +63,7 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private GameObject tutorialCanvas;
     [SerializeField] private TextMeshProUGUI tutorialText;
     [SerializeField] private TypeAnimation tutorialTextAnimator;
+    [SerializeField] private float nextPartButtonAnimationSpeed = 0.3f;
     [SerializeField] private Button previousTutorialPartButton;
     [SerializeField] private Button nextTutorialPartButton;
     [SerializeField] private AuraText[] tutorialTexts;
@@ -98,6 +99,9 @@ public class WebGLClientUI : UIWithConnection
     private Coroutine seatButtonBackgroundBlinkRoutine;
     private Coroutine languageButtonBackgroundBlinkRoutine;
     private Coroutine connectionImageBlinkRoutine;
+
+    private float nextButtonOnPressAnimationStart;
+    private Coroutine nextButtonOnPressAnimationRoutine;
     
     private string languagePlayerPrefsKey = "SavedLanguage";
     
@@ -119,6 +123,15 @@ public class WebGLClientUI : UIWithConnection
                 imageFader.SetFadeVal(1 - sliderVal);
                 
                 Instances.NetworkedVoting.SendVoteUpdate(sliderVal, Instances.SeatNumber);
+            });
+        tutorialVoteSlider.onValueChanged.AsObservable()
+            .Subscribe(sliderVal =>
+            {
+                // Instances.AudioManager.EnableLowPassFilter(300 + (7200 * sliderVal));
+                // Instances.AudioManager.SetFadeVal(1 - sliderVal);
+                imageFader.SetFadeVal(1 - sliderVal);
+                
+                // Instances.NetworkedVoting.SendVoteUpdate(sliderVal, Instances.SeatNumber);
             });
         
         highLowSlider.onValueChanged.AsObservable()
@@ -264,6 +277,13 @@ public class WebGLClientUI : UIWithConnection
         }
 
         DisplayCurrentSeatInSeatDisplayButton();
+
+        Image buttonImage = ButtonForSeatElement(increase, seatElement).GetComponent<Image>();
+
+        if(nextButtonOnPressAnimationRoutine != null)
+            StopCoroutine(nextButtonOnPressAnimationRoutine);
+        
+        nextButtonOnPressAnimationRoutine = StartCoroutine(DoOnImagePressAnimation(buttonImage));
     }
 
     private string KeyForSeatElement(SeatElement seatElement) => seatElement switch
@@ -272,6 +292,14 @@ public class WebGLClientUI : UIWithConnection
         SeatElement.Row1s => row1sKey,
         SeatElement.Seat10s => seat10sKey,
         SeatElement.Seat1s => seat1sKey,
+    };
+    
+    private Button ButtonForSeatElement(bool increase, SeatElement seatElement) => seatElement switch
+    {
+        SeatElement.Row10s => increase ? rowNumberIncrease10sButton : rowNumberDecrease10sButton,
+        SeatElement.Row1s => increase ? rowNumberIncrease1sButton : rowNumberDecrease1sButton,
+        SeatElement.Seat10s => increase ? seatNumberIncrease10sButton : seatNumberDecrease10sButton,
+        SeatElement.Seat1s => increase ? seatNumberIncrease1sButton : seatNumberDecrease1sButton,
     };
 
     private int GetRow()
@@ -422,6 +450,21 @@ public class WebGLClientUI : UIWithConnection
         
         waysOfWater.SetActive(true);
     }
+    
+    [Button]
+    public void EnableTutorialVotingMode()
+    {
+        DisableAllModes();
+        
+        imageFader.DisplayFadeImages(fadeSprites);
+        
+        Instances.AudioManager.StopAllPlayback();
+        Instances.AudioManager.ResetAllFx();
+        
+        // tutorialVoteSlider.gameObject.SetActive(true);
+        // tutorialAverageSlider.gameObject.SetActive(true);
+        tutorialVoting.SetActive(true);
+    }
 
     [Button]
     private void DisableAllModes()
@@ -438,6 +481,7 @@ public class WebGLClientUI : UIWithConnection
         // voteSlider.gameObject.SetActive(false);
         // averageSlider.gameObject.SetActive(false);
         votingHolder.SetActive(false);
+        tutorialVoting.SetActive(false);
         
         Instances.AudioManager.StopAllPlayback();
         Instances.AudioManager.ResetAllFx();
@@ -445,6 +489,7 @@ public class WebGLClientUI : UIWithConnection
         SetStatusText("");
         
         effectsSliders.SetActive(false);
+        tutorialSliders.SetActive(false);
     }
     
     #endregion
@@ -559,9 +604,42 @@ public class WebGLClientUI : UIWithConnection
         int lastIndex = (int)TutorialPartType.Enjoy;
         int newIndex = currentTutorialPartIndex + (next ? 1 : -1);
 
+        if(nextButtonOnPressAnimationRoutine != null)
+            StopCoroutine(nextButtonOnPressAnimationRoutine);
+            
+        
+        Image image = next ? 
+            nextTutorialPartButton.GetComponent<Image>() : 
+            previousTutorialPartButton.GetComponent<Image>();
+        
+        nextButtonOnPressAnimationRoutine = StartCoroutine(DoOnImagePressAnimation(image));
+
         SetTutorialPart((TutorialPartType)newIndex);
     }
-    
+
+    private IEnumerator DoOnImagePressAnimation(Image image)
+    {
+        nextButtonOnPressAnimationStart = Time.time;
+
+        float alpha = 1;
+        
+        while (Time.time - nextButtonOnPressAnimationStart < nextPartButtonAnimationSpeed)
+        {
+            float percentage = (Time.time - nextButtonOnPressAnimationStart) / nextPartButtonAnimationSpeed;
+            Debug.Log($"percentage: {percentage}");
+            alpha = 0.5f + (0.5f * percentage);
+            SetAlphaOfImage(image, alpha);
+            yield return 0;
+        }
+        // while (Time.time - nextButtonOnPressAnimationStart < nextPartButtonAnimationSpeed * 2)
+        // {
+        //     float percentage = (Time.time - nextButtonOnPressAnimationStart - nextPartButtonAnimationSpeed) / nextPartButtonAnimationSpeed;
+        //     alpha = 1 - (0.5f * percentage);
+        //     SetNextTutorialPartButtonAlpha(next, alpha);
+        //     yield return 0;
+        // }
+    }
+
     [Button]
     private void SetTutorialPart(TutorialPartType tutorialPartType)
     {
@@ -611,14 +689,20 @@ public class WebGLClientUI : UIWithConnection
                 break;
             case TutorialPartType.Slider:
                 tutorialText.gameObject.SetActive(false);
-                ToggleVotingMode(true);
+                tutorialAverageSlider.transform.SetSiblingIndex(0);
+                tutorialVoteSlider.interactable = true;
+                tutorialAverageSlider.interactable = false;
+                EnableTutorialVotingMode();
                 break;
             case TutorialPartType.MajorityExplanation:
                 ShowTutorialText(5);
                 break;
             case TutorialPartType.Majority:
                 tutorialText.gameObject.SetActive(false);
-                ToggleVotingMode(true);
+                tutorialVoteSlider.transform.SetSiblingIndex(0);
+                tutorialVoteSlider.interactable = false;
+                tutorialAverageSlider.interactable = false;
+                EnableTutorialVotingMode();
                 break;
             case TutorialPartType.AudioExplanation:
                 ShowTutorialText(6);

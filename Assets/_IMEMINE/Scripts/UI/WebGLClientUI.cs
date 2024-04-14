@@ -53,6 +53,12 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private Slider distortionSlider;
     [SerializeField] private Slider waysOfWaterSlider;
     [SerializeField] private Slider voteProgressBar;
+    [SerializeField] private GameObject tutorialSliders;
+    [SerializeField] private Slider tutorialHighLowSlider;
+    [SerializeField] private Slider tutorialDistortionSlider;
+    [SerializeField] private GameObject tutorialVoting;
+    [SerializeField] private Slider tutorialVoteSlider;
+    [SerializeField] private Slider tutorialAverageSlider;
     [Header("Tutorial")]
     [SerializeField] private GameObject tutorialCanvas;
     [SerializeField] private TextMeshProUGUI tutorialText;
@@ -63,8 +69,7 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private float highlightBlinkSpeed;
     [SerializeField] private Image seatButtonBackground;
     [SerializeField] private Image languageButtonBackground;
-    [SerializeField] private Slider tutorialHighLowSlider;
-    [SerializeField] private Slider tutorialDistortionSlider;
+    [SerializeField] private TextMeshProUGUI tutorialPageText;
     [Header("Other")]
     public AuraTextDisplay auraTextDisplay;
     [SerializeField] private float maxProgressBarRight = 527;
@@ -93,6 +98,8 @@ public class WebGLClientUI : UIWithConnection
     private Coroutine seatButtonBackgroundBlinkRoutine;
     private Coroutine languageButtonBackgroundBlinkRoutine;
     private Coroutine connectionImageBlinkRoutine;
+    
+    private string languagePlayerPrefsKey = "SavedLanguage";
     
     #endregion
 
@@ -183,6 +190,16 @@ public class WebGLClientUI : UIWithConnection
         // {
         //     ShowEnterSeatDialog(true);
         // }
+        if (PlayerPrefs.HasKey(languagePlayerPrefsKey))
+        {
+            if (PlayerPrefs.GetInt(languagePlayerPrefsKey) == 1)
+            {
+                // Giggity
+                ToggleLanguage();
+                ToggleLanguage();
+            }
+        }
+
         ToggleTutorial(true);
     }
 
@@ -224,8 +241,8 @@ public class WebGLClientUI : UIWithConnection
         if (newVal <= 0)
             newVal = max;
         else if(newVal > max)
-            newVal = 0;
-        
+            newVal = 1;
+
         Debug.Log($"UpdateSeatVal, increase: {increase}, seatElement: {seatElement}, currentVal: {currentVal}, max: {max} newVal: {newVal}");
         
         if(isRow)
@@ -381,7 +398,7 @@ public class WebGLClientUI : UIWithConnection
     {
         DisableAllModes();
         
-        effectsSliders.SetActive(true);
+        tutorialSliders.SetActive(true);
         colorOverlay.gameObject.SetActive(true);
         
         Instances.AudioManager.tutorialDoubleFader.PlayFadeSamples();
@@ -436,7 +453,6 @@ public class WebGLClientUI : UIWithConnection
     
     private void ToggleLanguage()
     {
-        string languagePlayerPrefsKey = "SavedLanguage";
         Language language = (Language)PlayerPrefs.GetInt(languagePlayerPrefsKey, 0);
         
         bool nl = (language == Language.NL);
@@ -450,8 +466,19 @@ public class WebGLClientUI : UIWithConnection
         int newLanguageVal = (nl ? 0 : 1);
         
         PlayerPrefs.SetInt(languagePlayerPrefsKey, newLanguageVal);
-        
-        SetTutorialPart(currentTutorialPart);
+
+        if (InstanceFinder.IsOffline == false)
+        {
+            if(Instances.NetworkedAppState.tutorial)
+                SetTutorialPart(currentTutorialPart);
+            //TODO Enable current mode
+            // else
+            //     
+        }
+        else
+        {
+            SetTutorialPart(currentTutorialPart);
+        }
     }
     
     private void SetLanguageInTextComponents(bool nl)
@@ -519,7 +546,7 @@ public class WebGLClientUI : UIWithConnection
         
         if(tutorial)
         {
-            ToggleColorOverlay(true);
+            // ToggleColorOverlay(true);
             
             SetTutorialPart(currentTutorialPart);
         }
@@ -532,24 +559,35 @@ public class WebGLClientUI : UIWithConnection
         int lastIndex = (int)TutorialPartType.Enjoy;
         int newIndex = currentTutorialPartIndex + (next ? 1 : -1);
 
-        if (newIndex < 0)
-            newIndex = lastIndex;
-        if (newIndex > lastIndex)
-            newIndex = 0;
-        
         SetTutorialPart((TutorialPartType)newIndex);
     }
     
     [Button]
     private void SetTutorialPart(TutorialPartType tutorialPartType)
     {
+        DisableAllModes();
+        ToggleColorOverlay(true);
+        
         currentTutorialPart = tutorialPartType;
         
         tutorialText.text = tutorialPartType.ToString();
+        tutorialPageText.text = $"{(int)tutorialPartType + 1} / {(int)TutorialPartType.Enjoy + 1}";
         
         Debug.Log($"Set tutorial part: {tutorialPartType}");
         
         StopBlinkAnimations();
+
+        previousTutorialPartButton.interactable = true;
+        nextTutorialPartButton.interactable = true;
+        
+        if (tutorialPartType == TutorialPartType.Welcome)
+        {
+            previousTutorialPartButton.interactable = false;
+        }
+        if (tutorialPartType == TutorialPartType.Enjoy)
+        {
+            nextTutorialPartButton.interactable = false;
+        }
         
         switch (currentTutorialPart)
         {

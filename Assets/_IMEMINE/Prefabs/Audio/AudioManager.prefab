@@ -227,7 +227,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 54830ccaa0c0c6140af9013fcf51729d, type: 3}
   audioFader: {fileID: 3350166166132690774}
   doubleFader: {fileID: 8707213107746051459}
-  tutorialDoubleFader: {fileID: 0}
+  tutorialDoubleFader: {fileID: 5794792120940113606}
   circlePlayer: {fileID: 7385468501140855953}
   delayPlayer: {fileID: 306714154650334377}
   audioSource: {fileID: 766021594129140789}
@@ -261,7 +261,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
-  m_audioClip: {fileID: 8300000, guid: eef7b0db05287884da30719b623b30da, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -519,7 +519,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8754623867908871501}
-  - component: {fileID: 2671810443137565909}
   - component: {fileID: 5794792120940113606}
   - component: {fileID: 4536884057467198893}
   - component: {fileID: 5479981858581834063}
@@ -545,48 +544,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 652003876839531055}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2671810443137565909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5921507472215374364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d8ffbeca701ab5418676fba346fc7f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sound1: 0
-  audioManager: {fileID: 8831931863038137966}
-  audioFaders:
-  - {fileID: 4536884057467198893}
-  - {fileID: 5479981858581834063}
-  - {fileID: 0}
-  lowAudioMixerGroup: {fileID: -7571254366263321388, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
-  midAudioMixerGroup: {fileID: -4054765447252485589, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
-  highAudioMixerGroup: {fileID: -5126684036310326011, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
-  clipTypesLow1: []
-  clipTypesMid1: []
-  clipTypesHigh1: []
-  clipTypesLow2: []
-  clipTypesMid2: []
-  clipTypesHigh2: []
-  clipTypesLow:
-  - {fileID: 8300000, guid: bb69c90683b168544a553db3388f64de, type: 3}
-  - {fileID: 8300000, guid: f422a86811f9d524495b4aabdec56e8d, type: 3}
-  - {fileID: 8300000, guid: fad50ff8321f80b4099615bc4780fe08, type: 3}
-  - {fileID: 8300000, guid: 5a2c02413fb615d45944256ff7289118, type: 3}
-  - {fileID: 8300000, guid: ef33b08556c58d443b9b03c0797b370a, type: 3}
-  - {fileID: 8300000, guid: 7f353506f78f7ce42860633b4e69f69d, type: 3}
-  clipTypesMid: []
-  clipTypesHigh:
-  - {fileID: 8300000, guid: 34371a463bf2a7a438ba749511e9a655, type: 3}
-  - {fileID: 8300000, guid: fa9bce5b86cea4645aec228dbb5a65ee, type: 3}
-  - {fileID: 8300000, guid: 6ee8da475cfc088408705f182b906966, type: 3}
-  - {fileID: 8300000, guid: e0efe1474a7cae34abb5e0f6dd1c300d, type: 3}
-  - {fileID: 8300000, guid: 4ae7ef139ae86f447a9e9217a1295296, type: 3}
-  - {fileID: 8300000, guid: 9a47891e0e31443439b2c34295e9bb2b, type: 3}
 --- !u!114 &5794792120940113606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -599,9 +556,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3b2115fd27f0d945acd5743170eb3fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioFaders: []
+  audioFaders:
+  - {fileID: 4536884057467198893}
+  - {fileID: 5479981858581834063}
   lowAudioMixerGroup: {fileID: -7571254366263321388, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
-  midAudioMixerGroup: {fileID: 0}
   highAudioMixerGroup: {fileID: -4054765447252485589, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
   clipTypesLow:
   - {fileID: 8300000, guid: bb69c90683b168544a553db3388f64de, type: 3}

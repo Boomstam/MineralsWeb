@@ -64,7 +64,7 @@ public class TypeAnimation : MonoBehaviour
 
     private void PlayNextRandomTypingSound()
     {
-        if(Random.value < percentageOfTypingSounds)
+        if(Random.value > percentageOfTypingSounds)
             return;
         
         int randIndex = Random.Range(0, typingClips.Length);

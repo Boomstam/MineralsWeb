@@ -59,6 +59,7 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private Button previousTutorialPartButton;
     [SerializeField] private Button nextTutorialPartButton;
     [Header("Other")]
+    public AuraTextDisplay auraTextDisplay;
     [SerializeField] private float maxProgressBarRight = 527;
     [SerializeField] private TextMeshProUGUI statusText;
     [Header("Deprecated?")]
@@ -69,6 +70,7 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI contentText;
 
     public bool PlayFadeClips { get; set; } = true;
+    public ReactiveProperty<Language> currentLanguage;
 
     private const string row10sKey = "Row 10s";
     private const string row1sKey = "Row 1s";
@@ -381,7 +383,7 @@ public class WebGLClientUI : UIWithConnection
         
         effectsSliders.SetActive(false);
     }
-
+    
     #endregion
     
     #region Language
@@ -390,13 +392,15 @@ public class WebGLClientUI : UIWithConnection
     {
         string languagePlayerPrefsKey = "SavedLanguage";
         Language language = (Language)PlayerPrefs.GetInt(languagePlayerPrefsKey, 0);
-
+        
         bool nl = (language == Language.NL);
-
+        
         nl = !nl;
         
+        currentLanguage.Value = nl ? Language.NL : Language.EN;
+        
         SetLanguageInTextComponents(nl);
-
+        
         int newLanguageVal = (nl ? 0 : 1);
         
         PlayerPrefs.SetInt(languagePlayerPrefsKey, newLanguageVal);

@@ -77,6 +77,7 @@
      <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Base\OscServer.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\UI\MonitorUI.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Network\BuildTypeManager.cs" />
+     <Compile Include="Assets\_IMEMINE\Scripts\UI\TypeAnimation.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Audio\AudioManager.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Score\ScoreManager.cs" />
      <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Unity\OscPropertySender.cs" />
@@ -101,6 +102,7 @@
      <Compile Include="Assets\_IMEMINE\Scripts\Audio\DoubleFader.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Tools\PlayerPrefsExtensions.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Video\WebGLVideoPlayer.cs" />
+     <Compile Include="Assets\_IMEMINE\Scripts\UI\AuraTextDisplay.cs" />
      <Folder Include="Assets" />
      <None Include="Assets\jp.keijiro.osc-jack\package.json" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -143,6 +145,7 @@
      <Folder Include="Assets\jp.keijiro.osc-jack\Runtime\Base" />
      <Folder Include="Assets\_IMEMINE\Images\Marble" />
      <Folder Include="Assets\FishNet\Plugins\GameKit" />
+     <Folder Include="Assets\_IMEMINE\Images\Fades\Placeholder" />
      <None Include="Assets\_IMEMINE\Docs\Minerals test version.txt" />
      <Folder Include="Assets\_IMEMINE\Scripts\Performance" />
      <Folder Include="Assets\_IMEMINE\Scripts\Tools" />

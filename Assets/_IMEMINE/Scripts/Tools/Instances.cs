@@ -24,6 +24,7 @@ public static class Instances
     private static NetworkOSCManager _networkOSCManager;
     private static NetworkedVoting _networkedVoting;
     private static NetworkedMonitor _networkedMonitor;
+    private static NetworkedAppState _networkedAppState;
     
     private static WebGLClientUI _webGLClientUI;
     private static OSCClientUI _oscClientUI;
@@ -221,6 +222,19 @@ public static class Instances
                 throw new System.Exception($"Couldn't find NetworkedVoting!");
             
             return _networkedVoting;
+        }
+    }
+    
+    public static NetworkedAppState NetworkedAppState {
+        get
+        {
+            if (_networkedAppState == null)
+                _networkedAppState = Object.FindObjectOfType<NetworkedAppState>();
+            
+            if (_networkedAppState == null)
+                throw new System.Exception($"Couldn't find NetworkedAppState!");
+            
+            return _networkedAppState;
         }
     }
     

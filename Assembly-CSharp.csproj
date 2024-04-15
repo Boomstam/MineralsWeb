@@ -129,7 +129,6 @@
      <None Include="Assets\FishNet\Plugins\CodeAnalysis\LICENSE.txt" />
      <Folder Include="Assets\_IMEMINE\Scripts\Audio" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
-     <Folder Include="Assets\_IMEMINE\Images\Minerals" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
      <Folder Include="Assets\TextMesh Pro\Resources" />
      <None Include="Assets\FishNet\VERSION.txt" />
@@ -148,7 +147,6 @@
      <Folder Include="Assets\jp.keijiro.osc-jack\Runtime\Base" />
      <Folder Include="Assets\_IMEMINE\Images\Marble" />
      <Folder Include="Assets\FishNet\Plugins\GameKit" />
-     <Folder Include="Assets\_IMEMINE\Images\Fades\Placeholder" />
      <None Include="Assets\_IMEMINE\Docs\Minerals test version.txt" />
      <Folder Include="Assets\_IMEMINE\Scripts\Performance" />
      <Folder Include="Assets\_IMEMINE\Scripts\Tools" />
@@ -179,7 +177,6 @@
      <Folder Include="Assets\TextMesh Pro\Fonts" />
      <Folder Include="Assets\_IMEMINE\Audio\Clips\Ways of Water" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
-     <Folder Include="Assets\_IMEMINE\Images\Score" />
      <Folder Include="Assets\Editor Default Resources" />
      <Folder Include="Assets\_IMEMINE\Scripts" />
      <None Include="Assets\PlayFlowCloud\Documentation\Documentation.txt" />

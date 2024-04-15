@@ -371,7 +371,7 @@ public class WebGLClientUI : UIWithConnection
     #region Modes
     
     [Button]
-    public void ToggleColorOverlay(bool show)
+    public void ToggleColorOverlayMode(bool show)
     {
         if(show == false)
             Debug.Log($"<color=yellow>HIDE COLOR OVERLAY</color>");
@@ -379,19 +379,25 @@ public class WebGLClientUI : UIWithConnection
         DisableAllModes();
             
         // this.RunDelayed(Instances.SeatNumber, () => colorOverlay.gameObject.SetActive(show));
-        colorOverlay.StartDelay = Instances.SeatNumber;
-        colorOverlay.gameObject.SetActive(true);
         
         voteSlider.gameObject.SetActive(false);
         
         Instances.AudioManager.StopAllPlayback();
         Instances.AudioManager.ResetAllFx();
+
+        ToggleColorOverlayVisual(show);
         
         if (show)
         {
             // Instances.AudioManager.PlayClip(ClipType.Chapter5);
             ShowEnterSeatDialog(false);
         }
+    }
+
+    private void ToggleColorOverlayVisual(bool show)
+    {
+        colorOverlay.StartDelay = 0;
+        colorOverlay.gameObject.SetActive(show);
     }
     
     [Button]
@@ -626,7 +632,7 @@ public class WebGLClientUI : UIWithConnection
         
         if(tutorial)
         {
-            ToggleColorOverlay(true);
+            ToggleColorOverlayVisual(true);
             
             SetTutorialPart(currentTutorialPart);
         }
@@ -748,7 +754,7 @@ public class WebGLClientUI : UIWithConnection
                 ShowTutorialText(7);
                 break;
             default:
-                Debug.LogError($"Couldn't handle tutorialPartType {tutorialPartType}");
+                Debug.LogError($"Couldn't handle RtutorialPartType {tutorialPartType}");
                 // DisableAllModes();
                 break;
         }
@@ -759,11 +765,14 @@ public class WebGLClientUI : UIWithConnection
         tutorialText.gameObject.SetActive(true);
         tutorialTextAnimator.TypeAnimate(tutorialTexts[textIndex].GetText(currentLanguage.Value));
         
-        ToggleColorOverlay(true);
+        // ToggleColorOverlay(true);
+        ToggleColorOverlayVisual(true);
     }
 
     private IEnumerator DoBlinkAnimation(Image image)
     {
+        Debug.Log($"DoBlinkAnimation image {image}");
+        
         bool increasingAlpha = true;
         
         while (true)
@@ -784,6 +793,8 @@ public class WebGLClientUI : UIWithConnection
     [Button]
     private void StopBlinkAnimations()
     {
+        Debug.Log($"Stop Blink animations");
+        
         if(seatButtonBackgroundBlinkRoutine != null)
             StopCoroutine(seatButtonBackgroundBlinkRoutine);
         if(languageButtonBackgroundBlinkRoutine != null)
@@ -820,7 +831,7 @@ public class WebGLClientUI : UIWithConnection
         {
             ToggleTutorial(false, false);
             StopBlinkAnimations();
-            ToggleColorOverlay(true);
+            ToggleColorOverlayMode(true);
 
         }
         else
@@ -830,13 +841,13 @@ public class WebGLClientUI : UIWithConnection
             {
                 if (Instances.NetworkedAppState.tutorial)
                 {
-                    ToggleColorOverlay(true);
+                    ToggleColorOverlayMode(true);
                     ToggleTutorial(true);
                 }
             }
             else
             {
-                ToggleColorOverlay(true);
+                ToggleColorOverlayMode(true);
                 ToggleTutorial(true);
             }
             // ToggleColorOverlay(true);

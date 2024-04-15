@@ -98,7 +98,7 @@ public class NetworkedMonitor : NetworkBehaviour
         else if (appState == AppState.Voting)
             Instances.WebGLClientUI.ToggleVotingMode(true);
         else if (appState == AppState.ColorOverlay)
-            Instances.WebGLClientUI.ToggleColorOverlay(true);
+            Instances.WebGLClientUI.ToggleColorOverlayMode(true);
         else if (appState == AppState.EffectSliders)
             Instances.WebGLClientUI.EnableEffectSlidersMode();
         else if (appState == AppState.WaysOfWater)
@@ -123,7 +123,7 @@ public class NetworkedMonitor : NetworkBehaviour
         
         Debug.Log($"ToggleColorOverlayOnVotingClients: {show}");
         
-        Instances.WebGLClientUI.ToggleColorOverlay(show);
+        Instances.WebGLClientUI.ToggleColorOverlayMode(show);
     }
     
     [ServerRpc(RequireOwnership = false)]

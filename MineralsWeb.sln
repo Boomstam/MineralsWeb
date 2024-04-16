@@ -27,10 +27,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParrelSync", "ParrelSync.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sirenix.OdinInspector.Modules.UnityMathematics", "Sirenix.OdinInspector.Modules.UnityMathematics.csproj", "{4b459bb7-82ce-35a3-86ad-1208c0d70ed4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{8b5bcd67-6365-85c1-9d7f-c7b06d1155e2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor-firstpass", "Assembly-CSharp-Editor-firstpass.csproj", "{6c6d818a-6717-8937-6279-d366cb90ba38}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,10 +58,6 @@ Global
 		{a4f87c8e-05f4-41ee-fbc0-8af6707dd658}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4b459bb7-82ce-35a3-86ad-1208c0d70ed4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4b459bb7-82ce-35a3-86ad-1208c0d70ed4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8b5bcd67-6365-85c1-9d7f-c7b06d1155e2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8b5bcd67-6365-85c1-9d7f-c7b06d1155e2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6c6d818a-6717-8937-6279-d366cb90ba38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6c6d818a-6717-8937-6279-d366cb90ba38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

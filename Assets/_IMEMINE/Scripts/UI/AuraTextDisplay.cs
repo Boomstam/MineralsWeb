@@ -16,21 +16,6 @@ public class AuraTextDisplay : MonoBehaviour
         Instances.WebGLClientUI.currentLanguage.Subscribe(SetLanguage);
     }
     
-    // [Button]
-    // private void GoToNextText(bool next)
-    // {
-    //     int lastIndex = auraTexts.Length - 1;
-    //     int newIndex = currentTextIndex + (next ? 1 : -1);
-    //     
-    //     if (newIndex < 0)
-    //         newIndex = lastIndex;
-    //     if (newIndex > lastIndex)
-    //         newIndex = 0;
-    //     
-    //     currentTextIndex = newIndex;
-    //     
-    // }
-
     public void GoToText(int index)
     {
         if (index >= auraTexts.Length)

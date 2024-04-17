@@ -6629,9 +6629,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1037365500411303079}
+  - component: {fileID: 1734840960141247241}
   - component: {fileID: 5872979478382766862}
   - component: {fileID: 4276766773061172376}
-  - component: {fileID: 1734840960141247241}
   m_Layer: 5
   m_Name: Aura Text
   m_TagString: Untagged
@@ -6655,9 +6655,153 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.10093327, y: 0}
   m_AnchorMax: {x: 0.9119815, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0015869141}
-  m_SizeDelta: {x: 0, y: 0.19995117}
+  m_AnchoredPosition: {x: -4.9432983, y: -6.7816772}
+  m_SizeDelta: {x: 104.0734, y: -45.9274}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1734840960141247241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010880142041357699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71326d1b5e6c79543bb5e317794b73e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  auraTextComponent: {fileID: 4276766773061172376}
+  auraTexts:
+  - nlText: Hallo, mijn naam is Aura, hoe kan ik je helpen?
+    enText: Hello, my name is Aura, how can I assist you?
+  - nlText: <i>Ik zou graag meer weten over de voorstelling "Minerals"?</i>
+    enText: <i>I'd like to know more about the performance "Minerals".</i>
+  - nlText: "De voorstelling \"Minerals\" is een ervaring die de grenzen van traditionele
+      concerten overschrijdt. Het draait allemaal om de interactie tussen het publiek
+      en de muzikanten. Bij binnenkomst krijgt elk lid van het publiek de mogelijkheid
+      om een speciale app te downloaden, waarmee ze in real-time de muziek kunnen
+      be\xEFnvloeden. Samen cre\xEBren ze een magische atmosfeer waarin elke uitvoering
+      uniek is en waarin iedereen deel uitmaakt van een collectieve creatieve reis."
+    enText: '"Minerals" is an experience that transcends the boundaries of traditional
+      concerts. It''s all about the interaction between the audience and the musicians.
+      Upon arrival, each audience member gets the opportunity to download a special
+      app, allowing them to influence the music in real-time.   Together, they create
+      a magical atmosphere where each rendition is unique, and everyone becomes part
+      of a collective creative journey!'
+  - nlText: "<i>Bedankt. Kan je meer uitleg geven over hoe je als publiek de muziek
+      kan be\xEFnvloeden?</i>"
+    enText: <i>Thanks. Can you give me more insight into how the audience can influence
+      the music?</i>
+  - nlText: "Tijdens de voorstelling krijgt het publiek de kans om via een speciale
+      app op hun telefoon de muziek te be\xEFnvloeden. Deze app stelt hen in staat
+      om op verschillende momenten zowel het tempo, de toonhoogte en de dynamiek
+      van het strijkorkest als die van de solist aan te passen. Door simpelweg de
+      slider op hun telefoon te bewegen, kunnen ze hun keuzes registreren. Deze interactieve
+      mogelijkheden stellen het publiek in staat om een directe invloed uit te oefenen
+      op de muzikale uitvoering. Bovendien is er op een gegeven moment een \"intensity
+      slider\" waarmee ze alle parameters tegelijk kunnen be\xEFnvloeden. "
+    enText: 'During the performance, the audience has the opportunity to influence
+      the music through a special app on their phones. This app allows them to adjust
+      both the tempo, pitch, and dynamics of the string orchestra and the soloist
+      at various moments. By simply moving the slider on their phone, they can register
+      their choices. These interactive capabilities enable the audience to have a
+      direct impact on the musical performance. Additionally, at a certain point,
+      there''s an "intensity slider" that allows them to influence all parameters
+      simultaneously. '
+  - nlText: "Het proces verloopt als volgt: gedurende 10 seconden brengt het publiek
+      zijn stem uit, waarna uw stem tijdelijk wordt bevroren. Deze pauze stelt ons
+      in staat te luisteren naar het collectieve resultaat van de keuzes van het
+      publiek. Elke minuut is er een nieuw stemmoment, waardoor het publiek regelmatig
+      de kans krijgt om de richting van de ervaring te be\xEFnvloeden."
+    enText: 'The process unfolds like this: for 10 seconds, the audience casts their
+      votes, and then your vote will be temporarily frozen. This pause allows us
+      to listen to the collective result of the audience''s choices. Every minute,
+      there will be a new voting moment, providing regular chances for the audience
+      to influence the direction of the experience.'
+  - nlText: <i>I'd like to know more about the performance "Minerals".</i>
+    enText: <i>Bedankt. Kan je me wat meer vertellen over de inhoud van de voorstelling?</i>
+  - nlText: 'De voorstelling "Minerals" verkent het fascinerende concept van de formatie
+      van mineralen over miljoenen jaren, onder invloed van verschillende externe
+      factoren. Het verhaal draait om de transformatie van vloeibare naar vaste vormen,
+      parallel aan de manier waarop de muziek zich ontwikkelt en verandert tijdens
+      de uitvoering. Net zoals mineralen worden gevormd door natuurlijke processen
+      en omgevingsinvloeden, zo wordt ook de muziek gevormd door de input en keuzes
+      van het publiek tijdens de voorstelling.  '
+    enText: The performance "Minerals" explores the fascinating concept of mineral
+      formation over millions of years, influenced by various external factors. The
+      story revolves around the transformation from liquid to solid forms, paralleling
+      the way the music evolves and changes during the performance. Just as minerals
+      are formed by natural processes and environmental influences, so is the music
+      shaped by the input and choices of the audience during the performance.
+  - nlText: <i>Klinkt fascinerend. Dit wil ik wel eens ervaren. Zijn er specifieke
+      zaken waar ik rekening mee moet houden? </i>
+    enText: Sounds fascinating. I'd like to experience it. Are there any specific
+      things I should consider?
+  - nlText: Om ervoor te zorgen dat u het maximale uit het concert haalt, hebben
+      wij een aantal tips voor u. Ten eerste raden we u aan uw telefoon in de modus
+      "Niet storen" te zetten om te voorkomen dat inkomende berichten of telefoontjes
+      de uitvoering onderbreken. We raden u echter aan het volume aan te houden,
+      zodat u zich volledig kunt onderdompelen in de soundscape van de voorstelling.
+      Luister naar de geluiden om je heen en pas het volume van je telefoon aan,
+      zodat je volledig kunt opgaan in de ervaring.
+    enText: 'To ensure you get the most out of the concert, we have a few tips for
+      you. Firstly, we recommend putting your phone on "Do Not Disturb" mode to prevent
+      any incoming messages or phone calls from interrupting the performance. However,
+      we encourage you to keep the volume on so you can fully immerse yourself in
+      the soundscape of the performance. Please listen to the sounds around you and
+      adjust the volume of your phone accordingly, ensuring that you can fully engage
+      with the experience. '
+  - nlText: "Vergeet ook niet uw stoelnummer in de app in te voeren. Hierdoor wordt
+      uw deelname naadloos ge\xEFntegreerd in de concertervaring. Verder hoef je
+      alleen maar te ontspannen en alles op je af laten komen. Dompel jezelf onder
+      in de muziek en wees niet bang om je creativiteit te laten spreken bij het
+      aanpassen van de muzikale parameters. Het is jouw kans om een \u200B\u200Bunieke
+      bijdrage te leveren aan de voorstelling en samen met het publiek een onvergetelijke
+      ervaring te cre\xEBren. Geniet ervan! "
+    enText: 'To ensure you get the most out of the concert, we have a few tips for
+      you. Firstly, we recommend putting your phone on "Do Not Disturb" mode to prevent
+      any incoming messages or phone calls from interrupting the performance. However,
+      we encourage you to keep the volume on so you can fully immerse yourself in
+      the soundscape of the performance. Please listen to the sounds around you and
+      adjust the volume of your phone accordingly, ensuring that you can fully engage
+      with the experience. '
+  - nlText: <i>Ok, klinkt goed. Kan je me wat helpen als ik vast zit? Of extra uitleg
+      geven?</i>
+    enText: <i>To ensure you get the most out of the concert, we have a few tips
+      for you. Firstly, we recommend putting your phone on "Do Not Disturb" mode
+      to prevent any incoming messages or phone calls from interrupting the performance.
+      However, we encourage you to keep the volume on so you can fully immerse yourself
+      in the soundscape of the performance. Please listen to the sounds around you
+      and adjust the volume of your phone accordingly, ensuring that you can fully
+      engage with the experience.</i>
+  - nlText: Absoluut! Gedurende de show zal ik meer uitleg geven over het fascinerende
+      proces van mineraalvorming en de betekenis ervan voor zowel de aarde als de
+      mensheid. Je kan mijn uitleg lezen als de muziek speelt en ik zal tussen de
+      bewegingen door spreken om ervoor te zorgen dat je een naadloze en informatieve
+      ervaring hebt. Voor degenen die liever in het Nederlands volgen, is de informatie
+      bovendien rechtstreeks op je telefoon toegankelijk, zodat iedereen volledig
+      bij de voorstelling kan betrokken zijn.
+    enText: Absolutely! Throughout the show, I'll provide further insights into the
+      fascinating process of mineral formation and its significance for both the
+      Earth and humanity. I'll communicate silently when the music is playing and
+      speak in between movements to ensure you have a seamless and informative experience.
+      Moreover, for those who prefer to follow along in Dutch, the information will
+      be accessible directly on your phones, enabling everyone to fully engage with
+      the performance.
+  - nlText: Bedankt, ik ben er klaar voor!
+    enText: <i>Thanks, I'm ready for it!</i>
+  - nlText: Graag gedaan! Ik wens je een buitengewoon mooie en meeslepende voorstelling
+      toe. Veel plezier!
+    enText: You're welcome! I wish you an extraordinarily beautiful and immersive
+      performance. Enjoy!
+  - nlText: 
+    enText: 
+  - nlText: 
+    enText: 
+  - nlText: 
+    enText: 
+  - nlText: 
+    enText: 
 --- !u!222 &5872979478382766862
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6689,13 +6833,13 @@ MonoBehaviour:
   m_text: AURA TEXT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2247288300921458666, guid: 435781ef8548a4746a51d97e40da9313, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4279242768
+    rgba: 4293980400
   m_fontColor: {r: 0.9411765, g: 0.9411765, b: 0.9411765, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -6752,23 +6896,9 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1734840960141247241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4010880142041357699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71326d1b5e6c79543bb5e317794b73e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  auraTextComponent: {fileID: 0}
-  auraTexts: []
 --- !u!1 &4036822563398946512
 GameObject:
   m_ObjectHideFlags: 0
@@ -9064,7 +9194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &174001659136678951
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9072,18 +9202,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5288064748866566811}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1037365500411303079}
-  m_Father: {fileID: 1184706534092990398}
+  m_Father: {fileID: 2341558432206225983}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.9001748}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 65.38992}
+  m_SizeDelta: {x: 0, y: 130.77985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1531544514549756814
 Canvas:
@@ -9130,7 +9260,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4874796763576531437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9232,12 +9362,12 @@ RectTransform:
   - {fileID: 5248956814880740438}
   - {fileID: 8407035934647448063}
   - {fileID: 2496998504111471845}
+  - {fileID: 2341558432206225983}
   - {fileID: 4077248653549185182}
   - {fileID: 5587380532017279542}
   - {fileID: 6304121918982416043}
   - {fileID: 5529652860856710187}
   - {fileID: 4873461666462609194}
-  - {fileID: 174001659136678951}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9380,6 +9510,7 @@ MonoBehaviour:
   seatButtonBackground: {fileID: 1951714988852289575}
   languageButtonBackground: {fileID: 4106775300355830407}
   tutorialPageText: {fileID: 3288554586167743109}
+  introductionCanvas: {fileID: 0}
   auraTextDisplay: {fileID: 1734840960141247241}
   maxProgressBarRight: 527
   statusText: {fileID: 4450054358540833742}
@@ -13322,6 +13453,122 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8686988546151968629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2341558432206225983}
+  - component: {fileID: 5275678076016887688}
+  - component: {fileID: 7488522648587040227}
+  - component: {fileID: 2216077998288639535}
+  - component: {fileID: 4143033624806930816}
+  m_Layer: 5
+  m_Name: Introduction Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2341558432206225983
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8686988546151968629}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 174001659136678951}
+  m_Father: {fileID: 1184706534092990398}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.88649786}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5275678076016887688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8686988546151968629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc819c7ad039101428615c7d7482396c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  auraTextDisplay: {fileID: 0}
+--- !u!223 &7488522648587040227
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8686988546151968629}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &2216077998288639535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8686988546151968629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!114 &4143033624806930816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8686988546151968629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 55
 --- !u!1 &8901765415487693947
 GameObject:
   m_ObjectHideFlags: 0

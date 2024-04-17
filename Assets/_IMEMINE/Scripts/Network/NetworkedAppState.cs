@@ -9,17 +9,20 @@ public class NetworkedAppState : NetworkBehaviour
     [SyncVar (OnChange = nameof(OnCurrentAuraTextIndexChange))] public int currentAuraTextIndex;
     // [SyncVar (OnChange = nameof(OnTutorialChange))] public bool tutorial = true;
     [SyncVar] public AppState appState;
-
+    
     public override void OnStartClient()
     {
         base.OnStartClient();
         
         Debug.Log($"Start Client NetworkedAppState");
     }
-
+    
     private void OnCurrentAuraTextIndexChange(int oldValue, int newValue, bool asServer)
     {
         if(Instances.BuildType != BuildType.Voting)
+            return;
+        
+        if(appState != AppState.Introduction)
             return;
         
         Instances.WebGLClientUI.auraTextDisplay.GoToText(newValue);
@@ -34,7 +37,7 @@ public class NetworkedAppState : NetworkBehaviour
     //  
     //     Instances.WebGLClientUI.ToggleTutorial(newValue);
     // }
-
+    
     [Server]
     public void ChangeAppState(AppState newAppState)
     {

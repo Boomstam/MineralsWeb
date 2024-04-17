@@ -81,6 +81,8 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private Image seatButtonBackground;
     [SerializeField] private Image languageButtonBackground;
     [SerializeField] private TextMeshProUGUI tutorialPageText;
+    [Header("Modes")]
+    [SerializeField] private GameObject introductionCanvas;
     [Header("Other")]
     public AuraTextDisplay auraTextDisplay;
     [SerializeField] private float maxProgressBarRight = 527;
@@ -425,10 +427,6 @@ public class WebGLClientUI : UIWithConnection
             
             //, ClipType.MineralsC });
         }
-        else
-        {
-            EnableIntroductionMode();
-        }
     }
 
     [Button]
@@ -458,10 +456,8 @@ public class WebGLClientUI : UIWithConnection
     {
         DisableAllModes();
         
-        backgroundVideo.gameObject.SetActive(true);
-
-        if (PlayerPrefs.HasKey(row10sKey) == false)
-            ShowEnterSeatDialog(true);
+        // backgroundVideo.gameObject.SetActive(true);
+        
     }
     
     [Button]
@@ -757,7 +753,7 @@ public class WebGLClientUI : UIWithConnection
                 ShowTutorialText(7);
                 break;
             default:
-                Debug.LogError($"Couldn't handle RtutorialPartType {tutorialPartType}");
+                Debug.LogError($"Couldn't handle TutorialPartType {tutorialPartType}");
                 // DisableAllModes();
                 break;
         }

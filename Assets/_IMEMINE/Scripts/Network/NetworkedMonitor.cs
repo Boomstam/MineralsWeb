@@ -8,8 +8,6 @@ using UnityEngine;
 
 public class NetworkedMonitor : NetworkBehaviour
 {
-    [SyncVar] public AppState appState;
-    
     [SyncVar] public int warningTime = 5;
     [SyncVar] public bool playCircles;
     [SyncVar] public float volume;
@@ -20,6 +18,8 @@ public class NetworkedMonitor : NetworkBehaviour
     [SyncVar] public float minDelayTime = 0.1f;
     [SyncVar] public float maxDelayTime = 2f;
     [SyncVar] public float delayIntervalLength = 3f;
+
+    private AppState AppState => Instances.NetworkedAppState.appState; 
     
     [ServerRpc (RequireOwnership = false), Button]
     public void SetPlayCircles(bool shouldPlayCircles)
@@ -85,7 +85,7 @@ public class NetworkedMonitor : NetworkBehaviour
         
         if (Instances.BuildType == BuildType.Voting)
         {
-            Debug.Log($"Start Client NetworkedMonitor with state {appState}");
+            Debug.Log($"Start Client NetworkedMonitor with state {AppState}");
 
             TriggerCurrentAppState();
         }
@@ -93,15 +93,15 @@ public class NetworkedMonitor : NetworkBehaviour
 
     public void TriggerCurrentAppState()
     {
-        if (appState == AppState.Introduction)
+        if (AppState == AppState.Introduction)
             Instances.WebGLClientUI.EnableIntroductionMode();
-        else if (appState == AppState.Voting)
+        else if (AppState == AppState.Voting)
             Instances.WebGLClientUI.ToggleVotingMode(true);
-        else if (appState == AppState.ColorOverlay)
+        else if (AppState == AppState.ColorOverlay)
             Instances.WebGLClientUI.ToggleColorOverlayMode(true);
-        else if (appState == AppState.EffectSliders)
+        else if (AppState == AppState.EffectSliders)
             Instances.WebGLClientUI.EnableEffectSlidersMode();
-        else if (appState == AppState.WaysOfWater)
+        else if (AppState == AppState.WaysOfWater)
             Instances.WebGLClientUI.EnableWaysOfWaterMode();
     }
 
@@ -110,9 +110,9 @@ public class NetworkedMonitor : NetworkBehaviour
     {
         ToggleColorOverlayOnVotingClients(show);
         
-        appState = AppState.ColorOverlay;
+        Instances.NetworkedAppState.ChangeAppState(AppState.ColorOverlay);
         
-        appState = show ? AppState.Voting : AppState.Introduction;
+        Instances.NetworkedAppState.ChangeAppState(show ? AppState.Voting : AppState.Introduction);
     }
     
     [ObserversRpc]
@@ -131,7 +131,7 @@ public class NetworkedMonitor : NetworkBehaviour
     {
         ToggleVotingModeOnVotingClients(votingModeOn);
         
-        appState = votingModeOn ? AppState.Voting : AppState.Introduction;
+        Instances.NetworkedAppState.ChangeAppState(votingModeOn ? AppState.Voting : AppState.Introduction);
     }
     
     [ObserversRpc]
@@ -150,7 +150,7 @@ public class NetworkedMonitor : NetworkBehaviour
     {
         EnableIntroductionModeOnVotingClients();
         
-        appState = AppState.Introduction;
+        Instances.NetworkedAppState.ChangeAppState(AppState.Introduction);
     }
     
     [ObserversRpc]
@@ -169,7 +169,7 @@ public class NetworkedMonitor : NetworkBehaviour
     {
         EnableEffectSlidersModeOnVotingClients();
         
-        appState = AppState.EffectSliders;
+        Instances.NetworkedAppState.ChangeAppState(AppState.EffectSliders);
     }
     
     [ObserversRpc]
@@ -189,7 +189,7 @@ public class NetworkedMonitor : NetworkBehaviour
     {
         EnableWaysOfWaterModeOnVotingClients();
         
-        appState = AppState.WaysOfWater;
+        Instances.NetworkedAppState.ChangeAppState(AppState.WaysOfWater);
     }
     
     [ObserversRpc]
@@ -229,6 +229,7 @@ public class NetworkedMonitor : NetworkBehaviour
 
 public enum AppState
 {
+    Tutorial,
     Introduction,
     Voting,
     ColorOverlay,

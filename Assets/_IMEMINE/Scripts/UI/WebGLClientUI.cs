@@ -118,7 +118,7 @@ public class WebGLClientUI : UIWithConnection
     private string languagePlayerPrefsKey = "SavedLanguage";
 
     #endregion
-
+    
     #region Setup
     
     public void Start()
@@ -186,17 +186,17 @@ public class WebGLClientUI : UIWithConnection
         seatNumberDecrease10sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(false, SeatElement.Seat10s); });
         seatNumberIncrease1sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(true, SeatElement.Seat1s); });
         seatNumberDecrease1sButton.onClick.AsObservable().Subscribe(_ => { UpdateSeatVal(false, SeatElement.Seat1s); });
-
+        
         previousTutorialPartButton.onClick.AsObservable().Subscribe(_ => GoToNextTutorialPart(false));
         nextTutorialPartButton.onClick.AsObservable().Subscribe(_ => GoToNextTutorialPart(true));
         
         if(PlayerPrefs.HasKey(row10sKey))
         {
             int row10s = PlayerPrefs.GetInt(row10sKey);
-            int row1s = PlayerPrefs.GetInt(row1sKey, 0);
+            int row1s = PlayerPrefs.GetInt(row1sKey, 1);
             int seat10s = PlayerPrefs.GetInt(seat10sKey, 0);
-            int seat1s = PlayerPrefs.GetInt(seat1sKey, 0);
-
+            int seat1s = PlayerPrefs.GetInt(seat1sKey, 1);
+            
             int row = (row10s * 10) + row1s;
             int seat = (seat10s * 10) + seat1s;
             
@@ -224,12 +224,12 @@ public class WebGLClientUI : UIWithConnection
                 ToggleLanguage(true);
             }
         }
-
+        
         ToggleTutorial(true);
     }
-
+    
     #endregion
-
+    
     #region Seat Input
 
     private void OnConfirmSeatNumber()
@@ -532,27 +532,30 @@ public class WebGLClientUI : UIWithConnection
         int newLanguageVal = (nl ? 0 : 1);
         
         PlayerPrefs.SetInt(languagePlayerPrefsKey, newLanguageVal);
-
-        if(isInitVersion)
-            return;
-
-        if (SeatInputActive)
-        {
-            return;
-        }
+        //
+        // if(isInitVersion)
+        //     return;
+        //
+        // if (SeatInputActive)
+        // {
+        //     return;
+        // }
         
-        if (InstanceFinder.IsOffline == false)
-        {
-            if(Instances.NetworkedAppState.tutorial)
-                SetTutorialPart(currentTutorialPart);
-            //TODO Enable current mode
-            // else
-            //     
-        }
-        else
-        {
-            SetTutorialPart(currentTutorialPart);
-        }
+        // if (InstanceFinder.IsOffline == false)
+        // {
+        //     // if(Instances.NetworkedAppState.tutorial)
+        //     //     SetTutorialPart(currentTutorialPart);
+        //     
+        //     
+        //     
+        //     //TODO Enable current mode
+        //     // else
+        //     //     
+        // }
+        // else
+        // {
+        //     SetTutorialPart(currentTutorialPart);
+        // }
     }
     
     private void SetLanguageInTextComponents(bool nl)
@@ -563,7 +566,7 @@ public class WebGLClientUI : UIWithConnection
         seatTitleText.text = nl ? "STOEL" : "SEAT";
         
         seatConfirmButton.GetComponentInChildren<TextMeshProUGUI>().text = nl ? "KIES" : "CONFIRM";
-
+        
         highText.text = nl ? "HOOG" : "HIGH";
         tutorialHighText.text = nl ? "HOOG" : "HIGH";
         tutorialVoteHighText.text = nl ? "HOOG" : "HIGH";
@@ -571,8 +574,8 @@ public class WebGLClientUI : UIWithConnection
         tutorialLowText.text = nl ? "LAAG" : "LOW";
         tutorialVoteLowText.text = nl ? "LAAG" : "LOW";
         
-        hardText.text = "HARD";
-        tutorialHardText.text = "HARD";
+        hardText.text = nl ? "HARD" : "HARSH";
+        tutorialHardText.text = nl ? "HARD" : "HARSH";
         softText.text = nl ? "ZACHT" : "SOFT";
         tutorialSoftText.text = nl ? "ZACHT" : "SOFT";
     }
@@ -619,7 +622,7 @@ public class WebGLClientUI : UIWithConnection
     #endregion
     
     #region Tutorial
-
+    
     [Button]
     public void ToggleTutorial(bool tutorial, bool disableAllModes = true)
     {
@@ -839,7 +842,7 @@ public class WebGLClientUI : UIWithConnection
             Debug.Log($"<color=green>Toggle Enter Seat Dialog, show false</color>");
             if (InstanceFinder.IsOffline == false)
             {
-                if (Instances.NetworkedAppState.tutorial)
+                if (Instances.NetworkedAppState.appState == AppState.Tutorial)
                 {
                     ToggleColorOverlayMode(true);
                     ToggleTutorial(true);

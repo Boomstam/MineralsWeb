@@ -1180,7 +1180,7 @@ RectTransform:
   m_Father: {fileID: 6530605139104542415}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3724,8 +3724,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1016251192457797951}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -1.1047058, y: -15.694}
   m_SizeDelta: {x: -4.4189, y: 11.0986}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4891,7 +4891,7 @@ RectTransform:
   m_Father: {fileID: 3484159517146955905}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5823,8 +5823,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5778392304414386590}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -0.35560608, y: -17.0835}
   m_SizeDelta: {x: -1.4223, y: 10.5447}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9346,7 +9346,7 @@ MonoBehaviour:
   nextTutorialPartButton: {fileID: 2366106062582680423}
   tutorialTexts:
   - nlText: Hallo, mijn naam is Aura. Ik ben verheugd u te mogen verwelkomen bij
-      de voorstelling van 'Minerals'.
+      de voorstelling 'Minerals'.
     enText: "Hello, my name is Aura. I'm delighted to welcome you to the performance
       of 'Minerals\u2019.  "
   - nlText: Je kan via de knop linksboven je stoel aanpassen.
@@ -9355,15 +9355,14 @@ MonoBehaviour:
     enText: You can select your language preference from the top right corner.
   - nlText: Een groen lichtje in de rechterbovenhoek geeft aan dat u verbonden bent.
     enText: A green light in the top right corner indicates that you are connected.
-  - nlText: "Met de sliders kan je stemmen en de zowel de visuals als de muziek die
+  - nlText: "Met de sliders kan je stemmen en zowel de visuals als de muziek die
       de muzikanten spelen be\xEFnvloeden. Probeer het uit op de volgende pagina
       - je zal nu enkel de visuals zien veranderen.."
     enText: With the sliders, you can vote and influence both the visuals and the
-      music that the musicians play. Try it out on the next page - you'll only see
-      the visuals change for now.
+      music the musicians will play. Try it out on the next page.
   - nlText: Je kan het gemiddelde van alle stemmen op een slider achter je eigen
       stem volgen. Zodra je stem is geregistreerd, wordt deze vergrendeld en verschijnt
-      de publieksmeerderheid vooraan. Dit gemiddelde is uiteindelijk wat het globale
+      de publieksmeerderheid vooraan. Deze meerderheid is uiteindelijk wat het globale
       resultaat zal bepalen in de visuals en muziek..
     enText: You can track the majority of votes behind your personal vote. Once your
       vote is registered, it will be locked, and the public majority will be displayed
@@ -9375,7 +9374,7 @@ MonoBehaviour:
     enText: In specific sections, sounds will emerge from your device. You can adjust
       the range and intensity of these sounds using the sliders. The next page will
       play this kind of sound.
-  - nlText: Geniet van de interactieve voorstelling van 'Minerals'!
+  - nlText: Geniet van de interactieve voorstelling 'Minerals'!
     enText: Enjoy the interactive performance of 'Minerals'!
   highlightBlinkSpeed: 1
   seatButtonBackground: {fileID: 1951714988852289575}
@@ -12793,7 +12792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5248956814880740438
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12864,7 +12863,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &6202623950166387444
 MonoBehaviour:
   m_ObjectHideFlags: 0

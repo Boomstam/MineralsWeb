@@ -7,7 +7,8 @@ using UnityEngine;
 public class NetworkedAppState : NetworkBehaviour
 {
     [SyncVar (OnChange = nameof(OnCurrentAuraTextIndexChange))] public int currentAuraTextIndex;
-    [SyncVar (OnChange = nameof(OnTutorialChange))] public bool tutorial = true;
+    // [SyncVar (OnChange = nameof(OnTutorialChange))] public bool tutorial = true;
+    [SyncVar] public AppState appState;
 
     public override void OnStartClient()
     {
@@ -24,13 +25,19 @@ public class NetworkedAppState : NetworkBehaviour
         Instances.WebGLClientUI.auraTextDisplay.GoToText(newValue);
     }
     
-    private void OnTutorialChange(bool oldValue, bool newValue, bool asServer)
+    // private void OnTutorialChange(bool oldValue, bool newValue, bool asServer)
+    // {
+    //     if(Instances.BuildType != BuildType.Voting)
+    //         return;
+    //     
+    //     Debug.Log($"On Tutorial change: tutorial {newValue}");
+    //  
+    //     Instances.WebGLClientUI.ToggleTutorial(newValue);
+    // }
+
+    [Server]
+    public void ChangeAppState(AppState newAppState)
     {
-        if(Instances.BuildType != BuildType.Voting)
-            return;
-        
-        Debug.Log($"On Tutorial change: tutorial {newValue}");
-     
-        Instances.WebGLClientUI.ToggleTutorial(newValue);
+        this.appState = newAppState;
     }
 }

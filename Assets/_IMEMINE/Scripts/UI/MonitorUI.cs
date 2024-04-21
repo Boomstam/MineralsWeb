@@ -10,16 +10,9 @@ using UnityEngine.UI;
 
 public class MonitorUI : UIWithConnection
 {
-    [SerializeField] private Toggle colorOverlayToggle;
-    [SerializeField] private Toggle votingModeToggle;
-    [SerializeField] private Toggle blockVotingToggle;
-    [SerializeField] private Toggle muteSoundToggle;
-    [SerializeField] private Button introductionModeButton;
-    [SerializeField] private Button effectsSliderModeButton;
-    [SerializeField] private Button waysOfWaterModeButton;
+    [SerializeField] private TMP_Dropdown appStateDropdowm;
     [SerializeField] private Button sendChoiceButton;
     [SerializeField] private Button resetVotingButton;
-    [SerializeField] private Toggle sound1Toggle;
     [SerializeField] private TextMeshProUGUI resultVoteText;
     [SerializeField] private TextMeshProUGUI oscConnectionsText;
     [SerializeField] private TextMeshProUGUI clientConnectionsText;
@@ -40,34 +33,8 @@ public class MonitorUI : UIWithConnection
 
     private void Start()
     {
-        colorOverlayToggle.onValueChanged.AsObservable()
-            .Subscribe(toggleVal =>
-            {
-                Instances.NetworkedMonitor.ToggleColorOverlay(toggleVal);
-                votingModeToggle.SetIsOnWithoutNotify(false);
-
-                // Somewhere introduction mode should be implemented on clients
-            });
-        votingModeToggle.onValueChanged.AsObservable()
-            .Subscribe(toggleVal =>
-            {
-                Instances.NetworkedMonitor.ToggleVotingMode(toggleVal);
-                colorOverlayToggle.SetIsOnWithoutNotify(false);
-            });
-        blockVotingToggle.onValueChanged.AsObservable()
-            .Subscribe(ToggleBlockVoting);
-        muteSoundToggle.onValueChanged.AsObservable()
-            .Subscribe(toggleVal => Instances.NetworkedVoting.MuteSoundViaServer(toggleVal == false));
-
-        introductionModeButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedMonitor.EnableIntroductionMode());
-        effectsSliderModeButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedMonitor.EnableEffectSlidersMode());
-        waysOfWaterModeButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedMonitor.EnableWaysOfWaterMode());
-        
         sendChoiceButton.onClick.AsObservable().Subscribe(_ => SendChoice());
         resetVotingButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedVoting.ResetVoting());
-
-        sound1Toggle.onValueChanged.AsObservable()
-            .Subscribe(toggleVal => Instances.NetworkedMonitor.ToggleSound1(toggleVal));
 
         voteAverageSlider.onValueChanged.AsObservable()
             .Subscribe(sliderVal => Instances.NetworkedVoting.OnVoteAverageUpdate(sliderVal));
@@ -85,6 +52,13 @@ public class MonitorUI : UIWithConnection
             .Subscribe(val => Instances.NetworkedMonitor.SetWarningTime(int.Parse(val)));
     }
 
+    public void OnAppStateDropdownChanged(int newStateIndex)
+    {
+        AppState newState = (AppState)newStateIndex;
+        
+        Instances.NetworkedAppState.ChangeAppState(newState);
+    }
+    
     public void SetVoteAverage(float average, float offsettedAverage)
     {
         voteAverageText.text = $"Vote Average: {average:0.00}";

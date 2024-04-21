@@ -8361,7 +8361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.8490566, b: 0.29048404, a: 0.7529412}
+  m_Color: {r: 0.4250623, g: 0.4528302, b: 0.43453154, a: 0.7529412}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9513,7 +9513,6 @@ MonoBehaviour:
   introductionCanvas: {fileID: 0}
   auraTextDisplay: {fileID: 1734840960141247241}
   maxProgressBarRight: 527
-  statusText: {fileID: 4450054358540833742}
   oscMessageInput: {fileID: 1852804474211603148}
   sendOSCButton: {fileID: 4080784111260282437}
   choiceButtons:

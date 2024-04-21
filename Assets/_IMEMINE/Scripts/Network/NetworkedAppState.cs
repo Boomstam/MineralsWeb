@@ -8,7 +8,7 @@ public class NetworkedAppState : NetworkBehaviour
 {
     [SyncVar (OnChange = nameof(OnCurrentAuraTextIndexChange))] public int currentAuraTextIndex;
     // [SyncVar (OnChange = nameof(OnTutorialChange))] public bool tutorial = true;
-    [SyncVar] public AppState appState;
+    [SyncVar  (OnChange = nameof(OnAppStateChange))] public AppState appState;
     
     public override void OnStartClient()
     {
@@ -28,19 +28,28 @@ public class NetworkedAppState : NetworkBehaviour
         Instances.WebGLClientUI.auraTextDisplay.GoToText(newValue);
     }
     
-    // private void OnTutorialChange(bool oldValue, bool newValue, bool asServer)
-    // {
-    //     if(Instances.BuildType != BuildType.Voting)
-    //         return;
-    //     
-    //     Debug.Log($"On Tutorial change: tutorial {newValue}");
-    //  
-    //     Instances.WebGLClientUI.ToggleTutorial(newValue);
-    // }
-    
-    [Server]
+    private void OnAppStateChange(AppState oldValue, AppState newValue, bool asServer)
+    {
+        if(Instances.BuildType != BuildType.Voting)
+            return;
+        
+        Debug.Log($"On Tutorial change: tutorial {newValue}");
+     
+        Instances.WebGLClientUI.SetToAppState(newValue);
+    }
+
+    [ServerRpc (RequireOwnership = false)]
     public void ChangeAppState(AppState newAppState)
     {
         this.appState = newAppState;
     }
+}
+
+public enum AppState
+{
+    Tutorial,
+    Introduction,
+    MicroOrganisms,
+    WaysOfWater,
+    ColorOverlay,
 }

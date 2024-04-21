@@ -86,14 +86,13 @@ public class WebGLClientUI : UIWithConnection
     [Header("Other")]
     public AuraTextDisplay auraTextDisplay;
     [SerializeField] private float maxProgressBarRight = 527;
-    [SerializeField] private TextMeshProUGUI statusText;
-    [Header("Deprecated?")]
+    [Header("Deprecated? Or for testing?")]
     [SerializeField] private TMP_InputField oscMessageInput;
     [SerializeField] private Button sendOSCButton;
     [SerializeField] private Button[] choiceButtons;
     [SerializeField] private TextMeshProUGUI chapterText;
     [SerializeField] private TextMeshProUGUI contentText;
-
+    
     public bool PlayFadeClips { get; set; } = true;
     public ReactiveProperty<Language> currentLanguage;
     
@@ -371,28 +370,17 @@ public class WebGLClientUI : UIWithConnection
     #endregion
 
     #region Modes
-    
-    [Button]
-    public void ToggleColorOverlayMode(bool show)
-    {
-        if(show == false)
-            Debug.Log($"<color=yellow>HIDE COLOR OVERLAY</color>");
-        
-        DisableAllModes();
-            
-        // this.RunDelayed(Instances.SeatNumber, () => colorOverlay.gameObject.SetActive(show));
-        
-        voteSlider.gameObject.SetActive(false);
-        
-        Instances.AudioManager.StopAllPlayback();
-        Instances.AudioManager.ResetAllFx();
 
-        ToggleColorOverlayVisual(show);
-        
-        if (show)
+    public void SetToAppState(AppState appState)
+    {
+        switch (appState)
         {
-            // Instances.AudioManager.PlayClip(ClipType.Chapter5);
-            ShowEnterSeatDialog(false);
+            case AppState.Tutorial: ToggleTutorial(true);
+                break;
+            case AppState.Introduction: EnableIntroductionMode();
+                break;
+            case AppState.MicroOrganisms: EnableMicroOrganismsMode();
+                break;
         }
     }
 
@@ -408,8 +396,6 @@ public class WebGLClientUI : UIWithConnection
         DisableAllModes();
         
         imageFader.DisplayFadeImages(fadeSprites);
-        
-        SetStatusText(votingModeOn ? $"Intensity" : "");
         
         Instances.AudioManager.StopAllPlayback();
         Instances.AudioManager.ResetAllFx();
@@ -460,6 +446,16 @@ public class WebGLClientUI : UIWithConnection
         
     }
     
+    
+    [Button]
+    public void EnableMicroOrganismsMode()
+    {
+        DisableAllModes();
+        
+        // backgroundVideo.gameObject.SetActive(true);
+        
+    }
+    
     [Button]
     public void EnableWaysOfWaterMode()
     {
@@ -502,8 +498,6 @@ public class WebGLClientUI : UIWithConnection
         
         Instances.AudioManager.StopAllPlayback();
         Instances.AudioManager.ResetAllFx();
-
-        SetStatusText("");
         
         effectsSliders.SetActive(false);
         tutorialSliders.SetActive(false);
@@ -830,8 +824,6 @@ public class WebGLClientUI : UIWithConnection
         {
             ToggleTutorial(false, false);
             StopBlinkAnimations();
-            ToggleColorOverlayMode(true);
-
         }
         else
         {
@@ -840,18 +832,13 @@ public class WebGLClientUI : UIWithConnection
             {
                 if (Instances.NetworkedAppState.appState == AppState.Tutorial)
                 {
-                    ToggleColorOverlayMode(true);
                     ToggleTutorial(true);
                 }
             }
             else
             {
-                ToggleColorOverlayMode(true);
                 ToggleTutorial(true);
             }
-            // ToggleColorOverlay(true);
-            // else
-            //     Instances.NetworkedMonitor.TriggerCurrentAppState();
         }
         
         ShowEnterSeatDialog(show);
@@ -860,15 +847,8 @@ public class WebGLClientUI : UIWithConnection
     private void ShowEnterSeatDialog(bool show)
     {
         seatInputHolder.SetActive(show);
+    }
 
-        // SetStatusText(show ? $"Enter Your Seat Number" : "");
-    }
-    
-    private void SetStatusText(string text)
-    {
-        statusText.text = text;
-    }
-    
     #endregion
 }
 

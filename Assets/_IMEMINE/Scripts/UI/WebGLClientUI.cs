@@ -61,11 +61,17 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private Slider tutorialHighLowSlider;
     [SerializeField] private TextMeshProUGUI tutorialVoteHighText;
     [SerializeField] private TextMeshProUGUI tutorialVoteLowText;
+    [SerializeField] private TextMeshProUGUI tutorialVoteMajorityText;
+    [SerializeField] private TextMeshProUGUI tutorialVoteYourVoteText;
     [SerializeField] private TextMeshProUGUI tutorialHighText;
     [SerializeField] private TextMeshProUGUI tutorialLowText;
+    [SerializeField] private TextMeshProUGUI tutorialVotingStatusTextNL;
+    [SerializeField] private TextMeshProUGUI tutorialVotingStatusTextEN;
     [SerializeField] private Slider tutorialDistortionSlider;
-    [SerializeField] private TextMeshProUGUI tutorialHardText;
-    [SerializeField] private TextMeshProUGUI tutorialSoftText;
+    [SerializeField] private TextMeshProUGUI tutorialHardNLText;
+    [SerializeField] private TextMeshProUGUI tutorialHardENText;
+    [SerializeField] private TextMeshProUGUI tutorialSoftNLText;
+    [SerializeField] private TextMeshProUGUI tutorialSoftENText;
     [SerializeField] private GameObject tutorialVoting;
     [SerializeField] private Slider tutorialVoteSlider;
     [SerializeField] private Slider tutorialAverageSlider;
@@ -522,30 +528,32 @@ public class WebGLClientUI : UIWithConnection
         int newLanguageVal = (nl ? 0 : 1);
         
         PlayerPrefs.SetInt(languagePlayerPrefsKey, newLanguageVal);
-        //
-        // if(isInitVersion)
-        //     return;
-        //
-        // if (SeatInputActive)
-        // {
-        //     return;
-        // }
+
+        if (SeatInputActive)
+        {
+            return;
+        }
         
-        // if (InstanceFinder.IsOffline == false)
-        // {
-        //     // if(Instances.NetworkedAppState.tutorial)
-        //     //     SetTutorialPart(currentTutorialPart);
-        //     
-        //     
-        //     
-        //     //TODO Enable current mode
-        //     // else
-        //     //     
-        // }
-        // else
-        // {
-        //     SetTutorialPart(currentTutorialPart);
-        // }
+        if (isInitVersion)
+        {
+            return;
+        }
+        
+        if (InstanceFinder.IsOffline == false)
+        {
+            if(Instances.NetworkedAppState.appState == AppState.Tutorial)
+                SetTutorialPart(currentTutorialPart);
+
+            Debug.Log($"TOGGLE LANGUAGE when online");
+            
+            //TODO Enable current mode
+            // else
+            //     
+        }
+        else
+        {
+            SetTutorialPart(currentTutorialPart);
+        }
     }
     
     private void SetLanguageInTextComponents(bool nl)
@@ -563,11 +571,22 @@ public class WebGLClientUI : UIWithConnection
         lowText.text = nl ? "LAAG" : "LOW";
         tutorialLowText.text = nl ? "LAAG" : "LOW";
         tutorialVoteLowText.text = nl ? "LAAG" : "LOW";
+        tutorialVoteMajorityText.text = nl ? "Publieks-meerderheid" : "Majority of Votes";
+        tutorialVoteYourVoteText.text = nl ? "Uw Stem" : "Your Vote";
         
         hardText.text = nl ? "HARD" : "HARSH";
-        tutorialHardText.text = nl ? "HARD" : "HARSH";
+        // tutorialHardText.text = nl ? "HARD" : "HARSH";
         softText.text = nl ? "ZACHT" : "SOFT";
-        tutorialSoftText.text = nl ? "ZACHT" : "SOFT";
+        // tutorialSoftText.text = nl ? "ZACHT" : "SOFT";
+        
+        tutorialVotingStatusTextNL.gameObject.SetActive(nl);
+        tutorialVotingStatusTextEN.gameObject.SetActive(nl == false);
+        
+        tutorialHardNLText.gameObject.SetActive(nl);
+        tutorialHardENText.gameObject.SetActive(nl == false);
+        
+        tutorialSoftNLText.gameObject.SetActive(nl);
+        tutorialSoftENText.gameObject.SetActive(nl == false);
     }
     
     #endregion
@@ -704,12 +723,12 @@ public class WebGLClientUI : UIWithConnection
             case TutorialPartType.Welcome:
                 ShowTutorialText(0);
                 break;
-            case TutorialPartType.Seat:
-                seatButtonBackgroundBlinkRoutine = StartCoroutine(DoBlinkAnimation(seatButtonBackground));
-                ShowTutorialText(1);
-                break;
             case TutorialPartType.Language:
                 languageButtonBackgroundBlinkRoutine = StartCoroutine(DoBlinkAnimation(languageButtonBackground));
+                ShowTutorialText(1);
+                break;
+            case TutorialPartType.Seat:
+                seatButtonBackgroundBlinkRoutine = StartCoroutine(DoBlinkAnimation(seatButtonBackground));
                 ShowTutorialText(2);
                 break;
             case TutorialPartType.Connection:
@@ -724,6 +743,8 @@ public class WebGLClientUI : UIWithConnection
                 tutorialAverageSlider.transform.SetSiblingIndex(0);
                 tutorialVoteSlider.interactable = true;
                 tutorialAverageSlider.interactable = false;
+                tutorialVotingStatusTextNL.text = "Stem nu!";
+                tutorialVotingStatusTextEN.text = "Vote now!";
                 EnableTutorialVotingMode();
                 break;
             case TutorialPartType.MajorityExplanation:
@@ -734,21 +755,54 @@ public class WebGLClientUI : UIWithConnection
                 tutorialVoteSlider.transform.SetSiblingIndex(0);
                 tutorialVoteSlider.interactable = false;
                 tutorialAverageSlider.interactable = false;
+                tutorialVotingStatusTextNL.text = "Stem vergrendeld";
+                tutorialVotingStatusTextEN.text = "Voting blocked";
                 EnableTutorialVotingMode();
                 break;
-            case TutorialPartType.AudioExplanation:
+            case TutorialPartType.AudioExplanation1:
                 ShowTutorialText(6);
+                break;
+            case TutorialPartType.AudioExplanation2:
+                ShowTutorialText(7);
                 break;
             case TutorialPartType.Audio:
                 tutorialText.gameObject.SetActive(false);
                 EnableTutorialSlidersMode();
                 break;
             case TutorialPartType.Enjoy:
-                ShowTutorialText(7);
+                ShowTutorialText(8);
                 break;
             default:
                 Debug.LogError($"Couldn't handle TutorialPartType {tutorialPartType}");
                 // DisableAllModes();
+                break;
+        }
+    }
+
+    public void SetTutorialSliderTexts(int soundIndex)
+    {
+        switch (soundIndex)
+        {
+            case 0: 
+                tutorialSoftNLText.text = "Stalagmieten";
+                tutorialHardNLText.text = "Stalactieten";
+                
+                tutorialSoftENText.text = "Stalagmites";
+                tutorialHardENText.text = "Stalactites";
+                break;
+            case 1: 
+                tutorialSoftNLText.text = "Stalactieten";
+                tutorialHardNLText.text = "Stalagflieten";
+                
+                tutorialSoftENText.text = "Stalactites";
+                tutorialHardENText.text = "Stalagflites";
+                break;
+            case 2: 
+                tutorialSoftNLText.text = "Stalagflieten";
+                tutorialHardNLText.text = "Stalagmieten";
+                
+                tutorialSoftENText.text = "Stalagflites";
+                tutorialHardENText.text = "Stalagmites";
                 break;
         }
     }
@@ -824,6 +878,18 @@ public class WebGLClientUI : UIWithConnection
         {
             ToggleTutorial(false, false);
             StopBlinkAnimations();
+            
+            if (InstanceFinder.IsOffline == false)
+            {
+                if (Instances.NetworkedAppState.appState == AppState.Tutorial)
+                {
+                    ToggleColorOverlayVisual(true);
+                }
+            }
+            else
+            {
+                ToggleColorOverlayVisual(true);
+            }
         }
         else
         {
@@ -869,14 +935,15 @@ public enum Language
 public enum TutorialPartType
 {
     Welcome, // Also language
-    Seat,
     Language,
+    Seat,
     Connection,
     SlidersExplanation,
     Slider,
     MajorityExplanation,
     Majority,
-    AudioExplanation,
+    AudioExplanation1,
+    AudioExplanation2,
     Audio,
     Enjoy,
 }

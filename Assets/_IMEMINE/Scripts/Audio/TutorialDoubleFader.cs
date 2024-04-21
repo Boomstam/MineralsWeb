@@ -11,33 +11,17 @@ using Random = UnityEngine.Random;
 
 public class TutorialDoubleFader : MonoBehaviour
 {
-    // public bool sound1;
-    
-    // [SerializeField] private AudioManager audioManager;
     [SerializeField] private AudioFader[] audioFaders;
     [SerializeField] private AudioMixerGroup lowAudioMixerGroup;
-    // [SerializeField] private AudioMixerGroup midAudioMixerGroup;
     [SerializeField] private AudioMixerGroup highAudioMixerGroup;
 
-    // [SerializeField] private AudioClip[] clipTypesLow1;
-    // [SerializeField] private AudioClip[] clipTypesMid1;
-    // [SerializeField] private AudioClip[] clipTypesHigh1;
-    //
-    // [SerializeField] private AudioClip[] clipTypesLow2;
-    // [SerializeField] private AudioClip[] clipTypesMid2;
-    // [SerializeField] private AudioClip[] clipTypesHigh2;
-    //
     [SerializeField] private AudioClip[] clipTypesLow;
-    // [SerializeField] private AudioClip[] clipTypesMid;
     [SerializeField] private AudioClip[] clipTypesHigh;
-    // [SerializeField] private AudioMixerGroup master;
     
     private const float minVolume = 0.01f;
     
     private AudioSource[] sources;
-
-    // private int CurrentNumSources => sources?.Length ?? 0;
-
+    
     private float lastFadeVal = 0.5f;
     
     [Button]
@@ -49,20 +33,17 @@ public class TutorialDoubleFader : MonoBehaviour
     [Button]
     public void PlayFadeSamples()
     {
-        // if()
-        
         int type = Random.Range(0, clipTypesLow.Length / 2);
         
+        Instances.WebGLClientUI.SetTutorialSliderTexts(type);
+        
         AudioClip[] lowFadeClips = { clipTypesLow[type * 2], clipTypesLow[type * 2 + 1] };
-        // AudioClip[] midFadeClips = { clipTypesMid[type * 2], clipTypesMid[type * 2 + 1] };
         AudioClip[] highFadeClips = { clipTypesHigh[type * 2], clipTypesHigh[type * 2 + 1] };
         
         audioFaders[0].PlayFadeSamples(lowFadeClips);
-        // audioFaders[1].PlayFadeSamples(midFadeClips);
         audioFaders[1].PlayFadeSamples(highFadeClips);
         
         audioFaders[0].SetAudioMixerGroup(lowAudioMixerGroup);
-        // audioFaders[1].SetAudioMixerGroup(midAudioMixerGroup);
         audioFaders[1].SetAudioMixerGroup(highAudioMixerGroup);
     }
     
@@ -94,7 +75,6 @@ public class TutorialDoubleFader : MonoBehaviour
             if (i == startSample + 1)
                 volume = remainderPercentage;
 
-            //float scaledVolume = (volume * 80) - 80;
             float scaledVolume = Mathf.Log(volume) * 20;
             
             audioMixerGroup.audioMixer.SetFloat(NameForIndex(i), scaledVolume);
@@ -105,8 +85,6 @@ public class TutorialDoubleFader : MonoBehaviour
     {
         if (index == 0)
             return $"Low";
-        // if (index == 1)
-        //     return $"Mid";
         
         return $"High";
     }

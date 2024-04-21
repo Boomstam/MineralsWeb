@@ -26,12 +26,13 @@ public class TypeAnimation : MonoBehaviour
     {
         if (typingRoutine != null)
             StopCoroutine(typingRoutine);
-
+        
         typingRoutine = StartCoroutine(DoTyping(text));
     }
 
     private IEnumerator DoTyping(string text)
     {
+        Debug.Log($"Do typing: {text}");
         for (int i = 0; i < text.Length; i++)
         {
             string partToShow = text.Substring(0, i + 1);

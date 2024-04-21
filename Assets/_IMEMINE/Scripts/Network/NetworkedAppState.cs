@@ -16,16 +16,26 @@ public class NetworkedAppState : NetworkBehaviour
         
         Debug.Log($"Start Client NetworkedAppState");
     }
-    
+
     private void OnCurrentAuraTextIndexChange(int oldValue, int newValue, bool asServer)
     {
         if(Instances.BuildType != BuildType.Voting)
             return;
-        
+
         if(appState != AppState.Introduction)
             return;
         
         Instances.WebGLClientUI.auraTextDisplay.GoToText(newValue);
+    }
+    
+    [ServerRpc (RequireOwnership = false)]
+    public void GoToNextAuraTextIndex(bool next)
+    {
+        int newIndex = currentAuraTextIndex + (next ? 1 : -1);
+
+        newIndex = Mathf.Clamp(newIndex, 0, int.MaxValue);
+
+        currentAuraTextIndex = newIndex;
     }
     
     private void OnAppStateChange(AppState oldValue, AppState newValue, bool asServer)

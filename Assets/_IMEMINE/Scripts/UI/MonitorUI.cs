@@ -17,6 +17,9 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI oscConnectionsText;
     [SerializeField] private TextMeshProUGUI clientConnectionsText;
     
+    [SerializeField] private Button previousAuraTextButton;
+    [SerializeField] private Button nextAuraTextButton;
+    
     [SerializeField] private TextMeshProUGUI voteAverageText;
     [SerializeField] private Slider voteAverageSlider;
     [SerializeField] private TextMeshProUGUI voteOffsetText;
@@ -35,7 +38,7 @@ public class MonitorUI : UIWithConnection
     {
         sendChoiceButton.onClick.AsObservable().Subscribe(_ => SendChoice());
         resetVotingButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedVoting.ResetVoting());
-
+        
         voteAverageSlider.onValueChanged.AsObservable()
             .Subscribe(sliderVal => Instances.NetworkedVoting.OnVoteAverageUpdate(sliderVal));
         voteOffsetSlider.onValueChanged.AsObservable()
@@ -44,6 +47,9 @@ public class MonitorUI : UIWithConnection
                 voteOffsetText.text = $"Vote offset: {sliderVal}";
                 Instances.NetworkedVoting.UpdateVoteOffset(sliderVal);
             });
+        
+        previousAuraTextButton.onClick.AsObservable().Subscribe(_ => GoToNextAuraText(false));
+        nextAuraTextButton.onClick.AsObservable().Subscribe(_ => GoToNextAuraText(true));
         
         BThresholdSlider.onValueChanged.AsObservable().Subscribe(sliderVal => BThresholdText.text = $"B Threshold: {sliderVal:0.00}");
         CThresholdSlider.onValueChanged.AsObservable().Subscribe(sliderVal => CThresholdText.text = $"C Threshold: {sliderVal:0.00}");
@@ -89,6 +95,11 @@ public class MonitorUI : UIWithConnection
     private void ToggleBlockVoting(bool blockVoting)
     {
         Instances.NetworkedVoting.UpdateVotingBlocked(blockVoting);
+    }
+
+    private void GoToNextAuraText(bool next)
+    {
+        Instances.NetworkedAppState.GoToNextAuraTextIndex(next);
     }
 
     [Button]

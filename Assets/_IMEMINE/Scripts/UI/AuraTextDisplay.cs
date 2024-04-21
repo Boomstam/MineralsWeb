@@ -18,6 +18,7 @@ public class AuraTextDisplay : MonoBehaviour
     
     public void GoToText(int index)
     {
+        Debug.Log($"Go to text {index} on {name}");
         if (index >= auraTexts.Length)
         {
             Debug.LogError($"Index {index} was too big for the auraText array of size {auraTexts.Length} in GoToText");

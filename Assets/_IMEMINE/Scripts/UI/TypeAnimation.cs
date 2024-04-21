@@ -18,9 +18,9 @@ public class TypeAnimation : MonoBehaviour
     [SerializeField] private float percentageOfTypingSounds;
     [SerializeField] private AudioClip[] typingClips;
     [SerializeField] private AudioSource typingSoundSource;
-
+    
     private Coroutine typingRoutine;
-
+    
     [Button]
     public void TypeAnimate(string text)
     {

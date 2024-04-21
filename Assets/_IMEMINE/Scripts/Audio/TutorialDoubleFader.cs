@@ -23,13 +23,7 @@ public class TutorialDoubleFader : MonoBehaviour
     private AudioSource[] sources;
     
     private float lastFadeVal = 0.5f;
-    
-    [Button]
-    private void PlayTestSamples()
-    {
-        
-    }
-    
+
     [Button]
     public void PlayFadeSamples()
     {

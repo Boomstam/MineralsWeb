@@ -8,14 +8,9 @@ public class WebGLVideoPlayer : MonoBehaviour
 {
     [SerializeField] private string videoFileExtension;
     [SerializeField] private VideoPlayer videoPlayer;
-
-    void Start()
-    {
-        // this.RunDelayed(1, () => PlayVideo(VideoType.Lava));
-    }
     
     [Button]
-    private void PlayVideo(VideoType videoType)
+    public void PlayVideo(VideoType videoType)
     {
         string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, videoType + videoFileExtension);    
         Debug.Log($"Play video {videoType}, path: {videoPath}");
@@ -27,7 +22,11 @@ public class WebGLVideoPlayer : MonoBehaviour
 
 public enum VideoType
 {
+    Aura,
+    MicroOrganisms,
     MicroOrganismsCycle,
-    Lava,
-    Stars,
+    WaysOfWater,
+    AboutCrystals,
+    Magma,
+    AuraTest,
 }

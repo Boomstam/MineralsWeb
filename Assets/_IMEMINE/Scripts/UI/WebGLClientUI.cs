@@ -8,6 +8,7 @@ using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class WebGLClientUI : UIWithConnection
 {
@@ -19,6 +20,8 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private Sprite[] fadeSprites;
     [SerializeField] private ImageFader imageFader;
     [SerializeField] private RawImage backgroundVideo;
+    [SerializeField] private WebGLVideoPlayer votingClientVideoPlayer;
+    [SerializeField] private VideoPlayer videoPlayer;
     [SerializeField] private GameObject waysOfWater;
     [SerializeField] private GameObject voteWarning;
     [SerializeField] private TextMeshProUGUI voteWarningText;
@@ -379,6 +382,7 @@ public class WebGLClientUI : UIWithConnection
 
     public void SetToAppState(AppState appState)
     {
+        Debug.Log($"Set to appstate {appState}");
         switch (appState)
         {
             case AppState.Tutorial: ToggleTutorial(true);
@@ -446,10 +450,13 @@ public class WebGLClientUI : UIWithConnection
     [Button]
     public void EnableIntroductionMode()
     {
-        DisableAllModes();
+        DisableAllModes(true);
         
-        // backgroundVideo.gameObject.SetActive(true);
-        
+        backgroundVideo.gameObject.SetActive(true);
+        introductionCanvas.gameObject.SetActive(true);
+
+        votingClientVideoPlayer.PlayVideo(VideoType.Aura);
+        videoPlayer.playbackSpeed = 0.6f;
     }
     
     
@@ -458,7 +465,7 @@ public class WebGLClientUI : UIWithConnection
     {
         DisableAllModes();
         
-        // backgroundVideo.gameObject.SetActive(true);
+        backgroundVideo.gameObject.SetActive(true);
         
     }
     
@@ -486,14 +493,18 @@ public class WebGLClientUI : UIWithConnection
     }
 
     [Button]
-    private void DisableAllModes()
+    private void DisableAllModes(bool disableTutorial = false)
     {
+        if(disableTutorial)
+            tutorialCanvas.gameObject.SetActive(false);
+        
         ShowEnterSeatDialog(false);
         
         StopBlinkAnimations();
         
         colorOverlay.gameObject.SetActive(false);
         backgroundVideo.gameObject.SetActive(false);
+        introductionCanvas.gameObject.SetActive(false);
         
         waysOfWater.SetActive(false);
         

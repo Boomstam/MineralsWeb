@@ -22,6 +22,7 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private RawImage backgroundVideo;
     [SerializeField] private WebGLVideoPlayer votingClientVideoPlayer;
     [SerializeField] private VideoPlayer videoPlayer;
+    [SerializeField] private GameObject microOrganisms;
     [SerializeField] private GameObject waysOfWater;
     [SerializeField] private GameObject voteWarning;
     [SerializeField] private TextMeshProUGUI voteWarningText;
@@ -94,6 +95,12 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private GameObject introductionCanvas;
     [SerializeField] private TextMeshProUGUI votingStatusTextNL;
     [SerializeField] private TextMeshProUGUI votingStatusTextEN;
+    [SerializeField] private TextMeshProUGUI microOrganismsHighText;
+    [SerializeField] private TextMeshProUGUI microOrganismsLowText;
+    [SerializeField] private TextMeshProUGUI organism1Text;
+    [SerializeField] private TextMeshProUGUI organism2Text;
+    [SerializeField] private Slider microOrganismsHighLowSlider;
+    [SerializeField] private Slider organismsSlider;
     [Header("Other")]
     public AuraTextDisplay auraTextDisplay;
     [SerializeField] private float maxProgressBarRight = 527;
@@ -827,6 +834,34 @@ public class WebGLClientUI : UIWithConnection
     }
 
     public void SetTutorialSliderTexts(int soundIndex)
+    {
+        switch (soundIndex)
+        {
+            case 0: 
+                tutorialSoftNLText.text = "Stalagmieten";
+                tutorialHardNLText.text = "Stalactieten";
+                
+                tutorialSoftENText.text = "Stalagmites";
+                tutorialHardENText.text = "Stalactites";
+                break;
+            case 1: 
+                tutorialSoftNLText.text = "Stalactieten";
+                tutorialHardNLText.text = "Stalagflieten";
+                
+                tutorialSoftENText.text = "Stalactites";
+                tutorialHardENText.text = "Stalagflites";
+                break;
+            case 2: 
+                tutorialSoftNLText.text = "Stalagflieten";
+                tutorialHardNLText.text = "Stalagmieten";
+                
+                tutorialSoftENText.text = "Stalagflites";
+                tutorialHardENText.text = "Stalagmites";
+                break;
+        }
+    }
+    
+    public void SetMicroOrganismsSliderTexts(int soundIndex)
     {
         switch (soundIndex)
         {

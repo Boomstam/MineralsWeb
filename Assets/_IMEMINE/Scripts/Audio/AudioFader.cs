@@ -14,9 +14,9 @@ public class AudioFader : MonoBehaviour
     [SerializeField] private AudioSource fadeSamplePrefab;
     
     private AudioSource[] sources;
-
+    
     private int CurrentNumSources => sources?.Length ?? 0;
-
+    
     private float lastFadeVal = 0.5f;
     
     [Button]
@@ -33,9 +33,9 @@ public class AudioFader : MonoBehaviour
             return;
         }
         float percentagePerSource = 1f / (float)(CurrentNumSources - 1);
-
+        
         int startSample = Mathf.FloorToInt(fadeVal / percentagePerSource);
-
+        
         float remainder = fadeVal - (percentagePerSource * startSample);
         
         float remainderPercentage = remainder / percentagePerSource;
@@ -54,7 +54,7 @@ public class AudioFader : MonoBehaviour
             audioSource.volume = volume;
         }
     }
-
+    
     /*
      * Modes???
      * effects = micro organisms

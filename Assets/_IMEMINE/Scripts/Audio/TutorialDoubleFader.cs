@@ -74,7 +74,7 @@ public class TutorialDoubleFader : MonoBehaviour
             audioMixerGroup.audioMixer.SetFloat(NameForIndex(i), scaledVolume);
         }
     }
-
+    
     private string NameForIndex(int index)
     {
         if (index == 0)

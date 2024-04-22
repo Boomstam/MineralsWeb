@@ -7,7 +7,6 @@ using UnityEngine.Audio;
 
 public class DelayAudioFader : MonoBehaviour
 {
-    
     [SerializeField] private AudioManager audioManager;
     // [SerializeField] private AudioMixerGroup master;
     [SerializeField] private AudioSource fadeSamplePrefab;
@@ -66,7 +65,7 @@ public class DelayAudioFader : MonoBehaviour
             // sources[0].volume *= 0.8f;
         }
     }
-
+    
     /*
      * Modes???
      * effects = micro organisms
@@ -85,9 +84,9 @@ public class DelayAudioFader : MonoBehaviour
     public void PlayFadeSamples(AudioClip[] fadeClips)
     {
         int numClips = fadeClips.Length;
-
+        
         CreateAudioSources(numClips);
-
+        
         for (int clipIndex = 0; clipIndex < numClips; clipIndex++)
         {
             sources[clipIndex].clip = fadeClips[clipIndex];
@@ -99,24 +98,24 @@ public class DelayAudioFader : MonoBehaviour
     private void CreateAudioSources(int numClips)
     {
         sources = new AudioSource[numClips];
-
+        
         for (int clipIndex = 0; clipIndex < numClips; clipIndex++)
         {
             sources[clipIndex] = Instantiate(fadeSamplePrefab);
             sources[clipIndex].name += $" {clipIndex}";
         }
     }
-
+    
     public void StopAllPlayback()
     {
         for (int sourceIndex = 0; sourceIndex < CurrentNumSources; sourceIndex++)
         {
             Destroy(sources[sourceIndex].gameObject);
         }
-
+        
         sources = Array.Empty<AudioSource>();
     }
-
+    
     public void SetAudioMixerGroup(AudioMixerGroup audioMixerGroup)
     {
         // sources.ForEach(source => source.outputAudioMixerGroup = audioMixerGroup);

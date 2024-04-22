@@ -49,18 +49,18 @@ public class DelayPlayer : MonoBehaviour
             }
         }
     }
-
+    
     private void PlayRandomDelay()
     {
         int nextIndex = Random.Range(0, numDifferentSounds);
-
+        
         AudioClip[] clips = new[]
         {
             delayClips[(nextIndex * numSources)],
             delayClips[(nextIndex * numSources) + 1],
             delayClips[(nextIndex * numSources) + 2],
         };
-
+        
         float delayTime =
             Random.Range(Instances.NetworkedMonitor.minDelayTime, Instances.NetworkedMonitor.maxDelayTime);
         
@@ -71,26 +71,26 @@ public class DelayPlayer : MonoBehaviour
     {
         StartCoroutine(PlayWithDelayRoutine(audioClips, delayTime, feedback));
     }
-
+    
     private IEnumerator PlayWithDelayRoutine(AudioClip[] audioClips, float delayTime, float feedback)
     {
         if(feedback is < 0 or > 1)
             Debug.LogError($"Feedback {feedback} not between 0 and 1");
         
         List<AudioSource> createdSources = new List<AudioSource>();
-
+        
         float clipLength = audioClips.First().length;
         
         float volume = 1;
-
+        
         createdSources.AddRange(NewAudioSourcesWithClips(audioClips, volume));
-
+        
         float fallOff = 1 - feedback;
         
         while (volume > 0)
         {
             yield return new WaitForSeconds(delayTime);
-        
+            
             volume = volume - fallOff;
             
             createdSources.AddRange(NewAudioSourcesWithClips(audioClips, volume));

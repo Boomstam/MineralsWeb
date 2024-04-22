@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
 {
     public AudioMixerGroup master;
     public AudioFader audioFader;
+    // public AudioFader audioFader;
     public DoubleFader doubleFader;
     public TutorialDoubleFader tutorialDoubleFader;
     public CirclePlayer circlePlayer;
@@ -23,6 +24,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioReverbFilter audioReverbFilter;
     [SerializeField] private AudioLowPassFilter audioLowPassFilter;
     [SerializeField] private AudioHighPassFilter audioHighPassFilter;
+    [SerializeField] private AudioClip[] microOrganismsClips;
+    [SerializeField] private AudioClip[] waysOfWaterClips;
 
     [SerializeField] private float fadeInTime;
     [SerializeField] private float fadeOutTime;

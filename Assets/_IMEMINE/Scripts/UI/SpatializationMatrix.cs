@@ -10,7 +10,7 @@ public class SpatializationMatrix : MonoBehaviour
 {
     [SerializeField] private Toggle[] toggles;
     [SerializeField] private QuadrantRange[] ranges;
-
+    
     private void Start()
     {
         if(toggles.Length != ranges.Length)
@@ -36,7 +36,7 @@ public class SpatializationMatrix : MonoBehaviour
         DisableAllToggles();
         
         toggles[quadrant].SetIsOnWithoutNotify(true);
-
+        
         Instances.NetworkedAppState.EnableQuadrantRanges(ranges[quadrant].seatMinMax, ranges[quadrant].rowMinMax);
     }
     

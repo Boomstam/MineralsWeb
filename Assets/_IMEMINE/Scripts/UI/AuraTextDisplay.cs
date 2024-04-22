@@ -10,6 +10,7 @@ public class AuraTextDisplay : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI auraTextComponent;
     [SerializeField] private AuraText[] auraTexts;
+    [SerializeField] private GameObject backgroundPanel;
     
     private void Start()
     {
@@ -25,13 +26,15 @@ public class AuraTextDisplay : MonoBehaviour
             return;
         }
         
+        backgroundPanel.SetActive(index != 0);
+        
         auraTextComponent.text = auraTexts[index].GetText(Instances.WebGLClientUI.currentLanguage.Value);
     }
     
     private void SetLanguage(Language language)
     {
         int index = Instances.NetworkedAppState.currentAuraTextIndex;
-
+        
         if (index >= auraTexts.Length)
         {
             Debug.LogError($"Index {index} was too big for the auraText array of size {auraTexts.Length} in SetLanguage");

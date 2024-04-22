@@ -7,7 +7,6 @@ using UnityEngine;
 public class NetworkedAppState : NetworkBehaviour
 {
     [SyncVar (OnChange = nameof(OnCurrentAuraTextIndexChange))] public int currentAuraTextIndex;
-    // [SyncVar (OnChange = nameof(OnTutorialChange))] public bool tutorial = true;
     [SyncVar  (OnChange = nameof(OnAppStateChange))] public AppState appState;
     
     public override void OnStartClient()
@@ -16,12 +15,12 @@ public class NetworkedAppState : NetworkBehaviour
         
         Debug.Log($"Start Client NetworkedAppState");
     }
-
+    
     private void OnCurrentAuraTextIndexChange(int oldValue, int newValue, bool asServer)
     {
         if(Instances.BuildType != BuildType.Voting)
             return;
-
+        
         if(appState != AppState.Introduction)
             return;
         
@@ -32,9 +31,9 @@ public class NetworkedAppState : NetworkBehaviour
     public void GoToNextAuraTextIndex(bool next)
     {
         int newIndex = currentAuraTextIndex + (next ? 1 : -1);
-
+        
         newIndex = Mathf.Clamp(newIndex, 0, int.MaxValue);
-
+        
         currentAuraTextIndex = newIndex;
     }
     
@@ -44,10 +43,10 @@ public class NetworkedAppState : NetworkBehaviour
             return;
         
         Debug.Log($"On Tutorial change: tutorial {newValue}");
-     
+        
         Instances.WebGLClientUI.SetToAppState(newValue);
     }
-
+    
     [ServerRpc (RequireOwnership = false)]
     public void ChangeAppState(AppState newAppState)
     {
@@ -60,6 +59,8 @@ public enum AppState
     Tutorial,
     Introduction,
     MicroOrganisms,
+    Magma,
     WaysOfWater,
+    AboutCrystals,
     ColorOverlay,
 }

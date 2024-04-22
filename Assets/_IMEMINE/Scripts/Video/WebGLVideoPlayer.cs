@@ -24,9 +24,7 @@ public enum VideoType
 {
     Aura,
     MicroOrganisms,
-    MicroOrganismsCycle,
     WaysOfWater,
     AboutCrystals,
     Magma,
-    AuraTest,
 }

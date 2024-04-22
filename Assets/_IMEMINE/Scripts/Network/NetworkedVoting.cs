@@ -10,7 +10,8 @@ using UnityEngine;
 
 public class NetworkedVoting : NetworkBehaviour
 {
-    [SyncVar] public bool votingBlocked;
+    [SyncVar (OnChange = nameof(OnVotingBlockChanged))] public bool votingBlocked;
+    [SyncVar (OnChange = nameof(OnVotingModeChanged))] public bool votingModeEnabled;
     [SyncVar] public ChoiceType currentChoice;
     
     [SyncVar] private float voteOffset;
@@ -76,22 +77,33 @@ public class NetworkedVoting : NetworkBehaviour
     {
         voteOffset = newVoteOffset;
     }
+    
+    [ServerRpc(RequireOwnership = false)]
+    public void UpdateVotingMode(bool votingModeOn)
+    {
+        votingModeEnabled = votingModeOn;
+    }
+    
+    private void OnVotingModeChanged(bool oldValue, bool newValue, bool asServer)
+    {
+        if(Instances.BuildType != BuildType.Voting)
+            return;
+        
+        Instances.WebGLClientUI.ToggleVotingMode(newValue);
+    }
 
     [ServerRpc(RequireOwnership = false)]
     public void UpdateVotingBlocked(bool blockVoting)
     {
         votingBlocked = blockVoting;
-        
-        SendBlockVotingToClients(blockVoting);
     }
-
-    [ObserversRpc]
-    private void SendBlockVotingToClients(bool blockVoting)
+    
+    private void OnVotingBlockChanged(bool oldValue, bool newValue, bool asServer)
     {
         if(Instances.BuildType != BuildType.Voting)
             return;
         
-        Instances.WebGLClientUI.SetBlockVoting(blockVoting);
+        Instances.WebGLClientUI.SetBlockVoting(newValue);
     }
     
     [ServerRpc(RequireOwnership = false)]

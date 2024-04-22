@@ -28,6 +28,9 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private Slider BThresholdSlider;
     [SerializeField] private TextMeshProUGUI CThresholdText;
     [SerializeField] private Slider CThresholdSlider;
+
+    [SerializeField] private Toggle votingModeToggle;
+    [SerializeField] private Toggle blockVotingToggle;
     
     [SerializeField] private TMP_InputField warningTimeInputField;
     
@@ -47,6 +50,9 @@ public class MonitorUI : UIWithConnection
                 voteOffsetText.text = $"Vote offset: {sliderVal}";
                 Instances.NetworkedVoting.UpdateVoteOffset(sliderVal);
             });
+        
+        votingModeToggle.onValueChanged.AsObservable().Subscribe(votingModeOn => Instances.NetworkedVoting.UpdateVotingMode(votingModeOn));
+        blockVotingToggle.onValueChanged.AsObservable().Subscribe(blockVoting => Instances.NetworkedVoting.UpdateVotingBlocked(blockVoting));
         
         previousAuraTextButton.onClick.AsObservable().Subscribe(_ => GoToNextAuraText(false));
         nextAuraTextButton.onClick.AsObservable().Subscribe(_ => GoToNextAuraText(true));
@@ -92,11 +98,6 @@ public class MonitorUI : UIWithConnection
         HighlightChoice(Instances.NetworkedVoting.currentChoice);
     }
     
-    private void ToggleBlockVoting(bool blockVoting)
-    {
-        Instances.NetworkedVoting.UpdateVotingBlocked(blockVoting);
-    }
-
     private void GoToNextAuraText(bool next)
     {
         Instances.NetworkedAppState.GoToNextAuraTextIndex(next);

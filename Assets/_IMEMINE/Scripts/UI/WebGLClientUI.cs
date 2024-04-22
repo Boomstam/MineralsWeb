@@ -13,7 +13,7 @@ using UnityEngine.Video;
 public class WebGLClientUI : UIWithConnection
 {
     #region Variables
-
+    
     [Header("Backgrounds/Overlays")]
     [SerializeField] private ColorOverlay colorOverlay;
     [SerializeField] private Image backgroundImage;
@@ -92,6 +92,8 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI tutorialPageText;
     [Header("Modes")]
     [SerializeField] private GameObject introductionCanvas;
+    [SerializeField] private TextMeshProUGUI votingStatusTextNL;
+    [SerializeField] private TextMeshProUGUI votingStatusTextEN;
     [Header("Other")]
     public AuraTextDisplay auraTextDisplay;
     [SerializeField] private float maxProgressBarRight = 527;
@@ -106,14 +108,14 @@ public class WebGLClientUI : UIWithConnection
     public ReactiveProperty<Language> currentLanguage;
     
     private bool SeatInputActive => seatInputHolder.activeSelf;
-
+    
     private const string row10sKey = "Row 10s";
     private const string row1sKey = "Row 1s";
     private const string seat10sKey = "Seat 10s";
     private const string seat1sKey = "Seat 1s";
-
+    
     private TutorialPartType currentTutorialPart;
-
+    
     private float seatButtonBackgroundStartAlpha;
     private float languageButtonBackgroundStartAlpha;
     private float connectionImageStartAlpha;
@@ -121,7 +123,7 @@ public class WebGLClientUI : UIWithConnection
     private Coroutine seatButtonBackgroundBlinkRoutine;
     private Coroutine languageButtonBackgroundBlinkRoutine;
     private Coroutine connectionImageBlinkRoutine;
-
+    
     private float nextButtonOnPressAnimationStart;
     private Coroutine nextButtonOnPressAnimationRoutine;
     
@@ -141,7 +143,7 @@ public class WebGLClientUI : UIWithConnection
             .Subscribe(sliderVal =>
             {
                 // Instances.AudioManager.EnableLowPassFilter(300 + (7200 * sliderVal));
-                Instances.AudioManager.SetFadeVal(1 - sliderVal);
+                // Instances.AudioManager.SetFadeVal(1 - sliderVal);
                 imageFader.SetFadeVal(1 - sliderVal);
                 
                 Instances.NetworkedVoting.SendVoteUpdate(sliderVal, Instances.SeatNumber);
@@ -350,7 +352,7 @@ public class WebGLClientUI : UIWithConnection
         int rowOrSeat1s = rowOrSeat % 10;
         
         Debug.Log($"GetRowOrSeatDigits: {rowOrSeat10s}, {rowOrSeat1s}");
-
+        
         return new Tuple<int, int>(rowOrSeat10s, rowOrSeat1s);
     }
 
@@ -382,14 +384,19 @@ public class WebGLClientUI : UIWithConnection
 
     public void SetToAppState(AppState appState)
     {
+        ToggleTutorial(appState == AppState.Tutorial);
         Debug.Log($"Set to appstate {appState}");
         switch (appState)
         {
-            case AppState.Tutorial: ToggleTutorial(true);
-                break;
             case AppState.Introduction: EnableIntroductionMode();
                 break;
             case AppState.MicroOrganisms: EnableMicroOrganismsMode();
+                break;
+            case AppState.WaysOfWater: EnableWaysOfWaterMode();
+                break;
+            case AppState.Magma: EnableMagmaMode();
+                break;
+            case AppState.AboutCrystals: EnableAboutCrystalsMode();
                 break;
         }
     }
@@ -398,31 +405,6 @@ public class WebGLClientUI : UIWithConnection
     {
         colorOverlay.StartDelay = 0;
         colorOverlay.gameObject.SetActive(show);
-    }
-    
-    [Button]
-    public void ToggleVotingMode(bool votingModeOn)
-    {
-        DisableAllModes();
-        
-        imageFader.DisplayFadeImages(fadeSprites);
-        
-        Instances.AudioManager.StopAllPlayback();
-        Instances.AudioManager.ResetAllFx();
-        
-        if (votingModeOn)
-        {
-            voteSlider.gameObject.SetActive(true);
-            averageSlider.gameObject.SetActive(true);
-            votingHolder.SetActive(true);
-            
-            ShowEnterSeatDialog(false);
-            
-            // if(PlayFadeClips)
-            //     Instances.AudioManager.PlayFadeSamples(new [] {  });
-            
-            //, ClipType.MineralsC });
-        }
     }
 
     [Button]
@@ -436,8 +418,7 @@ public class WebGLClientUI : UIWithConnection
         Instances.AudioManager.doubleFader.PlayFadeSamples();
     }
     
-    [Button]
-    public void EnableTutorialSlidersMode()
+    private void EnableTutorialSlidersMode()
     {
         DisableAllModes();
         
@@ -447,8 +428,7 @@ public class WebGLClientUI : UIWithConnection
         Instances.AudioManager.tutorialDoubleFader.PlayFadeSamples();
     }
     
-    [Button]
-    public void EnableIntroductionMode()
+    private void EnableIntroductionMode()
     {
         DisableAllModes(true);
         
@@ -460,21 +440,48 @@ public class WebGLClientUI : UIWithConnection
     }
     
     
-    [Button]
-    public void EnableMicroOrganismsMode()
+    private void EnableMicroOrganismsMode()
     {
         DisableAllModes();
         
         backgroundVideo.gameObject.SetActive(true);
-        
+        introductionCanvas.gameObject.SetActive(true);
+
+        votingClientVideoPlayer.PlayVideo(VideoType.MicroOrganisms);
+        videoPlayer.playbackSpeed = 0.4f;
     }
     
-    [Button]
-    public void EnableWaysOfWaterMode()
+    private void EnableMagmaMode()
+    {
+        DisableAllModes();
+        
+        backgroundVideo.gameObject.SetActive(true);
+        introductionCanvas.gameObject.SetActive(true);
+
+        votingClientVideoPlayer.PlayVideo(VideoType.Magma);
+        videoPlayer.playbackSpeed = 0.4f;
+    }
+    
+    private void EnableWaysOfWaterMode()
     {
         DisableAllModes();
         
         waysOfWater.SetActive(true);
+        introductionCanvas.gameObject.SetActive(true);
+
+        votingClientVideoPlayer.PlayVideo(VideoType.WaysOfWater);
+        videoPlayer.playbackSpeed = 0.4f;
+    }
+    
+    private void EnableAboutCrystalsMode()
+    {
+        DisableAllModes();
+        
+        waysOfWater.SetActive(true);
+        introductionCanvas.gameObject.SetActive(true);
+
+        votingClientVideoPlayer.PlayVideo(VideoType.AboutCrystals);
+        videoPlayer.playbackSpeed = 0.4f;
     }
     
     [Button]
@@ -487,8 +494,6 @@ public class WebGLClientUI : UIWithConnection
         Instances.AudioManager.StopAllPlayback();
         Instances.AudioManager.ResetAllFx();
         
-        // tutorialVoteSlider.gameObject.SetActive(true);
-        // tutorialAverageSlider.gameObject.SetActive(true);
         tutorialVoting.SetActive(true);
     }
 
@@ -590,6 +595,9 @@ public class WebGLClientUI : UIWithConnection
         softText.text = nl ? "ZACHT" : "SOFT";
         // tutorialSoftText.text = nl ? "ZACHT" : "SOFT";
         
+        votingStatusTextNL.gameObject.SetActive(nl);
+        votingStatusTextEN.gameObject.SetActive(nl == false);
+        
         tutorialVotingStatusTextNL.gameObject.SetActive(nl);
         tutorialVotingStatusTextEN.gameObject.SetActive(nl == false);
         
@@ -603,10 +611,35 @@ public class WebGLClientUI : UIWithConnection
     #endregion
     
     #region Voting Control
-    
+
+    [Button]
+    public void ToggleVotingMode(bool votingModeOn)
+    {
+        DisableAllModes();
+        
+        imageFader.DisplayFadeImages(fadeSprites);
+        
+        Instances.AudioManager.StopAllPlayback();
+        Instances.AudioManager.ResetAllFx();
+        
+        if (votingModeOn)
+        {
+            voteSlider.gameObject.SetActive(true);
+            averageSlider.gameObject.SetActive(true);
+            votingHolder.SetActive(true);
+            
+            ShowEnterSeatDialog(false);
+        }
+    }
+
     public void SetBlockVoting(bool blockVoting)
     {
-        voteSlider.interactable = blockVoting == false;
+        voteSlider.interactable = (blockVoting == false);
+        
+        if(blockVoting)
+            voteSlider.transform.SetSiblingIndex(0);
+        else
+            averageSlider.transform.SetSiblingIndex(0);
     }
 
     public void SetVotingProgress(float progress)

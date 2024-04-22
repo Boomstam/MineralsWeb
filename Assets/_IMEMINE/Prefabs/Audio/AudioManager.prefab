@@ -217,14 +217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 810967e7ca5119047bf24440b5cde56d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clips:
-  - {fileID: 8300000, guid: eef7b0db05287884da30719b623b30da, type: 3}
-  - {fileID: 8300000, guid: f4a8cd4127a0c5448ac8f0bd614a64e2, type: 3}
-  - {fileID: 8300000, guid: d0af7cc1cd74f404b81c764d37c16dca, type: 3}
-  - {fileID: 8300000, guid: 38f881a0d76789344a18e08d5ba4fc62, type: 3}
-  - {fileID: 8300000, guid: d58597d500568a64a8f8413ecc2f28ba, type: 3}
-  - {fileID: 8300000, guid: 00ed7ac34755e4840a2bbaa6a6728f3e, type: 3}
-  - {fileID: 8300000, guid: 54830ccaa0c0c6140af9013fcf51729d, type: 3}
   master: {fileID: 24300002, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
   audioFader: {fileID: 3350166166132690774}
   doubleFader: {fileID: 8707213107746051459}
@@ -238,6 +230,8 @@ MonoBehaviour:
   audioReverbFilter: {fileID: 2662691210304297230}
   audioLowPassFilter: {fileID: 3772835214161823330}
   audioHighPassFilter: {fileID: 3723915020669188169}
+  fadeInTime: 3
+  fadeOutTime: 5
 --- !u!114 &3350166166132690774
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -18,10 +18,12 @@ public class SpatializationMatrix : MonoBehaviour
         
         for (int i = 0; i < toggles.Length; i++)
         {
-            toggles[i].OnValueChangedAsObservable().Subscribe(toggleOn =>
+            int quadrant = i;
+            
+            toggles[i].OnValueChangedAsObservable().Skip(1).Subscribe(toggleOn =>
             {
                 if (toggleOn)
-                    OnQuadrantEnabled(i);
+                    OnQuadrantEnabled(quadrant);
                 else
                     OnAllQuadrantsDisabled();
             });
@@ -34,7 +36,7 @@ public class SpatializationMatrix : MonoBehaviour
         DisableAllToggles();
         
         toggles[quadrant].SetIsOnWithoutNotify(true);
-        
+
         Instances.NetworkedAppState.EnableQuadrantRanges(ranges[quadrant].seatMinMax, ranges[quadrant].rowMinMax);
     }
     

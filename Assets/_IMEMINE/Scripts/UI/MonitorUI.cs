@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class MonitorUI : UIWithConnection
 {
-    [SerializeField] private TMP_Dropdown appStateDropdowm;
+    [SerializeField] private TMP_Dropdown appStateDropdown;
     [SerializeField] private Button sendChoiceButton;
     [SerializeField] private Button resetVotingButton;
     [SerializeField] private TextMeshProUGUI resultVoteText;
@@ -31,6 +31,9 @@ public class MonitorUI : UIWithConnection
 
     [SerializeField] private Toggle votingModeToggle;
     [SerializeField] private Toggle blockVotingToggle;
+    
+    [SerializeField] private Toggle centerModeToggle;
+    [SerializeField] private Slider centerModeSlider;
     
     [SerializeField] private TMP_InputField warningTimeInputField;
     
@@ -59,7 +62,10 @@ public class MonitorUI : UIWithConnection
         
         BThresholdSlider.onValueChanged.AsObservable().Subscribe(sliderVal => BThresholdText.text = $"B Threshold: {sliderVal:0.00}");
         CThresholdSlider.onValueChanged.AsObservable().Subscribe(sliderVal => CThresholdText.text = $"C Threshold: {sliderVal:0.00}");
-
+        
+        centerModeToggle.onValueChanged.AsObservable().Subscribe(OnCenterModeToggled);
+        centerModeSlider.onValueChanged.AsObservable().Subscribe(OnCenterModeSliderChanged);
+        
         warningTimeInputField.onValueChanged.AsObservable()
             .Subscribe(val => Instances.NetworkedMonitor.SetWarningTime(int.Parse(val)));
     }
@@ -109,5 +115,17 @@ public class MonitorUI : UIWithConnection
         // Debug.Log($"Highlight choice: {choiceType}");
         
         Instances.MyMessageBroker.SendMessageToBuildType(BuildType.Score, $"HighlightChoice {(int)choiceType}");
+    }
+
+    private void OnCenterModeToggled(bool centerModeOn)
+    {
+        centerModeSlider.interactable = centerModeOn;
+        
+        
+    }
+    
+    private void OnCenterModeSliderChanged(float centerModeSliderVal)
+    {
+        
     }
 }

@@ -8,7 +8,9 @@ public class NetworkedAppState : NetworkBehaviour
 {
     [SyncVar (OnChange = nameof(OnCurrentAuraTextIndexChange))] public int currentAuraTextIndex;
     [SyncVar (OnChange = nameof(OnAppStateChange))] public AppState appState;
-    [SyncVar(OnChange = nameof(OnQuadrantsModeChange))] private bool quadrantMode;
+    [SyncVar (OnChange = nameof(OnQuadrantsModeChange))] private bool quadrantMode;
+    [SyncVar (OnChange = nameof(OnCenterModeChange))] private bool centerMode;
+    [SyncVar (OnChange = nameof(OnCenterModeValChange))] private float centerModeVal;
     [SyncVar] public Vector2 quadrantSeatMinMax;
     [SyncVar] public Vector2 quadrantRowMinMax;
     
@@ -80,6 +82,28 @@ public class NetworkedAppState : NetworkBehaviour
             Instances.AudioManager.OnQuadrantsModeDisabled();
         else
             Instances.AudioManager.OnQuadrantsModeEnabled(quadrantSeatMinMax, quadrantRowMinMax);
+    }
+
+    [ServerRpc (RequireOwnership = false)]
+    public void ToggleCenterMode(bool centerModeOn)
+    {
+        
+    }
+    
+    private void OnCenterModeChange(bool oldValue, bool newValue, bool asServer)
+    {
+        Debug.Log($"OnCenterModeChange: {newValue} NOT IMPLEMENTED");
+    }
+
+    [ServerRpc (RequireOwnership = false)]
+    public void ChangeCenterModeVal(float val)
+    {
+        
+    }
+        
+    private void OnCenterModeValChange(float oldValue, float newValue, bool asServer)
+    {
+        Debug.Log($"OnCenterModeValChange: {newValue} NOT IMPLEMENTED");
     }
 }
 

@@ -111,7 +111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5667223, y: 0.1703187}
   m_AnchorMax: {x: 0.89155567, y: 0.7654872}
-  m_AnchoredPosition: {x: -1.9656982, y: -4.67334}
+  m_AnchoredPosition: {x: -1.9656982, y: -4.6733246}
   m_SizeDelta: {x: -10.437317, y: -0.24725342}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2252985329979488778
@@ -496,7 +496,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.11231025, y: 0.8546943}
   m_AnchorMax: {x: 0.8917701, y: 0.9776753}
-  m_AnchoredPosition: {x: 0.3500061, y: -0.55999756}
+  m_AnchoredPosition: {x: 0.35003662, y: -0.55999756}
   m_SizeDelta: {x: -10.650002, y: 0.526001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5958883039754147402
@@ -1159,7 +1159,7 @@ GameObject:
   - component: {fileID: 5830422454155591496}
   - component: {fileID: 8229985331674642839}
   m_Layer: 5
-  m_Name: Voting Status Text EN
+  m_Name: Tutorial Voting Status Text EN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3405,7 +3405,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1668889, y: 0.1703187}
   m_AnchorMax: {x: 0.48200002, y: 0.7654872}
-  m_AnchoredPosition: {x: -1.0900879, y: -4.67334}
+  m_AnchoredPosition: {x: -1.0900879, y: -4.6733246}
   m_SizeDelta: {x: -3.5639038, y: -0.24725342}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6326502907022505898
@@ -3608,8 +3608,8 @@ RectTransform:
   - {fileID: 4223317510264839671}
   - {fileID: 6675629226494981638}
   - {fileID: 3302815474267686580}
-  - {fileID: 4925387071335533301}
   - {fileID: 8102455663731902150}
+  - {fileID: 4925387071335533301}
   - {fileID: 2348806582192879870}
   - {fileID: 5690793803678501555}
   - {fileID: 4508749148487052092}
@@ -9683,7 +9683,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 71.6
+  m_fontSize: 72
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9811,7 +9811,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.11231025, y: 0.8546943}
   m_AnchorMax: {x: 0.8917701, y: 0.9776753}
-  m_AnchoredPosition: {x: 0.24911499, y: -0.09188843}
+  m_AnchoredPosition: {x: 0.24908447, y: -0.09188843}
   m_SizeDelta: {x: -10.860001, y: -0.40999985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3293953165101175893
@@ -10656,8 +10656,8 @@ MonoBehaviour:
   languageButtonBackground: {fileID: 4106775300355830407}
   tutorialPageText: {fileID: 3288554586167743109}
   introductionCanvas: {fileID: 8686988546151968629}
-  votingStatusTextNL: {fileID: 0}
-  votingStatusTextEN: {fileID: 0}
+  votingStatusTextNL: {fileID: 7424987922107617468}
+  votingStatusTextEN: {fileID: 1118964041793761017}
   auraTextDisplay: {fileID: 1734840960141247241}
   maxProgressBarRight: 527
   oscMessageInput: {fileID: 1852804474211603148}
@@ -11592,7 +11592,7 @@ GameObject:
   - component: {fileID: 5728990602520578081}
   - component: {fileID: 8999106927834670289}
   m_Layer: 5
-  m_Name: Voting Status Text NL
+  m_Name: Tutorial Voting Status Text NL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

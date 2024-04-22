@@ -22,8 +22,8 @@ public class MonitorUI : UIWithConnection
     
     [SerializeField] private TextMeshProUGUI voteAverageText;
     [SerializeField] private Slider voteAverageSlider;
-    [SerializeField] private TextMeshProUGUI voteOffsetText;
-    [SerializeField] private Slider voteOffsetSlider;
+    [SerializeField] private TextMeshProUGUI voteOverwriteText;
+    [SerializeField] private Slider voteOverwriteSlider;
     [SerializeField] private TextMeshProUGUI BThresholdText;
     [SerializeField] private Slider BThresholdSlider;
     [SerializeField] private TextMeshProUGUI CThresholdText;
@@ -44,11 +44,11 @@ public class MonitorUI : UIWithConnection
         
         voteAverageSlider.onValueChanged.AsObservable()
             .Subscribe(sliderVal => Instances.NetworkedVoting.OnVoteAverageUpdate(sliderVal));
-        voteOffsetSlider.onValueChanged.AsObservable()
+        voteOverwriteSlider.onValueChanged.AsObservable()
             .Subscribe(sliderVal =>
             {
-                voteOffsetText.text = $"Vote offset: {sliderVal}";
-                Instances.NetworkedVoting.UpdateVoteOffset(sliderVal);
+                voteOverwriteText.text = $"Vote overwrite: {sliderVal}";
+                Instances.NetworkedVoting.SendAverageToClientsViaServer(sliderVal);
             });
         
         votingModeToggle.onValueChanged.AsObservable().Subscribe(votingModeOn => Instances.NetworkedVoting.UpdateVotingMode(votingModeOn));
@@ -71,13 +71,13 @@ public class MonitorUI : UIWithConnection
         Instances.NetworkedAppState.ChangeAppState(newState);
     }
     
-    public void SetVoteAverage(float average, float offsettedAverage)
+    public void SetVoteAverage(float average)
     {
         voteAverageText.text = $"Vote Average: {average:0.00}";
         voteAverageSlider.SetValueWithoutNotify(average);
-
-        Instances.NetworkedVoting.SendAverageToClientsViaServer(average);
-
+        
+        // Instances.NetworkedVoting.SendAverageToClientsViaServer(average);
+        
         resultVoteText.text = $"Result vote: {average}";
     }
 

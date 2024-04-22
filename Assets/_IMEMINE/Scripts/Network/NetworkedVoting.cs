@@ -13,14 +13,22 @@ public class NetworkedVoting : NetworkBehaviour
     [SyncVar (OnChange = nameof(OnVotingBlockChanged))] public bool votingBlocked;
     [SyncVar (OnChange = nameof(OnVotingModeChanged))] public bool votingModeEnabled;
     [SyncVar] public ChoiceType currentChoice;
-    
+
     [SyncVar] private float voteOffset;
     [SerializeField] private float votingIntervalLength = 10;
 
     [SyncVar (OnChange = nameof(OnVoteProgressUpdate))] private float voteProgress;
-    
+
+    [SerializeField] private int maxNumSeats;
+    [SerializeField] private int maxNumRows;
+
     // Saved on the Monitor
-    private Dictionary<int, float> votePerSeat = new Dictionary<int, float>();
+    private float[][] votePerSeat;
+
+    private void Awake()
+    {
+        ResetVoting();
+    }
 
     private bool hasStartedVoteInterval;
 
@@ -68,8 +76,12 @@ public class NetworkedVoting : NetworkBehaviour
     public void ResetVoting()
     {
         Debug.Log($"Reset Voting");
+        votePerSeat = new float[maxNumSeats][];
         
-        votePerSeat = new Dictionary<int, float>();
+        for (int i = 0; i < maxNumSeats; i++)
+        {
+            votePerSeat[i] = new float[maxNumRows];
+        }
     }
     
     [ServerRpc(RequireOwnership = false)]
@@ -107,23 +119,36 @@ public class NetworkedVoting : NetworkBehaviour
     }
     
     [ServerRpc(RequireOwnership = false)]
-    public void SendVoteUpdate(float voteVal, int seatNumber, NetworkConnection conn = null)
+    public void SendVoteUpdate(float voteVal, int seat, int row, NetworkConnection conn = null)
     {
         if(votingBlocked)
             return;
         
-        SendVoteUpdateToMonitor(voteVal, seatNumber);
+        SendVoteUpdateToMonitor(voteVal, seat, row);
     }
 
     [ObserversRpc] // Runs on the Monitor
-    private void SendVoteUpdateToMonitor(float voteVal, int seatNumber)
+    private void SendVoteUpdateToMonitor(float voteVal, int seat, int row)
     {
         if(Instances.BuildType != BuildType.Monitor)
             return;
 
-        votePerSeat[seatNumber] = voteVal;
+        votePerSeat[seat][row] = voteVal;
 
-        float average = votePerSeat.Values.Average();
+        List<float> vals = new List<float>();
+
+        for (int seatToCheck = 0; seat < maxNumSeats; seat++)
+        {
+            for (int rowToCheck = 0; row < maxNumRows; row++)
+            {
+                float val = votePerSeat[seatToCheck][rowToCheck];
+
+                if (val != 0)
+                    vals.Add(val);
+            }
+        }
+
+        float average = vals.Average();
         
         OnVoteAverageUpdate(average);
     }
@@ -133,7 +158,7 @@ public class NetworkedVoting : NetworkBehaviour
     {
         float offsettedAverage = Mathf.Min(1, voteAverage + voteOffset);
         
-        Instances.MonitorUI.SetVoteAverage(voteAverage, offsettedAverage);
+        Instances.MonitorUI.SetVoteAverage(voteAverage);
         
         Debug.Log($"voteAverage {voteAverage}, offsettedAverage {offsettedAverage}");
         

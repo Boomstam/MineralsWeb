@@ -146,7 +146,7 @@ public class WebGLClientUI : UIWithConnection
                 // Instances.AudioManager.SetFadeVal(1 - sliderVal);
                 imageFader.SetFadeVal(1 - sliderVal);
                 
-                Instances.NetworkedVoting.SendVoteUpdate(sliderVal, Instances.SeatNumber);
+                Instances.NetworkedVoting.SendVoteUpdate(sliderVal, Instances.SeatNumber, Instances.RowNumber);
             });
         tutorialVoteSlider.onValueChanged.AsObservable()
             .Subscribe(sliderVal =>
@@ -611,7 +611,7 @@ public class WebGLClientUI : UIWithConnection
     #endregion
     
     #region Voting Control
-
+    
     [Button]
     public void ToggleVotingMode(bool votingModeOn)
     {
@@ -640,6 +640,9 @@ public class WebGLClientUI : UIWithConnection
             voteSlider.transform.SetSiblingIndex(0);
         else
             averageSlider.transform.SetSiblingIndex(0);
+
+        votingStatusTextNL.text = blockVoting ? "Stem vergrendeld" : "Stemmen gestart!";
+        votingStatusTextEN.text = blockVoting ? "Voting block" : "Voting enabled!";
     }
 
     public void SetVotingProgress(float progress)

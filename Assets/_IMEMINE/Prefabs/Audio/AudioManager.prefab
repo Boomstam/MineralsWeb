@@ -225,6 +225,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d58597d500568a64a8f8413ecc2f28ba, type: 3}
   - {fileID: 8300000, guid: 00ed7ac34755e4840a2bbaa6a6728f3e, type: 3}
   - {fileID: 8300000, guid: 54830ccaa0c0c6140af9013fcf51729d, type: 3}
+  master: {fileID: 24300002, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
   audioFader: {fileID: 3350166166132690774}
   doubleFader: {fileID: 8707213107746051459}
   tutorialDoubleFader: {fileID: 5794792120940113606}

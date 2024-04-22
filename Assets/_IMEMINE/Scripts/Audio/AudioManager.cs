@@ -3,34 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioClip[] clips;
+    public AudioMixerGroup master;
     public AudioFader audioFader;
     public DoubleFader doubleFader;
     public TutorialDoubleFader tutorialDoubleFader;
     public CirclePlayer circlePlayer;
     public DelayPlayer delayPlayer;
+    
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioDistortionFilter audioDistortionFilter;
     [SerializeField] private AudioChorusFilter audioChorusFilter;
     [SerializeField] private AudioEchoFilter audioEchoFilter;
     [SerializeField] private AudioReverbFilter audioReverbFilter;
     [SerializeField] private AudioLowPassFilter audioLowPassFilter;
-    [SerializeField] private AudioHighPassFilter audioHighPassFilter; 
-    
-    public AudioClip GetClip(ClipType clipType) => clips[(int)clipType];
-    public AudioClip[] GetClips(ClipType[] clipTypes) => clipTypes.Select(GetClip).ToArray();
+    [SerializeField] private AudioHighPassFilter audioHighPassFilter;
 
-    [Button]
-    public void PlayClip(ClipType clipType)
+    public void OnQuadrantsModeEnabled(Vector2 seatMinMax, Vector2 rowMinMax)
     {
-        audioSource.Stop();
-
-        audioSource.clip = GetClip(clipType);
+        bool shouldSound = Instances.SeatNumber >= seatMinMax.x && 
+                           Instances.SeatNumber <= seatMinMax.y &&
+                           Instances.RowNumber >= rowMinMax.x &&
+                           Instances.RowNumber <= rowMinMax.y;
         
-        audioSource.Play();
+        SetUnscaledVolume(shouldSound ? 1 : 0);
+    }
+    
+    public void OnQuadrantsModeDisabled()
+    {
+        SetUnscaledVolume(1);
+    }
+
+    private void SetUnscaledVolume(float volume)
+    {
+        float scaledVolume = Mathf.Log(volume) * 20;
+     
+        master.audioMixer.SetFloat($"Master", scaledVolume);
     }
 
     public void PlayFadeSamples(AudioClip fadeClips)
@@ -63,48 +74,4 @@ public class AudioManager : MonoBehaviour
         audioLowPassFilter.enabled = false;
         audioHighPassFilter.enabled = false;
     }
-
-    public void EnableDistortion(float distortionLevel)
-    {
-        ResetAllFx();
-
-        audioDistortionFilter.distortionLevel = distortionLevel;
-        audioDistortionFilter.enabled = true;
-    }
-
-    public void EnableChorus()
-    {
-        ResetAllFx();
-
-        audioChorusFilter.enabled = true;
-    }
-    
-    public void EnableReverb(AudioReverbPreset reverbPreset)
-    {
-        ResetAllFx();
-
-        audioReverbFilter.reverbPreset = reverbPreset;
-        audioReverbFilter.enabled = true;
-    }
-    
-    [Button]
-    public void EnableLowPassFilter(float cutoffFrequency)
-    {
-        ResetAllFx();
-
-        audioLowPassFilter.cutoffFrequency = cutoffFrequency;
-        audioLowPassFilter.enabled = true;
-    }
-}
-
-public enum ClipType
-{
-    Chapter1,
-    Chapter2,
-    Chapter3,
-    Chapter4,
-    Chapter5,
-    MineralsA,
-    MineralsB,
-    MineralsC,
 }

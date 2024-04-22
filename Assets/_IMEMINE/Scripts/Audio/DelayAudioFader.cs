@@ -67,19 +67,6 @@ public class DelayAudioFader : MonoBehaviour
         }
     }
 
-    [Button]
-    private void PlayTestSamples()
-    {
-        AudioClip[] testFadeClips = new[]
-        {
-            audioManager.GetClip(ClipType.MineralsA),
-            audioManager.GetClip(ClipType.MineralsB),
-            audioManager.GetClip(ClipType.MineralsC),
-        };
-        
-        PlayFadeSamples(testFadeClips);
-    }
-    
     /*
      * Modes???
      * effects = micro organisms

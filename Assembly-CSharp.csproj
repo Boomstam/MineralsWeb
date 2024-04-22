@@ -105,6 +105,7 @@
      <Compile Include="Assets\_IMEMINE\Scripts\Tools\PlayerPrefsExtensions.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Video\WebGLVideoPlayer.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\UI\AuraTextDisplay.cs" />
+     <Compile Include="Assets\_IMEMINE\Scripts\UI\SpatializationMatrix.cs" />
      <Folder Include="Assets" />
      <None Include="Assets\jp.keijiro.osc-jack\package.json" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

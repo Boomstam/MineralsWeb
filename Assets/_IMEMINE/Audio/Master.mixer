@@ -282,14 +282,14 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
+  - guid: 6a73dcb148e87e540ac6d8426922f9d5
+    name: Circles
   - guid: 00c68465b96580841a1e42d2faa38976
     name: CirclesHigh
   - guid: 1711e915afad0b14eb97505853321fce
     name: CirclesLow
   - guid: 137f9b297d128d8488f3c941585172e9
     name: CirclesMid
-  - guid: 6a73dcb148e87e540ac6d8426922f9d5
-    name: Circles
   - guid: cd94275300a49a249b09a27102248732
     name: DelayHigh
   - guid: 81010d47df91477489d03657b8507e6f
@@ -300,6 +300,8 @@ AudioMixerController:
     name: High
   - guid: d2141ceede6a283439d4f02675ca1e86
     name: Low
+  - guid: 5ae94a9ff2a0d7f4da2156093f650082
+    name: Master
   - guid: 56a94bbeef8a977449523ea9089928c9
     name: Mid
   m_AudioMixerGroupViews:

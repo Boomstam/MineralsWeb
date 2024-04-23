@@ -332,8 +332,6 @@ AudioMixerController:
     name: DelayLow
   - guid: 2834b1fe7238cd741b4a44c9c62f7dce
     name: DelayMid
-  - guid: 2784c5f4d6fc16441a5738e711c35ae6
-    name: Delays
   - guid: 68c6bbf783f8dd6439d118eecf67d9f7
     name: High
   - guid: d2141ceede6a283439d4f02675ca1e86

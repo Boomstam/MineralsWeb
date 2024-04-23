@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using FishNet;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -29,16 +30,19 @@ public class DelayPlayer : MonoBehaviour
     
     private void Update()
     {
+        if(InstanceFinder.IsOffline)
+            return;
+        
         try
         {
-            bool playDelays = Instances.NetworkedMonitor.shouldPlayDelays;
+            bool playDelays = Instances.NetworkedAppState.shouldPlayDelays;
         }
         catch (Exception e)
         {
             return;
         }
         
-        if (Instances.NetworkedMonitor.shouldPlayDelays)
+        if (Instances.NetworkedAppState.shouldPlayDelays)
         {
             if (timeSinceLastPlay + currentRandomWaitTime > Instances.NetworkedMonitor.delayIntervalLength)
             {
@@ -50,9 +54,13 @@ public class DelayPlayer : MonoBehaviour
         }
     }
     
+    [Button]
     private void PlayRandomDelay()
     {
-        int nextIndex = Random.Range(0, numDifferentSounds);
+        Debug.Log($"Play Random delay");
+        
+        // int nextIndex = Random.Range(0, numDifferentSounds);
+        int nextIndex = 1;
         
         AudioClip[] clips = new[]
         {
@@ -102,13 +110,17 @@ public class DelayPlayer : MonoBehaviour
         {
             AudioSource source = createdSources[sourceIndex];
             
-            source.Stop();
-            Destroy(source.gameObject);
+            this.RunAfterFrames(1, () => { source.Stop(); });
+            this.RunAfterFrames(2, () => { Destroy(source.gameObject); });
+            
+            // source.Stop();
+            // Destroy(source.gameObject);
         }
     }
 
     private AudioSource[] NewAudioSourcesWithClips(AudioClip[] audioClips, float volume)
     {
+        Debug.Log($"NewAudioSourcesWithClips");
         AudioSource lowSource = Instantiate(delaySamplePrefab);
         AudioSource midSource = Instantiate(delaySamplePrefab);
         AudioSource highSource = Instantiate(delaySamplePrefab);
@@ -125,16 +137,29 @@ public class DelayPlayer : MonoBehaviour
         midSource.volume = volume;
         highSource.volume = volume;
         
-        lowSource.Play();
-        midSource.Play();
-        highSource.Play();
+        this.RunAfterFrames(3, () =>
+        {
+            lowSource.Play();
+            midSource.Play();
+            highSource.Play();
+            
+            Debug.Log($"low: {lowSource.clip}, mid: {midSource.clip}, high: {highSource.clip}");
+            
+            // lowSource.PlayOneShot(audioClips[0]);
+            // midSource.PlayOneShot(audioClips[1]);
+            // highSource.PlayOneShot(audioClips[2]);
+        });
 
         return new []{ lowSource, midSource, highSource };
     }
 
+    // [SerializeField] private bool setFadeVal;
     [Button]
     public void SetFadeValue(float fadeVal)
     {
+        // if(setFadeVal == false)
+        //     return;
+        Debug.Log($"Set fade val: {fadeVal}");
         float percentagePerSource = 1f / (float)(numSources - 1);
 
         int startSample = Mathf.FloorToInt(fadeVal / percentagePerSource);
@@ -156,6 +181,7 @@ public class DelayPlayer : MonoBehaviour
 
             float scaledVolume = Mathf.Log(volume) * 20;
 
+            Debug.Log($"audioMixerGroup: {audioMixerGroup}, parameter: {ParameterNameForIndex(i)}, volume {scaledVolume}");
             audioMixerGroup.audioMixer.SetFloat(ParameterNameForIndex(i), scaledVolume);
         }
     }
@@ -165,8 +191,8 @@ public class DelayPlayer : MonoBehaviour
         return index switch
         {
             0 => delaysLowMixer,
-            1 => delaysLowMixer,
-            2 => delaysLowMixer,
+            1 => delaysMidMixer,
+            2 => delaysHighMixer,
         };
     }
     

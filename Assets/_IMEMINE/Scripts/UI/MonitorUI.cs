@@ -13,7 +13,6 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private TMP_Dropdown appStateDropdown;
     [SerializeField] private Button sendChoiceButton;
     [SerializeField] private Button resetVotingButton;
-    [SerializeField] private TextMeshProUGUI resultVoteText;
     [SerializeField] private TextMeshProUGUI oscConnectionsText;
     [SerializeField] private TextMeshProUGUI clientConnectionsText;
     
@@ -31,12 +30,18 @@ public class MonitorUI : UIWithConnection
 
     [SerializeField] private Toggle votingModeToggle;
     [SerializeField] private Toggle blockVotingToggle;
+    [SerializeField] private Toggle effectSlidersToggle;
+    [SerializeField] private Toggle delaysToggle;
     
     [SerializeField] private Toggle centerModeToggle;
     [SerializeField] private Slider centerModeSlider;
-    
+    [SerializeField] private Button shiftLeftButton;
+    [SerializeField] private Button shiftRightButton;
+    [SerializeField] private Button shiftDownButton;
+    [SerializeField] private Button shiftUpButton;
+    [SerializeField] private TextMeshProUGUI circlesPositionText;
     [SerializeField] private TMP_InputField warningTimeInputField;
-    
+
     public float BThreshold => BThresholdSlider.value;
     public float CThreshold => CThresholdSlider.value;
 
@@ -56,6 +61,9 @@ public class MonitorUI : UIWithConnection
         
         votingModeToggle.onValueChanged.AsObservable().Subscribe(votingModeOn => Instances.NetworkedVoting.UpdateVotingMode(votingModeOn));
         blockVotingToggle.onValueChanged.AsObservable().Subscribe(blockVoting => Instances.NetworkedVoting.UpdateVotingBlocked(blockVoting));
+        
+        effectSlidersToggle.onValueChanged.AsObservable().Subscribe(effectSlidersOn => Instances.NetworkedAppState.ChangeEffectSlidersOn(effectSlidersOn));
+        delaysToggle.onValueChanged.AsObservable().Subscribe(playDelays => Instances.NetworkedAppState.ChangeShouldPlayDelays(playDelays));
         
         previousAuraTextButton.onClick.AsObservable().Subscribe(_ => GoToNextAuraText(false));
         nextAuraTextButton.onClick.AsObservable().Subscribe(_ => GoToNextAuraText(true));
@@ -83,8 +91,6 @@ public class MonitorUI : UIWithConnection
         voteAverageSlider.SetValueWithoutNotify(average);
         
         // Instances.NetworkedVoting.SendAverageToClientsViaServer(average);
-        
-        resultVoteText.text = $"Result vote: {average}";
     }
 
     public void SetOSCConnections(int connections)

@@ -179,8 +179,8 @@ public class WebGLClientUI : UIWithConnection
             .Subscribe(sliderVal =>
             {
                 Debug.Log($"Set microOrganismsSlider: {sliderVal}");
-                Instances.AudioManager.circlePlayer.SetFadeValue(sliderVal);
-                Instances.AudioManager.delayPlayer.SetFadeValue(1 - sliderVal);
+                // Instances.AudioManager.circlePlayer.SetFadeValue(sliderVal);
+                Instances.AudioManager.delayPlayer.SetFadeValue(sliderVal);
             });
         
         // Initial fade values
@@ -445,14 +445,31 @@ public class WebGLClientUI : UIWithConnection
         votingClientVideoPlayer.PlayVideo(VideoType.Aura);
         videoPlayer.playbackSpeed = 0.6f;
     }
-    
+
+    public void ToggleEffectSlidersMode(bool effectSlidersOn)
+    {
+        Debug.Log($"ToggleEffectSlidersMode: {effectSlidersOn}");
+        microOrganisms.SetActive(false);
+        waysOfWater.SetActive(false);
+        
+        if (effectSlidersOn)
+        {
+            if(Instances.NetworkedAppState.appState == AppState.MicroOrganisms)
+            {
+                microOrganisms.SetActive(true);
+            }
+            if(Instances.NetworkedAppState.appState == AppState.WaysOfWater)
+            {
+                waysOfWater.SetActive(true);
+            }
+        }
+    }
     
     private void EnableMicroOrganismsMode()
     {
         DisableAllModes();
         
         backgroundVideo.gameObject.SetActive(true);
-        introductionCanvas.gameObject.SetActive(true);
 
         votingClientVideoPlayer.PlayVideo(VideoType.MicroOrganisms);
         videoPlayer.playbackSpeed = 0.4f;
@@ -463,7 +480,6 @@ public class WebGLClientUI : UIWithConnection
         DisableAllModes();
         
         backgroundVideo.gameObject.SetActive(true);
-        introductionCanvas.gameObject.SetActive(true);
 
         votingClientVideoPlayer.PlayVideo(VideoType.Magma);
         videoPlayer.playbackSpeed = 0.4f;
@@ -473,8 +489,7 @@ public class WebGLClientUI : UIWithConnection
     {
         DisableAllModes();
         
-        waysOfWater.SetActive(true);
-        introductionCanvas.gameObject.SetActive(true);
+        backgroundVideo.gameObject.SetActive(true);
 
         votingClientVideoPlayer.PlayVideo(VideoType.WaysOfWater);
         videoPlayer.playbackSpeed = 0.4f;
@@ -484,8 +499,7 @@ public class WebGLClientUI : UIWithConnection
     {
         DisableAllModes();
         
-        waysOfWater.SetActive(true);
-        introductionCanvas.gameObject.SetActive(true);
+        backgroundVideo.gameObject.SetActive(true);
 
         votingClientVideoPlayer.PlayVideo(VideoType.AboutCrystals);
         videoPlayer.playbackSpeed = 0.4f;
@@ -519,6 +533,7 @@ public class WebGLClientUI : UIWithConnection
         introductionCanvas.gameObject.SetActive(false);
         
         waysOfWater.SetActive(false);
+        microOrganisms.SetActive(false);
         
         // voteSlider.gameObject.SetActive(false);
         // averageSlider.gameObject.SetActive(false);

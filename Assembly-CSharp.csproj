@@ -145,6 +145,7 @@
      <Folder Include="Assets\_IMEMINE\Audio\Clips\MicroOrganisms" />
      <Folder Include="Assets\TextMesh Pro" />
      <Folder Include="Assets\_IMEMINE\Scenes" />
+     <Folder Include="Assets\_IMEMINE\Audio\Clips\Ways of Water\Circles" />
      <None Include="Assets\FishNet\Plugins\Bayou\LICENSE.txt" />
      <Folder Include="Assets\_IMEMINE\Scripts\UI" />
      <Folder Include="Assets\_IMEMINE\Images" />
@@ -179,6 +180,7 @@
      <Folder Include="Assets\TextMesh Pro\Shaders" />
      <Folder Include="Assets\TextMesh Pro\Resources\Style Sheets" />
      <Folder Include="Assets\TextMesh Pro\Fonts" />
+     <Folder Include="Assets\_IMEMINE\Audio\Clips\Ways of Water\Delays" />
      <Folder Include="Assets\_IMEMINE\Audio\Clips\Ways of Water" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <Folder Include="Assets\Editor Default Resources" />

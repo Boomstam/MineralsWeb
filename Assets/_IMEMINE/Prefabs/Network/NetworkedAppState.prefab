@@ -50,7 +50,15 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 3902409183392003468}
   _networkObjectCache: {fileID: 3902409183392003468}
   currentAuraTextIndex: 0
-  tutorial: 1
+  appState: 0
+  quadrantMode: 0
+  centerMode: 0
+  centerModeVal: 0
+  effectSlidersOn: 0
+  circlesPos: {x: 40, y: 3}
+  quadrantSeatMinMax: {x: 0, y: 0}
+  quadrantRowMinMax: {x: 0, y: 0}
+  circlesSize: {x: 8, y: 4}
 --- !u!114 &3902409183392003468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,7 +89,7 @@ MonoBehaviour:
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 7
   <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 2212118100
+  _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 6598534297095695380
 --- !u!114 &-7843168969411248749

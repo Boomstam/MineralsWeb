@@ -11,8 +11,12 @@ public class NetworkedAppState : NetworkBehaviour
     [SyncVar (OnChange = nameof(OnQuadrantsModeChange))] private bool quadrantMode;
     [SyncVar (OnChange = nameof(OnCenterModeChange))] private bool centerMode;
     [SyncVar (OnChange = nameof(OnCenterModeValChange))] private float centerModeVal;
+    [SyncVar (OnChange = nameof(OnEffectSlidersOnChange))] private bool effectSlidersOn;
+    [SyncVar (OnChange = nameof(OnCirclesPosChange))] private Vector2Int circlesPos;
+    [SyncVar] public bool shouldPlayDelays;
     [SyncVar] public Vector2 quadrantSeatMinMax;
     [SyncVar] public Vector2 quadrantRowMinMax;
+    [SerializeField] private Vector2Int circlesSize;
     
     public override void OnStartClient()
     {
@@ -92,6 +96,9 @@ public class NetworkedAppState : NetworkBehaviour
     
     private void OnCenterModeChange(bool oldValue, bool newValue, bool asServer)
     {
+        if(Instances.BuildType != BuildType.Voting)
+            return;
+        
         Debug.Log($"OnCenterModeChange: {newValue} NOT IMPLEMENTED");
     }
 
@@ -103,8 +110,62 @@ public class NetworkedAppState : NetworkBehaviour
         
     private void OnCenterModeValChange(float oldValue, float newValue, bool asServer)
     {
+        if(Instances.BuildType != BuildType.Voting)
+            return;
+        
         Debug.Log($"OnCenterModeValChange: {newValue} NOT IMPLEMENTED");
     }
+    
+    [ServerRpc (RequireOwnership = false)]
+    public void ChangeEffectSlidersOn(bool newEffectSlidersOn)
+    {
+        Debug.Log($"On server ChangeEffectSlidersOn: {newEffectSlidersOn}");
+        
+        effectSlidersOn = newEffectSlidersOn;
+    }
+    
+    private void OnEffectSlidersOnChange(bool oldValue, bool newValue, bool asServer)
+    {
+        if(Instances.BuildType != BuildType.Voting)
+            return;
+        
+        Debug.Log($"OnEffectSlidersOnChange: {newValue}");
+
+        Instances.WebGLClientUI.ToggleEffectSlidersMode(newValue);
+    }
+    
+    [ServerRpc (RequireOwnership = false)]
+    public void ChangeCirclesPos(Vector2Int newCirclesPos)
+    {
+        circlesPos = newCirclesPos;
+    }
+    
+    private void OnCirclesPosChange(Vector2Int oldValue, Vector2Int newValue, bool asServer)
+    {
+        if(Instances.BuildType != BuildType.Voting)
+            return;
+        
+        Debug.Log($"OnCirclesPosChange: {newValue} NOT IMPLEMENTED");
+
+        // Instances.WebGLClientUI.ToggleEffectSlidersMode(newValue);
+    }
+    
+    [ServerRpc (RequireOwnership = false)]
+    public void ChangeShouldPlayDelays(bool newShouldPlayDelays)
+    {
+        shouldPlayDelays = newShouldPlayDelays;
+    }
+    
+    // private void OnShouldPlayDelaysChange(bool oldValue, bool newValue, bool asServer)
+    // {
+    //     if(Instances.BuildType != BuildType.Voting)
+    //         return;
+    //     
+    //     Debug.Log($"OnCirclesPosChange: {newValue} NOT IMPLEMENTED");
+    //
+    //     if()
+    //     // Instances.WebGLClientUI.ToggleEffectSlidersMode(newValue);
+    // }
 }
 
 public enum AppState

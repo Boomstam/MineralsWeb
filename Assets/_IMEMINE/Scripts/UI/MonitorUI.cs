@@ -32,6 +32,8 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private Toggle blockVotingToggle;
     [SerializeField] private Toggle effectSlidersToggle;
     [SerializeField] private Toggle delaysToggle;
+    [SerializeField] private Toggle microOrganismsToggle;
+    [SerializeField] private Toggle circlesToggle;
     
     [SerializeField] private Toggle centerModeToggle;
     [SerializeField] private Slider centerModeSlider;
@@ -64,6 +66,13 @@ public class MonitorUI : UIWithConnection
         
         effectSlidersToggle.onValueChanged.AsObservable().Subscribe(effectSlidersOn => Instances.NetworkedAppState.ChangeEffectSlidersOn(effectSlidersOn));
         delaysToggle.onValueChanged.AsObservable().Subscribe(playDelays => Instances.NetworkedAppState.ChangeShouldPlayDelays(playDelays));
+        circlesToggle.onValueChanged.AsObservable().Subscribe(playCircles => Instances.NetworkedAppState.ChangeShouldPlayCircles(playCircles));
+        microOrganismsToggle.onValueChanged.AsObservable().Subscribe(playMicroOrganisms => Instances.NetworkedAppState.ChangeShouldPlayMicroOrganisms(playMicroOrganisms));
+
+        shiftLeftButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedAppState.ShiftCirclesPos(Vector2Int.right));
+        shiftRightButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedAppState.ShiftCirclesPos(Vector2Int.left));
+        shiftDownButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedAppState.ShiftCirclesPos(Vector2Int.down));
+        shiftUpButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedAppState.ShiftCirclesPos(Vector2Int.up));
         
         previousAuraTextButton.onClick.AsObservable().Subscribe(_ => GoToNextAuraText(false));
         nextAuraTextButton.onClick.AsObservable().Subscribe(_ => GoToNextAuraText(true));
@@ -102,11 +111,11 @@ public class MonitorUI : UIWithConnection
     {
         clientConnectionsText.text = $"Client connections: {connections}";
     }
-
+    
     private void SendChoice()
     {
         Debug.Log($"Send Choice {Instances.NetworkedVoting.currentChoice}");
-
+        
         float sliderVal = voteOverwriteSlider.value;
         
         ChoiceType choice = ChoiceType.B;
@@ -117,7 +126,7 @@ public class MonitorUI : UIWithConnection
             choice = ChoiceType.A;
         
         Instances.NetworkedVoting.ChangeChoiceAfterWarning(choice);
-
+        
         // HighlightChoice(Instances.NetworkedVoting.currentChoice);
     }
     
@@ -125,7 +134,7 @@ public class MonitorUI : UIWithConnection
     {
         Instances.NetworkedAppState.GoToNextAuraTextIndex(next);
     }
-
+    
     // [Button]
     // public void HighlightChoice(ChoiceType choiceType)
     // {
@@ -133,7 +142,7 @@ public class MonitorUI : UIWithConnection
     //     
     //     Instances.MyMessageBroker.SendMessageToBuildType(BuildType.Score, $"HighlightChoice {(int)choiceType}");
     // }
-
+    
     private void OnCenterModeToggled(bool centerModeOn)
     {
         centerModeSlider.interactable = centerModeOn;
@@ -144,5 +153,10 @@ public class MonitorUI : UIWithConnection
     private void OnCenterModeSliderChanged(float centerModeSliderVal)
     {
         
+    }
+
+    public void SetCirclesPos(Vector2Int pos)
+    {
+        circlesPositionText.text = $"Circles: {pos.x}, {pos.y}";
     }
 }

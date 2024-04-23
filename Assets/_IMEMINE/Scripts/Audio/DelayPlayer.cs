@@ -27,6 +27,7 @@ public class DelayPlayer : MonoBehaviour
     private float currentRandomWaitTime = 0.5f;
 
     private float timeSinceLastPlay => Time.time - lastPlayTime;
+    private List<AudioSource> createdSources = new List<AudioSource>();
     
     private void Update()
     {
@@ -106,16 +107,7 @@ public class DelayPlayer : MonoBehaviour
         
         yield return new WaitForSeconds(clipLength);
         
-        for (int sourceIndex = 0; sourceIndex < createdSources.Count; sourceIndex++)
-        {
-            AudioSource source = createdSources[sourceIndex];
-            
-            this.RunAfterFrames(1, () => { source.Stop(); });
-            this.RunAfterFrames(2, () => { Destroy(source.gameObject); });
-            
-            // source.Stop();
-            // Destroy(source.gameObject);
-        }
+        StopAllPlaybackAndRemoveSources();
     }
 
     private AudioSource[] NewAudioSourcesWithClips(AudioClip[] audioClips, float volume)
@@ -153,6 +145,20 @@ public class DelayPlayer : MonoBehaviour
         return new []{ lowSource, midSource, highSource };
     }
 
+    public void StopAllPlaybackAndRemoveSources()
+    {
+        for (int sourceIndex = 0; sourceIndex < createdSources.Count; sourceIndex++)
+        {
+            AudioSource source = createdSources[sourceIndex];
+            
+            this.RunAfterFrames(1, () => { source.Stop(); });
+            this.RunAfterFrames(2, () => { Destroy(source.gameObject); });
+            
+            // source.Stop();
+            // Destroy(source.gameObject);
+        }
+    }
+    
     // [SerializeField] private bool setFadeVal;
     [Button]
     public void SetFadeValue(float fadeVal)

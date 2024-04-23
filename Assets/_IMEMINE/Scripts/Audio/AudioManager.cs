@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour
     public TutorialDoubleFader tutorialDoubleFader;
     public CirclePlayer circlePlayer;
     public DelayPlayer delayPlayer;
+    public AudioFader microOrganismsAudioFader;
     
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioDistortionFilter audioDistortionFilter;
@@ -26,16 +27,31 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioHighPassFilter audioHighPassFilter;
     [SerializeField] private AudioClip[] microOrganismsClips;
     [SerializeField] private AudioClip[] waysOfWaterClips;
-
+    
     [SerializeField] private float fadeInTime;
     [SerializeField] private float fadeOutTime;
+    
+    private Coroutine masterFadeRoutine;
+    private Coroutine circlesFadeRoutine;    
+    
+    // FUCK THISSSSSSS
+    private const float minVolume = 0.01f;
 
-    private Coroutine fadeRoutine;
-
+    private bool hasFadedInCircles;
+    private bool hasFadedOutCircles;
+    
+    [Button]
+    private void TestMasterAttenuation(float val)
+    {
+        master.audioMixer.SetFloat($"Master", val);
+    }
+    
     public void OnQuadrantsModeEnabled(Vector2 seatMinMax, Vector2 rowMinMax)
     {
-        if(fadeRoutine != null)
-            StopCoroutine(fadeRoutine);
+        if(masterFadeRoutine != null)
+            return;
+        
+        // StopCoroutine(masterFadeRoutine);
         
         bool shouldSound = Instances.SeatNumber >= seatMinMax.x && 
                            Instances.SeatNumber <= seatMinMax.y &&
@@ -43,18 +59,20 @@ public class AudioManager : MonoBehaviour
                            Instances.RowNumber <= rowMinMax.y;
         
         // SetUnscaledVolume(shouldSound ? 1 : 0);
-        fadeRoutine = StartCoroutine(DoFade(shouldSound));
+        masterFadeRoutine = StartCoroutine(DoMasterFade(shouldSound));
     }
     
     public void OnQuadrantsModeDisabled()
     {
-        if(fadeRoutine != null)
-            StopCoroutine(fadeRoutine);
-
-        fadeRoutine = StartCoroutine(DoFade(false));
+        if(masterFadeRoutine != null)
+            return;
+        
+        // StopCoroutine(masterFadeRoutine);
+        
+        masterFadeRoutine = StartCoroutine(DoMasterFade(false));
     }
     
-    private IEnumerator DoFade(bool fadeIn)
+    private IEnumerator DoMasterFade(bool fadeIn)
     {
         float startTime = Time.time;
         
@@ -65,21 +83,27 @@ public class AudioManager : MonoBehaviour
         {
             float currentPercentage = timeElapsed / fadeTime;
             
-            SetUnscaledVolume(currentPercentage);
+            if (fadeIn == false)
+                currentPercentage = 1 - currentPercentage;
+            
+            SetUnscaledVolume(currentPercentage, $"Master");
             
             timeElapsed = Time.time - startTime;
             yield return 0;
         }
-        SetUnscaledVolume(fadeIn ? 1 : 0);
+        SetUnscaledVolume(fadeIn ? 1 : minVolume, $"Master");
+        masterFadeRoutine = null;
     }
     
-    private void SetUnscaledVolume(float volume)
+    private void SetUnscaledVolume(float volume, string exposedParam)
     {
-        // Debug.Log($"SetUnscaledVolume from fade: {volume}");
+        volume = (volume <= 0) ? minVolume : volume;
         
         float scaledVolume = Mathf.Log(volume) * 20;
         
-        master.audioMixer.SetFloat($"Master", scaledVolume);
+        Debug.Log($"SetUnscaledVolume: {volume}, scaledVolume{scaledVolume} exposedParam: {exposedParam}");
+        
+        master.audioMixer.SetFloat(exposedParam, scaledVolume);
     }
     
     public void PlayFadeSamples(AudioClip fadeClips)
@@ -94,6 +118,62 @@ public class AudioManager : MonoBehaviour
         audioFader.SetFadeValue(fadeVal);
     }
     
+    public void ResetCirclesVolume()
+    {
+        // master.audioMixer.SetFloat($"Circles", 0);
+    }
+    
+    public void MuteCircles(bool mute)
+    {
+        Debug.Log($"Mute circles: {mute}");
+        SetUnscaledVolume(mute ? 0 : 1, $"Circles");
+    }
+    
+    public void PlayMicroOrganisms()
+    {
+        microOrganismsAudioFader.PlayFadeSamples(microOrganismsClips.Take(2).ToArray());
+    }
+    
+    public void StopMicroOrganisms()
+    {
+        microOrganismsAudioFader.StopAllPlayback();
+    }
+    
+    // public void FadeCircles(bool fadeIn)
+    // {
+    //     if (circlesFadeRoutine != null)
+    //         StopCoroutine(circlesFadeRoutine);
+    //     
+    //     circlesFadeRoutine = StartCoroutine(DoCirclesFade(fadeIn));
+    // }
+    
+    // private IEnumerator DoCirclesFade(bool fadeIn)
+    // {
+    //     if(hasFadedInCircles == false)
+    //     {
+    //         float startTime = Time.time;
+    //
+    //         float fadeTime = 0.69f;
+    //
+    //         float timeElapsed = 0;
+    //         while (timeElapsed < fadeTime)
+    //         {
+    //             float currentPercentage = timeElapsed / fadeTime;
+    //
+    //             if (fadeIn == false)
+    //                 currentPercentage = 1 - currentPercentage;
+    //
+    //             SetUnscaledVolume(currentPercentage, $"Circles");
+    //
+    //             timeElapsed = Time.time - startTime;
+    //             yield return 0;
+    //         }
+    //         SetUnscaledVolume(fadeIn ? 1 : 0, $"Circles");
+    //     }
+    //
+    //     hasFadedInCircles = true;
+    // }
+    
     public void StopAllPlayback()
     {
         audioSource.Stop();
@@ -101,6 +181,9 @@ public class AudioManager : MonoBehaviour
         audioFader.StopAllPlayback();
         doubleFader.StopAllPlayback();
         tutorialDoubleFader.StopAllPlayback();
+        circlePlayer.StopPlayback();
+        delayPlayer.StopAllPlaybackAndRemoveSources();
+        microOrganismsAudioFader.StopAllPlayback();
     }
     
     public void ResetAllFx()

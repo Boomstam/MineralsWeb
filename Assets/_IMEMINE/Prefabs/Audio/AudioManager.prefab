@@ -226,6 +226,7 @@ MonoBehaviour:
   tutorialDoubleFader: {fileID: 5794792120940113606}
   circlePlayer: {fileID: 7385468501140855953}
   delayPlayer: {fileID: 306714154650334377}
+  microOrganismsAudioFader: {fileID: 1936498362720850778}
   audioSource: {fileID: 766021594129140789}
   audioDistortionFilter: {fileID: 5976355399040245350}
   audioChorusFilter: {fileID: 8359760141976977693}
@@ -233,7 +234,28 @@ MonoBehaviour:
   audioReverbFilter: {fileID: 2662691210304297230}
   audioLowPassFilter: {fileID: 3772835214161823330}
   audioHighPassFilter: {fileID: 3723915020669188169}
-  microOrganismsClips: []
+  microOrganismsClips:
+  - {fileID: 8300000, guid: 0180d7e20ceffbf4cacaa810d7790d54, type: 3}
+  - {fileID: 8300000, guid: 5c77547d22876c740b5c66ce46a3f872, type: 3}
+  - {fileID: 8300000, guid: 7c268a123a005ef43a17e12dc4f50277, type: 3}
+  - {fileID: 8300000, guid: 653bb6929cf85204e95d92332e6f123c, type: 3}
+  - {fileID: 8300000, guid: 23fe2e1c403de674e8bd9c631817cefb, type: 3}
+  - {fileID: 8300000, guid: 7ba211e0f8261ee4988f434dee9aa774, type: 3}
+  - {fileID: 8300000, guid: 583a63039d7ff924989557f0e5feeb21, type: 3}
+  - {fileID: 8300000, guid: bc64b6718062dae4fbbf5fcfefe227af, type: 3}
+  - {fileID: 8300000, guid: bf4e95a0b3398854cbf52b73046c30a0, type: 3}
+  - {fileID: 8300000, guid: 89918443351a83a45bf2e8c3b4b0b2ea, type: 3}
+  - {fileID: 8300000, guid: 1a051a84f5a949a4b9e10dd397b780db, type: 3}
+  - {fileID: 8300000, guid: b14b70120efe4f44f8e300ac43cda52c, type: 3}
+  - {fileID: 8300000, guid: 4c993fa5a8ed2a54a9eaeca37b3acae1, type: 3}
+  - {fileID: 8300000, guid: df72382ac4514574aa018279b8d6e4e9, type: 3}
+  - {fileID: 8300000, guid: a4f887dc548df3049b07306067166c44, type: 3}
+  - {fileID: 8300000, guid: da7141a2144fe464b81d3af5296a02fb, type: 3}
+  - {fileID: 8300000, guid: 04795111e1cfb7b4d9de5b223f833425, type: 3}
+  - {fileID: 8300000, guid: 50acb9c49ebd9fb4597d1d2de5ac64f5, type: 3}
+  - {fileID: 8300000, guid: c9bc7d6fa19c7274cbee25aaa0f909a2, type: 3}
+  - {fileID: 8300000, guid: 96e3dc165b02cfb4aa0170b464883acb, type: 3}
+  - {fileID: 8300000, guid: e689dd2a8a194f94191ca7e058407853, type: 3}
   waysOfWaterClips: []
   fadeInTime: 3
   fadeOutTime: 5

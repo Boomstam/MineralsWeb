@@ -27,50 +27,53 @@ public class CirclePlayer : MonoBehaviour
     private float lastLeftRightBalance = -1f;
 
     // TODO implement max playing time to prevent endless playing
-    private void Update()
+    // private void Update()
+    // {
+    //     try
+    //     {
+    //         bool playCircles = Instances.NetworkedMonitor.playCircles;
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         return;
+    //     }
+    //     
+    //     if (Instances.NetworkedMonitor.playCircles)
+    //     {
+    //         if (lowAudioSource.isPlaying == false)
+    //         {
+    //             StartPlayback();
+    //         } 
+    //     }
+    //     else
+    //     {
+    //         if (lowAudioSource.isPlaying)
+    //         {
+    //             StopPlayback();
+    //         }
+    //     }
+    //
+    //     if (lastVolume != Instances.NetworkedMonitor.volume || 
+    //         lastLeftRightBalance != Instances.NetworkedMonitor.leftRightBalance ||
+    //         lastShouldSpatialize != Instances.NetworkedMonitor.shouldSpatialize)
+    //     {
+    //         SetVolume();
+    //         
+    //         lastVolume = Instances.NetworkedMonitor.volume;
+    //         lastLeftRightBalance = Instances.NetworkedMonitor.leftRightBalance;
+    //         lastShouldSpatialize = Instances.NetworkedMonitor.shouldSpatialize;
+    //     }
+    // }
+
+    public void StartPlayback()
     {
-        try
-        {
-            bool playCircles = Instances.NetworkedMonitor.playCircles;
-        }
-        catch (Exception e)
-        {
+        if(lowAudioSource.isPlaying)
             return;
-        }
         
-        if (Instances.NetworkedMonitor.playCircles)
-        {
-            if (lowAudioSource.isPlaying == false)
-            {
-                StartPlayback();
-            } 
-        }
-        else
-        {
-            if (lowAudioSource.isPlaying)
-            {
-                StopPlayback();
-            }
-        }
-
-        if (lastVolume != Instances.NetworkedMonitor.volume || 
-            lastLeftRightBalance != Instances.NetworkedMonitor.leftRightBalance ||
-            lastShouldSpatialize != Instances.NetworkedMonitor.shouldSpatialize)
-        {
-            SetVolume();
-            
-            lastVolume = Instances.NetworkedMonitor.volume;
-            lastLeftRightBalance = Instances.NetworkedMonitor.leftRightBalance;
-            lastShouldSpatialize = Instances.NetworkedMonitor.shouldSpatialize;
-        }
-    }
-
-    private void StartPlayback()
-    {
         int soundIndex = Instances.SeatNumber % numDifferentSounds;
         
         Debug.Log($"StartPlayback soundIndex: {soundIndex}, numDifferentSounds: {numDifferentSounds}, CurrentNumSources: {numSources}");
-
+        
         lowAudioSource.clip = circleClips[(soundIndex * numSources)];
         midAudioSource.clip = circleClips[(soundIndex * numSources) + 1];
         highAudioSource.clip = circleClips[(soundIndex * numSources) + 2];
@@ -80,8 +83,11 @@ public class CirclePlayer : MonoBehaviour
         highAudioSource.Play();
     }
     
-    private void StopPlayback()
+    public void StopPlayback()
     {
+        if(lowAudioSource.isPlaying == false)
+            return;
+        
         Debug.Log($"StopPlayback");
         
         lowAudioSource.Stop();

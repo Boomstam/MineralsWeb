@@ -8,7 +8,6 @@ using UnityEngine;
 
 public class NetworkedMonitor : NetworkBehaviour
 {
-    [SyncVar] public int warningTime = 5;
     [SyncVar] public bool playCircles;
     [SyncVar] public float volume;
     [SyncVar] public bool shouldSpatialize;
@@ -86,11 +85,5 @@ public class NetworkedMonitor : NetworkBehaviour
         Debug.Log($"ToggleSound1OnVotingClients: {sound1}");
 
         Instances.AudioManager.doubleFader.sound1 = sound1;
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    public void SetWarningTime(int time)
-    {
-        warningTime = time;
     }
 }

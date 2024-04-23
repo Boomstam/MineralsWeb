@@ -45,13 +45,13 @@ public class MyMessageBroker : NetworkBehaviour
             Instances.OSCManager.SendOSCMessage("/channel/1", message);
         }
         
-        if (Instances.BuildType == BuildType.Score)
-        {
-            // Debug.Log($"Received message: {message}");
-            string[] subStrings = message.Split($" ");
-            
-            if(subStrings[0] == $"HighlightChoice")
-                Instances.ScoreManager.HighlightChoice((ChoiceType)int.Parse(subStrings[1]));
-        }
+        // if (Instances.BuildType == BuildType.Score)
+        // {
+        //     // Debug.Log($"Received message: {message}");
+        //     string[] subStrings = message.Split($" ");
+        //     
+        //     if(subStrings[0] == $"HighlightChoice")
+        //         Instances.ScoreManager.HighlightChoice((ChoiceType)int.Parse(subStrings[1]));
+        // }
     }
 }

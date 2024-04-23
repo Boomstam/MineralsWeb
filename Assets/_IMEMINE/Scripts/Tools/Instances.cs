@@ -42,7 +42,7 @@ public static class Instances
             if (LocalMonitor)
                 return BuildType.Monitor;
             if (LocalOSCClient)
-                return BuildType.OSCClient;
+                return BuildType.Score;
             if (LocalWebGLClient)
                 return BuildType.Voting;
 #endif

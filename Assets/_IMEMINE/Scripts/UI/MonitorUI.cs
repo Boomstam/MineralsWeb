@@ -75,7 +75,7 @@ public class MonitorUI : UIWithConnection
         centerModeSlider.onValueChanged.AsObservable().Subscribe(OnCenterModeSliderChanged);
         
         warningTimeInputField.onValueChanged.AsObservable()
-            .Subscribe(val => Instances.NetworkedMonitor.SetWarningTime(int.Parse(val)));
+            .Subscribe(val => Instances.NetworkedVoting.SetWarningTime(int.Parse(val)));
     }
 
     public void OnAppStateDropdownChanged(int newStateIndex)
@@ -106,8 +106,19 @@ public class MonitorUI : UIWithConnection
     private void SendChoice()
     {
         Debug.Log($"Send Choice {Instances.NetworkedVoting.currentChoice}");
+
+        float sliderVal = voteOverwriteSlider.value;
         
-        HighlightChoice(Instances.NetworkedVoting.currentChoice);
+        ChoiceType choice = ChoiceType.B;
+        
+        if (sliderVal < Instances.MonitorUI.BThreshold)
+            choice = ChoiceType.C;
+        else if(sliderVal > Instances.MonitorUI.CThreshold)
+            choice = ChoiceType.A;
+        
+        Instances.NetworkedVoting.ChangeChoiceAfterWarning(choice);
+
+        // HighlightChoice(Instances.NetworkedVoting.currentChoice);
     }
     
     private void GoToNextAuraText(bool next)
@@ -115,13 +126,13 @@ public class MonitorUI : UIWithConnection
         Instances.NetworkedAppState.GoToNextAuraTextIndex(next);
     }
 
-    [Button]
-    public void HighlightChoice(ChoiceType choiceType)
-    {
-        // Debug.Log($"Highlight choice: {choiceType}");
-        
-        Instances.MyMessageBroker.SendMessageToBuildType(BuildType.Score, $"HighlightChoice {(int)choiceType}");
-    }
+    // [Button]
+    // public void HighlightChoice(ChoiceType choiceType)
+    // {
+    //     // Debug.Log($"Highlight choice: {choiceType}");
+    //     
+    //     Instances.MyMessageBroker.SendMessageToBuildType(BuildType.Score, $"HighlightChoice {(int)choiceType}");
+    // }
 
     private void OnCenterModeToggled(bool centerModeOn)
     {

@@ -12,8 +12,8 @@ public class NetworkedVoting : NetworkBehaviour
 {
     [SyncVar (OnChange = nameof(OnVotingBlockChanged))] public bool votingBlocked;
     [SyncVar (OnChange = nameof(OnVotingModeChanged))] public bool votingModeEnabled;
-    [SyncVar] public ChoiceType currentChoice;
-
+    [SyncVar (OnChange = nameof(OnChoiceChanged))] public ChoiceType currentChoice;
+    [SyncVar] public int warningTime = 5;
     [SyncVar] private float voteOffset;
     [SerializeField] private float votingIntervalLength = 10;
 
@@ -21,8 +21,10 @@ public class NetworkedVoting : NetworkBehaviour
 
     [SerializeField] private int maxNumSeats;
     [SerializeField] private int maxNumRows;
+    
 
     // Saved on the Monitor
+    private ChoiceType localCurrentChoice;
     private float[][] votePerSeat;
 
     private void Awake()
@@ -162,23 +164,24 @@ public class NetworkedVoting : NetworkBehaviour
         
         Debug.Log($"voteAverage {voteAverage}, offsettedAverage {offsettedAverage}");
         
-        ChoiceType choice = ChoiceType.B;
-        
-        if (offsettedAverage < Instances.MonitorUI.BThreshold)
-            choice = ChoiceType.C;
-        else if(offsettedAverage > Instances.MonitorUI.CThreshold)
-            choice = ChoiceType.A;
-
-        SetCurrentChoice(choice);
+        // ChoiceType choice = ChoiceType.B;
+        //
+        // if (offsettedAverage < Instances.MonitorUI.BThreshold)
+        //     choice = ChoiceType.C;
+        // else if(offsettedAverage > Instances.MonitorUI.CThreshold)
+        //     choice = ChoiceType.A;
+        //
+        // localCurrentChoice = choice;
+        // SetCurrentChoice(choice);
         Debug.Log($"CurrentChoice {currentChoice}");
         // Instances.MonitorUI.HighlightChoice(choice);
     }
 
-    [ServerRpc (RequireOwnership = false)]
-    private void SetCurrentChoice(ChoiceType choice)
-    {
-        currentChoice = choice;
-    }
+    // [ServerRpc (RequireOwnership = false)]
+    // private void SetCurrentChoice(ChoiceType choice)
+    // {
+    //     currentChoice = choice;
+    // }
 
     [ServerRpc (RequireOwnership = false)]
     public void SendAverageToClientsViaServer(float voteAverage)
@@ -214,5 +217,38 @@ public class NetworkedVoting : NetworkBehaviour
             return;
 
         Instances.WebGLClientUI.PlayFadeClips = playFadeClips;
+    }
+    
+    [ServerRpc (RequireOwnership = false)]
+    public void ChangeChoiceAfterWarning(ChoiceType choiceType)
+    {
+        ChoiceType choice = choiceType;
+        
+        this.RunDelayed(warningTime + 0.5f, () => currentChoice = choice);
+        
+        ChangeChoiceAfterWarningOnClients(choice);
+    }
+
+    [ObserversRpc]
+    private void ChangeChoiceAfterWarningOnClients(ChoiceType choiceType)
+    {
+        if (Instances.BuildType != BuildType.Score)
+            return;
+        
+        Instances.ScoreManager.StartHighlightChoiceRoutine(choiceType);
+    }
+    
+    private void OnChoiceChanged(ChoiceType oldValue, ChoiceType newValue, bool asServer)
+    {
+        if(Instances.BuildType != BuildType.Score)
+            return;
+        
+        Instances.ScoreManager.SetChoice(newValue);
+    }
+
+    [Button, ServerRpc(RequireOwnership = false)]
+    public void SetWarningTime(int time)
+    {
+        warningTime = time;
     }
 }

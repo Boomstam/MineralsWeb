@@ -12544,6 +12544,7 @@ MonoBehaviour:
   startVotingIntervalButton: {fileID: 1232406620112409621}
   oscConnectionsText: {fileID: 8276598613417006020}
   clientConnectionsText: {fileID: 3544909233175190144}
+  auraTexts: {fileID: 2432909327697056363}
   previousAuraTextButton: {fileID: 4866229211569208261}
   nextAuraTextButton: {fileID: 6238241982506812129}
   voteAverageText: {fileID: 8296853152807950894}

@@ -7,7 +7,8 @@ using UnityEngine;
 public class NetworkedAppState : NetworkBehaviour
 {
     [SyncVar (OnChange = nameof(OnChangeShowAuraText))] public bool showAuraText;
-    [SyncVar (OnChange = nameof(OnCurrentAuraTextIndexChange))] public int currentAuraTextIndex;
+    [SyncVar (OnChange = nameof(OnAuraTextChange))] public string currentAuraNLText;
+    [SyncVar] public string currentAuraENText;
     [SyncVar (OnChange = nameof(OnAppStateChange))] public AppState appState;
     // [SyncVar (OnChange = nameof(OnQuadrantsModeChange))] private bool quadrantMode;
     [SyncVar (OnChange = nameof(OnCenterModeChange))] private bool centerMode;
@@ -22,7 +23,6 @@ public class NetworkedAppState : NetworkBehaviour
     [SyncVar(OnChange = nameof(OnShouldPlayStaticVideoChange))] public bool shouldPlayStaticVideo;
     [SyncVar(OnChange = nameof(OnChangeTheEnd))] public bool theEnd;
     [SyncVar] public Vector2Int quadrantRowMinMax;
-    
     [SerializeField] private Vector2Int circlesSize = new Vector2Int(9, 5);
     
     public override void OnStartClient()
@@ -31,41 +31,34 @@ public class NetworkedAppState : NetworkBehaviour
         
         Debug.Log($"Start Client NetworkedAppState");
     }
-
+    
     [ServerRpc (RequireOwnership = false)]
     public void ChangeShowAuraText(bool newShowAuraText)
     {
-        
+        showAuraText = newShowAuraText;
     }
     
     private void OnChangeShowAuraText(bool oldValue, bool newValue, bool asServer)
     {
-        
         if(Instances.BuildType != BuildType.Voting)
             return;
-
-        // Instances.WebGLClientUI.T(newValue);
-    }
-
-    [ServerRpc (RequireOwnership = false)]
-    public void GoToNextAuraTextIndex(bool next)
-    {
-        int newIndex = currentAuraTextIndex + (next ? 1 : -1);
         
-        newIndex = Mathf.Clamp(newIndex, 0, int.MaxValue);
-        
-        currentAuraTextIndex = newIndex;
+        Instances.WebGLClientUI.ToggleAuraText(newValue);
     }
     
-    private void OnCurrentAuraTextIndexChange(int oldValue, int newValue, bool asServer)
+    [ServerRpc (RequireOwnership = false)]
+    public void SetCurrentAuraTexts(string nlText, string enText)
+    {
+        currentAuraENText = enText;
+        currentAuraNLText = nlText;
+    }
+    
+    private void OnAuraTextChange(string oldValue, string newValue, bool asServer)
     {
         if(Instances.BuildType != BuildType.Voting)
             return;
         
-        if(appState != AppState.Introduction)
-            return;
-        
-        Instances.WebGLClientUI.auraTextDisplay.GoToText(newValue);
+        Instances.WebGLClientUI.auraTextDisplay.SetText(currentAuraNLText, currentAuraENText);
     }
     
     [ServerRpc (RequireOwnership = false)]

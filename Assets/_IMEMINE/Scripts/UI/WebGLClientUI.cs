@@ -457,8 +457,7 @@ public class WebGLClientUI : UIWithConnection
         DisableAllModes(true);
         
         backgroundVideo.gameObject.SetActive(true);
-        auraTextHolder.gameObject.SetActive(true);
-        
+
         votingClientVideoPlayer.PlayVideo(VideoType.Aura);
         videoPlayer.playbackSpeed = 0.6f;
     }
@@ -560,9 +559,8 @@ public class WebGLClientUI : UIWithConnection
         StopBlinkAnimations();
         
         colorOverlay.gameObject.SetActive(false);
-        backgroundVideo.gameObject.SetActive(false);
-        auraTextHolder.gameObject.SetActive(false);
-        
+        // backgroundVideo.gameObject.SetActive(false);
+
         waysOfWater.SetActive(false);
         microOrganisms.SetActive(false);
         
@@ -1116,9 +1114,9 @@ public class WebGLClientUI : UIWithConnection
         theEnd.SetActive(showTheEnd);
     }
 
-    public void ToggleAuraText(bool showTheEnd)
+    public void ToggleAuraText(bool showAuraText)
     {
-        theEnd.SetActive(showTheEnd);
+        auraTextHolder.SetActive(showAuraText);
     }
 }
 

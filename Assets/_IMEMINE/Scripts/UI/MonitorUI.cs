@@ -16,6 +16,7 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private Button startVotingIntervalButton;
     [SerializeField] private TextMeshProUGUI oscConnectionsText;
     [SerializeField] private TextMeshProUGUI clientConnectionsText;
+    [SerializeField] private AuraTextDisplay auraTexts;
     
     [SerializeField] private Button previousAuraTextButton;
     [SerializeField] private Button nextAuraTextButton;
@@ -56,7 +57,8 @@ public class MonitorUI : UIWithConnection
     public float BThreshold => BThresholdSlider.value;
     public float CThreshold => CThresholdSlider.value;
 
-    private int currentVotingTag;
+    private int currentVotingTagIndex;
+    private int currentAuraTextIndex;
 
     private void Start()
     {
@@ -133,7 +135,6 @@ public class MonitorUI : UIWithConnection
     
     private void SendChoice()
     {
-        
         float sliderVal = voteOverwriteSlider.value;
         
         ChoiceType choice = ChoiceType.B;
@@ -152,18 +153,33 @@ public class MonitorUI : UIWithConnection
     
     private void GoToNextAuraText(bool next)
     {
-        Instances.NetworkedAppState.GoToNextAuraTextIndex(next);
+        int offset = next ? 1 : -1;
+        
+        currentAuraTextIndex += offset;
+        
+        if (currentAuraTextIndex >= auraTexts.auraTexts.Length)
+            currentAuraTextIndex = 0;
+        if (currentAuraTextIndex <= 0)
+            currentAuraTextIndex = auraTexts.auraTexts.Length - 1;
+        
+        Debug.Log($"Set to auraText {currentAuraTextIndex}, " +
+                  $"{auraTexts.auraTexts[currentAuraTextIndex].GetText(Language.NL)} - " +
+                  $"{auraTexts.auraTexts[currentAuraTextIndex].GetText(Language.EN)}");
+        
+        Instances.NetworkedAppState.SetCurrentAuraTexts(
+            auraTexts.auraTexts[currentAuraTextIndex].GetText(Language.NL), 
+            auraTexts.auraTexts[currentAuraTextIndex].GetText(Language.EN));
     }
     
     private void CycleVotingTags()
     {
-        currentVotingTag++;
+        currentVotingTagIndex++;
         
-        if (currentVotingTag >= votingHighTags.Length)
-            currentVotingTag = 0;
+        if (currentVotingTagIndex >= votingHighTags.Length)
+            currentVotingTagIndex = 0;
         
-        string highTag = votingHighTags[currentVotingTag];
-        string lowTag = votingLowTags[currentVotingTag];
+        string highTag = votingHighTags[currentVotingTagIndex];
+        string lowTag = votingLowTags[currentVotingTagIndex];
         
         cycleVotingTagsText.text = $"{highTag} - {lowTag}";
         

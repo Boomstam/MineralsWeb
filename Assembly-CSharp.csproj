@@ -68,6 +68,7 @@
      <Compile Include="Assets\FishNet\Plugins\Bayou\Core\Supporting.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\UI\ImageFader.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Performance\PerformanceManager.cs" />
+     <Compile Include="Assets\_IMEMINE\Scripts\Audio\CrystalVoicePlayer.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Tools\Instances.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Tools\BuildType.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Audio\CirclePlayer.cs" />
@@ -118,6 +119,7 @@
      <Folder Include="Assets\FishNet\Plugins\Bayou" />
      <Folder Include="Assets\jp.keijiro.osc-jack\Runtime" />
      <Folder Include="Assets\TextMesh Pro\Resources\Sprite Assets" />
+     <Folder Include="Assets\_IMEMINE\Audio\Clips\Crystals" />
      <Folder Include="Assets\_IMEMINE\Images\Icon" />
      <Folder Include="Assets\FishNet" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

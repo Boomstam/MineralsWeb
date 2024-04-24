@@ -6,17 +6,19 @@ using Sirenix.OdinInspector;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Audio;
+using Random = UnityEngine.Random;
 
 public class AudioManager : MonoBehaviour
 {
     public AudioMixerGroup master;
     public AudioFader audioFader;
-    // public AudioFader audioFader;
     public DoubleFader doubleFader;
+    public TutorialDoubleFader microOrganismsDoubleFader;
     public TutorialDoubleFader tutorialDoubleFader;
     public CirclePlayer circlePlayer;
     public DelayPlayer delayPlayer;
     public AudioFader microOrganismsAudioFader;
+    public CrystalVoicePlayer crystalVoicePlayer;
     
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioDistortionFilter audioDistortionFilter;
@@ -32,11 +34,11 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private float fadeOutTime;
     
     private Coroutine masterFadeRoutine;
-    private Coroutine circlesFadeRoutine;    
+    private Coroutine circlesFadeRoutine;
     
     // FUCK THISSSSSSS
     private const float minVolume = 0.01f;
-
+    
     private bool hasFadedInCircles;
     private bool hasFadedOutCircles;
     
@@ -101,7 +103,7 @@ public class AudioManager : MonoBehaviour
         
         float scaledVolume = Mathf.Log(volume) * 20;
         
-        Debug.Log($"SetUnscaledVolume: {volume}, scaledVolume{scaledVolume} exposedParam: {exposedParam}");
+        // Debug.Log($"SetUnscaledVolume: {volume}, scaledVolume{scaledVolume} exposedParam: {exposedParam}");
         
         master.audioMixer.SetFloat(exposedParam, scaledVolume);
     }
@@ -131,12 +133,43 @@ public class AudioManager : MonoBehaviour
     
     public void PlayMicroOrganisms()
     {
-        microOrganismsAudioFader.PlayFadeSamples(microOrganismsClips.Take(2).ToArray());
+        Debug.Log($"PlayMicroOrganisms");
+
+        int nextIndex = Random.Range(0, microOrganismsClips.Length / 2);
+
+        AudioClip[] clips =
+        {
+            microOrganismsClips[nextIndex],
+            microOrganismsClips[nextIndex + 1],
+        };
+        
+        // microOrganismsAudioFader.PlayFadeSamples(clips.ToArray());
+        microOrganismsDoubleFader.PlayFadeSamples();
+    }
+
+    public void StopMicroOrganismsAfterDelay()
+    {
+        Debug.Log($"StopMicroOrganismsAfterDelay");
+        
+        this.RunDelayed(3, StopMicroOrganisms);
     }
     
     public void StopMicroOrganisms()
     {
-        microOrganismsAudioFader.StopAllPlayback();
+        Debug.Log($"StopMicroOrganisms");
+        
+        // microOrganismsAudioFader.StopAllPlayback();
+        microOrganismsDoubleFader.StopAllPlayback();
+    }
+
+    public void StartRandomStaticVoice()
+    {
+        crystalVoicePlayer.PlayRandomSample();
+    }
+
+    public void StopRandomStaticVoice()
+    {
+        crystalVoicePlayer.StopAllPlayback();
     }
     
     // public void FadeCircles(bool fadeIn)
@@ -184,6 +217,8 @@ public class AudioManager : MonoBehaviour
         circlePlayer.StopPlayback();
         delayPlayer.StopAllPlaybackAndRemoveSources();
         microOrganismsAudioFader.StopAllPlayback();
+        microOrganismsDoubleFader.StopAllPlayback();
+        crystalVoicePlayer.StopAllPlayback();
     }
     
     public void ResetAllFx()

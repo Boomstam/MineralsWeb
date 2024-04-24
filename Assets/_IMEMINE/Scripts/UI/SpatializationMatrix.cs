@@ -25,7 +25,10 @@ public class SpatializationMatrix : MonoBehaviour
                 if (toggleOn)
                     OnQuadrantEnabled(quadrant);
                 else
+                {
+                    DisableAllToggles();
                     OnAllQuadrantsDisabled();
+                }
             });
         }
     }
@@ -39,7 +42,7 @@ public class SpatializationMatrix : MonoBehaviour
         
         Instances.NetworkedAppState.EnableQuadrantRanges(ranges[quadrant].seatMinMax, ranges[quadrant].rowMinMax);
     }
-    
+
     private void OnAllQuadrantsDisabled()
     {
         Debug.Log($"OnAllQuadrantsDisabled");
@@ -56,6 +59,6 @@ public class SpatializationMatrix : MonoBehaviour
 [System.Serializable]
 public class QuadrantRange
 {
-    public Vector2 seatMinMax;
-    public Vector2 rowMinMax;
+    public Vector2Int seatMinMax;
+    public Vector2Int rowMinMax;
 }

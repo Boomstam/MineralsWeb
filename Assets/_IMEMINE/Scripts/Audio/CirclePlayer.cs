@@ -101,29 +101,29 @@ public class CirclePlayer : MonoBehaviour
         highAudioSource.Stop();
     }
     
-    private void SetVolume()
-    {
-        float volume = Instances.NetworkedMonitor.volume;
-        
-        float spatializeMod = 1;
-        
-        if (Instances.NetworkedMonitor.shouldSpatialize)
-        {
-            float leftness = (float)(Instances.SeatNumber % Instances.NetworkedMonitor.seatsPerRow) / (float)Instances.NetworkedMonitor.seatsPerRow;
-            float deltaPos = Mathf.Abs(leftness - Instances.NetworkedMonitor.leftRightBalance);
-
-            spatializeMod = Mathf.Clamp01(1 - deltaPos);
-            
-            Debug.Log($"leftness: {leftness}, deltaPos {deltaPos}, spatializeMod {spatializeMod}");
-        }
-
-        float resultVolume = volume * spatializeMod;
-        float scaledVolume = Mathf.Log(resultVolume) * 20;
-
-        bool couldSetFloat = circlesMixer.audioMixer.SetFloat("Circles", scaledVolume);
-        
-        Debug.Log($"SetVolume, volume {volume}, spatializeMod {spatializeMod}, result {resultVolume}, scaledVolume {scaledVolume}, couldSetFloat {couldSetFloat}");
-    }
+    // private void SetVolume()
+    // {
+    //     float volume = Instances.NetworkedMonitor.volume;
+    //     
+    //     float spatializeMod = 1;
+    //     
+    //     if (Instances.NetworkedMonitor.shouldSpatialize)
+    //     {
+    //         float leftness = (float)(Instances.SeatNumber % Instances.NetworkedMonitor.seatsPerRow) / (float)Instances.NetworkedMonitor.seatsPerRow;
+    //         float deltaPos = Mathf.Abs(leftness - Instances.NetworkedMonitor.leftRightBalance);
+    //
+    //         spatializeMod = Mathf.Clamp01(1 - deltaPos);
+    //         
+    //         Debug.Log($"leftness: {leftness}, deltaPos {deltaPos}, spatializeMod {spatializeMod}");
+    //     }
+    //
+    //     float resultVolume = volume * spatializeMod;
+    //     float scaledVolume = Mathf.Log(resultVolume) * 20;
+    //
+    //     bool couldSetFloat = circlesMixer.audioMixer.SetFloat("Circles", scaledVolume);
+    //     
+    //     Debug.Log($"SetVolume, volume {volume}, spatializeMod {spatializeMod}, result {resultVolume}, scaledVolume {scaledVolume}, couldSetFloat {couldSetFloat}");
+    // }
     
     [Button]
     public void SetFadeValue(float fadeVal)

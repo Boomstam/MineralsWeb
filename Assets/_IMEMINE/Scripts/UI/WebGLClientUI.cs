@@ -92,7 +92,7 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private Image languageButtonBackground;
     [SerializeField] private TextMeshProUGUI tutorialPageText;
     [Header("Modes")]
-    [SerializeField] private GameObject introductionCanvas;
+    [SerializeField] private GameObject auraTextHolder;
     [SerializeField] private TextMeshProUGUI votingStatusTextNL;
     [SerializeField] private TextMeshProUGUI votingStatusTextEN;
     [SerializeField] private TextMeshProUGUI microOrganismsHighText;
@@ -104,6 +104,7 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private Image votingStatusBackgroundPanel;
     [SerializeField] private Color votingEnabledColor;
     [SerializeField] private Color votingDisabledColor;
+    [SerializeField] private GameObject theEnd;
     [Header("Other")]
     public AuraTextDisplay auraTextDisplay;
     [SerializeField] private float maxProgressBarRight = 527;
@@ -181,9 +182,20 @@ public class WebGLClientUI : UIWithConnection
         waysOfWaterSlider.onValueChanged.AsObservable()
             .Subscribe(sliderVal =>
             {
-                Debug.Log($"Set microOrganismsSlider: {sliderVal}");
-                // Instances.AudioManager.circlePlayer.SetFadeValue(sliderVal);
+                Debug.Log($"Set waysOfWaterSlider: {sliderVal}");
+                Instances.AudioManager.circlePlayer.SetFadeValue(sliderVal);
                 Instances.AudioManager.delayPlayer.SetFadeValue(sliderVal);
+            });
+        
+        microOrganismsHighLowSlider.onValueChanged.AsObservable()
+            .Subscribe(sliderVal =>
+            {
+                Instances.AudioManager.microOrganismsDoubleFader.SetFadeValHighLow(sliderVal);
+            });
+        organismsSlider.onValueChanged.AsObservable()
+            .Subscribe(sliderVal =>
+            {
+                Instances.AudioManager.microOrganismsDoubleFader.SetFadeValDistortion(sliderVal);
             });
         
         // Initial fade values
@@ -443,7 +455,7 @@ public class WebGLClientUI : UIWithConnection
         DisableAllModes(true);
         
         backgroundVideo.gameObject.SetActive(true);
-        introductionCanvas.gameObject.SetActive(true);
+        auraTextHolder.gameObject.SetActive(true);
         
         votingClientVideoPlayer.PlayVideo(VideoType.Aura);
         videoPlayer.playbackSpeed = 0.6f;
@@ -547,7 +559,7 @@ public class WebGLClientUI : UIWithConnection
         
         colorOverlay.gameObject.SetActive(false);
         backgroundVideo.gameObject.SetActive(false);
-        introductionCanvas.gameObject.SetActive(false);
+        auraTextHolder.gameObject.SetActive(false);
         
         waysOfWater.SetActive(false);
         microOrganisms.SetActive(false);
@@ -1023,7 +1035,7 @@ public class WebGLClientUI : UIWithConnection
                 ToggleTutorial(true);
             }
         }
-        
+            
         ShowEnterSeatDialog(show);
     }
     
@@ -1031,8 +1043,31 @@ public class WebGLClientUI : UIWithConnection
     {
         seatInputHolder.SetActive(show);
     }
-
+    
     #endregion
+    
+    public void ShowStaticVideo()
+    {
+        backgroundVideo.gameObject.SetActive(true);
+        videoPlayer.playbackSpeed = 1;
+        
+        votingClientVideoPlayer.PlayVideo(VideoType.Noise);
+    }
+    
+    public void StopStaticVideo()
+    {
+        backgroundVideo.gameObject.SetActive(false);
+    }
+
+    public void ToggleTheEnd(bool showTheEnd)
+    {
+        theEnd.SetActive(showTheEnd);
+    }
+
+    public void ToggleAuraText(bool showTheEnd)
+    {
+        theEnd.SetActive(showTheEnd);
+    }
 }
 
 public enum SeatElement

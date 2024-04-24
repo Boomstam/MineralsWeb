@@ -58,10 +58,10 @@ public class DelayPlayer : MonoBehaviour
     [Button]
     private void PlayRandomDelay()
     {
-        Debug.Log($"Play Random delay");
+        int nextIndex = Random.Range(0, numDifferentSounds);
         
-        // int nextIndex = Random.Range(0, numDifferentSounds);
-        int nextIndex = 1;
+        Debug.Log($"Play random delay, nextIndex: {nextIndex}");
+        // int nextIndex = 1;
         
         AudioClip[] clips = new[]
         {

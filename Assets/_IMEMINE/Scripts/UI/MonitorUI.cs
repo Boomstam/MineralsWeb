@@ -35,6 +35,10 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private Toggle delaysToggle;
     [SerializeField] private Toggle microOrganismsToggle;
     [SerializeField] private Toggle circlesToggle;
+    [SerializeField] private Toggle auraTextToggle;
+    [SerializeField] private Toggle staticAudioToggle;
+    [SerializeField] private Toggle staticVideoToggle;
+    [SerializeField] private Toggle theEndToggle;
     
     [SerializeField] private Toggle centerModeToggle;
     [SerializeField] private Slider centerModeSlider;
@@ -53,7 +57,7 @@ public class MonitorUI : UIWithConnection
         sendChoiceButton.onClick.AsObservable().Subscribe(_ => SendChoice());
         resetVotingButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedVoting.ResetVoting());
         startVotingIntervalButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedVoting.StartVotingInterval());
-            
+        
         voteAverageSlider.onValueChanged.AsObservable()
             .Subscribe(sliderVal => Instances.NetworkedVoting.OnVoteAverageUpdate(sliderVal));
         voteOverwriteSlider.onValueChanged.AsObservable()
@@ -70,7 +74,12 @@ public class MonitorUI : UIWithConnection
         delaysToggle.onValueChanged.AsObservable().Subscribe(playDelays => Instances.NetworkedAppState.ChangeShouldPlayDelays(playDelays));
         circlesToggle.onValueChanged.AsObservable().Subscribe(playCircles => Instances.NetworkedAppState.ChangeShouldPlayCircles(playCircles));
         microOrganismsToggle.onValueChanged.AsObservable().Subscribe(playMicroOrganisms => Instances.NetworkedAppState.ChangeShouldPlayMicroOrganisms(playMicroOrganisms));
-
+        theEndToggle.onValueChanged.AsObservable().Subscribe(theEnd => Instances.NetworkedAppState.ChangeTheEnd(theEnd));
+        
+        auraTextToggle.onValueChanged.AsObservable().Subscribe(showAuraText => Instances.NetworkedAppState.ChangeShowAuraText(showAuraText));
+        staticAudioToggle.onValueChanged.AsObservable().Subscribe(playStaticAudio => Instances.NetworkedAppState.ChangeShouldPlayStaticAudio(playStaticAudio));
+        staticVideoToggle.onValueChanged.AsObservable().Subscribe(playStaticVideo => Instances.NetworkedAppState.ChangeShouldPlayStaticVideo(playStaticVideo));
+        
         shiftLeftButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedAppState.ShiftCirclesPos(Vector2Int.right));
         shiftRightButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedAppState.ShiftCirclesPos(Vector2Int.left));
         shiftDownButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedAppState.ShiftCirclesPos(Vector2Int.down));

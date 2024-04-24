@@ -16,6 +16,12 @@ public class AuraTextDisplay : MonoBehaviour
     {
         Instances.WebGLClientUI.currentLanguage.Subscribe(SetLanguage);
     }
+
+    public void Toggle(bool show)
+    {
+        auraTextComponent.gameObject.SetActive(show);
+        backgroundPanel.SetActive(show);
+    }
     
     public void GoToText(int index)
     {
@@ -25,9 +31,7 @@ public class AuraTextDisplay : MonoBehaviour
             Debug.LogError($"Index {index} was too big for the auraText array of size {auraTexts.Length} in GoToText");
             return;
         }
-        
-        backgroundPanel.SetActive(index != 0);
-        
+
         auraTextComponent.text = auraTexts[index].GetText(Instances.WebGLClientUI.currentLanguage.Value);
     }
     

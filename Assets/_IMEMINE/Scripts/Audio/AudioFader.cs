@@ -78,9 +78,11 @@ public class AudioFader : MonoBehaviour
 
         for (int clipIndex = 0; clipIndex < numClips; clipIndex++)
         {
+            Debug.Log($"clip: {fadeClips[clipIndex]}");
             sources[clipIndex].clip = fadeClips[clipIndex];
             sources[clipIndex].Play();
         }
+        Debug.Log($"lastFadeVal: {lastFadeVal}");
         SetFadeValue(lastFadeVal);
     }
     

@@ -830,18 +830,24 @@ MonoBehaviour:
   audioManager: {fileID: 8831931863038137966}
   faderTemplate: {fileID: 8912218304912020971}
   delayClips:
-  - {fileID: 8300000, guid: 9ab0ef2cb30e5c6479540c3990f788ad, type: 3}
   - {fileID: 8300000, guid: 0f0d621e1af312842bd10d79f1e0aa30, type: 3}
   - {fileID: 8300000, guid: 0ac0e2f6404441346b62ee33274761f5, type: 3}
-  - {fileID: 8300000, guid: 5652f44033f1740469c1c2c01aae3c93, type: 3}
+  - {fileID: 8300000, guid: 9ab0ef2cb30e5c6479540c3990f788ad, type: 3}
   - {fileID: 8300000, guid: 0985038cbed5ca7429b8efc8a257f61d, type: 3}
   - {fileID: 8300000, guid: 0632155d0c9f5c94483f5a3f658f9772, type: 3}
-  - {fileID: 8300000, guid: 30b7f269d3ed74842bb8e751cd2a4dbf, type: 3}
+  - {fileID: 8300000, guid: 5652f44033f1740469c1c2c01aae3c93, type: 3}
   - {fileID: 8300000, guid: 17202143c94974f468bdcfaa269ca096, type: 3}
   - {fileID: 8300000, guid: 444db70abdce9394daf2271684a83e85, type: 3}
-  - {fileID: 8300000, guid: 46ee28875e8bb1f46abe405458d1bec4, type: 3}
+  - {fileID: 8300000, guid: 30b7f269d3ed74842bb8e751cd2a4dbf, type: 3}
   - {fileID: 8300000, guid: 0309899fa47e7084cab1a47fae533789, type: 3}
-  - {fileID: 8300000, guid: f36a9f28fdf388d4891ecdb9b8b4fc28, type: 3}
+  - {fileID: 8300000, guid: a500d9e5c665081409e7c260d960954a, type: 3}
+  - {fileID: 8300000, guid: 683c74e959721cf4ba1e2191db48fc50, type: 3}
+  - {fileID: 8300000, guid: ad6ebde602a459140be3b3ee1a5f9705, type: 3}
+  - {fileID: 8300000, guid: 7e007dfd9f2d41640b15a84896e60d5c, type: 3}
+  - {fileID: 8300000, guid: 8a99299df55e3804782384a3db9d4300, type: 3}
+  - {fileID: 8300000, guid: adac886b99ad2f741bcb54d723306957, type: 3}
+  - {fileID: 8300000, guid: d2917159b28538547b0e251a0a53eb3f, type: 3}
+  - {fileID: 8300000, guid: 688c968987703234a840e40d83337bb1, type: 3}
   delaySamplePrefab: {fileID: 9064606992326889990, guid: fbd98a94687ec9841a762b5de8770d03, type: 3}
   delaysLowMixer: {fileID: -6525625628852139995, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
   delaysMidMixer: {fileID: -8077100242818227645, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}

@@ -26,6 +26,8 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private GameObject waysOfWater;
     [SerializeField] private GameObject voteWarning;
     [SerializeField] private TextMeshProUGUI voteWarningText;
+    [SerializeField] private TextMeshProUGUI votingHighText;
+    [SerializeField] private TextMeshProUGUI votingLowText;
     [SerializeField] private GameObject votingHolder;
     [Header("Row Number Input")]
     [SerializeField] private TextMeshProUGUI rowTitleText;
@@ -487,7 +489,7 @@ public class WebGLClientUI : UIWithConnection
         backgroundVideo.gameObject.SetActive(true);
         
         votingClientVideoPlayer.PlayVideo(VideoType.MicroOrganisms);
-        videoPlayer.playbackSpeed = 0.4f;
+        videoPlayer.playbackSpeed = 0.5f;
         
         if (Instances.NetworkedVoting.votingModeEnabled)
         {
@@ -504,7 +506,7 @@ public class WebGLClientUI : UIWithConnection
         backgroundVideo.gameObject.SetActive(true);
         
         votingClientVideoPlayer.PlayVideo(VideoType.Magma);
-        videoPlayer.playbackSpeed = 0.4f;
+        videoPlayer.playbackSpeed = 0.5f;
     }
     
     private void EnableWaysOfWaterMode()
@@ -514,7 +516,7 @@ public class WebGLClientUI : UIWithConnection
         backgroundVideo.gameObject.SetActive(true);
         
         votingClientVideoPlayer.PlayVideo(VideoType.WaysOfWater);
-        videoPlayer.playbackSpeed = 0.4f;
+        videoPlayer.playbackSpeed = 0.5f;
         
         if (Instances.NetworkedVoting.votingModeEnabled)
         {
@@ -531,7 +533,7 @@ public class WebGLClientUI : UIWithConnection
         backgroundVideo.gameObject.SetActive(true);
         
         votingClientVideoPlayer.PlayVideo(VideoType.AboutCrystals);
-        videoPlayer.playbackSpeed = 0.4f;
+        videoPlayer.playbackSpeed = 0.5f;
     }
     
     [Button]
@@ -634,10 +636,14 @@ public class WebGLClientUI : UIWithConnection
         
         highText.text = nl ? "HOOG" : "HIGH";
         tutorialHighText.text = nl ? "HOOG" : "HIGH";
+        microOrganismsHighText.text = nl ? "HOOG" : "HIGH";
         tutorialVoteHighText.text = nl ? "HOOG" : "HIGH";
+        
         lowText.text = nl ? "LAAG" : "LOW";
         tutorialLowText.text = nl ? "LAAG" : "LOW";
         tutorialVoteLowText.text = nl ? "LAAG" : "LOW";
+        microOrganismsLowText.text = nl ? "LAAG" : "LOW";
+        
         tutorialVoteMajorityText.text = nl ? "Publieks-meerderheid" : "Majority of Votes";
         tutorialVoteYourVoteText.text = nl ? "Uw Stem" : "Your Vote";
         
@@ -885,25 +891,25 @@ public class WebGLClientUI : UIWithConnection
         switch (soundIndex)
         {
             case 0: 
-                tutorialSoftNLText.text = "Stalagmieten";
-                tutorialHardNLText.text = "Stalactieten";
+                tutorialSoftNLText.text = "STALAGMIETEN";
+                tutorialHardNLText.text = "STALACTIETEN";
                 
-                tutorialSoftENText.text = "Stalagmites";
-                tutorialHardENText.text = "Stalactites";
+                tutorialSoftENText.text = "STALAGMITES";
+                tutorialHardENText.text = "STALACTITES";
                 break;
             case 1: 
-                tutorialSoftNLText.text = "Stalactieten";
-                tutorialHardNLText.text = "Stalagflieten";
+                tutorialSoftNLText.text = "STALACTIETEN";
+                tutorialHardNLText.text = "STALAGFLIETEN";
                 
-                tutorialSoftENText.text = "Stalactites";
-                tutorialHardENText.text = "Stalagflites";
+                tutorialSoftENText.text = "STALACTITES";
+                tutorialHardENText.text = "STALAGFLITES";
                 break;
             case 2: 
-                tutorialSoftNLText.text = "Stalagflieten";
-                tutorialHardNLText.text = "Stalagmieten";
+                tutorialSoftNLText.text = "STALAGFLIETEN";
+                tutorialHardNLText.text = "STALAGMIETEN";
                 
-                tutorialSoftENText.text = "Stalagflites";
-                tutorialHardENText.text = "Stalagmites";
+                tutorialSoftENText.text = "STALAGFLITES";
+                tutorialHardENText.text = "STALAGMITES";
                 break;
         }
     }
@@ -912,28 +918,74 @@ public class WebGLClientUI : UIWithConnection
     {
         switch (soundIndex)
         {
-            case 0: 
-                tutorialSoftNLText.text = "Stalagmieten";
-                tutorialHardNLText.text = "Stalactieten";
-                
-                tutorialSoftENText.text = "Stalagmites";
-                tutorialHardENText.text = "Stalactites";
+            case 0:
+                organism1Text.text = "HEMATODES";
+                organism2Text.text = "METHANOGENS";
                 break;
-            case 1: 
-                tutorialSoftNLText.text = "Stalactieten";
-                tutorialHardNLText.text = "Stalagflieten";
-                
-                tutorialSoftENText.text = "Stalactites";
-                tutorialHardENText.text = "Stalagflites";
+            case 1:
+                organism1Text.text = "METHANOGENS";
+                organism2Text.text = "BRADYRHIZOBIA";
                 break;
-            case 2: 
-                tutorialSoftNLText.text = "Stalagflieten";
-                tutorialHardNLText.text = "Stalagmieten";
-                
-                tutorialSoftENText.text = "Stalagflites";
-                tutorialHardENText.text = "Stalagmites";
+            case 2:
+                organism1Text.text = "BRADYRHIZOBIA";
+                organism2Text.text = "ACTINOMYCETES";
+                break;
+            case 3:
+                organism1Text.text = "ACTINOMYCETES";
+                organism2Text.text = "HELMINTHS";
+                break;
+            case 4:
+                organism1Text.text = "HELMINTHS";
+                organism2Text.text = "ARCHAEA";
+                break;
+            case 5:
+                organism1Text.text = "ARCHAEA";
+                organism2Text.text = "FUNGI";
+                break;
+            case 6:
+                organism1Text.text = "FUNGI";
+                organism2Text.text = "RHIZOBIA";
+                break;
+            case 7:
+                organism1Text.text = "RHIZOBIA";
+                organism2Text.text = "AMOEBAS";
+                break;
+            case 8:
+                organism1Text.text = "AMOEBAS";
+                organism2Text.text = "HEMATODES";
                 break;
         }
+    }
+
+    public void SetVotingTags(string highTag, string lowTag)
+    {
+        Debug.Log($"Set voting Tags: {highTag}, {lowTag}");
+        bool nl = (currentLanguage.Value == Language.NL); 
+        
+        votingHighText.text = nl ? highTag : TagTranslation(highTag);
+        votingLowText.text = nl ? lowTag : TagTranslation(lowTag);
+    }
+
+    private string TagTranslation(string nlString)
+    {
+        switch (nlString)
+        {
+            case "HOOG": return "HIGH";
+            case "LAAG": return "LOW";
+            
+            case "INTENS": return "INTENSE";
+            case "KALM": return "CALM";
+            
+            case "LUID": return "LOUD";
+            case "HARD": return "LOUD";
+            case "ZACHT": return "SOFT";
+            
+            case "SNEL": return "FAST";
+            case "TRAAG": return "SLOW";
+        }
+        Debug.LogError($"Couldn't find translation for {nlString}!");
+        
+        return nlString;
     }
 
     private void ShowTutorialText(int textIndex)

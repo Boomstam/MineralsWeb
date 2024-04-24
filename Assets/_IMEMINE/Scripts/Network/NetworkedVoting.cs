@@ -15,8 +15,7 @@ public class NetworkedVoting : NetworkBehaviour
     [SyncVar (OnChange = nameof(OnChoiceChanged))] public ChoiceType currentChoice;
     [SyncVar] public int warningTime = 5;
     [SyncVar] private float voteOffset;
-    [SerializeField] private float votingIntervalLength = 10;
-
+    [SerializeField] private float votingIntervalLength = 11;
     [SyncVar (OnChange = nameof(OnVoteProgressUpdate))] private float voteProgress;
 
     [SerializeField] private int maxNumSeats;

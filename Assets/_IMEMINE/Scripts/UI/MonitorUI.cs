@@ -46,11 +46,17 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private Button shiftRightButton;
     [SerializeField] private Button shiftDownButton;
     [SerializeField] private Button shiftUpButton;
+    [SerializeField] private Button cycleVotingTagsButton;
+    [SerializeField] private TextMeshProUGUI cycleVotingTagsText;
     [SerializeField] private TextMeshProUGUI circlesPositionText;
     [SerializeField] private TMP_InputField warningTimeInputField;
+    [SerializeField] private string[] votingHighTags;
+    [SerializeField] private string[] votingLowTags;
 
     public float BThreshold => BThresholdSlider.value;
     public float CThreshold => CThresholdSlider.value;
+
+    private int currentVotingTag;
 
     private void Start()
     {
@@ -87,6 +93,8 @@ public class MonitorUI : UIWithConnection
         
         previousAuraTextButton.onClick.AsObservable().Subscribe(_ => GoToNextAuraText(false));
         nextAuraTextButton.onClick.AsObservable().Subscribe(_ => GoToNextAuraText(true));
+        
+        cycleVotingTagsButton.onClick.AsObservable().Subscribe(_ => CycleVotingTags());
         
         BThresholdSlider.onValueChanged.AsObservable().Subscribe(sliderVal => BThresholdText.text = $"B Threshold: {sliderVal:0.00}");
         CThresholdSlider.onValueChanged.AsObservable().Subscribe(sliderVal => CThresholdText.text = $"C Threshold: {sliderVal:0.00}");
@@ -147,13 +155,20 @@ public class MonitorUI : UIWithConnection
         Instances.NetworkedAppState.GoToNextAuraTextIndex(next);
     }
     
-    // [Button]
-    // public void HighlightChoice(ChoiceType choiceType)
-    // {
-    //     // Debug.Log($"Highlight choice: {choiceType}");
-    //     
-    //     Instances.MyMessageBroker.SendMessageToBuildType(BuildType.Score, $"HighlightChoice {(int)choiceType}");
-    // }
+    private void CycleVotingTags()
+    {
+        currentVotingTag++;
+        
+        if (currentVotingTag >= votingHighTags.Length)
+            currentVotingTag = 0;
+        
+        string highTag = votingHighTags[currentVotingTag];
+        string lowTag = votingLowTags[currentVotingTag];
+        
+        cycleVotingTagsText.text = $"{highTag} - {lowTag}";
+        
+        Instances.NetworkedMonitor.SetVotingTags(highTag, lowTag);
+    }
     
     private void OnCenterModeToggled(bool centerModeOn)
     {

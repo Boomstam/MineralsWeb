@@ -14,7 +14,6 @@ public class DelayPlayer : MonoBehaviour
     [SerializeField] private AudioFader faderTemplate;
     [SerializeField] private AudioClip[] delayClips;
     [SerializeField] private AudioSource delaySamplePrefab;
-    [SerializeField] private AudioClip testDelaySample;
     
     [SerializeField] private AudioMixerGroup delaysLowMixer;
     [SerializeField] private AudioMixerGroup delaysMidMixer;

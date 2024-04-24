@@ -14,22 +14,27 @@ public class TutorialDoubleFader : MonoBehaviour
     [SerializeField] private AudioFader[] audioFaders;
     [SerializeField] private AudioMixerGroup lowAudioMixerGroup;
     [SerializeField] private AudioMixerGroup highAudioMixerGroup;
-
+    
     [SerializeField] private AudioClip[] clipTypesLow;
     [SerializeField] private AudioClip[] clipTypesHigh;
+    [SerializeField] private bool isTutorialVersion;
+    [SerializeField] private bool isMicroOrganismsVersion;
     
     private const float minVolume = 0.01f;
     
     private AudioSource[] sources;
     
     private float lastFadeVal = 0.5f;
-
+    
     [Button]
     public void PlayFadeSamples()
     {
         int type = Random.Range(0, clipTypesLow.Length / 2);
         
-        Instances.WebGLClientUI.SetTutorialSliderTexts(type);
+        if(isTutorialVersion)
+            Instances.WebGLClientUI.SetTutorialSliderTexts(type);
+        if(isMicroOrganismsVersion)
+            Instances.WebGLClientUI.SetMicroOrganismsSliderTexts(type);
         
         AudioClip[] lowFadeClips = { clipTypesLow[type * 2], clipTypesLow[type * 2 + 1] };
         AudioClip[] highFadeClips = { clipTypesHigh[type * 2], clipTypesHigh[type * 2 + 1] };

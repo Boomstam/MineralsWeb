@@ -68,7 +68,10 @@ public class CirclePlayer : MonoBehaviour
     public void StartPlayback()
     {
         if(lowAudioSource.isPlaying)
+        {
+            Debug.Log($"Didn't start circle playback, wasPlaying");
             return;
+        }
         
         int soundIndex = Instances.SeatNumber % numDifferentSounds;
         
@@ -86,7 +89,10 @@ public class CirclePlayer : MonoBehaviour
     public void StopPlayback()
     {
         if(lowAudioSource.isPlaying == false)
+        {
+            Debug.Log($"Didn't stop circle playback, wasPlaying == false");
             return;
+        }
         
         Debug.Log($"StopPlayback");
         

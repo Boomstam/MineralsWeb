@@ -128,29 +128,36 @@ public class NetworkedVoting : NetworkBehaviour
         
         SendVoteUpdateToMonitor(voteVal, seat, row);
     }
-
+    
     [ObserversRpc] // Runs on the Monitor
     private void SendVoteUpdateToMonitor(float voteVal, int seat, int row)
     {
         if(Instances.BuildType != BuildType.Monitor)
             return;
-
+        
+        Debug.Log($"Vote update: {voteVal}, seat: {seat},row: {row}");
+        
         votePerSeat[seat][row] = voteVal;
-
+        
         List<float> vals = new List<float>();
-
-        for (int seatToCheck = 0; seat < maxNumSeats; seat++)
+        
+        for (int seatToCheck = 0; seatToCheck < maxNumSeats; seatToCheck++)
         {
-            for (int rowToCheck = 0; row < maxNumRows; row++)
+            for (int rowToCheck = 0; rowToCheck < maxNumRows; rowToCheck++)
             {
                 float val = votePerSeat[seatToCheck][rowToCheck];
-
+                
                 if (val != 0)
                     vals.Add(val);
             }
         }
-
-        float average = vals.Average();
+        
+        float average = 0;
+        
+        Debug.Log($"Number of vals: {vals.Count}");
+        
+        if(vals.Count != 0)
+            average = vals.Average();
         
         OnVoteAverageUpdate(average);
     }
@@ -224,7 +231,7 @@ public class NetworkedVoting : NetworkBehaviour
     {
         ChoiceType choice = choiceType;
         
-        this.RunDelayed(warningTime + 0.5f, () => currentChoice = choice);
+        this.RunDelayed(warningTime, () => currentChoice = choice);
         
         ChangeChoiceAfterWarningOnClients(choice);
     }

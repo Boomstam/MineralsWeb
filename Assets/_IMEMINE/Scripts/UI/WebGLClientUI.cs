@@ -101,6 +101,9 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI organism2Text;
     [SerializeField] private Slider microOrganismsHighLowSlider;
     [SerializeField] private Slider organismsSlider;
+    [SerializeField] private Image votingStatusBackgroundPanel;
+    [SerializeField] private Color votingEnabledColor;
+    [SerializeField] private Color votingDisabledColor;
     [Header("Other")]
     public AuraTextDisplay auraTextDisplay;
     [SerializeField] private float maxProgressBarRight = 527;
@@ -135,7 +138,7 @@ public class WebGLClientUI : UIWithConnection
     private Coroutine nextButtonOnPressAnimationRoutine;
     
     private string languagePlayerPrefsKey = "SavedLanguage";
-
+    
     #endregion
     
     #region Setup
@@ -373,10 +376,10 @@ public class WebGLClientUI : UIWithConnection
         PlayerPrefs.SetInt(KeyForSeatElement(SeatElement.Row10s), rowDigits.Item1);
         PlayerPrefs.SetInt(KeyForSeatElement(SeatElement.Row1s), rowDigits.Item2);
     }
-
+    
     private void SetSeat(int seat)
     {
-        Debug.Log($"Set set: {seat}");
+        Debug.Log($"Set seat: {seat}");
         Instances.SeatNumber = seat;
         
         Tuple<int, int> seatDigits = GetRowOrSeatDigits(seat);
@@ -384,11 +387,11 @@ public class WebGLClientUI : UIWithConnection
         PlayerPrefs.SetInt(KeyForSeatElement(SeatElement.Seat10s), seatDigits.Item1);
         PlayerPrefs.SetInt(KeyForSeatElement(SeatElement.Seat1s), seatDigits.Item2);
     }
-
+    
     #endregion
-
+    
     #region Modes
-
+    
     public void SetToAppState(AppState appState)
     {
         ToggleTutorial(appState == AppState.Tutorial);
@@ -407,13 +410,13 @@ public class WebGLClientUI : UIWithConnection
                 break;
         }
     }
-
+    
     private void ToggleColorOverlayVisual(bool show)
     {
         colorOverlay.StartDelay = 0;
         colorOverlay.gameObject.SetActive(show);
     }
-
+    
     [Button]
     public void EnableEffectSlidersMode()
     {
@@ -441,11 +444,11 @@ public class WebGLClientUI : UIWithConnection
         
         backgroundVideo.gameObject.SetActive(true);
         introductionCanvas.gameObject.SetActive(true);
-
+        
         votingClientVideoPlayer.PlayVideo(VideoType.Aura);
         videoPlayer.playbackSpeed = 0.6f;
     }
-
+    
     public void ToggleEffectSlidersMode(bool effectSlidersOn)
     {
         Debug.Log($"ToggleEffectSlidersMode: {effectSlidersOn}");
@@ -470,9 +473,16 @@ public class WebGLClientUI : UIWithConnection
         DisableAllModes();
         
         backgroundVideo.gameObject.SetActive(true);
-
+        
         votingClientVideoPlayer.PlayVideo(VideoType.MicroOrganisms);
         videoPlayer.playbackSpeed = 0.4f;
+        
+        if (Instances.NetworkedVoting.votingModeEnabled)
+        {
+            voteSlider.gameObject.SetActive(true);
+            averageSlider.gameObject.SetActive(true);
+            votingHolder.SetActive(true);
+        }
     }
     
     private void EnableMagmaMode()
@@ -480,7 +490,7 @@ public class WebGLClientUI : UIWithConnection
         DisableAllModes();
         
         backgroundVideo.gameObject.SetActive(true);
-
+        
         votingClientVideoPlayer.PlayVideo(VideoType.Magma);
         videoPlayer.playbackSpeed = 0.4f;
     }
@@ -490,9 +500,16 @@ public class WebGLClientUI : UIWithConnection
         DisableAllModes();
         
         backgroundVideo.gameObject.SetActive(true);
-
+        
         votingClientVideoPlayer.PlayVideo(VideoType.WaysOfWater);
         videoPlayer.playbackSpeed = 0.4f;
+        
+        if (Instances.NetworkedVoting.votingModeEnabled)
+        {
+            voteSlider.gameObject.SetActive(true);
+            averageSlider.gameObject.SetActive(true);
+            votingHolder.SetActive(true);
+        }
     }
     
     private void EnableAboutCrystalsMode()
@@ -500,7 +517,7 @@ public class WebGLClientUI : UIWithConnection
         DisableAllModes();
         
         backgroundVideo.gameObject.SetActive(true);
-
+        
         votingClientVideoPlayer.PlayVideo(VideoType.AboutCrystals);
         videoPlayer.playbackSpeed = 0.4f;
     }
@@ -653,7 +670,7 @@ public class WebGLClientUI : UIWithConnection
             ShowEnterSeatDialog(false);
         }
     }
-
+    
     public void SetBlockVoting(bool blockVoting)
     {
         voteSlider.interactable = (blockVoting == false);
@@ -662,11 +679,13 @@ public class WebGLClientUI : UIWithConnection
             voteSlider.transform.SetSiblingIndex(0);
         else
             averageSlider.transform.SetSiblingIndex(0);
-
+        
         votingStatusTextNL.text = blockVoting ? "Stem vergrendeld" : "Stemmen gestart!";
         votingStatusTextEN.text = blockVoting ? "Voting block" : "Voting enabled!";
-    }
 
+        votingStatusBackgroundPanel.color = blockVoting ? votingDisabledColor : votingEnabledColor;
+    }
+    
     public void SetVotingProgress(float progress)
     {
         bool inProgress = (progress > 0);
@@ -674,13 +693,13 @@ public class WebGLClientUI : UIWithConnection
         SetBlockVoting(inProgress == false);
         
         voteProgressBar.gameObject.SetActive(inProgress);
-
+        
         if (inProgress)
         {
             voteProgressBar.value = progress;
         }
     }
-
+    
     public void ShowStartVotingWarning()
     {
         voteWarning.SetActive(true);
@@ -688,7 +707,7 @@ public class WebGLClientUI : UIWithConnection
         
         this.RunDelayed(1.5f, () => voteWarning.SetActive(false));
     }
-
+    
     public void ShowStopVotingWarning()
     {
         voteWarning.SetActive(true);
@@ -718,31 +737,30 @@ public class WebGLClientUI : UIWithConnection
             SetTutorialPart(currentTutorialPart);
         }
     }
-
+    
     private void GoToNextTutorialPart(bool next)
     {
         int currentTutorialPartIndex = (int)currentTutorialPart;
-
+        
         int lastIndex = (int)TutorialPartType.Enjoy;
         int newIndex = currentTutorialPartIndex + (next ? 1 : -1);
-
+        
         if(nextButtonOnPressAnimationRoutine != null)
             StopCoroutine(nextButtonOnPressAnimationRoutine);
-            
         
         Image image = next ? 
             nextTutorialPartButton.GetComponent<Image>() : 
             previousTutorialPartButton.GetComponent<Image>();
         
         nextButtonOnPressAnimationRoutine = StartCoroutine(DoOnImagePressAnimation(image));
-
+        
         SetTutorialPart((TutorialPartType)newIndex);
     }
-
+    
     private IEnumerator DoOnImagePressAnimation(Image image)
     {
         nextButtonOnPressAnimationStart = Time.time;
-
+        
         float alpha = 1;
         
         while (Time.time - nextButtonOnPressAnimationStart < nextPartButtonAnimationSpeed)
@@ -760,7 +778,7 @@ public class WebGLClientUI : UIWithConnection
         //     yield return 0;
         // }
     }
-
+    
     [Button]
     private void SetTutorialPart(TutorialPartType tutorialPartType)
     {
@@ -814,6 +832,7 @@ public class WebGLClientUI : UIWithConnection
                 tutorialAverageSlider.interactable = false;
                 tutorialVotingStatusTextNL.text = "Stem nu!";
                 tutorialVotingStatusTextEN.text = "Vote now!";
+                voteWarning.GetComponent<Image>().color = connectedColor;
                 EnableTutorialVotingMode();
                 break;
             case TutorialPartType.MajorityExplanation:
@@ -826,6 +845,7 @@ public class WebGLClientUI : UIWithConnection
                 tutorialAverageSlider.interactable = false;
                 tutorialVotingStatusTextNL.text = "Stem vergrendeld";
                 tutorialVotingStatusTextEN.text = "Voting blocked";
+                voteWarning.GetComponent<Image>().color = disconnectedColor;
                 EnableTutorialVotingMode();
                 break;
             case TutorialPartType.AudioExplanation1:

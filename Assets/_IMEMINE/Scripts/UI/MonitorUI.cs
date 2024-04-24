@@ -13,6 +13,7 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private TMP_Dropdown appStateDropdown;
     [SerializeField] private Button sendChoiceButton;
     [SerializeField] private Button resetVotingButton;
+    [SerializeField] private Button startVotingIntervalButton;
     [SerializeField] private TextMeshProUGUI oscConnectionsText;
     [SerializeField] private TextMeshProUGUI clientConnectionsText;
     
@@ -51,7 +52,8 @@ public class MonitorUI : UIWithConnection
     {
         sendChoiceButton.onClick.AsObservable().Subscribe(_ => SendChoice());
         resetVotingButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedVoting.ResetVoting());
-        
+        startVotingIntervalButton.onClick.AsObservable().Subscribe(_ => Instances.NetworkedVoting.StartVotingInterval());
+            
         voteAverageSlider.onValueChanged.AsObservable()
             .Subscribe(sliderVal => Instances.NetworkedVoting.OnVoteAverageUpdate(sliderVal));
         voteOverwriteSlider.onValueChanged.AsObservable()
@@ -114,7 +116,6 @@ public class MonitorUI : UIWithConnection
     
     private void SendChoice()
     {
-        Debug.Log($"Send Choice {Instances.NetworkedVoting.currentChoice}");
         
         float sliderVal = voteOverwriteSlider.value;
         
@@ -124,6 +125,8 @@ public class MonitorUI : UIWithConnection
             choice = ChoiceType.C;
         else if(sliderVal > Instances.MonitorUI.CThreshold)
             choice = ChoiceType.A;
+        
+        Debug.Log($"Send Choice {Instances.NetworkedVoting.currentChoice}");
         
         Instances.NetworkedVoting.ChangeChoiceAfterWarning(choice);
         

@@ -169,8 +169,13 @@ public class NetworkedAppState : NetworkBehaviour
         
         if(newValue)
         {
+            bool playCirlcesAtThisSeat = PlayCirclesAtThisSeat(); 
+            
+            if(playCirlcesAtThisSeat)
+                Instances.AudioManager.circlePlayer.StartPlayback();
+            else
+                Instances.AudioManager.circlePlayer.StopPlayback();
             // Instances.AudioManager.ResetCirclesVolume();
-            Instances.AudioManager.circlePlayer.StartPlayback();
         }
         else
         {
@@ -213,10 +218,12 @@ public class NetworkedAppState : NetworkBehaviour
     
     private bool PlayCirclesAtThisSeat()
     {
-        Debug.Log($"PlayCirclesAtThisSeat:  {Instances.SeatNumber} - {Instances.RowNumber} {circlesPos}, circlesSize: {circlesSize}");
-        
-        return (Instances.SeatNumber <= circlesPos.x && Instances.SeatNumber >= circlesPos.x - circlesSize.x &&
+        bool shouldPlay = (Instances.SeatNumber <= circlesPos.x && Instances.SeatNumber >= circlesPos.x - circlesSize.x &&
                 Instances.RowNumber >= circlesPos.y && Instances.RowNumber <= circlesPos.y + circlesSize.y);
+        
+        Debug.Log($"PlayCirclesAtThisSeat: {shouldPlay}; {Instances.SeatNumber}, {Instances.RowNumber}, circlesPos: {circlesPos}, circlesSize: {circlesSize}");
+        
+        return shouldPlay;
     }
 
     [ServerRpc (RequireOwnership = false)]

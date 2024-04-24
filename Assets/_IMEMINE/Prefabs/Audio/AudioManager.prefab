@@ -852,6 +852,7 @@ MonoBehaviour:
   delaysLowMixer: {fileID: -6525625628852139995, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
   delaysMidMixer: {fileID: -8077100242818227645, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
   delaysHighMixer: {fileID: 6593788999559062961, guid: d5d486b4577d2264ea966dec6a2712a8, type: 2}
+  chanceOfPlaying: 0.2
 --- !u!1 &5921507472215374364
 GameObject:
   m_ObjectHideFlags: 0

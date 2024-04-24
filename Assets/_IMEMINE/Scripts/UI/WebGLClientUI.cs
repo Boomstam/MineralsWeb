@@ -9,6 +9,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using Random = UnityEngine.Random;
 
 public class WebGLClientUI : UIWithConnection
 {
@@ -532,7 +533,7 @@ public class WebGLClientUI : UIWithConnection
         backgroundVideo.gameObject.SetActive(true);
         
         votingClientVideoPlayer.PlayVideo(VideoType.AboutCrystals);
-        videoPlayer.playbackSpeed = 0.5f;
+        videoPlayer.playbackSpeed = 0.3f;
     }
     
     [Button]
@@ -1096,19 +1097,6 @@ public class WebGLClientUI : UIWithConnection
     
     #endregion
     
-    public void ShowStaticVideo()
-    {
-        backgroundVideo.gameObject.SetActive(true);
-        videoPlayer.playbackSpeed = 1;
-        
-        votingClientVideoPlayer.PlayVideo(VideoType.Noise);
-    }
-    
-    public void StopStaticVideo()
-    {
-        backgroundVideo.gameObject.SetActive(false);
-    }
-
     public void ToggleTheEnd(bool showTheEnd)
     {
         theEnd.SetActive(showTheEnd);
@@ -1118,6 +1106,42 @@ public class WebGLClientUI : UIWithConnection
     {
         auraTextHolder.SetActive(showAuraText);
     }
+
+    #region Static Video
+
+    private Coroutine stopStaticVideoRoutine;
+    
+    public void ShowStaticVideo()
+    {
+        backgroundVideo.gameObject.SetActive(true);
+        videoPlayer.playbackSpeed = 1;
+
+        votingClientVideoPlayer.PlayVideo(VideoType.Noise);
+        
+        videoPlayer.time = Random.Range(0, 75);
+    }
+
+    public void StopStaticVideo()
+    {
+        if(stopStaticVideoRoutine != null)
+            return;
+
+        stopStaticVideoRoutine = StartCoroutine(StopStaticVideoAfterTime());
+    }
+    
+    private IEnumerator StopStaticVideoAfterTime()
+    {
+        float waitTime = Random.Range(0, 11);
+        Debug.Log($"Will turn of static video after {waitTime}");
+        
+        yield return new WaitForSeconds(waitTime);
+        
+        backgroundVideo.gameObject.SetActive(false);
+        
+        stopStaticVideoRoutine = null;
+    }
+
+    #endregion
 }
 
 public enum SeatElement

@@ -6429,7 +6429,9 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: WaysOfWater
       m_Image: {fileID: 0}
-    - m_Text: ColorOverlays
+    - m_Text: Magma
+      m_Image: {fileID: 0}
+    - m_Text: AboutCrystals
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

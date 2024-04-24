@@ -18,6 +18,7 @@ public class DelayPlayer : MonoBehaviour
     [SerializeField] private AudioMixerGroup delaysLowMixer;
     [SerializeField] private AudioMixerGroup delaysMidMixer;
     [SerializeField] private AudioMixerGroup delaysHighMixer;
+    [SerializeField] private float chanceOfPlaying;
 
     private const int numSources = 3;
     private int numDifferentSounds => delayClips.Length / numSources;
@@ -27,6 +28,13 @@ public class DelayPlayer : MonoBehaviour
 
     private float timeSinceLastPlay => Time.time - lastPlayTime;
     private List<AudioSource> createdSources = new List<AudioSource>();
+    
+    private int randomIndex;
+    
+    private void Start()
+    {
+        randomIndex = Random.Range(0, numDifferentSounds);
+    }
     
     private void Update()
     {
@@ -57,16 +65,19 @@ public class DelayPlayer : MonoBehaviour
     [Button]
     private void PlayRandomDelay()
     {
-        int nextIndex = Random.Range(0, numDifferentSounds);
+        Debug.Log($"Play random delay, nextIndex: {randomIndex}");
         
-        Debug.Log($"Play random delay, nextIndex: {nextIndex}");
-        // int nextIndex = 1;
+        if(Random.value > chanceOfPlaying)
+        {
+            Debug.Log($"Didn't play, didn't pass chance");
+            return;
+        }
         
         AudioClip[] clips = new[]
         {
-            delayClips[(nextIndex * numSources)],
-            delayClips[(nextIndex * numSources) + 1],
-            delayClips[(nextIndex * numSources) + 2],
+            delayClips[(randomIndex * numSources)],
+            delayClips[(randomIndex * numSources) + 1],
+            delayClips[(randomIndex * numSources) + 2],
         };
         
         float delayTime =

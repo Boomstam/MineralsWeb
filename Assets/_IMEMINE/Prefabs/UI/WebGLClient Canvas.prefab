@@ -4622,7 +4622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5067232227223883934
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4630,7 +4630,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2752231691164534871}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7968,10 +7968,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 174001659136678951}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.10093327, y: 0}
-  m_AnchorMax: {x: 0.9119815, y: 1}
-  m_AnchoredPosition: {x: -4.9432373, y: -6.7816772}
-  m_SizeDelta: {x: 104.0734, y: -45.9274}
+  m_AnchorMin: {x: 0.10093327, y: 0.054551084}
+  m_AnchorMax: {x: 0.90500003, y: 0.95767426}
+  m_AnchoredPosition: {x: 0.00015258789, y: 2.5910034}
+  m_SizeDelta: {x: -0.00030518, y: -5.181999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1734840960141247241
 MonoBehaviour:
@@ -11132,8 +11132,8 @@ RectTransform:
   - {fileID: 1037365500411303079}
   m_Father: {fileID: 2341558432206225983}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.047222216, y: 0.055406388}
-  m_AnchorMax: {x: 0.95288897, y: 0.9696439}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 2.6295166, y: 0.9636841}
   m_SizeDelta: {x: -5.625702, y: -8.805901}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -11182,7 +11182,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4874796763576531437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16665,7 +16665,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2341558432206225983
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16744,7 +16744,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &4143033624806930816
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12446,6 +12446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3712402746420243677}
   - component: {fileID: 325158421577116007}
+  - component: {fileID: 2432909327697056363}
   - component: {fileID: 1017643993369626123}
   - component: {fileID: 2773169564114148413}
   - component: {fileID: 7473180834141027260}
@@ -12589,6 +12590,438 @@ MonoBehaviour:
   - Laag
   - Zacht
   - Kalm
+--- !u!114 &2432909327697056363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8272872908741346500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71326d1b5e6c79543bb5e317794b73e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  auraTextComponent: {fileID: 0}
+  auraTexts:
+  - nlText: 
+    enText: 
+  - nlText: Hallo, mijn naam is Aura, hoe kan ik je helpen?
+    enText: Hello, my name is Aura, how can I assist you?
+  - nlText: 'Ik zou graag meer weten over de voorstelling "Minerals"? '
+    enText: I'd like to know more about the performance "Minerals".
+  - nlText: "De voorstelling \"Minerals\" is een ervaring die de grenzen van traditionele
+      concerten overschrijdt. Het draait allemaal om de interactie tussen het publiek
+      en de muzikanten. Bij binnenkomst krijgt elk lid van het publiek de mogelijkheid
+      om een speciale app te downloaden, waarmee ze in real-time de muziek kunnen
+      be\xEFnvloeden. Samen cre\xEBren ze een magische atmosfeer waarin elke uitvoering
+      uniek is en waarin iedereen deel uitmaakt van een collectieve creatieve reis. "
+    enText: '"Minerals" is an experience that transcends the boundaries of traditional
+      concerts. It''s all about the interaction between the audience and the musicians.
+      Upon arrival, each audience member gets the opportunity to download a special
+      app, allowing them to influence the music in real-time.   Together, they create
+      a magical atmosphere where each rendition is unique, and everyone becomes part
+      of a collective creative journey!'
+  - nlText: "Bedankt. Kan je meer uitleg geven over hoe je als publiek de muziek
+      kan be\xEFnvloeden? "
+    enText: Thanks. Can you give me more insight into how the audience can influence
+      the music?
+  - nlText: "Tijdens de voorstelling krijgt het publiek de kans om via een speciale
+      app op hun telefoon de muziek te be\xEFnvloeden. Deze app stelt hen in staat
+      om op verschillende momenten zowel het tempo, de toonhoogte en de dynamiek
+      van het strijkorkest als die van de solist aan te passen. Door simpelweg de
+      slider op hun telefoon te bewegen, kunnen ze hun keuzes registreren. Deze interactieve
+      mogelijkheden stellen het publiek in staat om een directe invloed uit te oefenen
+      op de muzikale uitvoering. Bovendien is er op een gegeven moment een \"intensity
+      slider\" waarmee ze alle parameters tegelijk kunnen be\xEFnvloeden. "
+    enText: 'During the performance, the audience has the opportunity to influence
+      the music through a special app on their phones. This app allows them to adjust
+      both the tempo, pitch, and dynamics of the string orchestra and the soloist
+      at various moments. By simply moving the slider on their phone, they can register
+      their choices. These interactive capabilities enable the audience to have a
+      direct impact on the musical performance. Additionally, at a certain point,
+      there''s an "intensity slider" that allows them to influence all parameters
+      simultaneously. '
+  - nlText: "Het proces verloopt als volgt: gedurende 10 seconden brengt het publiek
+      zijn stem uit, waarna uw stem tijdelijk wordt bevroren. Deze pauze stelt ons
+      in staat te luisteren naar het collectieve resultaat van de keuzes van het
+      publiek. Elke minuut is er een nieuw stemmoment, waardoor het publiek regelmatig
+      de kans krijgt om de richting van de ervaring te be\xEFnvloeden."
+    enText: 'The process unfolds like this: for 10 seconds, the audience casts their
+      votes, and then your vote will be temporarily frozen. This pause allows us
+      to listen to the collective result of the audience''s choices. Every minute,
+      there will be a new voting moment, providing regular chances for the audience
+      to influence the direction of the experience.'
+  - nlText: 'Bedankt. Kan je me wat meer vertellen over de inhoud van de voorstelling? '
+    enText: Thanks. Can you tell me more about the content of the performance?
+  - nlText: 'De voorstelling "Minerals" verkent het fascinerende concept van de formatie
+      van mineralen over miljoenen jaren, onder invloed van verschillende externe
+      factoren. Het verhaal draait om de transformatie van vloeibare naar vaste vormen,
+      parallel aan de manier waarop de muziek zich ontwikkelt en verandert tijdens
+      de uitvoering. Net zoals mineralen worden gevormd door natuurlijke processen
+      en omgevingsinvloeden, zo wordt ook de muziek gevormd door de input en keuzes
+      van het publiek tijdens de voorstelling.  '
+    enText: The performance "Minerals" explores the fascinating concept of mineral
+      formation over millions of years, influenced by various external factors. The
+      story revolves around the transformation from liquid to solid forms, paralleling
+      the way the music evolves and changes during the performance. Just as minerals
+      are formed by natural processes and environmental influences, so is the music
+      shaped by the input and choices of the audience during the performance.
+  - nlText: 'Klinkt fascinerend. Dit wil ik wel eens ervaren. Zijn er specifieke
+      zaken waar ik rekening mee moet houden? '
+    enText: Sounds fascinating. I'd like to experience it. Are there any specific
+      things I should consider?
+  - nlText: Om ervoor te zorgen dat u het maximale uit het concert haalt, hebben
+      wij een aantal tips voor u. Ten eerste raden we u aan uw telefoon in de modus
+      "Niet storen" te zetten om te voorkomen dat inkomende berichten of telefoontjes
+      de uitvoering onderbreken. We raden u echter aan het volume aan te houden,
+      zodat u zich volledig kunt onderdompelen in de soundscape van de voorstelling.
+      Luister naar de geluiden om je heen en pas het volume van je telefoon aan,
+      zodat je volledig kunt opgaan in de ervaring.
+    enText: 'To ensure you get the most out of the concert, we have a few tips for
+      you. Firstly, we recommend putting your phone on "Do Not Disturb" mode to prevent
+      any incoming messages or phone calls from interrupting the performance. However,
+      we encourage you to keep the volume on so you can fully immerse yourself in
+      the soundscape of the performance. Please listen to the sounds around you and
+      adjust the volume of your phone accordingly, ensuring that you can fully engage
+      with the experience. '
+  - nlText: "Vergeet ook niet uw stoelnummer in de app in te voeren. Hierdoor wordt
+      uw deelname naadloos ge\xEFntegreerd in de concertervaring. Verder hoef je
+      alleen maar te ontspannen en alles op je af laten komen. Dompel jezelf onder
+      in de muziek en wees niet bang om je creativiteit te laten spreken bij het
+      aanpassen van de muzikale parameters. Het is jouw kans om een \u200B\u200Bunieke
+      bijdrage te leveren aan de voorstelling en samen met het publiek een onvergetelijke
+      ervaring te cre\xEBren. Geniet ervan! "
+    enText: Also, don't forget to input your seat number into the app provided. This
+      ensures that your participation is seamlessly integrated into the concert experience.
+      Beyond that, all you have to do is relax and let everything unfold. Immerse
+      yourself in the music and don't be afraid to let your creativity speak when
+      adjusting the musical parameters. It's your chance to make a unique contribution
+      to the performance and create an unforgettable experience together with the
+      audience. Enjoy!
+  - nlText: 'Ok, klinkt goed. Kan je me wat helpen als ik vast zit? Of extra uitleg
+      geven? '
+    enText: Okay, sounds good. Can you help me if I get stuck? Or provide additional
+      explanations?
+  - nlText: Absoluut! Gedurende de show zal ik meer uitleg geven over het fascinerende
+      proces van mineraalvorming en de betekenis ervan voor zowel de aarde als de
+      mensheid. Je kan mijn uitleg lezen als de muziek speelt en ik zal tussen de
+      bewegingen door spreken om ervoor te zorgen dat je een naadloze en informatieve
+      ervaring hebt. Voor degenen die liever in het Nederlands volgen, is de informatie
+      bovendien rechtstreeks op je telefoon toegankelijk, zodat iedereen volledig
+      bij de voorstelling kan betrokken zijn.
+    enText: Absolutely! Throughout the show, I'll provide further insights into the
+      fascinating process of mineral formation and its significance for both the
+      Earth and humanity. I'll communicate silently when the music is playing and
+      speak in between movements to ensure you have a seamless and informative experience.
+      Moreover, for those who prefer to follow along in Dutch, the information will
+      be accessible directly on your phones, enabling everyone to fully engage with
+      the performance.
+  - nlText: 'Bedankt, ik ben er klaar voor! '
+    enText: Thanks, I'm ready for it!
+  - nlText: Graag gedaan! Ik wens je een buitengewoon mooie en meeslepende voorstelling
+      toe. Veel plezier!
+    enText: You're welcome! I wish you an extraordinarily beautiful and immersive
+      performance. Enjoy!
+  - nlText: 500 miljoen jaar geleden, in de vroege dagen van onze planeet, ontvouwde
+      zich een episch schouwspel dat het fundament legde voor de wereld zoals we
+      die vandaag kennen. In de diepten van de aardkorst begonnen mineralen te vormen,
+      een traag en bedachtzaam proces dat zich over miljoenen jaren voltrok. Onder
+      de intense druk en hitte ontstonden kristallen uit vloeibaar magma, terwijl
+      mineralen zich afzetten uit wateroplossingen en gesteenten zich transformeerden
+      onder de zware last van de aardkorst.
+    enText: 500 million years ago, in the early days of our planet, an epic spectacle
+      unfolded that laid the foundation for the world as we know it today. In the
+      depths of the Earth's crust, minerals began to form. Under intense pressure
+      and heat, crystals emerged from liquid magma, while minerals precipitated from
+      aqueous solutions and rocks transformed under the heavy burden of the Earth's
+      crust.
+  - nlText: Deze verre tijdperken waren doordrongen van een ongrijpbare atmosfeer,
+      waarin de aarde haar eerste stappen zette op het pad naar volwassenheid. Micro-organismen,
+      in hun prille vormen, dansten rond de opkomende mineralen, en hun subtiele
+      invloed verweefde zich met de complexe geologische processen die de aarde vormgaven.
+    enText: These distant epochs were permeated with an elusive atmosphere, in which
+      the Earth took its first steps on the path to maturity. Microorganisms, in
+      their nascent forms, danced around the emerging minerals, and their subtle
+      influence intertwined with the complex geological processes that shaped the
+      Earth.
+  - nlText: "De betekenis van mineralen in deze oude wereld was alomvattend en grenzeloos.
+      Als bouwstenen van gesteenten, vormden ze de solide basis van de aardkorst,
+      terwijl ze het landschap be\xEFnvloedden en natuurlijke rijkdommen cre\xEBerden,
+      zoals kostbare ertsen en schitterende edelstenen."
+    enText: The significance of minerals in this ancient world was comprehensive
+      and boundless. As the building blocks of rocks, they formed the solid foundation
+      of the Earth's crust, while influencing the landscape and creating natural
+      riches, such as precious ores and dazzling gemstones.
+  - nlText: Maar de rol van mineralen reikte verder dan alleen geologie. Ze waren
+      de levensader van ecologische processen, voedingsstoffen voor planten en dieren,
+      en de sleutel tot het behoud van evenwichtige ecosystemen en zuiver water.
+    enText: But the role of minerals extended beyond geology alone. They were the
+      lifeblood of ecological processes, nutrients for plants and animals, and the
+      key to maintaining balanced ecosystems and pure water.
+  - nlText: Door de eeuwen heen zouden mensen deze kostbare elementen ontginnen,
+      gebruiken voor bouwmaterialen, werktuigen, juwelen, en zelfs medicijnen. Hun
+      ontdekkingen zouden de loop van de geschiedenis veranderen en een nieuwe dimensie
+      toevoegen aan menselijke ontwikkeling, wetenschap en technologie.
+    enText: Throughout the ages, humans would mine these precious elements, using
+      them for building materials, tools, jewelry, and even medicines. Their discoveries
+      would change the course of history and add a new dimension to human development,
+      science, and technology.
+  - nlText: Micro-organismen kunnen een cruciale rol spelen bij de vorming van mineralen,
+      waarbij ze chemische reacties katalyseren en versnellen die anders jaren zouden
+      duren. Het zijn deze kleine wezens die, in hun ogenschijnlijk eenvoudige vorm,
+      de macht hebben om de aarde te veranderen. Van de diepten van de bodem tot
+      aan de oceaanbodem, vormen hun ingewikkelde interacties het landschap dat we
+      betreden, en laten een blijvende indruk achter op het geologische tapijt van
+      onze planeet.
+    enText: Microorganisms can play a crucial role in mineral formation, catalyzing
+      and accelerating chemical reactions that would otherwise take years. It is
+      these tiny beings that, in their seemingly simple form, have the power to change
+      the Earth. From the depths of the soil to the ocean floor, their intricate
+      interactions sculpt the very landscape we tread upon, leaving a lasting imprint
+      on the geological tapestry of our planet.
+  - nlText: "Water speelt een essenti\xEBle rol in het formatieproces van mineralen,
+      als een alchemistische kracht die de aardkorst doordrenkt en transformeert,
+      fungeert water als een katalysator voor chemische reacties die leiden tot de
+      vorming van mineralen. Door de eeuwen heen sijpelt het water door spleten in
+      gesteenten, opgeladen met mineralen en andere opgeloste stoffen. Wanneer deze
+      oplossingen zich concentreren en verdampen onder invloed van hitte en druk,
+      worden de mineralen afgezet en beginnen ze te kristalliseren, vaak in prachtige
+      en complexe structuren. Het is een verfijnd samenspel van natuurkrachten, waarbij
+      water de rol van schepper en beeldhouwer vervult, terwijl het de aarde omvormt
+      en verrijkt met haar schatten."
+    enText: Water plays an essential role in the formation process of minerals, as
+      an alchemical force that permeates and transforms the Earth's crust, acting
+      as a catalyst for chemical reactions that lead to mineral formation. Over the
+      centuries, water seeps through cracks in rocks, charged with minerals and other
+      dissolved substances. When these solutions concentrate and evaporate under
+      the influence of heat and pressure, the minerals are deposited and begin to
+      crystallize, often in beautiful and complex structures. It is a refined interplay
+      of natural forces, with water assuming the roles of creator and sculptor, while
+      transforming and enriching the Earth with its treasures.
+  - nlText: "Diep onder het aardoppervlak ontvouwt zich een adembenemend spektakel
+      terwijl mineralen een epische strijd voeren tegen de meedogenloze krachten
+      van de natuur. Eeuwenlang komen, te midden van de verzengende hitte, verpletterende
+      druk en explosieve chemische reacties, kristallen met een betoverende veerkracht
+      uit magma tevoorschijn. In deze vurige smeltkroes wervelt en verandert het
+      gesmolten gesteente, waardoor mineralen ontstaan \u200B\u200Bdie niet alleen
+      het turbulente verleden van de planeet overleefd hebben, maar er ook stille
+      getuigen van zijn. "
+    enText: Deep beneath the Earth's surface, a breathtaking spectacle unfolds as
+      minerals engage in an epic battle against the relentless forces of nature.
+      For centuries, amidst the searing heat, crushing pressure, and explosive chemical
+      reactions, crystals emerge from magma with a mesmerizing resilience. In this
+      fiery crucible, the molten rock swirls and morphs, giving birth to minerals
+      that not only endure but also epitomize the planet's turbulent past.
+  - nlText: De tijd is gekomen om diep in de rijken van de mineraalvorming te duiken,
+      waar drie verschillende routes op onze verkenning wachten.
+    enText: The time has come to delve deep into the realms of mineral formation,
+      where three distinct pathways await our exploration.
+  - nlText: "Eerst zullen we ons wagen in de ingewikkelde wereld van micro-organismen,
+      waar het leven naadloos verweven is met de vorming van mineralen. Wortels graven
+      diep in de grond, terwijl microscopisch kleine organismen een delicaat ballet
+      van biologische interacties orkestreren. Te midden van dit verborgen tapijt
+      van leven komen mineralen tevoorschijn, gevormd door de subtiele krachten van
+      microbi\xEBle activiteit."
+    enText: First, we shall venture into the intricate world of microorganisms, where
+      life intertwines seamlessly with the formation of minerals. Roots delve deep
+      into the soil, while microscopic organisms orchestrate a delicate ballet of
+      biological interactions. Amidst this hidden tapestry of life, minerals emerge,
+      shaped by the subtle forces of microbial activity.
+  - nlText: Vervolgens neemt onze reis ons mee naar de wereld van oceanen, waar de
+      krachten van het water de boventoon voeren. Rivieren slingeren onvermoeibaar
+      door de aardkorst, terwijl de ritmische golven van de oceaan de kustlijn strelen.
+      Binnen deze vloeibare diepten ontvouwt zich een tijdloze dans, waar mineralen
+      ontstaan en kristalliseren in de tedere omhelzing van water.
+    enText: Next, our journey takes us into the aqueous realm, where the forces of
+      water reign supreme. Streams meander tirelessly through the Earth's crust,
+      while the ocean's rhythmic waves caress the coastline. Within these liquid
+      depths, a timeless dance unfolds, as minerals precipitate and crystallize in
+      the tender embrace of water.
+  - nlText: "Ten slotte zullen we het raadselachtige domein van magma verkennen,
+      waar de vurige kern van de aarde nieuwe mineralen voortbrengt in een smeltkroes
+      van intense hitte en druk. Onder het oppervlak stijgt en koelt gesmolten gesteente
+      af, waardoor spectaculaire formaties ontstaan \u200B\u200Bdie getuigen van
+      de tumultueuze geschiedenis van de planeet."
+    enText: Finally, we will explore the enigmatic domain of magma, where the Earth's
+      fiery core births new minerals in a crucible of intense heat and pressure.
+      Beneath the surface, molten rock surges and cools, giving rise to spectacular
+      formations that bear witness to the planet's tumultuous history.
+  - nlText: 'Laten we onze ontdekkingstocht beginnen, waar de mysteries van mineraalvorming
+      aan ons zullen gereveleerd worden. '
+    enText: In our quest for understanding, let us embark on this journey of discovery,
+      where the mysteries of mineral formation await us at every turn.
+  - nlText: Ik hoop dat je tot nu toe genoten hebt van het boeiende eerste deel van
+      onze reis. Bereid je nu voor om nog dieper in de wonderen van de natuurlijke
+      wereld te duiken terwijl we overgaan naar het rijk van micro-organismen.
+    enText: I hope you've been enjoying the captivating first part of our journey
+      so far. Now, get ready to dive even deeper into the wonders of the natural
+      world as we transition into the realm of microorganisms.
+  - nlText: Stel je eens de levendige activiteit voor als insecten zich haasten,
+      wormen kronkelen en wortels diep in de aarde doordringen. Deze dynamische omgeving
+      geeft aanleiding tot een complex web van interacties waarbij elk organisme
+      een cruciale rol speelt in het in standhouden van de vitaliteit en veerkracht
+      van het ecosysteem.
+    enText: Just imagine the bustling activity as insects scuttle, worms wriggle,
+      and roots delve deep into the earth. This dynamic setting gives rise to a complex
+      web of interactions where each organism plays a crucial role in sustaining
+      the vitality and resilience of the ecosystem.
+  - nlText: "Terwijl we verder de levendige wereld in trekken, getuigen we van de
+      subtiele dans tussen deze wezens en hun omgeving. Insecten veranderen onvermoeibaar
+      de grond terwijl ze graven, terwijl wormen organisch materiaal nauwgezet afbreken
+      en de grond verrijken met essenti\xEBle voedingsstoffen voor plantengroei.
+      Ondertussen verankeren wortels planten stevig op hun plaats, halen voeding
+      uit de grond en vormen ingewikkelde netwerken die het leven zowel boven als
+      onder de grond in stand houden."
+    enText: 'As we venture further into this vibrant world, we witness the subtle
+      dance between these creatures and their environment. Insects tirelessly aerate
+      the soil as they burrow, while worms diligently break down organic matter,
+      enriching the soil with essential nutrients for plant growth. '
+  - nlText: Ondertussen verankeren wortels planten stevig op hun plaats, halen voeding
+      uit de grond en vormen ingewikkelde netwerken die het leven zowel boven als
+      onder de grond in stand houden.
+    enText: Meanwhile, roots anchor plants firmly in place, drawing nourishment from
+      the soil and forming intricate networks that sustain life both above and below
+      ground.
+  - nlText: Het is binnen dit ingewikkelde samenspel tussen insecten, wormen en wortels
+      dat het leven gedijt, waarbij de uitwisseling van voedingsstoffen, water en
+      gassen essentieel is voor de gezondheid van het ecosysteem. Laten we ons dus
+      onderdompelen in deze fascinerende wereld van symbiotische relaties en samen
+      de verborgen wonderen van micro-organismen ontdekken.
+    enText: It's within this intricate interplay between insects, worms, and roots
+      that life thrives, facilitating the exchange of nutrients, water, and gases
+      essential for the health of the ecosystem. So, let's immerse ourselves in this
+      fascinating world of symbiotic relationships and discover the hidden marvels
+      of microorganisms together.
+  - nlText: "We waren ooggetuige van de levendige interactie tussen insecten, wormen,
+      wortels en hun omgeving. Maar nu, terwijl we ons verder wagen in de diepten
+      van kennis, betreden we de betoverende domeinen van ijzer en zwavel. Hier worden
+      mineralen gevormd te midden van de subtiel geweven patronen van bacteri\xEBle
+      activiteit, waar chemische reacties en biologische processen samenkomen in
+      een intrigerend schouwspel van transformatie. Laten we ons gezamenlijk onderdompelen
+      in deze nieuwe reis van ontdekking, terwijl we de fascinerende wereld van bacteri\xEBle
+      alchemie verkennen."
+    enText: We bore witness to the lively interaction among insects, worms, roots,
+      and their surroundings. But now, as we venture further into the depths of knowledge,
+      we enter the enchanting domains of iron and sulfur. Here, minerals are formed
+      amidst the subtly woven patterns of bacterial activity, where chemical reactions
+      and biological processes converge in an intriguing spectacle of transformation.
+      Let us immerse ourselves together in this new journey of discovery as we explore
+      the fascinating world of bacterial alchemy.
+  - nlText: 'Met ingehouden adem betreden we nu een betoverende wereld van koralen
+      en algen, waar het leven zich uitstrekt als een mysterieus en bruisend tableau.
+      Te midden van de wiegende koralen en de gevarieerde flora, ontvouwt zich de
+      geboorteplaats van mineralen, waar microscopische organismen hun delicate dans
+      uitvoeren. '
+    enText: With bated breath, we now enter an enchanting world of corals and algae,
+      where life stretches out like a mysterious and bustling tableau. Amidst the
+      swaying corals and diverse flora, unfolds the birthplace of minerals, where
+      microscopic organisms perform their delicate dance.
+  - nlText: Ik hoop dat je hebt genoten van onze reis door de fascinerende wereld
+      van micro-organismen. Zet je nu schrap terwijl we aan het volgende deel van
+      onze reis beginnen en ons verdiepen in het betoverende rijk van water.
+    enText: I hope you've been thoroughly engaged by our journey through the fascinating
+      world of microorganisms. Now, brace yourselves as we embark on the next leg
+      of our journey, delving into the mesmerizing realm of water.
+  - nlText: Rivieren ontvouwen zich als wilde transportaders en dragen stenen en
+      mineralen met een forse kracht naar onbekende bestemmingen. Tijdens hun tumultueuze
+      reis worden deze mineralen deskundig gescheiden en gesorteerd, zo worden ze
+      gevormd door de meedogenloze stroom van water.
+    enText: Rivers, like wild transport arteries, unfold before us, carrying rocks
+      and minerals with a powerful force to destinations unknown. In their tumultuous
+      journey, these minerals undergo an expert process of separation and sorting,
+      sculpted by the relentless flow of water.
+  - nlText: Langs kronkelende oevers en in de mysterieuze diepten van rivierbeddingen
+      ontstaat een divers scala aan afzettingen, stille getuigen van het epische
+      avontuur van stromend water. Deze afzettingen, gevormd door de onophoudelijke
+      beweging van rivieren, vertellen verhalen over oude landschappen en geologische
+      processen en bieden een kijkje in de dynamische krachten die onze wereld vormgeven.
+    enText: Along the winding banks and in the mysterious depths of riverbeds, a
+      diverse array of deposits emerges, each one a silent witness to the epic adventure
+      of flowing waters. These deposits, shaped by the ceaseless movement of rivers,
+      tell stories of ancient landscapes and geological processes, offering glimpses
+      into the dynamic forces that shape our world.
+  - nlText: Laten we ons dus onderdompelen in de boeiende reis van rivieren, terwijl
+      we de geheimen ontrafelen die verborgen liggen in hun stromingen en de betoverende
+      schoonheid van de transformatieve kracht van water ontdekken.
+    enText: So, let us immerse ourselves in the captivating journey of rivers, as
+      we unravel the secrets hidden within their currents and uncover the mesmerizing
+      beauty of water's transformative power.
+  - nlText: In de diepste diepten van de oceaan, waar geheimen fluisteren in de golven,
+      vermengen opgeloste mineralen zich met het water, afkomstig van eeuwenoude
+      bronnen zoals rivieren, atmosferische neerslag en hydrothermale winden. Wanneer
+      de oceaan haar krachten bundelt, ontstaan er langs de kusten en in de diepten
+      sedimentaire meesterwerken zoals kalksteen, dolomiet en evaporieten. Laten
+      we ons wagen in de betoverende wereld van oceanen, waar de mysteries van de
+      diepte op ons wachten.
+    enText: In the deepest depths of the ocean, where secrets whisper in the waves,
+      dissolved minerals mingle with water, originating from ancient sources such
+      as rivers, atmospheric precipitation, and hydrothermal vents. When the ocean
+      harnesses its powers, sedimentary masterpieces like limestone, dolomite, and
+      evaporites are formed along the coasts and in the depths. Let us venture into
+      the enchanting world of oceans, where the mysteries of the depths await us.
+  - nlText: Ik hoop oprecht dat je hebt genoten van onze verkenning van de verschillende
+      manieren waarop water onze wereld vormt. Zet je nu schrap voor een reis naar
+      het vurige hart van de aarde terwijl we ons verdiepen in het fascinerende rijk
+      van magma.
+    enText: I sincerely hope you relished our exploration of the diverse ways in
+      which water molds our world. Now, brace yourselves for a journey into the fiery
+      heart of the Earth as we delve into the captivating realm of magma.
+  - nlText: Vulkaanuitbarstingen zorgen voor een tumultueus schouwspel dat een cruciale
+      schakel vormt in het onvoorspelbare proces van mineraalvorming. Wanneer de
+      aarde haar innerlijke krachten ontketent en magma uitbarst, ondergaan mineralen
+      een indrukwekkende transformatie, waarbij ze smelten, zich vermengen en opnieuw
+      vorm krijgen in de intense hitte.
+    enText: Volcanic eruptions present a tumultuous spectacle that forms a crucial
+      link in the unpredictable process of mineral formation. When the Earth unleashes
+      its inner forces and magma erupts, minerals undergo an impressive transformation,
+      melting, mixing, and reshaping in the intense heat.
+  - nlText: Terwijl de vurige stromen afkoelen en de intense hitte afneemt, komen
+      er nieuwe rotsen en mineralen tevoorschijn, geboren uit het eigen vuur van
+      de aarde. Laten we ons nu wagen in de betoverende wereld van magma, waar de
+      geheimen van vulkanen en lavastromen wachten om ontdekt te worden. Maak je
+      klaar voor een opwindende reis door de verhitte diepten van de aarde, waar
+      de krachten van creatie en vernietiging samenkomen in een eeuwige dans van
+      de kracht van de natuur.
+    enText: As the fiery streams cool and the intense heat subsides, new rocks and
+      minerals emerge, born from the Earth's own fire. Now, let us venture forth
+      into the enchanting world of magma, where the secrets of volcanoes and lava
+      flows await discovery. Get ready for an exhilarating journey through the heated
+      depths of the Earth, where the forces of creation and destruction converge
+      in an eternal dance of nature's power.
+  - nlText: Na eeuwen van vorming is het moment van voltooiing aangebroken. Prachtige
+      edelstenen zijn gevormd, we worden omgeven door een schouwspel van kleuren,
+      veroorzaakt door hun prisma's en kristalstructuren. Van de verfijnde hexagonale
+      patronen van smaragd tot de majestueuze kubische structuren van pyriet, elke
+      kristal vormt een uniek kunstwerk. Laat je betoveren door de kristallisatieprocessen,
+      waarin atomen dansen en zich verenigen in harmonie, en waar elke schitterende
+      steen een verhaal vertelt van geboorte en evolutie, vastgelegd in zijn glinsterende
+      facetten.
+    enText: After centuries of formation, the moment of completion has arrived. Beautiful
+      gemstones have been formed, surrounding us in a spectacle of colors, caused
+      by their prisms and crystal structures. From the refined hexagonal patterns
+      of emerald to the majestic cubic structures of pyrite, each crystal forms a
+      unique work of art. The crystallization processes are enchanting. Atoms dance
+      and unite in harmony, each dazzling stone tells a story of birth and evolution,
+      captured in its sparkling facets.
+  - nlText: "Als gevolg van excessieve mijnbouw, ontbossing en verontreiniging raken
+      waardevolle mineralen uitgeput en raken hun natuurlijke ecosystemen verstoord.
+      In dit tijdperk van technologische vooruitgang groeit ook de invloed van AI
+      in de winning van mineralen. Geavanceerde technologie\xEBn zoals \u2018machine
+      learning\u2019 en robotica worden gebruikt om de exploitatie van mineralen
+      effici\xEBnter te maken, maar vaak gebeurt dit ten koste van het milieu. De
+      drang naar winst en economische groei heeft een zorgwekkende trend veroorzaakt
+      waarbij AI-systemen worden ingezet zonder voldoende aandacht voor duurzaamheid
+      en milieuconservering."
+    enText: As a result of excessive mining, deforestation, and pollution, valuable
+      minerals are being depleted, and their natural ecosystems are being disrupted.
+      In this era of technological advancement, the influence of AI in mineral extraction
+      is also growing. Advanced technologies like machine learning and robotics are
+      being employed to make mineral exploitation more efficient, but often at the
+      expense of the environment. The drive for profit and economic growth has caused
+      a worrying trend where AI systems are deployed without sufficient consideration
+      for sustainability and environmental conservation.
+  backgroundPanel: {fileID: 0}
 --- !u!223 &1017643993369626123
 Canvas:
   m_ObjectHideFlags: 0

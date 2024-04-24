@@ -9,7 +9,7 @@ using UnityEngine;
 public class AuraTextDisplay : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI auraTextComponent;
-    [SerializeField] private AuraText[] auraTexts;
+    public AuraText[] auraTexts;
     [SerializeField] private GameObject backgroundPanel;
     
     private void Start()

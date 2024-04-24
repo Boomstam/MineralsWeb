@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FishNet;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using TMPro;
 using UniRx;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -74,6 +76,7 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI tutorialLowText;
     [SerializeField] private TextMeshProUGUI tutorialVotingStatusTextNL;
     [SerializeField] private TextMeshProUGUI tutorialVotingStatusTextEN;
+    [SerializeField] private Image tutorialVoteStatusBackground;
     [SerializeField] private Slider tutorialDistortionSlider;
     [SerializeField] private TextMeshProUGUI tutorialHardNLText;
     [SerializeField] private TextMeshProUGUI tutorialHardENText;
@@ -506,7 +509,7 @@ public class WebGLClientUI : UIWithConnection
         backgroundVideo.gameObject.SetActive(true);
         
         votingClientVideoPlayer.PlayVideo(VideoType.Magma);
-        videoPlayer.playbackSpeed = 0.5f;
+        videoPlayer.playbackSpeed = 0.69f;
     }
     
     private void EnableWaysOfWaterMode()
@@ -533,7 +536,7 @@ public class WebGLClientUI : UIWithConnection
         backgroundVideo.gameObject.SetActive(true);
         
         votingClientVideoPlayer.PlayVideo(VideoType.AboutCrystals);
-        videoPlayer.playbackSpeed = 0.3f;
+        videoPlayer.playbackSpeed = 0.5f;
     }
     
     [Button]
@@ -541,7 +544,7 @@ public class WebGLClientUI : UIWithConnection
     {
         DisableAllModes();
         
-        imageFader.DisplayFadeImages(fadeSprites);
+        imageFader.DisplayFadeImages(fadeSprites.Take(3).ToArray());
         
         Instances.AudioManager.StopAllPlayback();
         Instances.AudioManager.ResetAllFx();
@@ -569,6 +572,7 @@ public class WebGLClientUI : UIWithConnection
         // averageSlider.gameObject.SetActive(false);
         votingHolder.SetActive(false);
         tutorialVoting.SetActive(false);
+        imageFader.gameObject.SetActive(false);
         
         Instances.AudioManager.StopAllPlayback();
         Instances.AudioManager.ResetAllFx();
@@ -673,10 +677,25 @@ public class WebGLClientUI : UIWithConnection
     {
         DisableAllModes();
         
+        imageFader.gameObject.SetActive(votingModeOn);
         imageFader.DisplayFadeImages(fadeSprites);
         
         Instances.AudioManager.StopAllPlayback();
         Instances.AudioManager.ResetAllFx();
+
+        Sprite[] fadeSpritesForAppState = { fadeSprites[0], fadeSprites[1], fadeSprites[2] };
+        
+        switch (Instances.NetworkedAppState.appState)
+        {
+            case AppState.WaysOfWater:
+                fadeSpritesForAppState = new[] { fadeSprites[3], fadeSprites[4], fadeSprites[5] };
+                break;
+            case AppState.Magma:
+                fadeSpritesForAppState = new[] { fadeSprites[6], fadeSprites[7], fadeSprites[8] };
+                break;
+        }
+        
+        imageFader.DisplayFadeImages(fadeSpritesForAppState);
         
         if (votingModeOn)
         {
@@ -841,6 +860,7 @@ public class WebGLClientUI : UIWithConnection
                 break;
             case TutorialPartType.SlidersExplanation:
                 ShowTutorialText(4);
+                imageFader.gameObject.SetActive(false);
                 break;
             case TutorialPartType.Slider:
                 tutorialText.gameObject.SetActive(false);
@@ -849,11 +869,15 @@ public class WebGLClientUI : UIWithConnection
                 tutorialAverageSlider.interactable = false;
                 tutorialVotingStatusTextNL.text = "Stem nu!";
                 tutorialVotingStatusTextEN.text = "Vote now!";
-                voteWarning.GetComponent<Image>().color = connectedColor;
+                // voteWarning.GetComponent<Image>().color = connectedColor;
+                tutorialVoteStatusBackground.color = connectedColor;
                 EnableTutorialVotingMode();
+                imageFader.gameObject.SetActive(true);
+                imageFader.DisplayFadeImages(new []{ fadeSprites[0], fadeSprites[1], fadeSprites[2] });
                 break;
             case TutorialPartType.MajorityExplanation:
                 ShowTutorialText(5);
+                imageFader.gameObject.SetActive(false);
                 break;
             case TutorialPartType.Majority:
                 tutorialText.gameObject.SetActive(false);
@@ -862,11 +886,15 @@ public class WebGLClientUI : UIWithConnection
                 tutorialAverageSlider.interactable = false;
                 tutorialVotingStatusTextNL.text = "Stem vergrendeld";
                 tutorialVotingStatusTextEN.text = "Voting blocked";
-                voteWarning.GetComponent<Image>().color = disconnectedColor;
+                // voteWarning.GetComponent<Image>().color = disconnectedColor;
+                tutorialVoteStatusBackground.color = disconnectedColor;
                 EnableTutorialVotingMode();
+                imageFader.gameObject.SetActive(true);
+                imageFader.DisplayFadeImages(new []{ fadeSprites[0], fadeSprites[1], fadeSprites[2] });
                 break;
             case TutorialPartType.AudioExplanation1:
                 ShowTutorialText(6);
+                imageFader.gameObject.SetActive(false);
                 break;
             case TutorialPartType.AudioExplanation2:
                 ShowTutorialText(7);

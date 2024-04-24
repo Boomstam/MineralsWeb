@@ -428,6 +428,35 @@ public class WebGLClientUI : UIWithConnection
                 break;
         }
     }
+
+    private Coroutine colorOverlayDisableRoutine;
+
+    public void ToggleColorOverlayOverride(bool show)
+    {
+        if (show)
+        {
+            ToggleColorOverlayVisual(true);
+            
+            return;
+        }
+        
+        if(colorOverlayDisableRoutine != null)
+            return;
+
+        colorOverlayDisableRoutine = StartCoroutine(DisableColorOverlayAfterTime());
+    }
+
+    private IEnumerator DisableColorOverlayAfterTime()
+    {
+        float waitTime = Random.Range(0, 22);
+        
+        Debug.Log($"Will disable color overlay after {waitTime}");
+
+        yield return new WaitForSeconds(waitTime);
+        
+        ToggleColorOverlayVisual(false);
+        colorOverlayDisableRoutine = null;
+    }
     
     private void ToggleColorOverlayVisual(bool show)
     {
@@ -1159,7 +1188,7 @@ public class WebGLClientUI : UIWithConnection
     
     private IEnumerator StopStaticVideoAfterTime()
     {
-        float waitTime = Random.Range(0, 11);
+        float waitTime = Random.Range(0, 22);
         Debug.Log($"Will turn of static video after {waitTime}");
         
         yield return new WaitForSeconds(waitTime);

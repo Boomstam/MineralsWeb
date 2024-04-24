@@ -39,6 +39,7 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private Toggle auraTextToggle;
     [SerializeField] private Toggle staticAudioToggle;
     [SerializeField] private Toggle staticVideoToggle;
+    [SerializeField] private Toggle colorOverlaysToggle;
     [SerializeField] private Toggle theEndToggle;
     
     [SerializeField] private Toggle centerModeToggle;
@@ -82,6 +83,7 @@ public class MonitorUI : UIWithConnection
         delaysToggle.onValueChanged.AsObservable().Subscribe(playDelays => Instances.NetworkedAppState.ChangeShouldPlayDelays(playDelays));
         circlesToggle.onValueChanged.AsObservable().Subscribe(playCircles => Instances.NetworkedAppState.ChangeShouldPlayCircles(playCircles));
         microOrganismsToggle.onValueChanged.AsObservable().Subscribe(playMicroOrganisms => Instances.NetworkedAppState.ChangeShouldPlayMicroOrganisms(playMicroOrganisms));
+        colorOverlaysToggle.onValueChanged.AsObservable().Subscribe(shouldShowOverlays => Instances.NetworkedMonitor.ChangeShouldShowOverlays(shouldShowOverlays));
         theEndToggle.onValueChanged.AsObservable().Subscribe(theEnd => Instances.NetworkedAppState.ChangeTheEnd(theEnd));
         
         auraTextToggle.onValueChanged.AsObservable().Subscribe(showAuraText => Instances.NetworkedAppState.ChangeShowAuraText(showAuraText));

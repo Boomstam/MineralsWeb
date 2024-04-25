@@ -9,9 +9,13 @@ public class CrystalVoicePlayer : MonoBehaviour
 {
     [SerializeField] private AudioClip[] clips;
     [SerializeField] private AudioSource source;
+    [SerializeField] private Vector2 intervalBounds;
     
     private Coroutine playAfterDelayRoutine;
 
+    private float currentInterval;
+    private float lastIntervalTime;
+    
     private void Update()
     {
         if(InstanceFinder.IsOffline)
@@ -25,7 +29,7 @@ public class CrystalVoicePlayer : MonoBehaviour
         {
             return;
         }
-
+        
         if (Instances.NetworkedAppState.shouldPlayStaticAudio == false)
         {
             if (playAfterDelayRoutine != null)
@@ -33,6 +37,17 @@ public class CrystalVoicePlayer : MonoBehaviour
                 StopCoroutine(playAfterDelayRoutine);
             }
             source.Stop();
+        }
+
+        if (Time.time - lastIntervalTime > currentInterval)
+        {
+            currentInterval = Random.Range(intervalBounds.x, intervalBounds.y);
+            lastIntervalTime = Time.time;
+
+            source.volume = (source.volume == 1) ? 0 : 1;
+
+            if (source.volume == 0)
+                currentInterval *= 2f;
         }
     }
     

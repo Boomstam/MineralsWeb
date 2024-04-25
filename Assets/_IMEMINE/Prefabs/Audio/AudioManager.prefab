@@ -46,14 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: bf56d504abf466e4cab734171527e8f7, type: 3}
-  - {fileID: 8300000, guid: ee6632ada3f5678449beaa6571b6ed88, type: 3}
   - {fileID: 8300000, guid: e783f633723f13e478960b6743399a49, type: 3}
   - {fileID: 8300000, guid: 0fca292d61126cb4f9e77ed3de662ba8, type: 3}
   - {fileID: 8300000, guid: 3e43c35067be5a84d9195e906947e657, type: 3}
   - {fileID: 8300000, guid: 6ab9ad5b8fbbdb14ebe40d4d2ff0c388, type: 3}
   - {fileID: 8300000, guid: 53037f34876f5644d991e57642cf2bfc, type: 3}
   source: {fileID: 6067559196701868578}
+  intervalBounds: {x: 2.5, y: 7.5}
 --- !u!82 &6067559196701868578
 AudioSource:
   m_ObjectHideFlags: 0
@@ -283,7 +282,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioManager: {fileID: 8831931863038137966}
   fadeSamplePrefab: {fileID: -7709932861123292515, guid: 6611c734d011a8448916000d7e444599, type: 3}
-  isMicroOrganismsVersion: 0
 --- !u!114 &5776739665240546211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,7 +296,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioManager: {fileID: 8831931863038137966}
   fadeSamplePrefab: {fileID: -7709932861123292515, guid: 6611c734d011a8448916000d7e444599, type: 3}
-  isMicroOrganismsVersion: 0
 --- !u!114 &5840551076395304903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,7 +310,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioManager: {fileID: 8831931863038137966}
   fadeSamplePrefab: {fileID: -7709932861123292515, guid: 6611c734d011a8448916000d7e444599, type: 3}
-  isMicroOrganismsVersion: 0
 --- !u!1 &2315613936791594646
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,7 +376,6 @@ MonoBehaviour:
   tutorialDoubleFader: {fileID: 5794792120940113606}
   circlePlayer: {fileID: 7385468501140855953}
   delayPlayer: {fileID: 306714154650334377}
-  microOrganismsAudioFader: {fileID: 1936498362720850778}
   crystalVoicePlayer: {fileID: 3480497833948654850}
   audioSource: {fileID: 766021594129140789}
   audioDistortionFilter: {fileID: 5976355399040245350}
@@ -425,7 +420,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioManager: {fileID: 8831931863038137966}
   fadeSamplePrefab: {fileID: -7709932861123292515, guid: 6611c734d011a8448916000d7e444599, type: 3}
-  isMicroOrganismsVersion: 0
 --- !u!82 &766021594129140789
 AudioSource:
   m_ObjectHideFlags: 0
@@ -722,7 +716,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioManager: {fileID: 8831931863038137966}
   fadeSamplePrefab: {fileID: -7709932861123292515, guid: 6611c734d011a8448916000d7e444599, type: 3}
-  isMicroOrganismsVersion: 0
 --- !u!114 &6665126133830158803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,7 +730,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioManager: {fileID: 8831931863038137966}
   fadeSamplePrefab: {fileID: -7709932861123292515, guid: 6611c734d011a8448916000d7e444599, type: 3}
-  isMicroOrganismsVersion: 0
 --- !u!1 &4512299449132479352
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,7 +776,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioManager: {fileID: 8831931863038137966}
   fadeSamplePrefab: {fileID: -7709932861123292515, guid: 6611c734d011a8448916000d7e444599, type: 3}
-  isMicroOrganismsVersion: 1
 --- !u!1 &4939513944207652905
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,7 +928,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioManager: {fileID: 8831931863038137966}
   fadeSamplePrefab: {fileID: -7709932861123292515, guid: 6611c734d011a8448916000d7e444599, type: 3}
-  isMicroOrganismsVersion: 0
 --- !u!114 &5479981858581834063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -952,7 +942,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioManager: {fileID: 8831931863038137966}
   fadeSamplePrefab: {fileID: -7709932861123292515, guid: 6611c734d011a8448916000d7e444599, type: 3}
-  isMicroOrganismsVersion: 0
 --- !u!1 &6766683964360132336
 GameObject:
   m_ObjectHideFlags: 0

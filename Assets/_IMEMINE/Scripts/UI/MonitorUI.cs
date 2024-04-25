@@ -30,6 +30,7 @@ public class MonitorUI : UIWithConnection
     [SerializeField] private TextMeshProUGUI CThresholdText;
     [SerializeField] private Slider CThresholdSlider;
 
+    [SerializeField] private Toggle introductionModeToggle;
     [SerializeField] private Toggle votingModeToggle;
     [SerializeField] private Toggle blockVotingToggle;
     [SerializeField] private Toggle effectSlidersToggle;
@@ -79,6 +80,7 @@ public class MonitorUI : UIWithConnection
         votingModeToggle.onValueChanged.AsObservable().Subscribe(votingModeOn => Instances.NetworkedVoting.UpdateVotingMode(votingModeOn));
         blockVotingToggle.onValueChanged.AsObservable().Subscribe(blockVoting => Instances.NetworkedVoting.UpdateVotingBlocked(blockVoting));
         
+        introductionModeToggle.onValueChanged.AsObservable().Subscribe(introductionMode => Instances.NetworkedMonitor.ChangeIntroductionMode(introductionMode));
         effectSlidersToggle.onValueChanged.AsObservable().Subscribe(effectSlidersOn => Instances.NetworkedAppState.ChangeEffectSlidersOn(effectSlidersOn));
         delaysToggle.onValueChanged.AsObservable().Subscribe(playDelays => Instances.NetworkedAppState.ChangeShouldPlayDelays(playDelays));
         circlesToggle.onValueChanged.AsObservable().Subscribe(playCircles => Instances.NetworkedAppState.ChangeShouldPlayCircles(playCircles));

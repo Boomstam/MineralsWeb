@@ -97,7 +97,9 @@ public class WebGLClientUI : UIWithConnection
     [SerializeField] private Image seatButtonBackground;
     [SerializeField] private Image languageButtonBackground;
     [SerializeField] private TextMeshProUGUI tutorialPageText;
-    [Header("Modes")]
+    [Header("Modes")] 
+    [SerializeField] private GameObject introductionModeHolder;
+    [SerializeField] private TextMeshProUGUI introductionModeText;
     [SerializeField] private GameObject auraTextHolder;
     [SerializeField] private TextMeshProUGUI votingStatusTextNL;
     [SerializeField] private TextMeshProUGUI votingStatusTextEN;
@@ -683,6 +685,10 @@ public class WebGLClientUI : UIWithConnection
         // tutorialHardText.text = nl ? "HARD" : "HARSH";
         softText.text = nl ? "ZACHT" : "SOFT";
         // tutorialSoftText.text = nl ? "ZACHT" : "SOFT";
+
+        introductionModeText.text = nl ? 
+                "Welkom bij de voorstelling Minerals. Geef alstublieft je stoelnummer in als je dit nog niet gedaan hebt."
+                : "Welcome to the performance of minerals. Please enter your seat number via the button in the upper left corner if you haven't done this already.";
         
         votingStatusTextNL.gameObject.SetActive(nl);
         votingStatusTextEN.gameObject.SetActive(nl == false);
@@ -1147,7 +1153,7 @@ public class WebGLClientUI : UIWithConnection
         ShowEnterSeatDialog(show);
     }
     
-    private void ShowEnterSeatDialog(bool show)
+    public void ShowEnterSeatDialog(bool show)
     {
         seatInputHolder.SetActive(show);
     }
@@ -1162,6 +1168,11 @@ public class WebGLClientUI : UIWithConnection
     public void ToggleAuraText(bool showAuraText)
     {
         auraTextHolder.SetActive(showAuraText);
+    }
+
+    public void ToggleIntroductionMode(bool showIntroductionMode)
+    {
+        introductionModeHolder.SetActive(showIntroductionMode);
     }
 
     #region Static Video

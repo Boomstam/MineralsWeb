@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7855456825525627138}
   - component: {fileID: -7709932861123292515}
+  - component: {fileID: 8166265038702512158}
   m_Layer: 0
   m_Name: FadeSample
   m_TagString: Untagged
@@ -128,3 +129,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8166265038702512158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6622013665690259490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2105544efaa2a8b4d8165eaadccf3ac0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -56,7 +56,7 @@ public class DelayPlayer : MonoBehaviour
             {
                 PlayRandomDelay();
                 
-                currentRandomWaitTime = Random.Range(0, Instances.NetworkedMonitor.delayIntervalLength);
+                currentRandomWaitTime = Random.Range(3, Instances.NetworkedMonitor.delayIntervalLength);
                 lastPlayTime = Time.time;
             }
         }
@@ -65,9 +65,11 @@ public class DelayPlayer : MonoBehaviour
     [Button]
     private void PlayRandomDelay()
     {
-        Debug.Log($"Play random delay, nextIndex: {randomIndex}");
+        float randomVal = Random.value;
         
-        if(Random.value > chanceOfPlaying)
+        Debug.Log($"Play random delay, Index: {randomIndex}, randomVal: {randomVal}, chanceOfPlaying: {chanceOfPlaying}");
+        
+        if(randomVal > chanceOfPlaying)
         {
             Debug.Log($"Didn't play, didn't pass chance");
             return;

@@ -147,19 +147,29 @@ public class AudioManager : MonoBehaviour
         microOrganismsDoubleFader.PlayFadeSamples();
     }
 
-    public void StopMicroOrganismsAfterDelay()
-    {
-        Debug.Log($"StopMicroOrganismsAfterDelay");
-        
-        this.RunDelayed(3, StopMicroOrganisms);
-    }
+    // public void StopMicroOrganismsAfterDelay()
+    // {
+    //     Debug.Log($"StopMicroOrganismsAfterDelay");
+    //
+    //     return;
+    //     StartCoroutine(FuckingSTOPAfterDelay());
+    //
+    //     // this.RunDelayed(5, StopMicroOrganisms);
+    // }
+    //
+    // private IEnumerator FuckingSTOPAfterDelay()
+    // {
+    //     yield return new WaitForSeconds(1);
+    //     
+    //     StopMicroOrganisms();
+    // }
     
     public void StopMicroOrganisms()
     {
         Debug.Log($"StopMicroOrganisms");
         
-        // microOrganismsAudioFader.StopAllPlayback();
-        microOrganismsDoubleFader.StopAllPlayback();
+        microOrganismsAudioFader.StopAllPlayback();
+        // this.RunDelayed(5, () => { microOrganismsDoubleFader.StopAllPlayback(); });
     }
 
     public void StartRandomStaticVoice()

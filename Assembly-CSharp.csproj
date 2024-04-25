@@ -97,6 +97,7 @@
      <Compile Include="Assets\_IMEMINE\Generated\ConnectionTypeHolder.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\Score\ScoreHighlighter.cs" />
      <Compile Include="Assets\FishNet\Plugins\Bayou\Core\SslConfiguration.cs" />
+     <Compile Include="Assets\_IMEMINE\Scripts\Audio\FadeSample.cs" />
      <Compile Include="Assets\jp.keijiro.osc-jack\Runtime\Base\OscClient.cs" />
      <Compile Include="Assets\FishNet\Plugins\Bayou\Core\ServerSocket.cs" />
      <Compile Include="Assets\_IMEMINE\Scripts\OSC\NetworkOSCManager.cs" />

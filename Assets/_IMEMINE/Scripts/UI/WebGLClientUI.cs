@@ -457,7 +457,8 @@ public class WebGLClientUI : UIWithConnection
         yield return new WaitForSeconds(waitTime);
         
         ToggleColorOverlayVisual(false);
-
+        
+        videoPlayer.Stop();
         backgroundVideo.gameObject.SetActive(false);
         
         colorOverlayDisableRoutine = null;

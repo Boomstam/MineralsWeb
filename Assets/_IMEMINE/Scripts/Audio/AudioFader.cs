@@ -1,24 +1,50 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FishNet;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Audio;
+using Random = UnityEngine.Random;
 
 public class AudioFader : MonoBehaviour
 {
     [SerializeField] private AudioManager audioManager;
     // [SerializeField] private AudioMixerGroup master;
     [SerializeField] private AudioSource fadeSamplePrefab;
+    [SerializeField] private bool isMicroOrganismsVersion;
     
     private AudioSource[] sources;
     
     private int CurrentNumSources => sources?.Length ?? 0;
     
     private float lastFadeVal = 0.5f;
-    
+
+    private void Update()
+    {
+        if(isMicroOrganismsVersion == false)
+            return;
+        
+        if(InstanceFinder.IsOffline)
+            return;
+        
+        try
+        {
+            bool playDelays = Instances.NetworkedAppState.shouldPlayDelays;
+        }
+        catch (Exception e)
+        {
+            return;
+        }
+        
+        if (Instances.NetworkedAppState.shouldPlayMicroOrganisms == false || Instances.NetworkedAppState.PlayMicroOrganismsAtThisSeat() == false)
+        {
+            StopAllPlayback(true);
+        }
+    }
+
     [Button]
     public void SetFadeValue(float fadeVal)
     {
@@ -97,7 +123,7 @@ public class AudioFader : MonoBehaviour
         }
     }
 
-    public void StopAllPlayback()
+    public void StopAllPlayback(bool forceAll = false)
     {
         for (int sourceIndex = 0; sourceIndex < CurrentNumSources; sourceIndex++)
         {
@@ -105,6 +131,22 @@ public class AudioFader : MonoBehaviour
         }
 
         sources = Array.Empty<AudioSource>();
+
+        if (forceAll)
+        {
+            FadeSample[] fadeSamples = FindObjectsOfType<FadeSample>();
+
+            for (int i = 0; i < fadeSamples.Length; i++)
+            {
+                try
+                {
+                    Destroy(fadeSamples[i].gameObject);
+                }
+                catch (Exception e)
+                {
+                }
+            }
+        }
     }
 
     public void SetAudioMixerGroup(AudioMixerGroup audioMixerGroup)

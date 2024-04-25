@@ -221,13 +221,7 @@ public class NetworkedAppState : NetworkBehaviour
         
         if(Instances.BuildType != BuildType.Voting)
             return;
-        
-        if(appState != AppState.WaysOfWater)
-        {
-            Instances.AudioManager.circlePlayer.StopPlayback();
-            return;
-        }
-        
+
         bool playCirclesAtThisSeat = PlayCirclesAtThisSeat();
         
         Debug.Log($"OnCirclesPosChange: {newValue}, playCirclesAtThisSeat: {playCirclesAtThisSeat}");
@@ -298,7 +292,7 @@ public class NetworkedAppState : NetworkBehaviour
         });
     }
     
-    private bool PlayMicroOrganismsAtThisSeat()
+    public bool PlayMicroOrganismsAtThisSeat()
     {
         bool shouldPlay = (Instances.SeatNumber >= quadrantSeatMinMax.x && Instances.SeatNumber <= quadrantSeatMinMax.y &&
                 Instances.RowNumber >= quadrantRowMinMax.x && Instances.RowNumber <= quadrantRowMinMax.y);

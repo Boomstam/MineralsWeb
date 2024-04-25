@@ -4262,7 +4262,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 70.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5558,7 +5558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c3bd8141fc42ae4380e7167e5641fe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  videoFileExtension: .mp4
+  videoFileExtension: .webm
   videoPlayer: {fileID: 1026272187209353505}
 --- !u!1 &3087390647027489804
 GameObject:
@@ -10619,7 +10619,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 70.75
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

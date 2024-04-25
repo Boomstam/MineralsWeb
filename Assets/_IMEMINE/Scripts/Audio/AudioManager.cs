@@ -17,7 +17,7 @@ public class AudioManager : MonoBehaviour
     public TutorialDoubleFader tutorialDoubleFader;
     public CirclePlayer circlePlayer;
     public DelayPlayer delayPlayer;
-    public AudioFader microOrganismsAudioFader;
+    // public AudioFader microOrganismsAudioFader;
     public CrystalVoicePlayer crystalVoicePlayer;
     
     [SerializeField] private AudioSource audioSource;
@@ -200,7 +200,7 @@ public class AudioManager : MonoBehaviour
         tutorialDoubleFader.StopAllPlayback();
         circlePlayer.StopPlayback();
         delayPlayer.StopAllPlaybackAndRemoveSources();
-        microOrganismsAudioFader.StopAllPlayback();
+        // microOrganismsAudioFader.StopAllPlayback();
         microOrganismsDoubleFader.StopAllPlayback();
         crystalVoicePlayer.StopAllPlayback();
     }

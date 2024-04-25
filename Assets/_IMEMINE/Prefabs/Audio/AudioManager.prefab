@@ -48,12 +48,8 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: bf56d504abf466e4cab734171527e8f7, type: 3}
   - {fileID: 8300000, guid: ee6632ada3f5678449beaa6571b6ed88, type: 3}
-  - {fileID: 8300000, guid: 11b7f1863022eeb4ba2305a992827306, type: 3}
   - {fileID: 8300000, guid: e783f633723f13e478960b6743399a49, type: 3}
   - {fileID: 8300000, guid: 0fca292d61126cb4f9e77ed3de662ba8, type: 3}
-  - {fileID: 8300000, guid: ed0120158c5e4514aad4c2f03fc1be90, type: 3}
-  - {fileID: 8300000, guid: 67d38c5be522f5f4b9ad0c1314f3029e, type: 3}
-  - {fileID: 8300000, guid: 52f78a42ecabd2847b178902d02c4ae0, type: 3}
   - {fileID: 8300000, guid: 3e43c35067be5a84d9195e906947e657, type: 3}
   - {fileID: 8300000, guid: 6ab9ad5b8fbbdb14ebe40d4d2ff0c388, type: 3}
   - {fileID: 8300000, guid: 53037f34876f5644d991e57642cf2bfc, type: 3}

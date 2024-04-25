@@ -39,9 +39,19 @@ public class AudioFader : MonoBehaviour
             return;
         }
         
+        if(Instances.NetworkedAppState.appState != AppState.MicroOrganisms)
+            return;
+        
         if (Instances.NetworkedAppState.shouldPlayMicroOrganisms == false || Instances.NetworkedAppState.PlayMicroOrganismsAtThisSeat() == false)
         {
-            StopAllPlayback(true);
+            try
+            {
+                StopAllPlayback(true);
+            }
+            catch (Exception e)
+            {
+                
+            }
         }
     }
 

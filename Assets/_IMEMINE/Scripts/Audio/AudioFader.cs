@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FishNet;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
@@ -12,48 +13,13 @@ using Random = UnityEngine.Random;
 public class AudioFader : MonoBehaviour
 {
     [SerializeField] private AudioManager audioManager;
-    // [SerializeField] private AudioMixerGroup master;
     [SerializeField] private AudioSource fadeSamplePrefab;
-    [SerializeField] private bool isMicroOrganismsVersion;
-    
+        
     private AudioSource[] sources;
     
     private int CurrentNumSources => sources?.Length ?? 0;
     
     private float lastFadeVal = 0.5f;
-
-    private void Update()
-    {
-        if(isMicroOrganismsVersion == false)
-            return;
-        
-        if(InstanceFinder.IsOffline)
-            return;
-        
-        try
-        {
-            bool playDelays = Instances.NetworkedAppState.shouldPlayDelays;
-        }
-        catch (Exception e)
-        {
-            return;
-        }
-        
-        if(Instances.NetworkedAppState.appState != AppState.MicroOrganisms)
-            return;
-        
-        if (Instances.NetworkedAppState.shouldPlayMicroOrganisms == false || Instances.NetworkedAppState.PlayMicroOrganismsAtThisSeat() == false)
-        {
-            try
-            {
-                StopAllPlayback(true);
-            }
-            catch (Exception e)
-            {
-                
-            }
-        }
-    }
 
     [Button]
     public void SetFadeValue(float fadeVal)
@@ -109,30 +75,29 @@ public class AudioFader : MonoBehaviour
     public void PlayFadeSamples(AudioClip[] fadeClips)
     {
         int numClips = fadeClips.Length;
-
+        
         CreateAudioSources(numClips);
-
+        
         for (int clipIndex = 0; clipIndex < numClips; clipIndex++)
         {
-            Debug.Log($"clip: {fadeClips[clipIndex]}");
             sources[clipIndex].clip = fadeClips[clipIndex];
             sources[clipIndex].Play();
         }
-        Debug.Log($"lastFadeVal: {lastFadeVal}");
         SetFadeValue(lastFadeVal);
     }
     
     private void CreateAudioSources(int numClips)
     {
         sources = new AudioSource[numClips];
-
+        
         for (int clipIndex = 0; clipIndex < numClips; clipIndex++)
         {
-            sources[clipIndex] = Instantiate(fadeSamplePrefab);
+            AudioSource newSource = Instantiate(fadeSamplePrefab);
+            sources[clipIndex] = newSource;
             sources[clipIndex].name += $" {clipIndex}";
         }
     }
-
+    
     public void StopAllPlayback(bool forceAll = false)
     {
         for (int sourceIndex = 0; sourceIndex < CurrentNumSources; sourceIndex++)
@@ -141,24 +106,8 @@ public class AudioFader : MonoBehaviour
         }
 
         sources = Array.Empty<AudioSource>();
-
-        if (forceAll)
-        {
-            FadeSample[] fadeSamples = FindObjectsOfType<FadeSample>();
-
-            for (int i = 0; i < fadeSamples.Length; i++)
-            {
-                try
-                {
-                    Destroy(fadeSamples[i].gameObject);
-                }
-                catch (Exception e)
-                {
-                }
-            }
-        }
     }
-
+    
     public void SetAudioMixerGroup(AudioMixerGroup audioMixerGroup)
     {
         sources.ForEach(source => source.outputAudioMixerGroup = audioMixerGroup);

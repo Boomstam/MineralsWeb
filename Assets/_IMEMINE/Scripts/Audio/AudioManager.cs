@@ -135,40 +135,14 @@ public class AudioManager : MonoBehaviour
     {
         Debug.Log($"PlayMicroOrganisms");
 
-        int nextIndex = Random.Range(0, microOrganismsClips.Length / 2);
-
-        AudioClip[] clips =
-        {
-            microOrganismsClips[nextIndex],
-            microOrganismsClips[nextIndex + 1],
-        };
-        
-        // microOrganismsAudioFader.PlayFadeSamples(clips.ToArray());
         microOrganismsDoubleFader.PlayFadeSamples();
     }
 
-    // public void StopMicroOrganismsAfterDelay()
-    // {
-    //     Debug.Log($"StopMicroOrganismsAfterDelay");
-    //
-    //     return;
-    //     StartCoroutine(FuckingSTOPAfterDelay());
-    //
-    //     // this.RunDelayed(5, StopMicroOrganisms);
-    // }
-    //
-    // private IEnumerator FuckingSTOPAfterDelay()
-    // {
-    //     yield return new WaitForSeconds(1);
-    //     
-    //     StopMicroOrganisms();
-    // }
-    
     public void StopMicroOrganisms()
     {
         Debug.Log($"StopMicroOrganisms");
         
-        microOrganismsAudioFader.StopAllPlayback();
+        microOrganismsDoubleFader.StopAllPlayback();
         // this.RunDelayed(5, () => { microOrganismsDoubleFader.StopAllPlayback(); });
     }
 

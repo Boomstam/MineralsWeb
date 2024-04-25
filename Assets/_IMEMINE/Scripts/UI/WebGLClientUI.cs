@@ -457,6 +457,9 @@ public class WebGLClientUI : UIWithConnection
         yield return new WaitForSeconds(waitTime);
         
         ToggleColorOverlayVisual(false);
+
+        backgroundVideo.gameObject.SetActive(false);
+        
         colorOverlayDisableRoutine = null;
     }
     
@@ -531,6 +534,11 @@ public class WebGLClientUI : UIWithConnection
             averageSlider.gameObject.SetActive(true);
             votingHolder.SetActive(true);
         }
+
+        if (Instances.NetworkedAppState.effectSlidersOn)
+        {
+            ToggleEffectSlidersMode(true);
+        }
     }
     
     private void EnableMagmaMode()
@@ -557,6 +565,10 @@ public class WebGLClientUI : UIWithConnection
             voteSlider.gameObject.SetActive(true);
             averageSlider.gameObject.SetActive(true);
             votingHolder.SetActive(true);
+        }
+        if (Instances.NetworkedAppState.effectSlidersOn)
+        {
+            ToggleEffectSlidersMode(true);
         }
     }
     
@@ -689,6 +701,9 @@ public class WebGLClientUI : UIWithConnection
         introductionModeText.text = nl ? 
                 "Welkom bij de voorstelling Minerals. Geef alstublieft je stoelnummer in als je dit nog niet gedaan hebt."
                 : "Welcome to the performance of minerals. Please enter your seat number via the button in the upper left corner if you haven't done this already.";
+        
+        votingHighText.text = nl ? EnglishToDutch(votingHighText.text) : DutchToEnglish(votingHighText.text);
+        votingLowText.text = nl ? EnglishToDutch(votingLowText.text) : DutchToEnglish(votingLowText.text);
         
         votingStatusTextNL.gameObject.SetActive(nl);
         votingStatusTextEN.gameObject.SetActive(nl == false);
@@ -1024,11 +1039,11 @@ public class WebGLClientUI : UIWithConnection
         Debug.Log($"Set voting Tags: {highTag}, {lowTag}");
         bool nl = (currentLanguage.Value == Language.NL); 
         
-        votingHighText.text = nl ? highTag : TagTranslation(highTag);
-        votingLowText.text = nl ? lowTag : TagTranslation(lowTag);
+        votingHighText.text = nl ? highTag : DutchToEnglish(highTag);
+        votingLowText.text = nl ? lowTag : DutchToEnglish(lowTag);
     }
 
-    private string TagTranslation(string nlString)
+    private string DutchToEnglish(string nlString)
     {
         switch (nlString)
         {
@@ -1045,11 +1060,33 @@ public class WebGLClientUI : UIWithConnection
             case "SNEL": return "FAST";
             case "TRAAG": return "SLOW";
         }
-        Debug.LogError($"Couldn't find translation for {nlString}!");
+        Debug.LogError($"Couldn't find English translation for {nlString}!");
         
         return nlString;
     }
 
+    private string EnglishToDutch(string enString)
+    {
+        switch (enString)
+        {
+            case "HIGH": return "HOOG";
+            case "LOW": return "LAAG";
+            
+            case "INTENSE": return "INTENS";
+            case "CALM": return "KALM";
+            
+            case "LOUD": return "LUID";
+            // case "HARD": return "LOUD";
+            case "SOFT": return "ZACHT";
+            
+            case "FAST": return "SNEL";
+            case "SLOW": return "TRAAG";
+        }
+        Debug.LogError($"Couldn't find Dutch translation for {enString}!");
+        
+        return enString;
+    }
+    
     private void ShowTutorialText(int textIndex)
     {
         tutorialText.gameObject.SetActive(true);

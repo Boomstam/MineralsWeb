@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using FishNet;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CrystalVoicePlayer : MonoBehaviour
 {
@@ -8,6 +11,30 @@ public class CrystalVoicePlayer : MonoBehaviour
     [SerializeField] private AudioSource source;
     
     private Coroutine playAfterDelayRoutine;
+
+    private void Update()
+    {
+        if(InstanceFinder.IsOffline)
+            return;
+        
+        try
+        {
+            bool shouldPlayStaticAudio = Instances.NetworkedAppState.shouldPlayStaticAudio;
+        }
+        catch (Exception e)
+        {
+            return;
+        }
+
+        if (Instances.NetworkedAppState.shouldPlayStaticAudio == false)
+        {
+            if (playAfterDelayRoutine != null)
+            {
+                StopCoroutine(playAfterDelayRoutine);
+            }
+            source.Stop();
+        }
+    }
     
     public void PlayRandomSample()
     {

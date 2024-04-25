@@ -13115,21 +13115,21 @@ MonoBehaviour:
   circlesPositionText: {fileID: 8638679982374674427}
   warningTimeInputField: {fileID: 1880578579659325731}
   votingHighTags:
-  - Hoog
-  - Intens
-  - Hoog
-  - Intens
-  - Hoog
-  - Luid
-  - Intens
+  - HOOG
+  - INTENS
+  - HOOG
+  - INTENS
+  - HOOG
+  - LUID
+  - INTENS
   votingLowTags:
-  - Laag
-  - Kalm
-  - Laag
-  - Kalm
-  - Laag
-  - Zacht
-  - Kalm
+  - LAAG
+  - KALM
+  - LAAG
+  - KALM
+  - LAAG
+  - ZACHT
+  - KALM
 --- !u!114 &2432909327697056363
 MonoBehaviour:
   m_ObjectHideFlags: 0

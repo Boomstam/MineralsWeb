@@ -13,7 +13,7 @@ public class NetworkedAppState : NetworkBehaviour
     // [SyncVar (OnChange = nameof(OnQuadrantsModeChange))] private bool quadrantMode;
     [SyncVar (OnChange = nameof(OnCenterModeChange))] private bool centerMode;
     [SyncVar (OnChange = nameof(OnCenterModeValChange))] private float centerModeVal;
-    [SyncVar (OnChange = nameof(OnEffectSlidersOnChange))] private bool effectSlidersOn;
+    [SyncVar (OnChange = nameof(OnEffectSlidersOnChange))] public bool effectSlidersOn;
     [SyncVar (OnChange = nameof(OnCirclesPosChange))] private Vector2Int circlesPos = new Vector2Int(41, 3);
     [SyncVar (OnChange = nameof(OnShouldPlayCirclesChange))] public bool shouldPlayCircles;
     [SyncVar (OnChange = nameof(OnShouldPlayMicroOrganismsChange))] public bool shouldPlayMicroOrganisms;

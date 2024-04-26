@@ -20,7 +20,6 @@ public class NetworkedVoting : NetworkBehaviour
 
     [SerializeField] private int maxNumSeats;
     [SerializeField] private int maxNumRows;
-    
 
     // Saved on the Monitor
     private ChoiceType localCurrentChoice;
@@ -99,6 +98,13 @@ public class NetworkedVoting : NetworkBehaviour
     
     private void OnVotingModeChanged(bool oldValue, bool newValue, bool asServer)
     {
+        if (Instances.BuildType == BuildType.OSCClient)
+        {
+            string message = $"{0.5f}+{(votingModeEnabled ? 1 : 0)}";
+            Debug.Log($"Send message: {message}");
+            Instances.OSCClientUI.SetMessage($"Voting toggle to {votingModeEnabled}");
+            Instances.OSCManager.SendOSCMessage("/minerals", message);
+        }
         if(Instances.BuildType != BuildType.Voting)
             return;
         
@@ -206,7 +212,7 @@ public class NetworkedVoting : NetworkBehaviour
         
         Debug.Log($"Will send message with average: {voteAverage}");
         
-        Instances.OSCManager.SendOSCMessage("/minerals", $"{voteAverage:0.00}+{(votingModeEnabled ? 0 : 1)}");
+        Instances.OSCManager.SendOSCMessage("/minerals", $"{voteAverage:0.00}+{(votingModeEnabled ? 1 : 0)}");
         Instances.OSCClientUI.SetMessage($"{voteAverage:0.00} voting: {votingModeEnabled}");
     }
 

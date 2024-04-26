@@ -166,9 +166,9 @@ public class MonitorUI : UIWithConnection
         if (currentAuraTextIndex <= 0)
             currentAuraTextIndex = auraTexts.auraTexts.Length - 1;
         
-        Debug.Log($"Set to auraText {currentAuraTextIndex}, " +
-                  $"{auraTexts.auraTexts[currentAuraTextIndex].GetText(Language.NL)} - " +
-                  $"{auraTexts.auraTexts[currentAuraTextIndex].GetText(Language.EN)}");
+        Debug.Log($"AuraText {currentAuraTextIndex}, " +
+                  $"{auraTexts.auraTexts[currentAuraTextIndex].GetText(Language.EN)} - " +
+                  $"{auraTexts.auraTexts[currentAuraTextIndex].GetText(Language.NL)}");
         
         Instances.NetworkedAppState.SetCurrentAuraTexts(
             auraTexts.auraTexts[currentAuraTextIndex].GetText(Language.NL), 
